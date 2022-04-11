@@ -1,0 +1,44 @@
+<Project>
+
+  <Import Project="version.props" />
+
+  <PropertyGroup>
+    <Authors>Stuart Blackburn</Authors>
+    <Copyright>Copyright © Stuart Blackburn</Copyright>
+    <NeutralLanguage>en-GB</NeutralLanguage>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/dtanglr/Primitively</PackageProjectUrl>
+    <PackageTags>primitively stronglytypedid attribute generator generation codegen codegenerator codegeneration netescapades</PackageTags>
+    <RepositoryUrl>https://github.com/dtanglr/Primitively</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DebugType>embedded</DebugType>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)\artifacts</PackageOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!--<PackageReadmeFile>README.md</PackageReadmeFile>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--<None Include="$(MSBuildThisFileDirectory)\logo.png" Pack="true" PackagePath="\"/>-->
+    <!--<None Include="$(MSBuildThisFileDirectory)\README.md" Pack="true" PackagePath="\"/>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+  </ItemGroup>
+
+  <Import Project="releasenotes.props" />
+
+</Project>
