@@ -7,7 +7,7 @@ namespace Primitively;
 ///     Make a readonly record struct that encapsulates a Date primitive value
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-[Conditional(PrimitivelyConstants.ConditionalCompilationSymbol)]
+[Conditional(Constants.ConditionalCompilationSymbol)]
 public sealed class DatePrimitiveAttribute : Attribute, IPrimitiveAttribute
 {
     private const int DefaultLength = 10;

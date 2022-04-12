@@ -19,7 +19,7 @@
     <EmbeddedResource Include="EmbeddedResources\**\*.cs" />
     <EmbeddedResource Include="..\Primitively.Abstractions\*.cs" Link="EmbeddedResources\Abstractions\%(Filename)%(Extension)" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     <None Include="$(OutputPath)\Primitively.Abstractions.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />

@@ -7,7 +7,7 @@ namespace Primitively;
 ///     Make a readonly record struct that encapsulates a String primitive value
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-[Conditional(PrimitivelyConstants.ConditionalCompilationSymbol)]
+[Conditional(Constants.ConditionalCompilationSymbol)]
 public sealed class StringPrimitiveAttribute : Attribute, IPrimitiveAttribute
 {
     /// <summary>
