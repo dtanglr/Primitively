@@ -15,9 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Templates\**\*.cs" />
-    <EmbeddedResource Include="Templates\**\*.cs" />
-    <EmbeddedResource Include="..\Primitively.Abstractions\*.cs" Link="Templates\Abstractions\%(Filename)%(Extension)" />
+    <Compile Remove="EmbeddedResources\**\*.cs" />
+    <EmbeddedResource Include="EmbeddedResources\**\*.cs" />
+    <EmbeddedResource Include="..\Primitively.Abstractions\*.cs" Link="EmbeddedResources\Abstractions\%(Filename)%(Extension)" />
   </ItemGroup>
 
   <ItemGroup>
