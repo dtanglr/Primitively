@@ -1,4 +1,4 @@
-﻿readonly record struct ENCAPSULATED_PRIMITIVE_TYPE : INTERFACES
+﻿readonly partial record struct ENCAPSULATED_PRIMITIVE_TYPE : Primitively.IPrimitive<System.Guid>, System.IEquatable<ENCAPSULATED_PRIMITIVE_TYPE>
 {
     public ENCAPSULATED_PRIMITIVE_TYPE(System.Guid value)
     {
@@ -7,7 +7,12 @@
 
     private ENCAPSULATED_PRIMITIVE_TYPE(string value)
     {
-        if (NhsGuid.IsMatch(value) && Guid.TryParse(value, out var guid))
+        //if (NhsGuid.IsMatch(value) && Guid.TryParse(value, out var guid))
+        //{
+        //    Value = guid;
+        //}
+
+        if (System.Guid.TryParse(value, out var guid))
         {
             Value = guid;
         }
@@ -24,8 +29,8 @@
     public override string ToString() => Value.ToString("D");
 
     public static implicit operator string(ENCAPSULATED_PRIMITIVE_TYPE value) => value.ToString();
-    public static implicit operator Guid(ENCAPSULATED_PRIMITIVE_TYPE value) => value.Value;
-    public static explicit operator ENCAPSULATED_PRIMITIVE_TYPE(Guid value) => new(value);
+    public static implicit operator System.Guid(ENCAPSULATED_PRIMITIVE_TYPE value) => value.Value;
+    public static explicit operator ENCAPSULATED_PRIMITIVE_TYPE(System.Guid value) => new(value);
     public static explicit operator ENCAPSULATED_PRIMITIVE_TYPE(string value) => new(value);
 
     public static ENCAPSULATED_PRIMITIVE_TYPE New() => new ENCAPSULATED_PRIMITIVE_TYPE(System.Guid.NewGuid());

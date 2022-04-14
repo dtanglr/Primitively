@@ -11,7 +11,7 @@
             return value switch
             {
                 System.Guid guidValue => new ENCAPSULATED_PRIMITIVE_TYPE(guidValue),
-                string stringValue => ENCAPSULATED_PRIMITIVE_TYPE.Parse(result),
+                string stringValue => ENCAPSULATED_PRIMITIVE_TYPE.Parse(stringValue),
                 _ => base.ConvertFrom(context, culture, value),
             };
         }

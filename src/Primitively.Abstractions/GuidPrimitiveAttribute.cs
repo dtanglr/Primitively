@@ -10,7 +10,7 @@ namespace Primitively;
 [Conditional(Constants.ConditionalCompilationSymbol)]
 public sealed class GuidPrimitiveAttribute : Attribute, IPrimitiveAttribute
 {
-    private const int DefaultLength = 16;
+    private const int DefaultLength = 36;
     private const string DefaultPattern = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
     private const string DefaultExample = "2c48c152-7cb7-4f51-8f01-704454f36e60";
     private const string DefaultFormat = "D";
