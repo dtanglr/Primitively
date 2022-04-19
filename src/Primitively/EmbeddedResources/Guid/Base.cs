@@ -1,17 +1,12 @@
-﻿readonly partial record struct ENCAPSULATED_PRIMITIVE_TYPE : Primitively.IPrimitive<System.Guid>, System.IEquatable<ENCAPSULATED_PRIMITIVE_TYPE>
+﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IPrimitive<System.Guid>, System.IEquatable<PRIMITIVE_TYPE>
 {
-    public ENCAPSULATED_PRIMITIVE_TYPE(System.Guid value)
+    public PRIMITIVE_TYPE(System.Guid value)
     {
         Value = value;
     }
 
-    private ENCAPSULATED_PRIMITIVE_TYPE(string value)
+    private PRIMITIVE_TYPE(string value)
     {
-        //if (NhsGuid.IsMatch(value) && Guid.TryParse(value, out var guid))
-        //{
-        //    Value = guid;
-        //}
-
         if (System.Guid.TryParse(value, out var guid))
         {
             Value = guid;
@@ -22,19 +17,19 @@
 
     public System.Guid Value { get; } = default;
 
-    public bool Equals(ENCAPSULATED_PRIMITIVE_TYPE other) => Value == other.Value;
+    public bool Equals(PRIMITIVE_TYPE other) => Value == other.Value;
 
     public override int GetHashCode() => Value.GetHashCode();
 
     public override string ToString() => Value.ToString("D");
 
-    public static implicit operator string(ENCAPSULATED_PRIMITIVE_TYPE value) => value.ToString();
-    public static implicit operator System.Guid(ENCAPSULATED_PRIMITIVE_TYPE value) => value.Value;
-    public static explicit operator ENCAPSULATED_PRIMITIVE_TYPE(System.Guid value) => new(value);
-    public static explicit operator ENCAPSULATED_PRIMITIVE_TYPE(string value) => new(value);
+    public static implicit operator string(PRIMITIVE_TYPE value) => value.ToString();
+    public static implicit operator System.Guid(PRIMITIVE_TYPE value) => value.Value;
+    public static explicit operator PRIMITIVE_TYPE(System.Guid value) => new(value);
+    public static explicit operator PRIMITIVE_TYPE(string value) => new(value);
 
-    public static ENCAPSULATED_PRIMITIVE_TYPE New() => new ENCAPSULATED_PRIMITIVE_TYPE(System.Guid.NewGuid());
-    public static readonly ENCAPSULATED_PRIMITIVE_TYPE Empty = new ENCAPSULATED_PRIMITIVE_TYPE(System.Guid.Empty);
+    public static PRIMITIVE_TYPE New() => new PRIMITIVE_TYPE(System.Guid.NewGuid());
+    public static readonly PRIMITIVE_TYPE Empty = new PRIMITIVE_TYPE(System.Guid.Empty);
 
-    public static ENCAPSULATED_PRIMITIVE_TYPE Parse(string value) => new(value);
+    public static PRIMITIVE_TYPE Parse(string value) => new(value);
 

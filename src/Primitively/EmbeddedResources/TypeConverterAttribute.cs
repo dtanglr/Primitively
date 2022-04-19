@@ -1,1 +1,1 @@
-﻿[System.ComponentModel.TypeConverter(typeof(ENCAPSULATED_PRIMITIVE_TYPETypeConverter))]
+﻿[System.ComponentModel.TypeConverter(typeof(PRIMITIVE_TYPETypeConverter))]

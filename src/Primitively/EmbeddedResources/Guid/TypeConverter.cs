@@ -1,5 +1,5 @@
 ﻿
-    public class ENCAPSULATED_PRIMITIVE_TYPETypeConverter : System.ComponentModel.TypeConverter
+    public class PRIMITIVE_TYPETypeConverter : System.ComponentModel.TypeConverter
     {
         public override bool CanConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Type sourceType)
         {
@@ -10,8 +10,8 @@
         {
             return value switch
             {
-                System.Guid guidValue => new ENCAPSULATED_PRIMITIVE_TYPE(guidValue),
-                string stringValue => ENCAPSULATED_PRIMITIVE_TYPE.Parse(stringValue),
+                System.Guid guidValue => new PRIMITIVE_TYPE(guidValue),
+                string stringValue => PRIMITIVE_TYPE.Parse(stringValue),
                 _ => base.ConvertFrom(context, culture, value),
             };
         }
@@ -23,7 +23,7 @@
 
         public override object ConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, System.Type destinationType)
         {
-            if (value is ENCAPSULATED_PRIMITIVE_TYPE primitive)
+            if (value is PRIMITIVE_TYPE primitive)
             {
                 if (destinationType == typeof(System.Guid))
                 {
