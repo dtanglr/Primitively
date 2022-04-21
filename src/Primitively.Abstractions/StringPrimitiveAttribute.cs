@@ -14,8 +14,15 @@ public sealed class StringPrimitiveAttribute : Attribute, IPrimitiveAttribute
     ///     Make a readonly record struct that encapsulates a string primitive value with a fixed length
     /// </summary>
     /// <param name="length">The fixed length of the string representation of the encapsulated primitive value</param>
-    public StringPrimitiveAttribute(int length)
+    public StringPrimitiveAttribute(
+        string? pattern = StringPrimitive.Default.Pattern,
+        string? example = StringPrimitive.Default.Example,
+        string? format = StringPrimitive.Default.Format,
+        int length = StringPrimitive.Default.Length)
     {
+        Pattern = pattern;
+        Example = example;
+        Format = format;
         Length = new StringLength(length);
     }
 
@@ -24,8 +31,16 @@ public sealed class StringPrimitiveAttribute : Attribute, IPrimitiveAttribute
     /// </summary>
     /// <param name="minLength">The minimum length of the string representation of the encapsulated primitive value</param>
     /// <param name="maxLength">The maximum length of the string representation of the encapsulated primitive value</param>
-    public StringPrimitiveAttribute(int minLength, int maxLength)
+    public StringPrimitiveAttribute(
+        string? pattern = StringPrimitive.Default.Pattern,
+        string? example = StringPrimitive.Default.Example,
+        string? format = StringPrimitive.Default.Format,
+        int minLength = StringPrimitive.Default.Length,
+        int maxLength = StringPrimitive.Default.Length)
     {
+        Pattern = pattern;
+        Example = example;
+        Format = format;
         Length = new StringLengthRange(minLength, maxLength);
     }
 
@@ -34,4 +49,15 @@ public sealed class StringPrimitiveAttribute : Attribute, IPrimitiveAttribute
     public string? Pattern { get; set; }
     public string? Example { get; set; }
     public string? Format { get; set; }
+}
+
+public static class StringPrimitive
+{
+    public struct Default
+    {
+        public const int Length = 8;
+        public const string Pattern = "^[0-9a-fA-F]{8}$";
+        public const string Example = "Aw2d5RgF";
+        public const string Format = "";
+    }
 }

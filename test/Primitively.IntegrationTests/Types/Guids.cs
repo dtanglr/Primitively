@@ -3,7 +3,7 @@
 [GuidPrimitive]
 public partial record struct GuidId1;
 
-[GuidPrimitive]
+[GuidPrimitive(example: "stu")]
 public partial record struct GuidId2;
 
 [GuidPrimitive]

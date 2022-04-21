@@ -40,11 +40,25 @@ internal static class EmbeddedResources
         };
     }
 
+    internal static class Date
+    {
+        internal static readonly string Base = GetEmbeddedResource(nameof(Date), nameof(Base));
+        internal static readonly string JsonConverter = GetEmbeddedResource(nameof(Date), nameof(JsonConverter));
+        internal static readonly string TypeConverter = GetEmbeddedResource(nameof(Date), nameof(TypeConverter));
+    }
+
     internal static class Guid
     {
         internal static readonly string Base = GetEmbeddedResource(nameof(Guid), nameof(Base));
         internal static readonly string JsonConverter = GetEmbeddedResource(nameof(Guid), nameof(JsonConverter));
         internal static readonly string TypeConverter = GetEmbeddedResource(nameof(Guid), nameof(TypeConverter));
+    }
+
+    internal static class String
+    {
+        internal static readonly string Base = GetEmbeddedResource(nameof(String), nameof(Base));
+        internal static readonly string JsonConverter = GetEmbeddedResource(nameof(String), nameof(JsonConverter));
+        internal static readonly string TypeConverter = GetEmbeddedResource(nameof(String), nameof(TypeConverter));
     }
 
     private static string GetEmbeddedResource(params string[] names)

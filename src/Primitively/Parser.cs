@@ -12,9 +12,9 @@ namespace Primitively;
 
 internal static class Parser
 {
-    public const string DatePrimitiveAttribute = $"{nameof(Primitively)}.{nameof(DatePrimitiveAttribute)}";
-    public const string GuidPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(GuidPrimitiveAttribute)}";
-    public const string StringPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(StringPrimitiveAttribute)}";
+    public const string DatePrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.DatePrimitiveAttribute)}";
+    public const string GuidPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.GuidPrimitiveAttribute)}";
+    public const string StringPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.StringPrimitiveAttribute)}";
 
     private static readonly List<string> _attributeFullNames = new()
     {
@@ -61,13 +61,13 @@ internal static class Parser
         return null;
     }
 
-    public static List<(string Name, string NameSpace, ParentClass? Parent)> GetTypesToGenerate(
+    public static List<PrimitiveRecordStruct> GetPrimitiveRecordStructsToGenerate(
         Compilation compilation,
         ImmutableArray<RecordDeclarationSyntax> recordStructs,
         Action<Diagnostic> reportDiagnostic,
         CancellationToken cancellationToken)
     {
-        var typesToGenerate = new List<(string Name, string NameSpace, ParentClass? Parent)>();
+        var typesToGenerate = new List<PrimitiveRecordStruct>();
         var attributeSymbols = GetPrimitiveAttributeSymbols(compilation);
 
         if (!attributeSymbols.Any())
@@ -97,13 +97,72 @@ internal static class Parser
                 {
                     continue;
                 }
+
+                var isMisconfigured = false;
+                var name = recordStructSymbol.Name;
+                var nameSpace = GetNameSpace(recordDeclarationSyntax);
+                var parentClass = GetParentClasses(recordDeclarationSyntax);
+                var type = new PrimitiveRecordStruct(name, nameSpace, parentClass);
+                var attributeName = attribute.AttributeClass?.Name;
+
+                switch (attributeName)
+                {
+                    case nameof(Primitively.DatePrimitiveAttribute):
+                        type.PrimitiveType = PrimitiveType.Date;
+                        break;
+                    case nameof(Primitively.GuidPrimitiveAttribute):
+                        type.PrimitiveType = PrimitiveType.Guid;
+                        break;
+                    case nameof(Primitively.StringPrimitiveAttribute):
+                        type.PrimitiveType = PrimitiveType.String;
+                        break;
+                }
+
+                if (!attribute.ConstructorArguments.IsEmpty)
+                {
+                    // make sure we don't have any errors
+                    var args = attribute.ConstructorArguments;
+
+                    foreach (var arg in args)
+                    {
+                        if (arg.Kind == TypedConstantKind.Error)
+                        {
+                            // There's an error, so don't try and do any generation
+                            isMisconfigured = true;
+                        }
+                    }
+
+                    switch (args.Length)
+                    {
+                        case 5:
+                            type.MaxLength = (int)args[4].Value!;
+                            type.MinLength = (int)args[3].Value!;
+                            goto case 3;
+                        case 4:
+                            type.MaxLength = (int)args[3].Value!;
+                            type.MinLength = (int)args[3].Value!;
+                            goto case 3;
+                        case 3:
+                            type.Format = (string?)args[2].Value;
+                            goto case 2;
+                        case 2:
+                            type.Example = (string?)args[1].Value;
+                            goto case 1;
+                        case 1:
+                            type.Pattern = (string?)args[0].Value;
+                            break;
+                    }
+                }
+
+                if (!attribute.NamedArguments.IsEmpty)
+                {
+                    var d = 2;
+                }
+
+                typesToGenerate.Add(type);
+
+                break;
             }
-
-            var nameSpace = GetNameSpace(recordDeclarationSyntax);
-            var parentClass = GetParentClasses(recordDeclarationSyntax);
-            var name = recordStructSymbol.Name;
-
-            typesToGenerate.Add((name, nameSpace, parentClass));
         }
 
         return typesToGenerate;
