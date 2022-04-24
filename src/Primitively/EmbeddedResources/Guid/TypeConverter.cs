@@ -3,6 +3,7 @@
     {
         public override bool CanConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Type sourceType) =>
             sourceType == typeof(string) ||
+            sourceType == typeof(System.Guid?) ||
             sourceType == typeof(System.Guid) ||
             base.CanConvertFrom(context, sourceType);
 
@@ -11,7 +12,7 @@
             return value switch
             {
                 string @string => PRIMITIVE_TYPE.Parse(@string),
-                System.Guid guidValue => new PRIMITIVE_TYPE(guidValue),
+                System.Guid @guid => new PRIMITIVE_TYPE(@guid),
                 _ => base.ConvertFrom(context, culture, value),
             };
         }

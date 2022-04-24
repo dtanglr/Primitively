@@ -15,9 +15,11 @@ public sealed class GuidPrimitiveAttribute : Attribute, IPrimitiveAttribute
     /// </summary>
     /// <param name="length">The fixed length of the string representation of the encapsulated primitive value</param>
     public GuidPrimitiveAttribute(
+#nullable enable
         string? pattern = GuidPrimitive.Default.Pattern,
         string? example = GuidPrimitive.Default.Example,
         string? format = GuidPrimitive.Default.Format,
+#nullable disable
         int length = GuidPrimitive.Default.Length)
     {
         Pattern = pattern;
@@ -27,9 +29,11 @@ public sealed class GuidPrimitiveAttribute : Attribute, IPrimitiveAttribute
     }
 
     public Type BackingType => typeof(Guid);
+#nullable enable
     public string? Pattern { get; }
     public string? Example { get; }
     public string? Format { get; }
+#nullable disable
     public IStringLength Length { get; }
 }
 

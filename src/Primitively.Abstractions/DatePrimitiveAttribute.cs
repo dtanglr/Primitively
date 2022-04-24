@@ -14,9 +14,11 @@ public sealed class DatePrimitiveAttribute : Attribute, IPrimitiveAttribute
     ///     Make a readonly record struct that encapsulates a Date primitive value with default Iso8601 format
     /// </summary>
     public DatePrimitiveAttribute(
+#nullable enable
         string? pattern = DatePrimitive.Iso8601.Pattern,
         string? example = DatePrimitive.Iso8601.Example,
         string? format = DatePrimitive.Iso8601.Format,
+#nullable disable
         int length = DatePrimitive.Iso8601.Length)
     {
         Pattern = pattern;
@@ -28,11 +30,13 @@ public sealed class DatePrimitiveAttribute : Attribute, IPrimitiveAttribute
 #if NET6_0_OR_GREATER
     public Type BackingType => typeof(DateOnly);
 #else
-    public Type BackingType => typeof(DateTime);
 #endif
+#nullable enable
     public string? Pattern { get; }
     public string? Example { get; }
     public string? Format { get; }
+#nullable disable
+    public Type BackingType => typeof(DateTime);
     public IStringLength Length { get; }
 }
 

@@ -15,9 +15,11 @@ public sealed class StringPrimitiveAttribute : Attribute, IPrimitiveAttribute
     /// </summary>
     /// <param name="length">The fixed length of the string representation of the encapsulated primitive value</param>
     public StringPrimitiveAttribute(
+#nullable enable
         string? pattern = StringPrimitive.Default.Pattern,
         string? example = StringPrimitive.Default.Example,
         string? format = StringPrimitive.Default.Format,
+#nullable enable
         int length = StringPrimitive.Default.Length)
     {
         Pattern = pattern;
@@ -32,9 +34,11 @@ public sealed class StringPrimitiveAttribute : Attribute, IPrimitiveAttribute
     /// <param name="minLength">The minimum length of the string representation of the encapsulated primitive value</param>
     /// <param name="maxLength">The maximum length of the string representation of the encapsulated primitive value</param>
     public StringPrimitiveAttribute(
+#nullable enable
         string? pattern = StringPrimitive.Default.Pattern,
         string? example = StringPrimitive.Default.Example,
         string? format = StringPrimitive.Default.Format,
+#nullable disable
         int minLength = StringPrimitive.Default.Length,
         int maxLength = StringPrimitive.Default.Length)
     {
@@ -45,10 +49,12 @@ public sealed class StringPrimitiveAttribute : Attribute, IPrimitiveAttribute
     }
 
     public Type BackingType => typeof(string);
-    public IStringLength Length { get; }
+#nullable enable
     public string? Pattern { get; set; }
     public string? Example { get; set; }
     public string? Format { get; set; }
+#nullable disable
+    public IStringLength Length { get; }
 }
 
 public static class StringPrimitive
@@ -57,7 +63,7 @@ public static class StringPrimitive
     {
         public const int Length = 8;
         public const string Pattern = "^[0-9a-fA-F]{8}$";
-        public const string Example = "Aw2d5RgF";
+        public const string Example = "";
         public const string Format = "";
     }
 }
