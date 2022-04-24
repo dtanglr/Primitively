@@ -8,7 +8,7 @@
     <NeutralLanguage>en-GB</NeutralLanguage>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>logo.png</PackageIcon>
+    <!--<PackageIcon>logo.png</PackageIcon>-->
     <PackageProjectUrl>https://github.com/dtanglr/Primitively</PackageProjectUrl>
     <PackageTags>primitively stronglytypedid attribute generator generation codegen codegenerator codegeneration netescapades</PackageTags>
     <RepositoryUrl>https://github.com/dtanglr/Primitively</RepositoryUrl>
@@ -20,7 +20,7 @@
     <DebugType>embedded</DebugType>
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <LangVersion>latest</LangVersion>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageOutputPath>$(MSBuildThisFileDirectory)\artifacts</PackageOutputPath>
