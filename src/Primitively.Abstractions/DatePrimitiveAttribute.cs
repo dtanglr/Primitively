@@ -26,17 +26,16 @@ public sealed class DatePrimitiveAttribute : Attribute, IPrimitiveAttribute
         Format = format;
         Length = new StringLength(length);
     }
-
-#if NET6_0_OR_GREATER
-    public Type BackingType => typeof(DateOnly);
-#else
-#endif
 #nullable enable
     public string? Pattern { get; }
     public string? Example { get; }
     public string? Format { get; }
 #nullable disable
+#if NET6_0_OR_GREATER
+    public Type BackingType => typeof(DateOnly);
+#else
     public Type BackingType => typeof(DateTime);
+#endif
     public IStringLength Length { get; }
 }
 

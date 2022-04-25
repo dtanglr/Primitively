@@ -21,7 +21,7 @@ public class SourceGeneration : IIncrementalGenerator
 #if DEBUG
         if (!Debugger.IsAttached)
         {
-            //Debugger.Launch();
+            Debugger.Launch();
         }
 #endif
         Debug.WriteLine("Initalize code generator");

@@ -47,13 +47,12 @@ public sealed class StringPrimitiveAttribute : Attribute, IPrimitiveAttribute
         Format = format;
         Length = new StringLengthRange(minLength, maxLength);
     }
-
-    public Type BackingType => typeof(string);
 #nullable enable
     public string? Pattern { get; set; }
     public string? Example { get; set; }
     public string? Format { get; set; }
 #nullable disable
+    public Type BackingType => typeof(string);
     public IStringLength Length { get; }
 }
 

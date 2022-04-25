@@ -27,13 +27,12 @@ public sealed class GuidPrimitiveAttribute : Attribute, IPrimitiveAttribute
         Format = format;
         Length = new StringLength(length);
     }
-
-    public Type BackingType => typeof(Guid);
 #nullable enable
     public string? Pattern { get; }
     public string? Example { get; }
     public string? Format { get; }
 #nullable disable
+    public Type BackingType => typeof(Guid);
     public IStringLength Length { get; }
 }
 
