@@ -1,5 +1,5 @@
 ﻿namespace Primitively.IntegrationTests.Types.StringTests.NhsNumberTests;
 
-public class TypeConverterTests : TypeConverterTests<NhsNumber.NhsNumberTypeConverter, NhsNumber, string>
+public class TypeConverterTests : TypeConverterTests<NhsNumberTypeConverter, NhsNumber, string>
 {
 }

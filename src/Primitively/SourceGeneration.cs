@@ -83,23 +83,27 @@ public class SourceGeneration : IIncrementalGenerator
             {
                 case PrimitiveType.Date:
                     sb.Append(EmbeddedResources.Date.Base);
+                    sb.AppendLine("}");
                     sb.Append(EmbeddedResources.Date.JsonConverter);
                     sb.Append(EmbeddedResources.Date.TypeConverter);
                     break;
                 case PrimitiveType.Guid:
                     sb.Append(EmbeddedResources.Guid.Base);
+                    sb.AppendLine("}");
                     sb.Append(EmbeddedResources.Guid.JsonConverter);
                     sb.Append(EmbeddedResources.Guid.TypeConverter);
                     break;
                 case PrimitiveType.String:
                     sb.Append(EmbeddedResources.String.Base);
                     sb.Append(EmbeddedResources.String.DefaultPartialMethods);
+                    sb.AppendLine("}");
                     sb.Append(EmbeddedResources.String.JsonConverter);
                     sb.Append(EmbeddedResources.String.TypeConverter);
                     break;
                 case PrimitiveType.NhsNumber:
                     sb.Append(EmbeddedResources.String.Base);
                     sb.Append(EmbeddedResources.String.NhsNumberMethods);
+                    sb.AppendLine("}");
                     sb.Append(EmbeddedResources.String.JsonConverter);
                     sb.Append(EmbeddedResources.String.TypeConverter);
                     break;
@@ -107,7 +111,6 @@ public class SourceGeneration : IIncrementalGenerator
                     throw new NotSupportedException($"{type.PrimitiveType} is not supported");
             }
 
-            sb.AppendLine("}");
             sb.Replace("PRIMITIVE_TYPE", type.Name);
             sb.Replace("PRIMITIVE_PATTERN", type.Pattern);
             sb.Replace("PRIMITIVE_EXAMPLE", type.Example);
