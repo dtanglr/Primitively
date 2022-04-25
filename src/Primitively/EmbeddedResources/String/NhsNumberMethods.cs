@@ -1,4 +1,5 @@
-﻿    static void PreMatchCheck(ref string value) => value = value?.Replace(" ", string.Empty);
+﻿
+    static void PreMatchCheck(ref string value) => value = value?.Replace(" ", string.Empty);
 
     static void PostMatchCheck(ref string value)
     {
