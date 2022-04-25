@@ -1,8 +1,5 @@
 ﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IPrimitive<string>, System.IEquatable<PRIMITIVE_TYPE>
 {
-    private static readonly System.TimeSpan _regexTimeout = System.TimeSpan.FromSeconds(5);
-    private static readonly System.Text.RegularExpressions.Regex _regEx = new(Pattern, System.Text.RegularExpressions.RegexOptions.None, _regexTimeout);
-
     public const string Pattern = @"PRIMITIVE_PATTERN";
     public const string Example = @"PRIMITIVE_EXAMPLE";
     public const string Format = @"PRIMITIVE_FORMAT";
@@ -26,7 +23,7 @@
         !string.IsNullOrWhiteSpace(value) &&
         !(value.Length < MinLength) &&
         !(value.Length > MaxLength) &&
-        (Pattern.Length == 0 || _regEx.IsMatch(value));
+        (Pattern.Length == 0 || System.Text.RegularExpressions.Regex.IsMatch(value, Pattern, System.Text.RegularExpressions.RegexOptions.None, System.TimeSpan.FromSeconds(1)));
 
     static partial void PostMatchCheck(ref string value);
 

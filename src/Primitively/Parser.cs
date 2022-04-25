@@ -14,12 +14,18 @@ internal static class Parser
 {
     public const string DatePrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.DatePrimitiveAttribute)}";
     public const string GuidPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.GuidPrimitiveAttribute)}";
+    public const string NhsNumberPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.NhsNumberPrimitiveAttribute)}";
+    public const string OdsCodePrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.OdsCodePrimitiveAttribute)}";
+    public const string PostcodePrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.PostcodePrimitiveAttribute)}";
     public const string StringPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.StringPrimitiveAttribute)}";
 
     private static readonly List<string> _attributeFullNames = new()
     {
         DatePrimitiveAttribute,
         GuidPrimitiveAttribute,
+        NhsNumberPrimitiveAttribute,
+        OdsCodePrimitiveAttribute,
+        PostcodePrimitiveAttribute,
         StringPrimitiveAttribute
     };
 
@@ -109,63 +115,128 @@ internal static class Parser
                 {
                     case nameof(Primitively.DatePrimitiveAttribute):
                         type.PrimitiveType = PrimitiveType.Date;
+                        type.MinLength = Constants.DatePrimitive.Iso8601.Length;
+                        type.MaxLength = Constants.DatePrimitive.Iso8601.Length;
+                        type.Example = Constants.DatePrimitive.Iso8601.Example;
+                        type.Format = Constants.DatePrimitive.Iso8601.Format;
                         break;
                     case nameof(Primitively.GuidPrimitiveAttribute):
                         type.PrimitiveType = PrimitiveType.Guid;
+                        type.MinLength = Constants.GuidPrimitive.Default.Length;
+                        type.MaxLength = Constants.GuidPrimitive.Default.Length;
+                        type.Example = Constants.GuidPrimitive.Default.Example;
+                        type.Format = Constants.GuidPrimitive.Default.Format;
+                        break;
+                    case nameof(Primitively.NhsNumberPrimitiveAttribute):
+                        type.PrimitiveType = PrimitiveType.String;
+                        type.MinLength = Constants.StringPrimitive.NhsNumber.Length;
+                        type.MaxLength = Constants.StringPrimitive.NhsNumber.Length;
+                        type.Example = Constants.StringPrimitive.NhsNumber.Example;
+                        type.Pattern = Constants.StringPrimitive.NhsNumber.Pattern;
+                        break;
+                    case nameof(Primitively.OdsCodePrimitiveAttribute):
+                        type.PrimitiveType = PrimitiveType.String;
+                        type.MinLength = Constants.StringPrimitive.OdsCode.MinLength;
+                        type.MaxLength = Constants.StringPrimitive.OdsCode.MaxLength;
+                        type.Example = Constants.StringPrimitive.OdsCode.Example;
+                        type.Pattern = Constants.StringPrimitive.OdsCode.Pattern;
+                        break;
+                    case nameof(Primitively.PostcodePrimitiveAttribute):
+                        type.PrimitiveType = PrimitiveType.String;
+                        type.MinLength = Constants.StringPrimitive.Postcode.MinLength;
+                        type.MaxLength = Constants.StringPrimitive.Postcode.MaxLength;
+                        type.Example = Constants.StringPrimitive.Postcode.Example;
+                        type.Pattern = Constants.StringPrimitive.Postcode.Pattern;
                         break;
                     case nameof(Primitively.StringPrimitiveAttribute):
                         type.PrimitiveType = PrimitiveType.String;
+                        isMisconfigured = !TrySetFromPrimitiveAttributeArguments(attribute, type);
                         break;
                 }
 
-                if (!attribute.ConstructorArguments.IsEmpty)
+                if (!isMisconfigured)
                 {
-                    // make sure we don't have any errors
-                    var args = attribute.ConstructorArguments;
-
-                    foreach (var arg in args)
-                    {
-                        if (arg.Kind == TypedConstantKind.Error)
-                        {
-                            // There's an error, so don't try and do any generation
-                            isMisconfigured = true;
-                        }
-                    }
-
-                    switch (args.Length)
-                    {
-                        case 5:
-                            type.MaxLength = (int)args[4].Value!;
-                            type.MinLength = (int)args[3].Value!;
-                            goto case 3;
-                        case 4:
-                            type.MaxLength = (int)args[3].Value!;
-                            type.MinLength = (int)args[3].Value!;
-                            goto case 3;
-                        case 3:
-                            type.Format = (string?)args[2].Value;
-                            goto case 2;
-                        case 2:
-                            type.Example = (string?)args[1].Value;
-                            goto case 1;
-                        case 1:
-                            type.Pattern = (string?)args[0].Value;
-                            break;
-                    }
+                    typesToGenerate.Add(type);
                 }
-
-                if (!attribute.NamedArguments.IsEmpty)
-                {
-                    var d = 2;
-                }
-
-                typesToGenerate.Add(type);
 
                 break;
             }
         }
 
         return typesToGenerate;
+    }
+
+    private static bool TrySetFromPrimitiveAttributeArguments(AttributeData attribute, PrimitiveRecordStruct type)
+    {
+        if (!TrySetFromPrimitiveAttributeConstructorArguments(attribute, type))
+        {
+            return false;
+        }
+
+        return TrySetFromPrimitiveAttributeNamedArguments(attribute, type);
+    }
+
+    private static bool TrySetFromPrimitiveAttributeConstructorArguments(AttributeData attribute, PrimitiveRecordStruct type)
+    {
+        if (attribute.ConstructorArguments.IsEmpty)
+        {
+            return true;
+        }
+
+        var args = attribute.ConstructorArguments;
+        if (args.Any(a => a.Kind == TypedConstantKind.Error))
+        {
+            return false;
+        }
+
+        switch (args.Length)
+        {
+            case 2:
+                type.MaxLength = (int)args[1].Value!;
+                type.MinLength = (int)args[1].Value!;
+                goto case 1;
+            case 1:
+                type.MaxLength = (int)args[0].Value!;
+                type.MinLength = (int)args[0].Value!;
+                break;
+        }
+
+        return true;
+    }
+
+    private static bool TrySetFromPrimitiveAttributeNamedArguments(AttributeData attribute, PrimitiveRecordStruct type)
+    {
+        if (attribute.NamedArguments.IsEmpty)
+        {
+            return true;
+        }
+
+        var args = attribute.NamedArguments;
+        if (args.Any(a => a.Value.Kind == TypedConstantKind.Error))
+        {
+            return false;
+        }
+
+        foreach (var arg in args)
+        {
+            var key = arg.Key;
+            var value = (string?)arg.Value.Value;
+
+            switch (key)
+            {
+                case nameof(Primitively.StringPrimitiveAttribute.Example):
+                    type.Example = value;
+                    break;
+                case nameof(Primitively.StringPrimitiveAttribute.Format):
+                    type.Format = value;
+                    break;
+                case nameof(Primitively.StringPrimitiveAttribute.Pattern):
+                    type.Pattern = value;
+                    break;
+            }
+        }
+
+        return true;
     }
 
     private static IEnumerable<INamedTypeSymbol> GetPrimitiveAttributeSymbols(Compilation compilation)

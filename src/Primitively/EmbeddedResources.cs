@@ -20,10 +20,9 @@ internal static class EmbeddedResources
         internal static readonly string DatePrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.DatePrimitiveAttribute));
         internal static readonly string GuidPrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.GuidPrimitiveAttribute));
         internal static readonly string IPrimitive = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.IPrimitive));
-        internal static readonly string IPrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.IPrimitiveAttribute));
-        internal static readonly string IStringLength = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.IStringLength));
-        internal static readonly string StringLength = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.StringLength));
-        internal static readonly string StringLengthRange = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.StringLengthRange));
+        internal static readonly string NhsNumberPrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.NhsNumberPrimitiveAttribute));
+        internal static readonly string OdsCodePrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.OdsCodePrimitiveAttribute));
+        internal static readonly string PostcodePrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.PostcodePrimitiveAttribute));
         internal static readonly string StringPrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.StringPrimitiveAttribute));
 
         internal static Dictionary<string, string> GetEmbeddedResources() => new()
@@ -32,10 +31,9 @@ internal static class EmbeddedResources
             { nameof(DatePrimitiveAttribute), DatePrimitiveAttribute },
             { nameof(GuidPrimitiveAttribute), GuidPrimitiveAttribute },
             { nameof(IPrimitive), IPrimitive },
-            { nameof(IPrimitiveAttribute), IPrimitiveAttribute },
-            { nameof(IStringLength), IStringLength },
-            { nameof(StringLength), StringLength },
-            { nameof(StringLengthRange), StringLengthRange },
+            { nameof(NhsNumberPrimitiveAttribute), NhsNumberPrimitiveAttribute },
+            { nameof(OdsCodePrimitiveAttribute), OdsCodePrimitiveAttribute },
+            { nameof(PostcodePrimitiveAttribute), PostcodePrimitiveAttribute },
             { nameof(StringPrimitiveAttribute), StringPrimitiveAttribute }
         };
     }

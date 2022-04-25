@@ -1,9 +1,5 @@
 ﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IPrimitive<System.DateOnly>, System.IEquatable<PRIMITIVE_TYPE>
 {
-    private static readonly System.TimeSpan _regexTimeout = System.TimeSpan.FromSeconds(5);
-    private static readonly System.Text.RegularExpressions.Regex _regEx = new(Pattern, System.Text.RegularExpressions.RegexOptions.None, _regexTimeout);
-
-    public const string Pattern = @"PRIMITIVE_PATTERN";
     public const string Example = @"PRIMITIVE_EXAMPLE";
     public const string Format = @"PRIMITIVE_FORMAT";
     public const int MinLength = PRIMITIVE_MINLENGTH;
@@ -16,26 +12,10 @@
 
     private PRIMITIVE_TYPE(string value)
     {
-        PreMatchCheck(ref value);
+        if (!System.DateOnly.TryParseExact(value, Format, out var result)) return;
 
-        if (!IsMatch(value)) return;
-
-        PostMatchCheck(ref value);
-
-        if (!System.DateOnly.TryParse(value, out var date)) return;
-
-        Value = date;
+        Value = result;
     }
-
-    static partial void PreMatchCheck(ref string value);
-
-    static bool IsMatch(string value) =>
-        !string.IsNullOrWhiteSpace(value) &&
-        !(value.Length < MinLength) &&
-        !(value.Length > MaxLength) &&
-        (Pattern.Length == 0 || _regEx.IsMatch(value));
-
-    static partial void PostMatchCheck(ref string value);
 
     public bool HasValue => Value != default;
 
@@ -45,7 +25,7 @@
 
     public override int GetHashCode() => Value.GetHashCode();
 
-    public override string ToString() => Format.Length > 0 ? Value.ToString(Format) : Value.ToString();
+    public override string ToString() => Value.ToString(Format);
 
     public static implicit operator string(PRIMITIVE_TYPE value) => value.ToString();
     public static implicit operator System.DateOnly(PRIMITIVE_TYPE value) => value.Value;

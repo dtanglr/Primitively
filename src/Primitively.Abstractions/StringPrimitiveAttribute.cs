@@ -8,61 +8,45 @@ namespace Primitively;
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 [Conditional(Constants.ConditionalCompilationSymbol)]
-public sealed class StringPrimitiveAttribute : Attribute, IPrimitiveAttribute
+public sealed class StringPrimitiveAttribute : Attribute
 {
     /// <summary>
-    ///     Make a readonly record struct that encapsulates a string primitive value with a fixed length
+    ///     Make a readonly record struct that encapsulates a
+    ///     string primitive value with a specified length
     /// </summary>
-    /// <param name="length">The fixed length of the string representation of the encapsulated primitive value</param>
-    public StringPrimitiveAttribute(
-#nullable enable
-        string? pattern = StringPrimitive.Default.Pattern,
-        string? example = StringPrimitive.Default.Example,
-        string? format = StringPrimitive.Default.Format,
-#nullable enable
-        int length = StringPrimitive.Default.Length)
+    /// <param name="length">
+    ///     The fixed length of the string representation 
+    ///     of the encapsulated primitive value
+    /// </param>
+    public StringPrimitiveAttribute(int length)
     {
-        Pattern = pattern;
-        Example = example;
-        Format = format;
-        Length = new StringLength(length);
+        MinLength = length;
+        MaxLength = length;
     }
 
     /// <summary>
-    ///     Make a readonly record struct that encapsulates a primitive using the default GUID options
+    ///     Make a readonly record struct that encapsulates a
+    ///     string primitive value with a specified length
     /// </summary>
-    /// <param name="minLength">The minimum length of the string representation of the encapsulated primitive value</param>
-    /// <param name="maxLength">The maximum length of the string representation of the encapsulated primitive value</param>
-    public StringPrimitiveAttribute(
-#nullable enable
-        string? pattern = StringPrimitive.Default.Pattern,
-        string? example = StringPrimitive.Default.Example,
-        string? format = StringPrimitive.Default.Format,
-#nullable disable
-        int minLength = StringPrimitive.Default.Length,
-        int maxLength = StringPrimitive.Default.Length)
+    /// <param name="minLength">
+    ///     The minimum length of the string representation 
+    ///     of the encapsulated primitive value
+    /// </param>
+    /// <param name="maxLength">
+    ///     The maximum length of the string representation 
+    ///     of the encapsulated primitive value
+    /// </param>
+    public StringPrimitiveAttribute(int minLength, int maxLength)
     {
-        Pattern = pattern;
-        Example = example;
-        Format = format;
-        Length = new StringLengthRange(minLength, maxLength);
+        MinLength = minLength;
+        MaxLength = maxLength;
     }
+
+    public int MinLength { get; }
+    public int MaxLength { get; }
 #nullable enable
     public string? Pattern { get; set; }
     public string? Example { get; set; }
     public string? Format { get; set; }
 #nullable disable
-    public Type BackingType => typeof(string);
-    public IStringLength Length { get; }
-}
-
-public static class StringPrimitive
-{
-    public struct Default
-    {
-        public const int Length = 8;
-        public const string Pattern = "^[0-9a-fA-F]{8}$";
-        public const string Example = "";
-        public const string Format = "";
-    }
 }
