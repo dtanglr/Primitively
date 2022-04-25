@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
@@ -106,6 +105,7 @@ public class SourceGeneration : IIncrementalGenerator
             sb.Replace("PRIMITIVE_PATTERN", type.Pattern);
             sb.Replace("PRIMITIVE_EXAMPLE", type.Example);
             sb.Replace("PRIMITIVE_FORMAT", type.Format);
+            sb.Replace("PRIMITIVE_LENGTH", type.Length.ToString());
             sb.Replace("PRIMITIVE_MINLENGTH", type.MinLength.ToString());
             sb.Replace("PRIMITIVE_MAXLENGTH", type.MaxLength.ToString());
 

@@ -115,15 +115,13 @@ internal static class Parser
                 {
                     case nameof(Primitively.DatePrimitiveAttribute):
                         type.PrimitiveType = PrimitiveType.Date;
-                        type.MinLength = Constants.DatePrimitive.Iso8601.Length;
-                        type.MaxLength = Constants.DatePrimitive.Iso8601.Length;
+                        type.Length = Constants.DatePrimitive.Iso8601.Length;
                         type.Example = Constants.DatePrimitive.Iso8601.Example;
                         type.Format = Constants.DatePrimitive.Iso8601.Format;
                         break;
                     case nameof(Primitively.GuidPrimitiveAttribute):
                         type.PrimitiveType = PrimitiveType.Guid;
-                        type.MinLength = Constants.GuidPrimitive.Default.Length;
-                        type.MaxLength = Constants.GuidPrimitive.Default.Length;
+                        type.Length = Constants.GuidPrimitive.Default.Length;
                         type.Example = Constants.GuidPrimitive.Default.Example;
                         type.Format = Constants.GuidPrimitive.Default.Format;
                         break;

@@ -1,7 +1,6 @@
-﻿using Primitively.IntegrationTests.ValueSets;
-using Xunit;
+﻿using Xunit;
 
-namespace Primitively.IntegrationTests;
+namespace Primitively.IntegrationTests.ValueSets;
 
 public class SdsJobRoleTests
 {

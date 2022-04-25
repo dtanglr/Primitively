@@ -11,3 +11,9 @@ public partial record struct GuidId3;
 
 [GuidPrimitive]
 public partial record struct GuidId4;
+
+[GuidPrimitive]
+public partial record struct CorrelationId;
+
+[GuidPrimitive]
+public partial record struct RequestId;
