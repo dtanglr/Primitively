@@ -93,6 +93,13 @@ public class SourceGeneration : IIncrementalGenerator
                     break;
                 case PrimitiveType.String:
                     sb.Append(EmbeddedResources.String.Base);
+                    sb.Append(EmbeddedResources.String.DefaultPartialMethods);
+                    sb.Append(EmbeddedResources.String.JsonConverter);
+                    sb.Append(EmbeddedResources.String.TypeConverter);
+                    break;
+                case PrimitiveType.NhsNumber:
+                    sb.Append(EmbeddedResources.String.Base);
+                    sb.Append(EmbeddedResources.String.NhsNumberMethods);
                     sb.Append(EmbeddedResources.String.JsonConverter);
                     sb.Append(EmbeddedResources.String.TypeConverter);
                     break;

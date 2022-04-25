@@ -55,8 +55,12 @@ internal static class EmbeddedResources
     internal static class String
     {
         internal static readonly string Base = GetEmbeddedResource(nameof(String), nameof(Base));
+        internal static readonly string DefaultPartialMethods = GetEmbeddedResource(nameof(String), nameof(DefaultPartialMethods));
         internal static readonly string JsonConverter = GetEmbeddedResource(nameof(String), nameof(JsonConverter));
         internal static readonly string TypeConverter = GetEmbeddedResource(nameof(String), nameof(TypeConverter));
+
+        // Customisations: replacing DefaultPartialMethods
+        internal static readonly string NhsNumberMethods = GetEmbeddedResource(nameof(String), nameof(NhsNumberMethods));
     }
 
     private static string GetEmbeddedResource(params string[] names)

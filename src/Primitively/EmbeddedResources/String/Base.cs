@@ -17,16 +17,6 @@
         Value = value;
     }
 
-    static partial void PreMatchCheck(ref string value);
-
-    static bool IsMatch(string value) => 
-        !string.IsNullOrWhiteSpace(value) &&
-        !(value.Length < MinLength) &&
-        !(value.Length > MaxLength) &&
-        (Pattern.Length == 0 || System.Text.RegularExpressions.Regex.IsMatch(value, Pattern, System.Text.RegularExpressions.RegexOptions.None, System.TimeSpan.FromSeconds(1)));
-
-    static partial void PostMatchCheck(ref string value);
-
     public bool HasValue => Value != default;
 
     public string Value { get; } = default;
@@ -42,3 +32,9 @@
 
     public static PRIMITIVE_TYPE Parse(string value) => new(value);
     public static bool TryParse(string value, out PRIMITIVE_TYPE result) => (result = new(value)).HasValue;
+
+    static bool IsMatch(string value) =>
+        !string.IsNullOrWhiteSpace(value) &&
+        !(value.Length < MinLength) &&
+        !(value.Length > MaxLength) &&
+        (Pattern.Length == 0 || System.Text.RegularExpressions.Regex.IsMatch(value, Pattern, System.Text.RegularExpressions.RegexOptions.None, System.TimeSpan.FromSeconds(1)));

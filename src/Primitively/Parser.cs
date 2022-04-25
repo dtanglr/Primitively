@@ -126,7 +126,7 @@ internal static class Parser
                         type.Format = Constants.GuidPrimitive.Default.Format;
                         break;
                     case nameof(Primitively.NhsNumberPrimitiveAttribute):
-                        type.PrimitiveType = PrimitiveType.String;
+                        type.PrimitiveType = PrimitiveType.NhsNumber;
                         type.MinLength = Constants.StringPrimitive.NhsNumber.Length;
                         type.MaxLength = Constants.StringPrimitive.NhsNumber.Length;
                         type.Example = Constants.StringPrimitive.NhsNumber.Example;
