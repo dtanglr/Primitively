@@ -37,4 +37,4 @@
         !string.IsNullOrWhiteSpace(value) &&
         !(value.Length < MinLength) &&
         !(value.Length > MaxLength) &&
-        (Pattern.Length == 0 || System.Text.RegularExpressions.Regex.IsMatch(value, Pattern, System.Text.RegularExpressions.RegexOptions.None, System.TimeSpan.FromSeconds(1)));
+        (Pattern.Length == 0 || System.Text.RegularExpressions.Regex.IsMatch(value, Pattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase, System.TimeSpan.FromSeconds(1)));
