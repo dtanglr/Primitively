@@ -191,8 +191,8 @@ internal static class Parser
         {
             case 2:
                 type.MaxLength = (int)args[1].Value!;
-                type.MinLength = (int)args[1].Value!;
-                goto case 1;
+                type.MinLength = (int)args[0].Value!;
+                break;
             case 1:
                 type.MaxLength = (int)args[0].Value!;
                 type.MinLength = (int)args[0].Value!;

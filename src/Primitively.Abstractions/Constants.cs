@@ -29,7 +29,7 @@ public class Constants
         public struct NhsNumber
         {
             public const int Length = 10;
-            public const string Example = "2323435649";
+            public const string Example = "9000000009";
             public const string Pattern = "^[0-9]{10}$";
         }
 
