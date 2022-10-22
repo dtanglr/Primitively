@@ -2,13 +2,15 @@
 
 internal class PrimitiveRecordStruct
 {
-    public PrimitiveRecordStruct(string name, string nameSpace, ParentClass? parent)
+    public PrimitiveRecordStruct(PrimitiveType primitiveType, string name, string nameSpace, ParentClass? parent)
     {
+        PrimitiveType = primitiveType;
         Name = name;
         NameSpace = nameSpace;
         Parent = parent;
     }
 
+    public PrimitiveType PrimitiveType { get; }
     public string Name { get; }
     public string NameSpace { get; }
     public ParentClass? Parent { get; }
@@ -18,5 +20,4 @@ internal class PrimitiveRecordStruct
     public string? Pattern { get; set; }
     public string? Example { get; set; }
     public string? Format { get; set; }
-    public PrimitiveType PrimitiveType { get; set; } = PrimitiveType.Default;
 }

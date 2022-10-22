@@ -17,3 +17,9 @@ public partial record struct CorrelationId;
 
 [GuidPrimitive]
 public partial record struct RequestId;
+
+[GuidPrimitive]
+public partial record struct SiteId;
+
+[GuidPrimitive]
+public partial record struct SiteCollectionId;

@@ -23,8 +23,6 @@ public class SourceGeneration : IIncrementalGenerator
             Debugger.Launch();
         }
 #endif
-        Debug.WriteLine("Initalize code generator");
-
         // Register the abstractions sources
         context.RegisterPostInitializationOutput(ctx => GenerateSource(ctx));
 

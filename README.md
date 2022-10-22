@@ -1,4 +1,4 @@
-﻿# StronglyTypedId
+﻿# Primitively
 
 ![StronglyTypedId logo](https://raw.githubusercontent.com/andrewlock/StronglyTypedId/master/logo.png)
 
@@ -225,7 +225,7 @@ warning CS0436: The type 'StronglyTypedIdImplementations' in 'StronglyTypedIds\S
 In the latest version of _StronglyTypedId_, the attributes are not embedded by default, so you should not experience this problem. If you see this error, compare your installation to the examples in the installation guide.
 
 ## Why do I need this library?
-
+s
 I have [written a blog-post series](https://andrewlock.net/using-strongly-typed-entity-ids-to-avoid-primitive-obsession-part-1/) on strongly-typed IDs that explains the issues and rational behind this library. For a detailed view, I suggest starting there, but I provide a brief introduction here.
 
 This library is designed to tackle a specific instance of [_primitive obsession_](https://lostechies.com/jimmybogard/2007/12/03/dealing-with-primitive-obsession/), whereby we use primitive objects (`Guid`/`string`/`int`/`long` etc) to represent the IDs of domain objects. The problem is that these IDs are all interchangeable - an order ID can be assigned to a product ID, despite the fact that is likely nonsensical from the domain point of view. [See here for a more concrete example](https://andrewlock.net/using-strongly-typed-entity-ids-to-avoid-primitive-obsession-part-1/#an-example-of-the-problem).
@@ -242,14 +242,18 @@ You can see see example implementations in the test `SourceGenerationHelperSnaps
 
 ## Requirements
 
-The StronglyTypedId NuGet package is a .NET Standard 2.0 package. 
+The Primitively NuGet package is a .NET Standard 2.0 package. 
 
-You must be using the .NET 6+ SDK (though you can compile for other target frameworks like .NET Core 2.1 and .NET Framework 4.8)
+You must be using the .NET 6+ SDK (other target frameworks like .NET Core 2.1 and .NET Framework 4.8 are not supported at this time).
 
-The `struct`s you decorate with the `StronglyTypedId` attribute must be marked `partial`.
+The `struct`s you decorate with any of the `Primitively` attributes must be marked `partial` and be a `record`.
+
+
 
 ## Credits
 [Credits]: #credits
+
+`Primitively` was inspired and originally forked from Andrew Lock's project [StronglyTypedId](https://github.com/andrewlock/StronglyTypedId))
 
 `StronglyTypedId` wouldn't work if not for [AArnott's CodeGeneration.Roslyn](https://github.com/AArnott/CodeGeneration.Roslyn) library.
 

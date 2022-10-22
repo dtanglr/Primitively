@@ -76,7 +76,7 @@ internal static class Parser
         var typesToGenerate = new List<PrimitiveRecordStruct>();
         var attributeSymbols = GetPrimitiveAttributeSymbols(compilation);
 
-        if (!attributeSymbols.Any())
+        if (attributeSymbols == null)
         {
             return typesToGenerate;
         }
@@ -97,6 +97,9 @@ internal static class Parser
                 continue;
             }
 
+            var isMisconfigured = false;
+            PrimitiveRecordStruct? typeToGenerate = null;
+
             foreach (var attribute in recordStructSymbol.GetAttributes())
             {
                 if (!attributeSymbols.Any(a => a.Equals(attribute.AttributeClass, SymbolEqualityComparer.Default)))
@@ -104,61 +107,88 @@ internal static class Parser
                     continue;
                 }
 
-                var isMisconfigured = false;
                 var name = recordStructSymbol.Name;
                 var nameSpace = GetNameSpace(recordDeclarationSyntax);
                 var parentClass = GetParentClasses(recordDeclarationSyntax);
-                var type = new PrimitiveRecordStruct(name, nameSpace, parentClass);
                 var attributeName = attribute.AttributeClass?.Name;
 
                 switch (attributeName)
                 {
                     case nameof(Primitively.DatePrimitiveAttribute):
-                        type.PrimitiveType = PrimitiveType.Date;
-                        type.Length = Constants.DatePrimitive.Iso8601.Length;
-                        type.Example = Constants.DatePrimitive.Iso8601.Example;
-                        type.Format = Constants.DatePrimitive.Iso8601.Format;
+                        typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.Date, name, nameSpace, parentClass)
+                        {
+                            Length = Constants.DatePrimitive.Iso8601.Length,
+                            Example = Constants.DatePrimitive.Iso8601.Example,
+                            Format = Constants.DatePrimitive.Iso8601.Format
+                        };
                         break;
                     case nameof(Primitively.GuidPrimitiveAttribute):
-                        type.PrimitiveType = PrimitiveType.Guid;
-                        type.Length = Constants.GuidPrimitive.Default.Length;
-                        type.Example = Constants.GuidPrimitive.Default.Example;
-                        type.Format = Constants.GuidPrimitive.Default.Format;
+                        typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.Guid, name, nameSpace, parentClass)
+                        {
+                            Length = Constants.GuidPrimitive.Default.Length,
+                            Example = Constants.GuidPrimitive.Default.Example,
+                            Format = Constants.GuidPrimitive.Default.Format
+                        };
                         break;
                     case nameof(Primitively.NhsNumberPrimitiveAttribute):
-                        type.PrimitiveType = PrimitiveType.NhsNumber;
-                        type.MinLength = Constants.StringPrimitive.NhsNumber.Length;
-                        type.MaxLength = Constants.StringPrimitive.NhsNumber.Length;
-                        type.Example = Constants.StringPrimitive.NhsNumber.Example;
-                        type.Pattern = Constants.StringPrimitive.NhsNumber.Pattern;
+                        typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.NhsNumber, name, nameSpace, parentClass)
+                        {
+                            MinLength = Constants.StringPrimitive.NhsNumber.Length,
+                            MaxLength = Constants.StringPrimitive.NhsNumber.Length,
+                            Example = Constants.StringPrimitive.NhsNumber.Example,
+                            Pattern = Constants.StringPrimitive.NhsNumber.Pattern
+                        };
                         break;
                     case nameof(Primitively.OdsCodePrimitiveAttribute):
-                        type.PrimitiveType = PrimitiveType.String;
-                        type.MinLength = Constants.StringPrimitive.OdsCode.MinLength;
-                        type.MaxLength = Constants.StringPrimitive.OdsCode.MaxLength;
-                        type.Example = Constants.StringPrimitive.OdsCode.Example;
-                        type.Pattern = Constants.StringPrimitive.OdsCode.Pattern;
+                        typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.String, name, nameSpace, parentClass)
+                        {
+                            MinLength = Constants.StringPrimitive.OdsCode.MinLength,
+                            MaxLength = Constants.StringPrimitive.OdsCode.MaxLength,
+                            Example = Constants.StringPrimitive.OdsCode.Example,
+                            Pattern = Constants.StringPrimitive.OdsCode.Pattern
+                        };
                         break;
                     case nameof(Primitively.PostcodePrimitiveAttribute):
-                        type.PrimitiveType = PrimitiveType.String;
-                        type.MinLength = Constants.StringPrimitive.Postcode.MinLength;
-                        type.MaxLength = Constants.StringPrimitive.Postcode.MaxLength;
-                        type.Example = Constants.StringPrimitive.Postcode.Example;
-                        type.Pattern = Constants.StringPrimitive.Postcode.Pattern;
+                        typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.String, name, nameSpace, parentClass)
+                        {
+                            MinLength = Constants.StringPrimitive.Postcode.MinLength,
+                            MaxLength = Constants.StringPrimitive.Postcode.MaxLength,
+                            Example = Constants.StringPrimitive.Postcode.Example,
+                            Pattern = Constants.StringPrimitive.Postcode.Pattern
+                        };
                         break;
                     case nameof(Primitively.StringPrimitiveAttribute):
-                        type.PrimitiveType = PrimitiveType.String;
-                        isMisconfigured = !TrySetFromPrimitiveAttributeArguments(attribute, type);
+                        typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.String, name, nameSpace, parentClass);
+                        isMisconfigured = !TrySetFromPrimitiveAttributeArguments(attribute, typeToGenerate);
                         break;
-                }
-
-                if (!isMisconfigured)
-                {
-                    typesToGenerate.Add(type);
                 }
 
                 break;
             }
+
+            if (typeToGenerate is null || isMisconfigured)
+            {
+                continue; // name clash, or error
+            }
+
+            // Check there is a partial keyword. If not, report it.
+            var hasPartialModifier = false;
+            foreach (var modifier in recordDeclarationSyntax.Modifiers)
+            {
+                if (modifier.IsKind(SyntaxKind.PartialKeyword))
+                {
+                    hasPartialModifier = true;
+                    break;
+                }
+            }
+
+            if (!hasPartialModifier)
+            {
+                reportDiagnostic(NotPartialDiagnostic.Create(recordDeclarationSyntax));
+            }
+
+            // Add type to the collection
+            typesToGenerate.Add(typeToGenerate);
         }
 
         return typesToGenerate;
@@ -178,7 +208,8 @@ internal static class Parser
     {
         if (attribute.ConstructorArguments.IsEmpty)
         {
-            return true;
+            // 1 or 2 arguments are expected
+            return false;
         }
 
         var args = attribute.ConstructorArguments;
@@ -190,13 +221,16 @@ internal static class Parser
         switch (args.Length)
         {
             case 2:
-                type.MaxLength = (int)args[1].Value!;
-                type.MinLength = (int)args[0].Value!;
+                type.MaxLength = args[1].IsNull ? 0 : (int)args[1].Value!;
+                type.MinLength = args[0].IsNull ? 0 : (int)args[0].Value!;
                 break;
             case 1:
-                type.MaxLength = (int)args[0].Value!;
-                type.MinLength = (int)args[0].Value!;
+                var length = args[0].IsNull ? 0 : (int)args[0].Value!;
+                type.MaxLength = length;
+                type.MinLength = length;
                 break;
+            default:
+                return false; // just in case
         }
 
         return true;
