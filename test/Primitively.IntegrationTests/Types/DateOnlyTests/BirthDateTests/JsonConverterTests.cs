@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Primitively.IntegrationTests.Types.DateTests.BirthDateTests;
+namespace Primitively.IntegrationTests.Types.DateOnlyTests.BirthDateTests;
 
 public class JsonConverterTests : JsonConverterTests<BirthDateJsonConverter, BirthDate, DateOnly>
 {

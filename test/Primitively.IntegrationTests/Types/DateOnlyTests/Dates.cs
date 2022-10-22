@@ -1,13 +1,13 @@
-﻿namespace Primitively.IntegrationTests.Types;
+﻿namespace Primitively.IntegrationTests.Types.DateOnlyTests;
 
-[DatePrimitive]
+[DateOnly]
 public partial record struct DateOfBirth;
 
-[DatePrimitive]
+[DateOnly]
 public partial record struct DateOfDeath;
 
-[DatePrimitive]
+[DateOnly]
 public partial record struct BirthDate;
 
-[DatePrimitive]
+[DateOnly]
 public partial record struct DeathDate;

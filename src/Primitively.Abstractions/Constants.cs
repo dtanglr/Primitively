@@ -4,7 +4,7 @@ public class Constants
 {
     public const string ConditionalCompilationSymbol = "PRIMITIVELY_USAGES";
 
-    public struct DatePrimitive
+    public struct DateOnly
     {
         public struct Iso8601
         {

@@ -12,7 +12,7 @@ namespace Primitively;
 
 internal static class Parser
 {
-    public const string DatePrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.DatePrimitiveAttribute)}";
+    public const string DateOnlyAttribute = $"{nameof(Primitively)}.{nameof(Primitively.DateOnlyAttribute)}";
     public const string GuidPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.GuidPrimitiveAttribute)}";
     public const string NhsNumberPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.NhsNumberPrimitiveAttribute)}";
     public const string OdsCodePrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.OdsCodePrimitiveAttribute)}";
@@ -21,7 +21,7 @@ internal static class Parser
 
     private static readonly List<string> _attributeFullNames = new()
     {
-        DatePrimitiveAttribute,
+        DateOnlyAttribute,
         GuidPrimitiveAttribute,
         NhsNumberPrimitiveAttribute,
         OdsCodePrimitiveAttribute,
@@ -114,12 +114,12 @@ internal static class Parser
 
                 switch (attributeName)
                 {
-                    case nameof(Primitively.DatePrimitiveAttribute):
+                    case nameof(Primitively.DateOnlyAttribute):
                         typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.Date, name, nameSpace, parentClass)
                         {
-                            Length = Constants.DatePrimitive.Iso8601.Length,
-                            Example = Constants.DatePrimitive.Iso8601.Example,
-                            Format = Constants.DatePrimitive.Iso8601.Format
+                            Length = Constants.DateOnly.Iso8601.Length,
+                            Example = Constants.DateOnly.Iso8601.Example,
+                            Format = Constants.DateOnly.Iso8601.Format
                         };
                         break;
                     case nameof(Primitively.GuidPrimitiveAttribute):

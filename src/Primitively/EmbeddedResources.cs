@@ -17,7 +17,7 @@ internal static class EmbeddedResources
     internal static class Abstractions
     {
         internal static readonly string Constants = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.Constants));
-        internal static readonly string DatePrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.DatePrimitiveAttribute));
+        internal static readonly string DateOnlyAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.DateOnlyAttribute));
         internal static readonly string GuidPrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.GuidPrimitiveAttribute));
         internal static readonly string IPrimitive = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.IPrimitive));
         internal static readonly string NhsNumberPrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.NhsNumberPrimitiveAttribute));
@@ -28,7 +28,7 @@ internal static class EmbeddedResources
         internal static Dictionary<string, string> GetEmbeddedResources() => new()
         {
             { nameof(Constants), Constants },
-            { nameof(DatePrimitiveAttribute), DatePrimitiveAttribute },
+            { nameof(DateOnlyAttribute), DateOnlyAttribute },
             { nameof(GuidPrimitiveAttribute), GuidPrimitiveAttribute },
             { nameof(IPrimitive), IPrimitive },
             { nameof(NhsNumberPrimitiveAttribute), NhsNumberPrimitiveAttribute },
@@ -38,11 +38,11 @@ internal static class EmbeddedResources
         };
     }
 
-    internal static class Date
+    internal static class DateOnly
     {
-        internal static readonly string Base = GetEmbeddedResource(nameof(Date), nameof(Base));
-        internal static readonly string JsonConverter = GetEmbeddedResource(nameof(Date), nameof(JsonConverter));
-        internal static readonly string TypeConverter = GetEmbeddedResource(nameof(Date), nameof(TypeConverter));
+        internal static readonly string Base = GetEmbeddedResource(nameof(DateOnly), nameof(Base));
+        internal static readonly string JsonConverter = GetEmbeddedResource(nameof(DateOnly), nameof(JsonConverter));
+        internal static readonly string TypeConverter = GetEmbeddedResource(nameof(DateOnly), nameof(TypeConverter));
     }
 
     internal static class Guid

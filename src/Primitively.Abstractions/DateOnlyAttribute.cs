@@ -9,6 +9,6 @@ namespace Primitively;
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 [Conditional(Constants.ConditionalCompilationSymbol)]
-public sealed class DatePrimitiveAttribute : Attribute
+public sealed class DateOnlyAttribute : Attribute
 {
 }

@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types.DateTests.BirthDateTests;
+namespace Primitively.IntegrationTests.Types.DateOnlyTests.BirthDateTests;
 
 public class EqualityTests
 {
