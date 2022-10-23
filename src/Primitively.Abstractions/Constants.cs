@@ -14,7 +14,7 @@ public class Constants
         }
     }
 
-    public struct GuidPrimitive
+    public struct Guid
     {
         public struct Default
         {

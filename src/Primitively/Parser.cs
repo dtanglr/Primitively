@@ -13,7 +13,7 @@ namespace Primitively;
 internal static class Parser
 {
     public const string DateOnlyAttribute = $"{nameof(Primitively)}.{nameof(Primitively.DateOnlyAttribute)}";
-    public const string GuidPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.GuidPrimitiveAttribute)}";
+    public const string GuidAttribute = $"{nameof(Primitively)}.{nameof(Primitively.GuidAttribute)}";
     public const string NhsNumberPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.NhsNumberPrimitiveAttribute)}";
     public const string OdsCodePrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.OdsCodePrimitiveAttribute)}";
     public const string PostcodePrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.PostcodePrimitiveAttribute)}";
@@ -22,7 +22,7 @@ internal static class Parser
     private static readonly List<string> _attributeFullNames = new()
     {
         DateOnlyAttribute,
-        GuidPrimitiveAttribute,
+        GuidAttribute,
         NhsNumberPrimitiveAttribute,
         OdsCodePrimitiveAttribute,
         PostcodePrimitiveAttribute,
@@ -115,19 +115,19 @@ internal static class Parser
                 switch (attributeName)
                 {
                     case nameof(Primitively.DateOnlyAttribute):
-                        typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.Date, name, nameSpace, parentClass)
+                        typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.DateOnly, name, nameSpace, parentClass)
                         {
                             Length = Constants.DateOnly.Iso8601.Length,
                             Example = Constants.DateOnly.Iso8601.Example,
                             Format = Constants.DateOnly.Iso8601.Format
                         };
                         break;
-                    case nameof(Primitively.GuidPrimitiveAttribute):
+                    case nameof(Primitively.GuidAttribute):
                         typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.Guid, name, nameSpace, parentClass)
                         {
-                            Length = Constants.GuidPrimitive.Default.Length,
-                            Example = Constants.GuidPrimitive.Default.Example,
-                            Format = Constants.GuidPrimitive.Default.Format
+                            Length = Constants.Guid.Default.Length,
+                            Example = Constants.Guid.Default.Example,
+                            Format = Constants.Guid.Default.Format
                         };
                         break;
                     case nameof(Primitively.NhsNumberPrimitiveAttribute):

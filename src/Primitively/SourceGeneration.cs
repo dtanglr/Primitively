@@ -79,7 +79,7 @@ public class SourceGeneration : IIncrementalGenerator
 
             switch (type.PrimitiveType)
             {
-                case PrimitiveType.Date:
+                case PrimitiveType.DateOnly:
                     sb.Append(EmbeddedResources.DateOnly.Base);
                     sb.AppendLine("}");
                     sb.Append(EmbeddedResources.DateOnly.JsonConverter);

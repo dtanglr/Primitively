@@ -2,7 +2,7 @@
 
 internal enum PrimitiveType
 {
-    Date,
+    DateOnly,
     Guid,
     String,
     NhsNumber,
