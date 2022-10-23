@@ -19,7 +19,7 @@
   <PropertyGroup>
     <DebugType>embedded</DebugType>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>10</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

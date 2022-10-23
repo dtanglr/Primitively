@@ -8,7 +8,7 @@ namespace Primitively;
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 [Conditional(Constants.ConditionalCompilationSymbol)]
-public sealed class StringPrimitiveAttribute : Attribute
+public sealed class StringAttribute : Attribute
 {
     /// <summary>
     ///     Make a readonly record struct that encapsulates a
@@ -18,7 +18,7 @@ public sealed class StringPrimitiveAttribute : Attribute
     ///     The fixed length of the string representation 
     ///     of the encapsulated primitive value
     /// </param>
-    public StringPrimitiveAttribute(int length)
+    public StringAttribute(int length)
     {
         MinLength = length;
         MaxLength = length;
@@ -36,7 +36,7 @@ public sealed class StringPrimitiveAttribute : Attribute
     ///     The maximum length of the string representation 
     ///     of the encapsulated primitive value
     /// </param>
-    public StringPrimitiveAttribute(int minLength, int maxLength)
+    public StringAttribute(int minLength, int maxLength)
     {
         MinLength = minLength;
         MaxLength = maxLength;

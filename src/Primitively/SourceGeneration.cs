@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Immutable;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -17,12 +16,6 @@ public class SourceGeneration : IIncrementalGenerator
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-#if DEBUG
-        if (!Debugger.IsAttached)
-        {
-            Debugger.Launch();
-        }
-#endif
         // Register the abstractions sources
         context.RegisterPostInitializationOutput(ctx => GenerateSource(ctx));
 
