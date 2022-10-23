@@ -1,17 +1,5 @@
 ﻿namespace Primitively;
 
-internal class ParentClass
+internal record ParentClass(string Keyword, string Name, string Constraints, ParentClass? Child)
 {
-    public ParentClass(string keyword, string name, string constraints, ParentClass? child)
-    {
-        Keyword = keyword;
-        Name = name;
-        Constraints = constraints;
-        Child = child;
-    }
-
-    public ParentClass? Child { get; }
-    public string Keyword { get; }
-    public string Name { get; }
-    public string Constraints { get; }
 }

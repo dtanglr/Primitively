@@ -304,10 +304,10 @@ internal static class Parser
         while (parentIdClass != null && IsAllowedKind(parentIdClass.Kind()))
         {
             parentClass = new ParentClass(
-                keyword: parentIdClass.Keyword.ValueText,
-                name: parentIdClass.Identifier.ToString() + parentIdClass.TypeParameterList,
-                constraints: parentIdClass.ConstraintClauses.ToString(),
-                child: parentClass);
+                parentIdClass.Keyword.ValueText,
+                parentIdClass.Identifier.ToString() + parentIdClass.TypeParameterList,
+                parentIdClass.ConstraintClauses.ToString(),
+                parentClass);
 
             parentIdClass = parentIdClass.Parent as TypeDeclarationSyntax;
         }
