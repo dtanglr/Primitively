@@ -98,13 +98,6 @@ public class SourceGeneration : IIncrementalGenerator
                     sb.Append(EmbeddedResources.String.JsonConverter);
                     sb.Append(EmbeddedResources.String.TypeConverter);
                     break;
-                case PrimitiveType.NhsNumber:
-                    sb.Append(EmbeddedResources.String.Base);
-                    sb.Append(EmbeddedResources.String.NhsNumberMethods);
-                    sb.AppendLine("}");
-                    sb.Append(EmbeddedResources.String.JsonConverter);
-                    sb.Append(EmbeddedResources.String.TypeConverter);
-                    break;
                 default:
                     throw new NotSupportedException($"{type.PrimitiveType} is not supported");
             }

@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types.StringTests.GphcNumberTests;
+namespace Primitively.IntegrationTests.Types.StringTests.SevenDigitsTests;
 
 public class ImplicitOperatorAndParserTests
 {
@@ -18,9 +18,9 @@ public class ImplicitOperatorAndParserTests
     {
         var expected = hasValue ? from.Replace(" ", string.Empty) : default;
 
-        var @this = (GphcNumber)from;
+        var @this = (SevenDigits)from;
         string to = @this;
-        var that = GphcNumber.Parse(to);
+        var that = SevenDigits.Parse(to);
 
         @this.HasValue.Should().Be(hasValue);
         @this.Value.Should().Be(expected);

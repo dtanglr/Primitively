@@ -20,9 +20,6 @@ internal static class EmbeddedResources
         internal static readonly string DateOnlyAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.DateOnlyAttribute));
         internal static readonly string GuidAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.GuidAttribute));
         internal static readonly string IPrimitive = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.IPrimitive));
-        internal static readonly string NhsNumberPrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.NhsNumberPrimitiveAttribute));
-        internal static readonly string OdsCodePrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.OdsCodePrimitiveAttribute));
-        internal static readonly string PostcodePrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.PostcodePrimitiveAttribute));
         internal static readonly string StringPrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.StringPrimitiveAttribute));
 
         internal static Dictionary<string, string> GetEmbeddedResources() => new()
@@ -31,9 +28,6 @@ internal static class EmbeddedResources
             { nameof(DateOnlyAttribute), DateOnlyAttribute },
             { nameof(GuidAttribute), GuidAttribute },
             { nameof(IPrimitive), IPrimitive },
-            { nameof(NhsNumberPrimitiveAttribute), NhsNumberPrimitiveAttribute },
-            { nameof(OdsCodePrimitiveAttribute), OdsCodePrimitiveAttribute },
-            { nameof(PostcodePrimitiveAttribute), PostcodePrimitiveAttribute },
             { nameof(StringPrimitiveAttribute), StringPrimitiveAttribute }
         };
     }

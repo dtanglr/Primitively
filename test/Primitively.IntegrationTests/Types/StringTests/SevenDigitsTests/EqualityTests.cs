@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types.StringTests.GphcNumberTests;
+namespace Primitively.IntegrationTests.Types.StringTests.SevenDigitsTests;
 
 public class EqualityTests
 {
@@ -15,12 +15,12 @@ public class EqualityTests
     [InlineData(Value)]
     public void WhenTheSameType_ThisEqualsThat(string value)
     {
-        var @this = GphcNumber.Parse(value);
-        var that = GphcNumber.Parse(value);
+        var @this = SevenDigits.Parse(value);
+        var that = SevenDigits.Parse(value);
 
         // This == That
         @this.Equals(that).Should().BeTrue();
-        @this.Equals((GphcNumber)that.Value).Should().BeTrue();
+        @this.Equals((SevenDigits)that.Value).Should().BeTrue();
         @this.Value?.Equals(that).Should().BeTrue();
         @this.Value?.Equals(that.Value).Should().BeTrue();
         (@this == that).Should().BeTrue();
@@ -30,7 +30,7 @@ public class EqualityTests
 
         // That == This
         that.Equals(@this).Should().BeTrue();
-        that.Equals((GphcNumber)@this.Value).Should().BeTrue();
+        that.Equals((SevenDigits)@this.Value).Should().BeTrue();
         that.Value?.Equals(@this).Should().BeTrue();
         that.Value?.Equals(@this.Value).Should().BeTrue();
         (that == @this).Should().BeTrue();
@@ -42,8 +42,8 @@ public class EqualityTests
     [Fact]
     public void WhenTheSameType_ThisDoesNotEqualThat()
     {
-        var @this = GphcNumber.Parse(Value);
-        var that = GphcNumber.Parse(OtherValue);
+        var @this = SevenDigits.Parse(Value);
+        var that = SevenDigits.Parse(OtherValue);
 
         // This == That
         @this.Equals(that).Should().BeFalse();
@@ -55,9 +55,9 @@ public class EqualityTests
         // That == This
         that.Equals(@this).Should().BeFalse();
         (that == @this).Should().BeFalse();
-        (that == (GphcNumber)@this.Value).Should().BeFalse();
+        (that == (SevenDigits)@this.Value).Should().BeFalse();
         (that != @this).Should().BeTrue();
-        (that != (GphcNumber)@this.Value).Should().BeTrue();
+        (that != (SevenDigits)@this.Value).Should().BeTrue();
     }
 
     [Theory]
@@ -66,8 +66,8 @@ public class EqualityTests
     [InlineData(Value)]
     public void WhenTheOtherTypeWithSameValueType_ThisNotEqualsThat(string value)
     {
-        var @this = GphcNumber.Parse(value);
-        var that = Postcode.Parse(value);
+        var @this = SevenDigits.Parse(value);
+        var that = EightDigits.Parse(value);
 
         // This != That
         @this.Equals(that).Should().BeFalse();

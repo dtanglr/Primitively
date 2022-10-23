@@ -1,13 +1,7 @@
 ﻿namespace Primitively.IntegrationTests.Types;
 
-[NhsNumberPrimitive]
-public partial record struct NhsNumber;
+[StringPrimitive(7, Pattern = "^[0-9]{7}$", Example = "1234567")]
+public partial record struct SevenDigits;
 
-[OdsCodePrimitive]
-public partial record struct NominatedPharmacyCode;
-
-[PostcodePrimitive]
-public partial record struct Postcode;
-
-[StringPrimitive(7, Pattern = "^[0-9]{7}$", Example = "37263546")]
-public partial record struct GphcNumber;
+[StringPrimitive(8, Pattern = "^[0-9]{8}$", Example = "12345678")]
+public partial record struct EightDigits;

@@ -14,18 +14,12 @@ internal static class Parser
 {
     public const string DateOnlyAttribute = $"{nameof(Primitively)}.{nameof(Primitively.DateOnlyAttribute)}";
     public const string GuidAttribute = $"{nameof(Primitively)}.{nameof(Primitively.GuidAttribute)}";
-    public const string NhsNumberPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.NhsNumberPrimitiveAttribute)}";
-    public const string OdsCodePrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.OdsCodePrimitiveAttribute)}";
-    public const string PostcodePrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.PostcodePrimitiveAttribute)}";
     public const string StringPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.StringPrimitiveAttribute)}";
 
     private static readonly List<string> _attributeFullNames = new()
     {
         DateOnlyAttribute,
         GuidAttribute,
-        NhsNumberPrimitiveAttribute,
-        OdsCodePrimitiveAttribute,
-        PostcodePrimitiveAttribute,
         StringPrimitiveAttribute
     };
 
@@ -128,33 +122,6 @@ internal static class Parser
                             Length = Constants.Guid.Default.Length,
                             Example = Constants.Guid.Default.Example,
                             Format = Constants.Guid.Default.Format
-                        };
-                        break;
-                    case nameof(Primitively.NhsNumberPrimitiveAttribute):
-                        typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.NhsNumber, name, nameSpace, parentClass)
-                        {
-                            MinLength = Constants.StringPrimitive.NhsNumber.Length,
-                            MaxLength = Constants.StringPrimitive.NhsNumber.Length,
-                            Example = Constants.StringPrimitive.NhsNumber.Example,
-                            Pattern = Constants.StringPrimitive.NhsNumber.Pattern
-                        };
-                        break;
-                    case nameof(Primitively.OdsCodePrimitiveAttribute):
-                        typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.String, name, nameSpace, parentClass)
-                        {
-                            MinLength = Constants.StringPrimitive.OdsCode.MinLength,
-                            MaxLength = Constants.StringPrimitive.OdsCode.MaxLength,
-                            Example = Constants.StringPrimitive.OdsCode.Example,
-                            Pattern = Constants.StringPrimitive.OdsCode.Pattern
-                        };
-                        break;
-                    case nameof(Primitively.PostcodePrimitiveAttribute):
-                        typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.String, name, nameSpace, parentClass)
-                        {
-                            MinLength = Constants.StringPrimitive.Postcode.MinLength,
-                            MaxLength = Constants.StringPrimitive.Postcode.MaxLength,
-                            Example = Constants.StringPrimitive.Postcode.Example,
-                            Pattern = Constants.StringPrimitive.Postcode.Pattern
                         };
                         break;
                     case nameof(Primitively.StringPrimitiveAttribute):
