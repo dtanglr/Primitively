@@ -14,13 +14,13 @@ internal static class Parser
 {
     public const string DateOnlyAttribute = $"{nameof(Primitively)}.{nameof(Primitively.DateOnlyAttribute)}";
     public const string GuidAttribute = $"{nameof(Primitively)}.{nameof(Primitively.GuidAttribute)}";
-    public const string StringAttribute = $"{nameof(Primitively)}.{nameof(Primitively.StringAttribute)}";
+    public const string StringPrimitiveAttribute = $"{nameof(Primitively)}.{nameof(Primitively.StringPrimitiveAttribute)}";
 
     private static readonly List<string> _attributeFullNames = new()
     {
         DateOnlyAttribute,
         GuidAttribute,
-        StringAttribute
+        StringPrimitiveAttribute
     };
 
     public static bool IsRecordStructTargetForGeneration(SyntaxNode node) =>
@@ -124,7 +124,7 @@ internal static class Parser
                             Format = Constants.Guid.Default.Format
                         };
                         break;
-                    case nameof(Primitively.StringAttribute):
+                    case nameof(Primitively.StringPrimitiveAttribute):
                         typeToGenerate = new PrimitiveRecordStruct(PrimitiveType.String, name, nameSpace, parentClass);
                         isMisconfigured = !TrySetFromPrimitiveAttributeArguments(attribute, typeToGenerate);
                         break;
@@ -223,13 +223,13 @@ internal static class Parser
 
             switch (key)
             {
-                case nameof(Primitively.StringAttribute.Example):
+                case nameof(Primitively.StringPrimitiveAttribute.Example):
                     type.Example = value;
                     break;
-                case nameof(Primitively.StringAttribute.Format):
+                case nameof(Primitively.StringPrimitiveAttribute.Format):
                     type.Format = value;
                     break;
-                case nameof(Primitively.StringAttribute.Pattern):
+                case nameof(Primitively.StringPrimitiveAttribute.Pattern):
                     type.Pattern = value;
                     break;
             }

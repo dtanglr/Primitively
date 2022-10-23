@@ -20,7 +20,7 @@ internal static class EmbeddedResources
         internal static readonly string DateOnlyAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.DateOnlyAttribute));
         internal static readonly string GuidAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.GuidAttribute));
         internal static readonly string IPrimitive = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.IPrimitive));
-        internal static readonly string StringAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.StringAttribute));
+        internal static readonly string StringPrimitiveAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.StringPrimitiveAttribute));
 
         internal static Dictionary<string, string> GetEmbeddedResources() => new()
         {
@@ -28,7 +28,7 @@ internal static class EmbeddedResources
             { nameof(DateOnlyAttribute), DateOnlyAttribute },
             { nameof(GuidAttribute), GuidAttribute },
             { nameof(IPrimitive), IPrimitive },
-            { nameof(StringAttribute), StringAttribute }
+            { nameof(StringPrimitiveAttribute), StringPrimitiveAttribute }
         };
     }
 
@@ -52,6 +52,9 @@ internal static class EmbeddedResources
         internal static readonly string DefaultPartialMethods = GetEmbeddedResource(nameof(String), nameof(DefaultPartialMethods));
         internal static readonly string JsonConverter = GetEmbeddedResource(nameof(String), nameof(JsonConverter));
         internal static readonly string TypeConverter = GetEmbeddedResource(nameof(String), nameof(TypeConverter));
+
+        // Customisations: replacing DefaultPartialMethods
+        internal static readonly string NhsNumberMethods = GetEmbeddedResource(nameof(String), nameof(NhsNumberMethods));
     }
 
     private static string GetEmbeddedResource(params string[] names)
