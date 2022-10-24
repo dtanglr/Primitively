@@ -23,3 +23,9 @@ public partial record struct SiteId;
 
 [Guid]
 public partial record struct SiteCollectionId;
+
+[Guid]
+public partial record struct ListId;
+
+[Guid]
+public partial record struct QueryId;
