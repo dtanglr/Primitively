@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Primitively;
 
-internal static class EmbeddedResources
+internal struct EmbeddedResources
 {
     private static readonly Assembly _thisAssembly = typeof(EmbeddedResources).Assembly;
 
@@ -14,7 +14,7 @@ internal static class EmbeddedResources
     internal static readonly string JsonConverterAttribute = GetEmbeddedResource(nameof(JsonConverterAttribute));
     internal static readonly string TypeConverterAttribute = GetEmbeddedResource(nameof(TypeConverterAttribute));
 
-    internal static class Abstractions
+    internal struct Abstractions
     {
         internal static readonly string Constants = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.Constants));
         internal static readonly string DateOnlyAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.DateOnlyAttribute));
@@ -32,21 +32,21 @@ internal static class EmbeddedResources
         };
     }
 
-    internal static class DateOnly
+    internal struct DateOnly
     {
         internal static readonly string Base = GetEmbeddedResource(nameof(DateOnly), nameof(Base));
         internal static readonly string JsonConverter = GetEmbeddedResource(nameof(DateOnly), nameof(JsonConverter));
         internal static readonly string TypeConverter = GetEmbeddedResource(nameof(DateOnly), nameof(TypeConverter));
     }
 
-    internal static class Guid
+    internal struct Guid
     {
         internal static readonly string Base = GetEmbeddedResource(nameof(Guid), nameof(Base));
         internal static readonly string JsonConverter = GetEmbeddedResource(nameof(Guid), nameof(JsonConverter));
         internal static readonly string TypeConverter = GetEmbeddedResource(nameof(Guid), nameof(TypeConverter));
     }
 
-    internal static class String
+    internal struct String
     {
         internal static readonly string Base = GetEmbeddedResource(nameof(String), nameof(Base));
         internal static readonly string DefaultPartialMethods = GetEmbeddedResource(nameof(String), nameof(DefaultPartialMethods));
@@ -70,9 +70,4 @@ internal static class EmbeddedResources
 
         return reader.ReadToEnd();
     }
-
-    private static string MakeInternal(this string resource)
-        => resource.Replace("public sealed", "internal sealed")
-                   .Replace("public enum", "internal enum")
-                   .Replace("public interface", "internal interface");
 }

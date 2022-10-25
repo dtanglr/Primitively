@@ -1,6 +1,6 @@
 ﻿namespace Primitively;
 
-internal record PrimitiveRecordStruct(PrimitiveType PrimitiveType, string Name, string NameSpace, ParentClass? Parent)
+internal record RecordStructData(DataType DataType, string Name, string NameSpace, ParentData? ParentData)
 {
     public int Length { get; set; }
     public int MinLength { get; set; }

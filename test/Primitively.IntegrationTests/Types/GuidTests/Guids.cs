@@ -1,31 +1,19 @@
 ﻿namespace Primitively.IntegrationTests.Types;
 
 [Guid]
-public partial record struct GuidId1;
-
-[Guid]
-public partial record struct GuidId2;
-
-[Guid]
-public partial record struct GuidId3;
-
-[Guid]
-public partial record struct GuidId4;
-
-[Guid]
 public partial record struct CorrelationId;
 
-[Guid]
+[Guid(Specifier.D)]
 public partial record struct RequestId;
 
-[Guid]
+[Guid(Specifier.N)]
 public partial record struct SiteId;
 
-[Guid]
+[Guid(Specifier.B)]
 public partial record struct SiteCollectionId;
 
-[Guid]
+[Guid(Specifier.N)]
 public partial record struct ListId;
 
-[Guid]
+[Guid(Specifier.X)]
 public partial record struct QueryId;
