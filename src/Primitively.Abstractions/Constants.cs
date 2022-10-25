@@ -9,7 +9,7 @@ public class Constants
         public struct Iso8601
         {
             public const int Length = 10;
-            public const string Example = "2022-01-01";
+            public const string Example = "2022-12-31";
             public const string Format = "yyyy-MM-dd";
         }
     }
