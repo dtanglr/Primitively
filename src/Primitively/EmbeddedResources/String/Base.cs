@@ -1,5 +1,7 @@
-﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IPrimitive<string>, System.IEquatable<PRIMITIVE_TYPE>
+﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IString, System.IEquatable<PRIMITIVE_TYPE>
 {
+    private readonly string _value;
+
     public const string Pattern = @"PRIMITIVE_PATTERN";
     public const string Example = @"PRIMITIVE_EXAMPLE";
     public const string Format = @"PRIMITIVE_FORMAT";
@@ -10,22 +12,22 @@
     {
         PreMatchCheck(ref value);
 
-        if (!IsMatch(value)) return;
+        if (!IsMatch(value))
+        {
+            _value = default;
+
+            return;
+        }
 
         PostMatchCheck(ref value);
 
-        Value = value;
+        _value = value;
     }
 
-    public bool HasValue => Value != default;
-
-    public string Value { get; } = default;
-
-    public bool Equals(PRIMITIVE_TYPE other) => Value == other.Value;
-
-    public override int GetHashCode() => Value?.GetHashCode() ?? 0;
-
-    public override string ToString() => Value;
+    public bool HasValue => _value != default;
+    public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
+    public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+    public override string ToString() => _value;
 
     public static implicit operator string(PRIMITIVE_TYPE value) => value.ToString();
     public static explicit operator PRIMITIVE_TYPE(string value) => new(value);

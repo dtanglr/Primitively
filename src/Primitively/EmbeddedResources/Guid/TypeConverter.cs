@@ -28,7 +28,7 @@ public class PRIMITIVE_TYPETypeConverter : System.ComponentModel.TypeConverter
         {
             if (destinationType == typeof(System.Guid))
             {
-                return primitive.Value;
+                return (System.Guid)primitive;
             }
 
             if (destinationType == typeof(string))

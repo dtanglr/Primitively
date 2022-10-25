@@ -1,33 +1,30 @@
-﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IPrimitive<System.Guid>, System.IEquatable<PRIMITIVE_TYPE>
+﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IGuid, System.IEquatable<PRIMITIVE_TYPE>
 {
+    private readonly System.Guid _value;
+
     public const string Example = @"PRIMITIVE_EXAMPLE";
     public const string Format = @"PRIMITIVE_FORMAT"; // "N", "D", "B", "P", or "X"
     public const int Length = PRIMITIVE_LENGTH;
 
     public PRIMITIVE_TYPE(System.Guid value)
     {
-        Value = value;
+        _value = value;
     }
 
     private PRIMITIVE_TYPE(string value)
     {
-        if (!System.Guid.TryParseExact(value, Format, out var guid)) return;
+        System.Guid.TryParseExact(value, Format, out var guid);
 
-        Value = guid;
+        _value = guid;
     }
 
-    public bool HasValue => Value != default;
-
-    public System.Guid Value { get; } = default;
-
-    public bool Equals(PRIMITIVE_TYPE other) => Value == other.Value;
-
-    public override int GetHashCode() => Value.GetHashCode();
-
-    public override string ToString() => Value.ToString(Format);
+    public bool HasValue => _value != default;
+    public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
+    public override int GetHashCode() => _value.GetHashCode();
+    public override string ToString() => _value.ToString(Format);
 
     public static implicit operator string(PRIMITIVE_TYPE value) => value.ToString();
-    public static implicit operator System.Guid(PRIMITIVE_TYPE value) => value.Value;
+    public static implicit operator System.Guid(PRIMITIVE_TYPE value) => value._value;
     public static explicit operator PRIMITIVE_TYPE(System.Guid value) => new(value);
     public static explicit operator PRIMITIVE_TYPE(string value) => new(value);
 

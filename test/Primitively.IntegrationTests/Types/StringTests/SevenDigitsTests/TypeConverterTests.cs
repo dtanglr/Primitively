@@ -1,5 +1,5 @@
 ﻿namespace Primitively.IntegrationTests.Types.StringTests.SevenDigitsTests;
 
-public class TypeConverterTests : TypeConverterTests<SevenDigitsTypeConverter, SevenDigits, string>
+public class TypeConverterTests : TypeConverterTests<SevenDigitsTypeConverter, SevenDigits>
 {
 }

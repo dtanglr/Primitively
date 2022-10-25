@@ -23,11 +23,9 @@ public class ImplicitOperatorAndParserTests
         var that = SevenDigits.Parse(to);
 
         @this.HasValue.Should().Be(hasValue);
-        @this.Value.Should().Be(expected);
         @this.ToString().Should().Be(expected);
         to.Should().Be(expected);
         that.HasValue.Should().Be(hasValue);
-        that.Value.Should().Be(expected);
         that.ToString().Should().Be(expected);
     }
 }

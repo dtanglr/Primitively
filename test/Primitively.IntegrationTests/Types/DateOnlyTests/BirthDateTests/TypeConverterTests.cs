@@ -2,6 +2,6 @@
 
 namespace Primitively.IntegrationTests.Types.DateOnlyTests.BirthDateTests;
 
-public class TypeConverterTests : TypeConverterTests<BirthDateTypeConverter, BirthDate, DateOnly>
+public class TypeConverterTests : TypeConverterTests<BirthDateTypeConverter, BirthDate>
 {
 }

@@ -19,7 +19,11 @@ internal struct EmbeddedResources
         internal static readonly string Constants = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.Constants));
         internal static readonly string DateOnlyAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.DateOnlyAttribute));
         internal static readonly string GuidAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.GuidAttribute));
+        internal static readonly string IDateOnly = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.IDateOnly));
+        internal static readonly string IGuid = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.IGuid));
         internal static readonly string IPrimitive = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.IPrimitive));
+        internal static readonly string IString = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.IString));
+        internal static readonly string Specifier = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.Specifier));
         internal static readonly string StringAttribute = GetEmbeddedResource(nameof(Abstractions), nameof(Primitively.StringAttribute));
 
         internal static Dictionary<string, string> GetEmbeddedResources() => new()
@@ -27,7 +31,11 @@ internal struct EmbeddedResources
             { nameof(Constants), Constants },
             { nameof(DateOnlyAttribute), DateOnlyAttribute },
             { nameof(GuidAttribute), GuidAttribute },
+            { nameof(IDateOnly), IDateOnly },
+            { nameof(IGuid), IGuid },
             { nameof(IPrimitive), IPrimitive },
+            { nameof(IString), IString },
+            { nameof(Specifier), Specifier },
             { nameof(StringAttribute), StringAttribute }
         };
     }

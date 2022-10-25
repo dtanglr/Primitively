@@ -28,18 +28,18 @@ public class ImplicitOperatorAndParserTests
         var @this = (BirthDate)from;
         string to = @this;
         var that = BirthDate.Parse(to);
-        var and = new BirthDate(that.Value);
+        var and = new BirthDate(that);
         string back = and;
 
         @this.HasValue.Should().Be(hasValue);
-        @this.Value.Should().Be(expectedDateOnly);
+        ((DateOnly)@this).Should().Be(expectedDateOnly);
         @this.ToString().Should().Be(expectedString);
         to.Should().Be(expectedString);
         that.HasValue.Should().Be(hasValue);
-        that.Value.Should().Be(expectedDateOnly);
+        ((DateOnly)that).Should().Be(expectedDateOnly);
         that.ToString().Should().Be(expectedString);
         and.HasValue.Should().Be(hasValue);
-        and.Value.Should().Be(expectedDateOnly);
+        ((DateOnly)and).Should().Be(expectedDateOnly);
         and.ToString().Should().Be(expectedString);
         back.Should().Be(expectedString);
     }

@@ -22,18 +22,18 @@ public class ImplicitOperatorAndParserTests
         var @this = (CorrelationId)from;
         string to = @this;
         var that = CorrelationId.Parse(to);
-        var and = new CorrelationId(that.Value);
+        var and = new CorrelationId(that);
         string back = and;
 
         @this.HasValue.Should().Be(hasValue);
-        @this.Value.Should().Be(expectedGuid);
+        ((Guid)@this).Should().Be(expectedGuid);
         @this.ToString().Should().Be(expectedString);
         to.Should().Be(expectedString);
         that.HasValue.Should().Be(hasValue);
-        that.Value.Should().Be(expectedGuid);
+        ((Guid)that).Should().Be(expectedGuid);
         that.ToString().Should().Be(expectedString);
         and.HasValue.Should().Be(hasValue);
-        and.Value.Should().Be(expectedGuid);
+        ((Guid)and).Should().Be(expectedGuid);
         and.ToString().Should().Be(expectedString);
         back.Should().Be(expectedString);
     }

@@ -2,7 +2,7 @@
 
 namespace Primitively.IntegrationTests.Types.DateOnlyTests.BirthDateTests;
 
-public class JsonConverterTests : JsonConverterTests<BirthDateJsonConverter, BirthDate, DateOnly>
+public class JsonConverterTests : JsonConverterTests<BirthDateJsonConverter, BirthDate>
 {
-    protected override BirthDate PrimitiveWithValue => BirthDate.Parse("2022-01-01");
+    protected override BirthDate PrimitiveWithValue => (BirthDate)BirthDate.Example;
 }

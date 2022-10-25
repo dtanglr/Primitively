@@ -40,6 +40,7 @@ internal class GuidParser
         }
 
         var args = attributeData.ConstructorArguments;
+
         if (args.Length > 1 || args.Any(a => a.Kind == TypedConstantKind.Error))
         {
             return false;

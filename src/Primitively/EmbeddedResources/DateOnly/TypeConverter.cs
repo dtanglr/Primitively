@@ -31,7 +31,7 @@ public class PRIMITIVE_TYPETypeConverter : System.ComponentModel.TypeConverter
         {
             if (destinationType == typeof(System.DateOnly))
             {
-                return primitive.Value;
+                return (System.DateOnly)primitive;
             }
 
             if (destinationType == typeof(string))

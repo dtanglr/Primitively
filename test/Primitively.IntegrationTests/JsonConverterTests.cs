@@ -8,9 +8,9 @@ using Xunit;
 
 namespace Primitively.IntegrationTests;
 
-public abstract class JsonConverterTests<TJsonConverter, TPrimitive, TValueType>
+public abstract class JsonConverterTests<TJsonConverter, TPrimitive>
     where TJsonConverter : JsonConverter<TPrimitive>, new()
-    where TPrimitive : struct, IPrimitive<TValueType>
+    where TPrimitive : struct, IPrimitive
 {
     protected abstract TPrimitive PrimitiveWithValue { get; }
 
@@ -91,6 +91,6 @@ public abstract class JsonConverterTests<TJsonConverter, TPrimitive, TValueType>
         writer.Flush();
 
         var json = Encoding.UTF8.GetString(bytes.WrittenSpan);
-        json.Should().Be(primitive.Value is null ? "null" : $"\"{primitive}\"");
+        json.Should().Be(primitive is IString && !primitive.HasValue ? "null" : $"\"{primitive}\"");
     }
 }

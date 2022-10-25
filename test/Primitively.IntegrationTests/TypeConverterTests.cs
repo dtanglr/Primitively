@@ -9,14 +9,14 @@ using Xunit;
 
 namespace Primitively.IntegrationTests;
 
-public abstract class TypeConverterTests<TTypeConverter, TPrimitive, TValueType>
+public abstract class TypeConverterTests<TTypeConverter, TPrimitive>
    where TTypeConverter : TypeConverter, new()
-   where TPrimitive : struct, IPrimitive<TValueType>
+   where TPrimitive : struct, IPrimitive
 {
     private static readonly List<Type> _types = Assembly
        .GetExecutingAssembly()
        .GetTypes()
-       .Where(type => type.GetConstructor(Type.EmptyTypes) != null && !type.IsValueType && type != typeof(TValueType))
+       .Where(type => type.GetConstructor(Type.EmptyTypes) != null && !type.IsValueType)
        .ToList();
 
     [Fact]
@@ -29,7 +29,7 @@ public abstract class TypeConverterTests<TTypeConverter, TPrimitive, TValueType>
         converter.CanConvertFrom(new Mock<ITypeDescriptorContext>().Object, typeof(string)).Should().BeTrue();
         converter.ConvertFrom(string.Empty).Should().BeAssignableTo(typeof(TPrimitive));
 
-        if (typeof(TValueType) == typeof(DateOnly))
+        if (typeof(TPrimitive) is IDateOnly)
         {
             // Should convert from DateOnly
             converter.CanConvertFrom(new Mock<ITypeDescriptorContext>().Object, typeof(DateOnly)).Should().BeTrue();
@@ -49,7 +49,7 @@ public abstract class TypeConverterTests<TTypeConverter, TPrimitive, TValueType>
             converter.CanConvertFrom(new Mock<ITypeDescriptorContext>().Object, typeof(DateTime?)).Should().BeTrue();
             converter.ConvertFrom((DateTime?)DateTime.Now).Should().BeAssignableTo(typeof(TPrimitive));
         }
-        else if (typeof(TValueType) == typeof(Guid))
+        else if (typeof(TPrimitive) is IGuid)
         {
             // Should convert from Guid
             converter.CanConvertFrom(new Mock<ITypeDescriptorContext>().Object, typeof(Guid)).Should().BeTrue();
