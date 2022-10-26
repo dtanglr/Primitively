@@ -74,20 +74,17 @@ public class SourceGeneration : IIncrementalGenerator
             {
                 case DataType.DateOnly:
                     sb.Append(EmbeddedResources.DateOnly.Base);
-                    sb.AppendLine("}");
                     sb.Append(EmbeddedResources.DateOnly.JsonConverter);
                     sb.Append(EmbeddedResources.DateOnly.TypeConverter);
                     break;
                 case DataType.Guid:
                     sb.Append(EmbeddedResources.Guid.Base);
-                    sb.AppendLine("}");
                     sb.Append(EmbeddedResources.Guid.JsonConverter);
                     sb.Append(EmbeddedResources.Guid.TypeConverter);
                     break;
                 case DataType.String:
                     sb.Append(EmbeddedResources.String.Base);
                     sb.Append(EmbeddedResources.String.DefaultPartialMethods);
-                    sb.AppendLine("}");
                     sb.Append(EmbeddedResources.String.JsonConverter);
                     sb.Append(EmbeddedResources.String.TypeConverter);
                     break;
@@ -95,6 +92,10 @@ public class SourceGeneration : IIncrementalGenerator
                     throw new NotSupportedException($"{type.DataType} is not supported");
             }
 
+            // Add closing brace
+            sb.AppendLine("}");
+
+            // Replece variable names with values
             sb.Replace("PRIMITIVE_TYPE", type.Name);
             sb.Replace("PRIMITIVE_PATTERN", type.Pattern);
             sb.Replace("PRIMITIVE_EXAMPLE", type.Example);
@@ -103,6 +104,7 @@ public class SourceGeneration : IIncrementalGenerator
             sb.Replace("PRIMITIVE_MINLENGTH", type.MinLength.ToString());
             sb.Replace("PRIMITIVE_MAXLENGTH", type.MaxLength.ToString());
 
+            // Construct source file text from string
             var sourceText = SourceText.From(sb.ToString(), Encoding.UTF8);
             context.AddSource($"{type.Name}.g.cs", sourceText);
         }

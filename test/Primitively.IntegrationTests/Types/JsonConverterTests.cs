@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests;
+namespace Primitively.IntegrationTests.Types;
 
 public abstract class JsonConverterTests<TJsonConverter, TPrimitive>
     where TJsonConverter : JsonConverter<TPrimitive>, new()

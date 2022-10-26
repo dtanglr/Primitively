@@ -7,7 +7,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace Primitively.IntegrationTests;
+namespace Primitively.IntegrationTests.Types;
 
 public abstract class TypeConverterTests<TTypeConverter, TPrimitive>
    where TTypeConverter : TypeConverter, new()

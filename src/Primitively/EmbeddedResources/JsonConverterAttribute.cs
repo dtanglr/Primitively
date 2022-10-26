@@ -1,1 +1,1 @@
-﻿[System.Text.Json.Serialization.JsonConverter(typeof(PRIMITIVE_TYPEJsonConverter))]
+﻿[System.Text.Json.Serialization.JsonConverter(typeof(PRIMITIVE_TYPE.JsonConverter))]
