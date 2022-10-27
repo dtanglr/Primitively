@@ -1,4 +1,4 @@
-﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IString, System.IEquatable<PRIMITIVE_TYPE>, System.IComparable<PRIMITIVE_TYPE>
+﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IString, System.IEquatable<PRIMITIVE_TYPE>, System.IComparable<PRIMITIVE_TYPE>, System.ComponentModel.DataAnnotations.IValidatableObject
 {
     private readonly string _value;
 

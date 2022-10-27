@@ -92,6 +92,9 @@ public class SourceGeneration : IIncrementalGenerator
                     throw new NotSupportedException($"{type.DataType} is not supported");
             }
 
+            // Add Validate Method
+            sb.Append(EmbeddedResources.ValidateMethod);
+
             // Add closing brace
             sb.AppendLine("}");
 

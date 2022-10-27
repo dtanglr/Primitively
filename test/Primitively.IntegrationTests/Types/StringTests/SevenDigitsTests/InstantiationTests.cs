@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Primitively.IntegrationTests.Types.StringTests.SevenDigitsTests;
 
-public class ImplicitOperatorAndParserTests
+public class InstantiationTests
 {
     [Theory]
     [InlineData(null)]
