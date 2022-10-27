@@ -1,4 +1,4 @@
-﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IString, System.IEquatable<PRIMITIVE_TYPE>
+﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IString, System.IEquatable<PRIMITIVE_TYPE>, System.IComparable<PRIMITIVE_TYPE>
 {
     private readonly string _value;
 
@@ -25,8 +25,9 @@
     }
 
     public bool HasValue => _value != default;
-    public Type ValueType => typeof(string);
+    public System.Type ValueType => typeof(string);
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
+    public int CompareTo(PRIMITIVE_TYPE other) => System.String.Compare(_value, other._value, comparisonType: System.StringComparison.OrdinalIgnoreCase);
     public override int GetHashCode() => _value?.GetHashCode() ?? 0;
     public override string ToString() => _value;
 
