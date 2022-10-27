@@ -6,5 +6,5 @@ public interface IPrimitive
 {
     bool HasValue { get; }
 
-    Type ValueType { get; set; }
+    Type ValueType { get; }
 }
