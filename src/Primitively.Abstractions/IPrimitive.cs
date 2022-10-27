@@ -1,6 +1,10 @@
-﻿namespace Primitively;
+﻿using System;
+
+namespace Primitively;
 
 public interface IPrimitive
 {
     bool HasValue { get; }
+
+    Type ValueType { get; set; }
 }

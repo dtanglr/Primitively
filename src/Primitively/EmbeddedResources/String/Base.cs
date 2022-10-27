@@ -25,6 +25,7 @@
     }
 
     public bool HasValue => _value != default;
+    public Type ValueType => typeof(string);
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
     public override int GetHashCode() => _value?.GetHashCode() ?? 0;
     public override string ToString() => _value;

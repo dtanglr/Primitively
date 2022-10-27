@@ -19,6 +19,7 @@
     }
 
     public bool HasValue => _value != default;
+    public Type ValueType => typeof(System.Guid);
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
     public override int GetHashCode() => _value.GetHashCode();
     public override string ToString() => _value.ToString(Format);
