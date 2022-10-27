@@ -18,8 +18,12 @@
         _value = guid;
     }
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public bool HasValue => _value != default;
+
+    [System.Text.Json.Serialization.JsonIgnore]
     public System.Type ValueType => typeof(System.Guid);
+
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
     public int CompareTo(PRIMITIVE_TYPE other) => _value.CompareTo(other._value);
     public override int GetHashCode() => _value.GetHashCode();

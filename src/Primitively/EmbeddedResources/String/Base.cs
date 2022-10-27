@@ -24,8 +24,12 @@
         _value = value;
     }
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public bool HasValue => _value != default;
+
+    [System.Text.Json.Serialization.JsonIgnore]
     public System.Type ValueType => typeof(string);
+
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
     public int CompareTo(PRIMITIVE_TYPE other) => System.String.Compare(_value, other._value, comparisonType: System.StringComparison.OrdinalIgnoreCase);
     public override int GetHashCode() => _value?.GetHashCode() ?? 0;
