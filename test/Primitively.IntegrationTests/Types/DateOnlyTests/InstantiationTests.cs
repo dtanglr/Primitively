@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types.DateOnlyTests.BirthDateTests;
+namespace Primitively.IntegrationTests.Types.DateOnlyTests;
 
 public class InstantiationTests
 {

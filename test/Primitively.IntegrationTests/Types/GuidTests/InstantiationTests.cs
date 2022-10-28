@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types.GuidTests.CorrelationIdTests;
+namespace Primitively.IntegrationTests.Types.GuidTests;
 
 public class InstantiationTests
 {

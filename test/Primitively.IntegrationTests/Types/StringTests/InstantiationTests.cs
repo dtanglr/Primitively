@@ -1,8 +1,7 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types.StringTests.SevenDigitsTests;
+namespace Primitively.IntegrationTests.Types.StringTests;
 
 public class InstantiationTests
 {
@@ -14,6 +13,7 @@ public class InstantiationTests
     [InlineData("G7123456")]
     [InlineData("123456")]
     [InlineData("1234567", true)]
+    [InlineData("0123456", true)]
     public void ConvertFromThisToThatWithExpectedResults(string from, bool hasValue = default)
     {
         var expected = hasValue ? from.Replace(" ", string.Empty) : default;

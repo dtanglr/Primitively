@@ -1,12 +1,12 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types.DateOnlyTests.BirthDateTests;
+namespace Primitively.IntegrationTests.Types.GuidTests;
 
 public class EqualityTests
 {
-    private const string Value = "2022-01-01";
-    private const string OtherValue = "2021-01-01";
+    private const string Value = "2c48c152-7cb7-4f51-8f01-704454f36e60";
+    private const string OtherValue = "3c48c152-7cb7-4f51-8f01-704454f36e66";
 
     [Theory]
     [InlineData(null)]
@@ -15,8 +15,8 @@ public class EqualityTests
     [InlineData(Value)]
     public void WhenTheSameType_ThisEqualsThat(string value)
     {
-        var @this = BirthDate.Parse(value);
-        var that = BirthDate.Parse(value);
+        var @this = CorrelationId.Parse(value);
+        var that = CorrelationId.Parse(value);
 
         // This == That
         @this.Equals(that).Should().BeTrue();
@@ -34,8 +34,8 @@ public class EqualityTests
     [Fact]
     public void WhenTheSameType_ThisDoesNotEqualThat()
     {
-        var @this = BirthDate.Parse(Value);
-        var that = BirthDate.Parse(OtherValue);
+        var @this = CorrelationId.Parse(Value);
+        var that = CorrelationId.Parse(OtherValue);
 
         // This == That
         @this.Equals(that).Should().BeFalse();
@@ -53,8 +53,8 @@ public class EqualityTests
     [Fact]
     public void WhenTheOtherTypeWithSameValueType_ThisNotEqualsThat()
     {
-        var @this = BirthDate.Parse(Value);
-        var that = DeathDate.Parse(Value);
+        var @this = CorrelationId.Parse(Value);
+        var that = RequestId.Parse(Value);
 
         // This != That
         @this.Equals(that).Should().BeFalse();

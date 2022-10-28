@@ -1,4 +1,4 @@
-﻿namespace Primitively.IntegrationTests.Types.GuidTests.CorrelationIdTests;
+﻿namespace Primitively.IntegrationTests.Types.GuidTests;
 
 public class JsonConverterTests : JsonConverterTests<CorrelationId.JsonConverter, CorrelationId>
 {

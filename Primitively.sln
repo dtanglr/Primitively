@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Primitively.FluentValidation", "src\Primitively.FluentValidation\Primitively.FluentValidation.csproj", "{02BC9061-061D-453D-A0BE-E0152DEF039C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{DBB27B83-64B3-4FCD-A57F-BCE56AD7E0AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBB27B83-64B3-4FCD-A57F-BCE56AD7E0AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBB27B83-64B3-4FCD-A57F-BCE56AD7E0AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02BC9061-061D-453D-A0BE-E0152DEF039C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02BC9061-061D-453D-A0BE-E0152DEF039C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02BC9061-061D-453D-A0BE-E0152DEF039C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02BC9061-061D-453D-A0BE-E0152DEF039C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +51,7 @@ Global
 		{A43A3D33-EC8E-4DF3-90B8-01ECAC293ABB} = {85259CD9-4D3F-4D53-BDF4-B598410B676B}
 		{7418C4B1-9DD7-4979-AC51-62BADE6F3170} = {65B53329-4C22-4004-81AE-36F9FE861175}
 		{DBB27B83-64B3-4FCD-A57F-BCE56AD7E0AA} = {85259CD9-4D3F-4D53-BDF4-B598410B676B}
+		{02BC9061-061D-453D-A0BE-E0152DEF039C} = {85259CD9-4D3F-4D53-BDF4-B598410B676B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F8C44A9-087B-42DD-A219-45CBA101A5D0}

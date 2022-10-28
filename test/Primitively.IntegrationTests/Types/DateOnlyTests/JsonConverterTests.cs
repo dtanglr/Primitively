@@ -1,4 +1,4 @@
-﻿namespace Primitively.IntegrationTests.Types.DateOnlyTests.BirthDateTests;
+﻿namespace Primitively.IntegrationTests.Types.DateOnlyTests;
 
 public class JsonConverterTests : JsonConverterTests<BirthDate.JsonConverter, BirthDate>
 {

@@ -1,4 +1,4 @@
-﻿namespace Primitively.IntegrationTests.Types.StringTests.SevenDigitsTests;
+﻿namespace Primitively.IntegrationTests.Types.StringTests;
 
 public class JsonConverterTests : JsonConverterTests<SevenDigits.JsonConverter, SevenDigits>
 {

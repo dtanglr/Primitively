@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types.StringTests.SevenDigitsTests;
+namespace Primitively.IntegrationTests.Types.StringTests;
 
 public class EqualityTests
 {
