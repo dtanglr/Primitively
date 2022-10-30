@@ -1,4 +1,4 @@
-﻿namespace Primitively.IntegrationTests.Types;
+﻿namespace Primitively.IntegrationTests;
 
 [Guid]
 public partial record struct CorrelationId;

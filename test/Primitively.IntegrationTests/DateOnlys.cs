@@ -1,4 +1,4 @@
-﻿namespace Primitively.IntegrationTests.Types.DateOnlyTests;
+﻿namespace Primitively.IntegrationTests;
 
 [DateOnly]
 public partial record struct BirthDate;

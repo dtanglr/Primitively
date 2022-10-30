@@ -62,13 +62,11 @@ internal static class Parser
         return null;
     }
 
-    public static List<RecordStructData> GetRecordStructDataToGenerate(
-        Compilation compilation,
-        ImmutableArray<RecordDeclarationSyntax> recordStructs,
-        Action<Diagnostic> reportDiagnostic,
-        CancellationToken cancellationToken)
+    public static List<RecordStructData> GetRecordStructDataToGenerate(SourceProductionContext context, Compilation compilation, ImmutableArray<RecordDeclarationSyntax> recordStructs)
     {
         var recordStructDataToGenerate = new List<RecordStructData>();
+        var reportDiagnostic = context.ReportDiagnostic;
+        var cancellationToken = context.CancellationToken;
         var attributeSymbols = GetPrimitiveAttributeSymbols(compilation);
 
         if (attributeSymbols == null)
