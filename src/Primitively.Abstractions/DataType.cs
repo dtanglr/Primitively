@@ -1,6 +1,6 @@
 ﻿namespace Primitively;
 
-internal enum DataType
+public enum DataType
 {
     DateOnly,
     Guid,

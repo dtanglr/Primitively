@@ -65,6 +65,12 @@ internal static class Parser
     public static List<RecordStructData> GetRecordStructDataToGenerate(SourceProductionContext context, Compilation compilation, ImmutableArray<RecordDeclarationSyntax> recordStructs)
     {
         var recordStructDataToGenerate = new List<RecordStructData>();
+
+        if (recordStructs.IsDefaultOrEmpty)
+        {
+            return recordStructDataToGenerate;
+        }
+
         var reportDiagnostic = context.ReportDiagnostic;
         var cancellationToken = context.CancellationToken;
         var attributeSymbols = GetPrimitiveAttributeSymbols(compilation);

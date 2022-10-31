@@ -8,4 +8,5 @@ internal record RecordStructData(DataType DataType, string Name, string NameSpac
     public string? Pattern { get; set; }
     public string? Example { get; set; }
     public string? Format { get; set; }
+    public Specifier? Specifier { get; set; }
 }
