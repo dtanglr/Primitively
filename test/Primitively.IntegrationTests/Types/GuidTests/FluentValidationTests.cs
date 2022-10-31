@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.TestHelper;
 using Xunit;
-using static Primitively.FluentValidation.Extensions;
+using static Primitively.FluentValidation.PrimitiveFluentValidationExtensions;
 
 namespace Primitively.IntegrationTests.Types.GuidTests;
 
