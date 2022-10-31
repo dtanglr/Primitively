@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types.GuidTests;
+namespace Primitively.IntegrationTests.GuidTests;
 
 public class EqualityTests
 {

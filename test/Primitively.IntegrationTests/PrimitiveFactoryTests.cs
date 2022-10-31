@@ -5,7 +5,7 @@ using System.Reflection;
 using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types;
+namespace Primitively.IntegrationTests;
 
 public class PrimitiveFactoryTests
 {

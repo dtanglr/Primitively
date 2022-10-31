@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types.StringTests;
+namespace Primitively.IntegrationTests.StringTests;
 
 public class InstantiationTests
 {

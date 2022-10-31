@@ -3,13 +3,13 @@ using FluentValidation.TestHelper;
 using Xunit;
 using static Primitively.FluentValidation.PrimitiveFluentValidationExtensions;
 
-namespace Primitively.IntegrationTests.Types.StringTests;
+namespace Primitively.IntegrationTests.GuidTests;
 
 public class FluentValidationTests
 {
     private readonly Validator _validator;
 
-    private record Sut(SevenDigits Property, SevenDigits? NullableProperty);
+    private record Sut(CorrelationId Property, CorrelationId? NullableProperty);
 
     private class Validator : AbstractValidator<Sut> { }
 
@@ -25,13 +25,12 @@ public class FluentValidationTests
     [InlineData("")]
     [InlineData(" ")]
     [InlineData("    ")]
-    [InlineData("G7123456")]
-    [InlineData("123456")]
-    [InlineData("1234567", true, true)]
-    [InlineData("0123456", true, true)]
+    [InlineData("00000000-0000-0000-0000-000000000000")]
+    [InlineData("11f72a78-ce37-4ad1-9f87-535b2c15e94d", true, true)]
+    [InlineData("9BC12195-B4A9-4880-B526-A0BE96EDDA08", true, true)]
     public void ConvertFromThisToThatWithExpectedResults(string value, bool nonNullableIsValid = false, bool nullableIsValid = false)
     {
-        var sut = new Sut(SevenDigits.Parse(value), value is null ? null : SevenDigits.Parse(value));
+        var sut = new Sut(CorrelationId.Parse(value), value is null ? null : CorrelationId.Parse(value));
         var result = _validator.TestValidate(sut);
 
         if (nonNullableIsValid)

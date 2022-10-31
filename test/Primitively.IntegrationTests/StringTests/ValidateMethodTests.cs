@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types.DateOnlyTests;
+namespace Primitively.IntegrationTests.StringTests;
 
 public class ValidateMethodTests
 {
@@ -11,20 +11,15 @@ public class ValidateMethodTests
     [InlineData("")]
     [InlineData(" ")]
     [InlineData("    ")]
-    [InlineData("0001-01-01")]
-    [InlineData("9999-99-99")]
-    [InlineData("2022-02-31")]
-    [InlineData("2022-31-01")]
-    [InlineData("2022/01/01")]
-    [InlineData("01/01/2022")]
-    [InlineData("31/01/2022")]
-    [InlineData("01/31/2022")]
-    [InlineData("2022-01-01", true)]
+    [InlineData("G7123456")]
+    [InlineData("123456")]
+    [InlineData("1234567", true)]
+    [InlineData("0123456", true)]
     public void ConvertFromThisToThatWithExpectedResults(string value, bool isValid = false)
     {
         // Arrange
         var validationContext = new ValidationContext(this);
-        var sut = BirthDate.Parse(value);
+        var sut = SevenDigits.Parse(value);
 
         // Act
         var result = sut.Validate(validationContext);

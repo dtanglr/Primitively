@@ -1,4 +1,4 @@
-﻿namespace Primitively.IntegrationTests.Types.DateOnlyTests;
+﻿namespace Primitively.IntegrationTests.DateOnlyTests;
 
 public class TypeConverterTests : PrimitiveTypeConverterTests<BirthDate.TypeConverter, BirthDate>
 {

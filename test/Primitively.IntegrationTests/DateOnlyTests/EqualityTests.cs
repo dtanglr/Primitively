@@ -1,12 +1,12 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types.StringTests;
+namespace Primitively.IntegrationTests.DateOnlyTests;
 
 public class EqualityTests
 {
-    private const string Value = "1234567";
-    private const string OtherValue = "2345678";
+    private const string Value = "2022-01-01";
+    private const string OtherValue = "2021-01-01";
 
     [Theory]
     [InlineData(null)]
@@ -15,8 +15,8 @@ public class EqualityTests
     [InlineData(Value)]
     public void WhenTheSameType_ThisEqualsThat(string value)
     {
-        var @this = SevenDigits.Parse(value);
-        var that = SevenDigits.Parse(value);
+        var @this = BirthDate.Parse(value);
+        var that = BirthDate.Parse(value);
 
         // This == That
         @this.Equals(that).Should().BeTrue();
@@ -34,8 +34,8 @@ public class EqualityTests
     [Fact]
     public void WhenTheSameType_ThisDoesNotEqualThat()
     {
-        var @this = SevenDigits.Parse(Value);
-        var that = SevenDigits.Parse(OtherValue);
+        var @this = BirthDate.Parse(Value);
+        var that = BirthDate.Parse(OtherValue);
 
         // This == That
         @this.Equals(that).Should().BeFalse();
@@ -50,14 +50,11 @@ public class EqualityTests
         that.CompareTo(@this).Should().NotBe(0);
     }
 
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData(Value)]
-    public void WhenTheOtherTypeWithSameValueType_ThisNotEqualsThat(string value)
+    [Fact]
+    public void WhenTheOtherTypeWithSameValueType_ThisNotEqualsThat()
     {
-        var @this = SevenDigits.Parse(value);
-        var that = EightDigits.Parse(value);
+        var @this = BirthDate.Parse(Value);
+        var that = DeathDate.Parse(Value);
 
         // This != That
         @this.Equals(that).Should().BeFalse();

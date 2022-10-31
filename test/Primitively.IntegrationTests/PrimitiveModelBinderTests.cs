@@ -10,7 +10,7 @@ using Moq;
 using Primitively.AspNetCore;
 using Xunit;
 
-namespace Primitively.IntegrationTests.Types;
+namespace Primitively.IntegrationTests;
 
 public class PrimitiveModelBinderTests
 {

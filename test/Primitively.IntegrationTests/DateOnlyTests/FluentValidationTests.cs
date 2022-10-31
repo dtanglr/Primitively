@@ -3,7 +3,7 @@ using FluentValidation.TestHelper;
 using Xunit;
 using static Primitively.FluentValidation.PrimitiveFluentValidationExtensions;
 
-namespace Primitively.IntegrationTests.Types.DateOnlyTests;
+namespace Primitively.IntegrationTests.DateOnlyTests;
 
 public class FluentValidationTests
 {
