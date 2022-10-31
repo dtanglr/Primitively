@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Primitively.IntegrationTests.Types;
 
-public abstract class TypeConverterTests<TTypeConverter, TPrimitive>
+public abstract class PrimitiveTypeConverterTests<TTypeConverter, TPrimitive>
    where TTypeConverter : TypeConverter, new()
    where TPrimitive : struct, IPrimitive
 {

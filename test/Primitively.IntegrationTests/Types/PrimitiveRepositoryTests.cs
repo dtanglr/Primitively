@@ -9,22 +9,29 @@ namespace Primitively.IntegrationTests.Types;
 
 public class PrimitiveRepositoryTests
 {
+    private static readonly IEnumerable<Type> _types = Assembly
+        .GetExecutingAssembly()
+        .GetTypes()
+        .Where(t => t.IsValueType && t.IsAssignableTo(typeof(IPrimitive)));
+
+    public static IEnumerable<object[]> PrimitiveTypes()
+    {
+        static Type GetInfoType(Type type) => type switch
+        {
+            _ when type.IsAssignableTo(typeof(IDateOnly)) => typeof(DateOnlyInfo),
+            _ when type.IsAssignableTo(typeof(IGuid)) => typeof(GuidInfo),
+            _ when type.IsAssignableTo(typeof(IString)) => typeof(StringInfo),
+            _ => throw new NotImplementedException(),
+        };
+
+        foreach (var type in _types)
+        {
+            yield return new object[] { type, GetInfoType(type) };
+        }
+    }
+
     [Theory]
-    // DateOnly
-    [InlineData(typeof(BirthDate), typeof(DateOnlyInfo))]
-    [InlineData(typeof(DeathDate), typeof(DateOnlyInfo))]
-    // Guid
-    [InlineData(typeof(CorrelationId), typeof(GuidInfo))]
-    [InlineData(typeof(ListId), typeof(GuidInfo))]
-    [InlineData(typeof(QueryId), typeof(GuidInfo))]
-    [InlineData(typeof(RequestId), typeof(GuidInfo))]
-    [InlineData(typeof(SiteCollectionId), typeof(GuidInfo))]
-    // String
-    [InlineData(typeof(EightDigits), typeof(StringInfo))]
-    [InlineData(typeof(ElevenDigits), typeof(StringInfo))]
-    [InlineData(typeof(NineDigits), typeof(StringInfo))]
-    [InlineData(typeof(SevenDigits), typeof(StringInfo))]
-    [InlineData(typeof(TenDigits), typeof(StringInfo))]
+    [MemberData(nameof(PrimitiveTypes))]
     public void GetTypeMethod_ReturnsCorrectType_WhenMatchFound(Type type, Type resultType)
     {
         // Arrange
@@ -51,21 +58,7 @@ public class PrimitiveRepositoryTests
     }
 
     [Theory]
-    // DateOnly
-    [InlineData(typeof(BirthDate), typeof(DateOnlyInfo))]
-    [InlineData(typeof(DeathDate), typeof(DateOnlyInfo))]
-    // Guid
-    [InlineData(typeof(CorrelationId), typeof(GuidInfo))]
-    [InlineData(typeof(ListId), typeof(GuidInfo))]
-    [InlineData(typeof(QueryId), typeof(GuidInfo))]
-    [InlineData(typeof(RequestId), typeof(GuidInfo))]
-    [InlineData(typeof(SiteCollectionId), typeof(GuidInfo))]
-    // String
-    [InlineData(typeof(EightDigits), typeof(StringInfo))]
-    [InlineData(typeof(ElevenDigits), typeof(StringInfo))]
-    [InlineData(typeof(NineDigits), typeof(StringInfo))]
-    [InlineData(typeof(SevenDigits), typeof(StringInfo))]
-    [InlineData(typeof(TenDigits), typeof(StringInfo))]
+    [MemberData(nameof(PrimitiveTypes))]
     public void TryGetTypeMethod_ReturnsCorrectType_WhenMatchFound(Type type, Type? resultType)
     {
         // Arrange

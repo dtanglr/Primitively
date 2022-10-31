@@ -18,11 +18,6 @@ public class PrimitiveModelBinder : IModelBinder
 
     public Task BindModelAsync(ModelBindingContext bindingContext)
     {
-        if (bindingContext == null)
-        {
-            throw new ArgumentNullException(nameof(bindingContext));
-        }
-
         // Try to fetch the value of the argument by name
         var value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
         if (value == ValueProviderResult.None)

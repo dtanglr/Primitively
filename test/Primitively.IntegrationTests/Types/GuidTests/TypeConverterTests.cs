@@ -1,5 +1,5 @@
 ﻿namespace Primitively.IntegrationTests.Types.GuidTests;
 
-public class TypeConverterTests : TypeConverterTests<CorrelationId.TypeConverter, CorrelationId>
+public class TypeConverterTests : PrimitiveTypeConverterTests<CorrelationId.TypeConverter, CorrelationId>
 {
 }

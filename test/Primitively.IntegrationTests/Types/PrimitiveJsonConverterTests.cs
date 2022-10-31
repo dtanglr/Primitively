@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Primitively.IntegrationTests.Types;
 
-public abstract class JsonConverterTests<TJsonConverter, TPrimitive>
+public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
     where TJsonConverter : JsonConverter<TPrimitive>, new()
     where TPrimitive : struct, IPrimitive
 {

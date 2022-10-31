@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using FluentAssertions;
 using Xunit;
 
@@ -6,19 +9,29 @@ namespace Primitively.IntegrationTests.Types;
 
 public class PrimitiveFactoryTests
 {
+    private static readonly IEnumerable<Type> _types = Assembly
+        .GetExecutingAssembly()
+        .GetTypes()
+        .Where(t => t.IsValueType && t.IsAssignableTo(typeof(IPrimitive)));
+
+    public static IEnumerable<object[]> PrimitiveTypes()
+    {
+        static string GetExample(Type type)
+        {
+            var repo = new PrimitiveRepository();
+            repo.TryGetType(type, out var result);
+
+            return result?.Example ?? string.Empty;
+        }
+
+        foreach (var type in _types)
+        {
+            yield return new object[] { type, GetExample(type) };
+        }
+    }
+
     [Theory]
-    [InlineData(typeof(BirthDate), BirthDate.Example)]
-    [InlineData(typeof(DeathDate), DeathDate.Example)]
-    [InlineData(typeof(CorrelationId), CorrelationId.Example)]
-    [InlineData(typeof(ListId), ListId.Example)]
-    [InlineData(typeof(QueryId), QueryId.Example)]
-    [InlineData(typeof(RequestId), RequestId.Example)]
-    [InlineData(typeof(SiteCollectionId), SiteCollectionId.Example)]
-    [InlineData(typeof(EightDigits), EightDigits.Example)]
-    [InlineData(typeof(ElevenDigits), ElevenDigits.Example)]
-    [InlineData(typeof(NineDigits), NineDigits.Example)]
-    [InlineData(typeof(SevenDigits), SevenDigits.Example)]
-    [InlineData(typeof(TenDigits), TenDigits.Example)]
+    [MemberData(nameof(PrimitiveTypes))]
     public void CreateMethod_ReturnsCorrectType_WhenMatchFound(Type modelType, string value)
     {
         // Arrange
@@ -46,18 +59,7 @@ public class PrimitiveFactoryTests
     }
 
     [Theory]
-    [InlineData(typeof(BirthDate), BirthDate.Example)]
-    [InlineData(typeof(DeathDate), DeathDate.Example)]
-    [InlineData(typeof(CorrelationId), CorrelationId.Example)]
-    [InlineData(typeof(ListId), ListId.Example)]
-    [InlineData(typeof(QueryId), QueryId.Example)]
-    [InlineData(typeof(RequestId), RequestId.Example)]
-    [InlineData(typeof(SiteCollectionId), SiteCollectionId.Example)]
-    [InlineData(typeof(EightDigits), EightDigits.Example)]
-    [InlineData(typeof(ElevenDigits), ElevenDigits.Example)]
-    [InlineData(typeof(NineDigits), NineDigits.Example)]
-    [InlineData(typeof(SevenDigits), SevenDigits.Example)]
-    [InlineData(typeof(TenDigits), TenDigits.Example)]
+    [MemberData(nameof(PrimitiveTypes))]
     public void TryCreateMethod_ReturnsCorrectType_WhenMatchFound(Type modelType, string value)
     {
         // Arrange
