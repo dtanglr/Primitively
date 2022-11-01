@@ -2,7 +2,7 @@
 
 namespace Primitively.FluentValidation;
 
-public static partial class PrimitiveFluentValidationExtensions
+public static class PrimitiveFluentValidationExtensions
 {
     public static IRuleBuilderOptions<T, TProperty> MustBeValid<T, TProperty>(this IRuleBuilder<T, TProperty> builder)
         where TProperty : struct, IPrimitive

@@ -19,17 +19,17 @@ public class PrimitiveModelBinder : IModelBinder
     public Task BindModelAsync(ModelBindingContext bindingContext)
     {
         // Try to fetch the value of the argument by name
-        var value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-        if (value == ValueProviderResult.None)
+        var result = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+        if (result == ValueProviderResult.None)
         {
             return Task.CompletedTask;
         }
 
         // Sets the value for the ModelStateEntry with the specified key
-        bindingContext.ModelState.SetModelValue(bindingContext.ModelName, value);
+        bindingContext.ModelState.SetModelValue(bindingContext.ModelName, result);
 
         // Create an instance of the Primitive ModelType
-        var created = TryCreate(bindingContext.ModelType, value.FirstValue, out var model);
+        var created = TryCreate(bindingContext.ModelType, result.FirstValue, out var model);
 
         // Create a ModelBindingResult representing model binding operation outcome
         bindingContext.Result = created
@@ -39,7 +39,7 @@ public class PrimitiveModelBinder : IModelBinder
         return Task.CompletedTask;
     }
 
-    private bool TryCreate(Type type, string value, out IPrimitive? result)
+    private bool TryCreate(Type type, string? value, out IPrimitive? result)
     {
         result = null;
 

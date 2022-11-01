@@ -16,6 +16,6 @@ public class PrimitiveModelBinderProvider : IModelBinderProvider
         _factories = factories;
     }
 
-    public IModelBinder? GetBinder(ModelBinderProviderContext context) => context.Metadata.ModelType.IsAssignableTo(typeof(IPrimitive))
-        ? new PrimitiveModelBinder(_factories) : null;
+    public IModelBinder? GetBinder(ModelBinderProviderContext context) =>
+        context.Metadata.ModelType.IsAssignableTo(typeof(IPrimitive)) ? new PrimitiveModelBinder(_factories) : null;
 }
