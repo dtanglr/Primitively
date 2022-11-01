@@ -91,17 +91,12 @@ public class PrimitiveRepositoryTests
     {
         // Arrange
         var repo = new PrimitiveRepository();
-        var types = Assembly
-            .GetExecutingAssembly()
-            .GetTypes()
-            .Where(type => type.IsAssignableTo(typeof(IPrimitive)))
-            .ToList();
 
         // Act
         var result = repo.GetTypes();
 
         // Assert
-        result.Should().HaveCount(types.Count);
+        result.Should().HaveCount(_types.Count());
     }
 
     [Theory]
@@ -112,11 +107,6 @@ public class PrimitiveRepositoryTests
     {
         // Arrange
         var repo = new PrimitiveRepository();
-        var types = Assembly
-            .GetExecutingAssembly()
-            .GetTypes()
-            .Where(t => t.IsAssignableTo(typeof(IPrimitive)) && t.IsAssignableTo(type))
-            .ToList();
 
         // Act
         IReadOnlyCollection<PrimitiveInfo> result = type.Name switch
@@ -128,6 +118,6 @@ public class PrimitiveRepositoryTests
         };
 
         // Assert
-        result.Should().HaveCount(types.Count);
+        result.Should().HaveCount(_types.Where(t => t.IsAssignableTo(type)).Count());
     }
 }
