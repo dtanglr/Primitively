@@ -1,0 +1,6 @@
+﻿namespace Primitively.IntegrationTests.GuidTests.X;
+
+public class JsonConverterTests : PrimitiveJsonConverterTests<SixtyEightHexadecimalsWithHyphensAndBraces.JsonConverter, SixtyEightHexadecimalsWithHyphensAndBraces>
+{
+    protected override SixtyEightHexadecimalsWithHyphensAndBraces PrimitiveWithValue => (SixtyEightHexadecimalsWithHyphensAndBraces)SixtyEightHexadecimalsWithHyphensAndBraces.Example;
+}

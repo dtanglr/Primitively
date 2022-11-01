@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.GuidTests;
+namespace Primitively.IntegrationTests.GuidTests.N;
 
 public class InstantiationTests
 {
@@ -11,18 +11,18 @@ public class InstantiationTests
     [InlineData("")]
     [InlineData(" ")]
     [InlineData("    ")]
-    [InlineData("00000000-0000-0000-0000-000000000000")]
-    [InlineData("11f72a78-ce37-4ad1-9f87-535b2c15e94d", true)]
-    [InlineData("9BC12195-B4A9-4880-B526-A0BE96EDDA08", true)]
+    [InlineData("00000000000000000000000000000000")]
+    [InlineData("11f72a78ce374ad19f87535b2c15e94d", true)]
+    [InlineData("9BC12195B4A94880B526A0BE96EDDA08", true)]
     public void ConvertFromThisToThatWithExpectedResults(string from, bool hasValue = default)
     {
         var expectedGuid = hasValue ? Guid.Parse(from) : default;
-        var expectedString = expectedGuid.ToString("D");
+        var expectedString = expectedGuid.ToString("N");
 
-        var @this = (CorrelationId)from;
+        var @this = (ThirtyTwoDigits)from;
         string to = @this;
-        var that = CorrelationId.Parse(to);
-        var and = new CorrelationId(that);
+        var that = ThirtyTwoDigits.Parse(to);
+        var and = new ThirtyTwoDigits(that);
         string back = and;
 
         @this.HasValue.Should().Be(hasValue);

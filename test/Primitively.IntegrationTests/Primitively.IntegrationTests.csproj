@@ -30,4 +30,8 @@
     <ProjectReference Include="..\..\src\Primitively.Abstractions\Primitively.Abstractions.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="GuidTests\D\" />
+  </ItemGroup>
+
 </Project>

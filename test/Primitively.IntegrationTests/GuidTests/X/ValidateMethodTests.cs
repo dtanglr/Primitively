@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.GuidTests;
+namespace Primitively.IntegrationTests.GuidTests.X;
 
 public class ValidateMethodTests
 {
@@ -11,14 +11,14 @@ public class ValidateMethodTests
     [InlineData("")]
     [InlineData(" ")]
     [InlineData("    ")]
-    [InlineData("00000000-0000-0000-0000-000000000000")]
-    [InlineData("11f72a78-ce37-4ad1-9f87-535b2c15e94d", true)]
-    [InlineData("9BC12195-B4A9-4880-B526-A0BE96EDDA08", true)]
+    [InlineData("{0x00000000,0x0000,0x0000,{0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00}}")]
+    [InlineData("{0x2c48c152,0x7cb7,0x4f51,{0x8f,0x01,0x70,0x44,0x54,0xf3,0x6e,0x60}}", true)]
+    [InlineData("{0x2c48c152,0x7cb7,0x4f51,{0x8f,0x01,0x70,0x44,0x54,0xf3,0x6e,0x50}}", true)]
     public void ConvertFromThisToThatWithExpectedResults(string value, bool isValid = false)
     {
         // Arrange
         var validationContext = new ValidationContext(this);
-        var sut = CorrelationId.Parse(value);
+        var sut = SixtyEightHexadecimalsWithHyphensAndBraces.Parse(value);
 
         // Act
         var result = sut.Validate(validationContext);

@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.GuidTests;
+namespace Primitively.IntegrationTests.GuidTests.Default;
 
 public class EqualityTests
 {
@@ -15,8 +15,8 @@ public class EqualityTests
     [InlineData(Value)]
     public void WhenTheSameType_ThisEqualsThat(string value)
     {
-        var @this = CorrelationId.Parse(value);
-        var that = CorrelationId.Parse(value);
+        var @this = DefaultThirtySixDigitsWithHyphens.Parse(value);
+        var that = DefaultThirtySixDigitsWithHyphens.Parse(value);
 
         // This == That
         @this.Equals(that).Should().BeTrue();
@@ -34,8 +34,8 @@ public class EqualityTests
     [Fact]
     public void WhenTheSameType_ThisDoesNotEqualThat()
     {
-        var @this = CorrelationId.Parse(Value);
-        var that = CorrelationId.Parse(OtherValue);
+        var @this = DefaultThirtySixDigitsWithHyphens.Parse(Value);
+        var that = DefaultThirtySixDigitsWithHyphens.Parse(OtherValue);
 
         // This == That
         @this.Equals(that).Should().BeFalse();
@@ -53,8 +53,8 @@ public class EqualityTests
     [Fact]
     public void WhenTheOtherTypeWithSameValueType_ThisNotEqualsThat()
     {
-        var @this = CorrelationId.Parse(Value);
-        var that = RequestId.Parse(Value);
+        var @this = DefaultThirtySixDigitsWithHyphens.Parse(Value);
+        var that = ThirtySixDigitsWithHyphens.Parse(Value);
 
         // This != That
         @this.Equals(that).Should().BeFalse();
