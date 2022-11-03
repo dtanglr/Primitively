@@ -11,8 +11,9 @@ public partial class PrimitiveRepository : IPrimitiveRepository
     private static readonly Lazy<IEnumerable<PrimitiveInfo>> _types = new(GetAll, LazyThreadSafetyMode.ExecutionAndPublication);
 
     public PrimitiveInfo GetType(Type type) => _types.Value.Single(t => t.Type.Equals(type));
-
+#nullable enable
     public bool TryGetType(Type type, out PrimitiveInfo? result)
+#nullable disable
     {
         result = _types.Value.SingleOrDefault(t => t.Type.Equals(type));
 

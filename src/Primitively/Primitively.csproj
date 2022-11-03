@@ -5,7 +5,7 @@
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <Nullable>enable</Nullable>
     <PackageId>Primitively</PackageId>
-    <Description>A source generator for creating encapsulated primitive readonly record structs by decorating with a [Primitive] attribute</Description>
+    <Description>A source generator for creating encapsulated primitives to combat "Primitive Obsession"</Description>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -32,19 +32,17 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Primitively.Abstractions\Primitively.Abstractions.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Primitively.Abstractions\Primitively.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="EmbeddedResources\**\*.cs" />
     <EmbeddedResource Include="EmbeddedResources\**\*.cs" />
-    <EmbeddedResource Include="..\Primitively.Abstractions\*.cs" Link="EmbeddedResources\Abstractions\%(Filename)%(Extension)" />
   </ItemGroup>
   
   <ItemGroup>
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     <None Include="$(OutputPath)\Primitively.Abstractions.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-    <None Include="$(OutputPath)\Primitively.Abstractions.dll" Pack="true" PackagePath="lib\netstandard2.0" Visible="true" />
   </ItemGroup>
 
 </Project>

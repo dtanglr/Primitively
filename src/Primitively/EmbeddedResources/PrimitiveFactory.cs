@@ -1,6 +1,7 @@
 ﻿public partial class PrimitiveFactory : Primitively.IPrimitiveFactory
 {
-    public Primitively.IPrimitive Create(System.Type type, string value)
+#nullable enable
+    public Primitively.IPrimitive? Create(System.Type type, string? value)
     {
         var created = TryCreate(type, value, out var result);
 
@@ -12,9 +13,9 @@
         return result;
     }
 
-    public bool TryCreate(System.Type type, string value, out Primitively.IPrimitive result)
+    public bool TryCreate(System.Type type, string? value, out Primitively.IPrimitive? result)
     {
-        result = type.Name switch
+        result = type.FullName switch
         {
 PRIMITIVE_FACTORY_CASE_STATEMENTS
             _ => null
@@ -22,4 +23,5 @@ PRIMITIVE_FACTORY_CASE_STATEMENTS
 
         return result is not null;
     }
+#nullable disable
 }

@@ -10,7 +10,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <!--<PackageIcon>logo.png</PackageIcon>-->
     <PackageProjectUrl>https://github.com/dtanglr/Primitively</PackageProjectUrl>
-    <PackageTags>primitively stronglytypedid attribute generator generation codegen codegenerator codegeneration netescapades</PackageTags>
+    <PackageTags>primitively stronglytypedid primitive obsession generator generation codegen codegenerator codegeneration</PackageTags>
     <RepositoryUrl>https://github.com/dtanglr/Primitively</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
@@ -24,8 +24,8 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DebugType>embedded</DebugType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionSuffix>beta.16</VersionSuffix>
+    <VersionPrefix>1.0.22</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
     <PackageVersion Condition="'$(VersionSuffix)' == ''">$(VersionPrefix)</PackageVersion>
     <PackageVersion Condition="'$(VersionSuffix)' != ''">$(VersionPrefix)-$(VersionSuffix)</PackageVersion>
     <PackageOutputPath>$(MSBuildThisFileDirectory)artifacts</PackageOutputPath>

@@ -33,7 +33,7 @@ public class PrimitiveSchemaFilter : ISchemaFilter
             schema.Type = "string";
             schema.Properties = null;
             schema.Example = new OpenApiString(item.Example);
-            schema.Format = dateOnlyInfo.Format;
+            schema.Format = "date";
             schema.MinLength = dateOnlyInfo.Length;
             schema.MaxLength = dateOnlyInfo.Length;
 
@@ -45,7 +45,7 @@ public class PrimitiveSchemaFilter : ISchemaFilter
             schema.Type = "string";
             schema.Properties = null;
             schema.Example = new OpenApiString(item.Example);
-            schema.Format = guidInfo.Format;
+            schema.Format = "uuid";
             schema.MinLength = guidInfo.Length;
             schema.MaxLength = guidInfo.Length;
 
