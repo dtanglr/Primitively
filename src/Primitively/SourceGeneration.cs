@@ -19,7 +19,7 @@ public class SourceGeneration : IIncrementalGenerator
         var source = GetTargetSyntax(context);
         context.RegisterSourceOutput(source, (ctx, src) =>
         {
-            // Parse the C# and collect all the partial record structs decorated with a Primitively attribute
+            // Parse the c# and collect all the partial record structs decorated with a Primitively attribute
             var recordStructs = Parser.GetRecordStructDataToGenerate(ctx, src.Compilation, src.RecordStructs);
 
             // Create a c# file for each struct
@@ -151,7 +151,7 @@ public class SourceGeneration : IIncrementalGenerator
         }
         else
         {
-            // Generate a list of switch case statements
+            // Generate a list of yield return statements
             foreach (var dataType in dataTypes)
             {
                 var items = recordStructs

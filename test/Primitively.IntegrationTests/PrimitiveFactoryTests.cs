@@ -42,7 +42,7 @@ public class PrimitiveFactoryTests
 
         // Assert
         result.Should().BeOfType(modelType);
-        result.HasValue.Should().BeTrue();
+        result!.HasValue.Should().BeTrue();
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public class PrimitiveFactoryTests
 
         // Assert
         result.Should().BeOfType(modelType);
-        result.HasValue.Should().BeTrue();
+        result!.HasValue.Should().BeTrue();
         created.Should().BeTrue();
     }
 

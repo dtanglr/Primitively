@@ -16,12 +16,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3C9FCC06-4E9E-458B-81F2-D452F5708536}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
+		global.json = global.json
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.FluentValidation", "src\Primitively.FluentValidation\Primitively.FluentValidation.csproj", "{02BC9061-061D-453D-A0BE-E0152DEF039C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Primitively.AspNetCore", "src\Primitively.AspNetCore\Primitively.AspNetCore.csproj", "{046434D6-5DF6-4EB8-AA71-E6B5D6B24B54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.AspNetCore", "src\Primitively.AspNetCore\Primitively.AspNetCore.csproj", "{046434D6-5DF6-4EB8-AA71-E6B5D6B24B54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
