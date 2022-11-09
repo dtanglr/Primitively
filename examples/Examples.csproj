@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Primitively" Version="1.0.0-beta.20" PrivateAssets="All">
+    <PackageReference Include="Primitively" Version="1.0.25-beta" PrivateAssets="all">
       <ExcludeAssets>compile;runtime</ExcludeAssets>
       <TreatAsUsed>true</TreatAsUsed>
+      <IncludeAssets>build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Primitively.Abstractions" Version="1.0.0-beta.20">
+    <PackageReference Include="Primitively.Abstractions" Version="1.0.25-beta">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
   </ItemGroup>
