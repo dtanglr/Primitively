@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Primitively;
 
@@ -21,4 +20,5 @@ public sealed class GuidAttribute : Attribute
     }
 
     public Specifier Specifier { get; }
+    public bool ImplementIValidatableObject { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 
 namespace Primitively.Parsers;
@@ -28,6 +29,36 @@ internal class DateOnlyParser
             Example = MetaData.DateOnly.Iso8601.Example,
             Format = MetaData.DateOnly.Iso8601.Format
         };
+
+        return TryParseNamedArguments(attributeData, recordStructData);
+    }
+
+    private static bool TryParseNamedArguments(AttributeData attributeData, RecordStructData recordStructData)
+    {
+        if (attributeData.NamedArguments.IsEmpty)
+        {
+            return true;
+        }
+
+        var args = attributeData.NamedArguments;
+
+        if (args.Any(a => a.Value.Kind == TypedConstantKind.Error))
+        {
+            return false;
+        }
+
+        foreach (var arg in args)
+        {
+            var key = arg.Key;
+            var value = arg.Value.Value;
+
+            switch (key)
+            {
+                case nameof(DateOnlyAttribute.ImplementIValidatableObject):
+                    recordStructData.ImplementIValidatableObject = (bool?)value ?? false;
+                    break;
+            }
+        }
 
         return true;
     }

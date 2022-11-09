@@ -215,7 +215,7 @@ internal static class Parser
             kind == SyntaxKind.StructDeclaration ||
             kind == SyntaxKind.RecordDeclaration;
 
-        TypeDeclarationSyntax? parent = recordStructSymbol.Parent as TypeDeclarationSyntax;
+        var parent = recordStructSymbol.Parent as TypeDeclarationSyntax;
         ParentData? parentData = null;
 
         while (parent != null && IsAllowedKind(parent.Kind()))

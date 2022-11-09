@@ -6,7 +6,7 @@
     <Copyright>Copyright © Dtangl Limited</Copyright>
     <NeutralLanguage>en-GB</NeutralLanguage>
     <LangVersion>10.0</LangVersion>
-    <VersionPrefix>1.0.25</VersionPrefix>
+    <VersionPrefix>1.0.26</VersionPrefix>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>

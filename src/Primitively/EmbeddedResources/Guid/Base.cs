@@ -1,4 +1,4 @@
-﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IGuid, System.IEquatable<PRIMITIVE_TYPE>, System.IComparable<PRIMITIVE_TYPE>, System.ComponentModel.DataAnnotations.IValidatableObject
+﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IGuid, System.IEquatable<PRIMITIVE_TYPE>, System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
 {
     private readonly System.Guid _value;
 

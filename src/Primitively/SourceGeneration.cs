@@ -92,6 +92,7 @@ public class SourceGeneration : IIncrementalGenerator
 
             // Replace variable names with values
             sb.Replace("PRIMITIVE_TYPE", recordStruct.Name);
+            sb.Replace("PRIMITIVE_IVALIDATABLEOBJECT", recordStruct.ImplementIValidatableObject ? ", System.ComponentModel.DataAnnotations.IValidatableObject" : string.Empty);
             sb.Replace("PRIMITIVE_PATTERN", recordStruct.Pattern);
             sb.Replace("PRIMITIVE_EXAMPLE", recordStruct.Example);
             sb.Replace("PRIMITIVE_FORMAT", recordStruct.Format);

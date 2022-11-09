@@ -81,18 +81,21 @@ internal class StringParser
         foreach (var arg in args)
         {
             var key = arg.Key;
-            var value = (string?)arg.Value.Value;
+            var value = arg.Value.Value;
 
             switch (key)
             {
                 case nameof(StringAttribute.Example):
-                    recordStructData.Example = value;
+                    recordStructData.Example = (string?)value;
                     break;
                 case nameof(StringAttribute.Format):
-                    recordStructData.Format = value;
+                    recordStructData.Format = (string?)value;
                     break;
                 case nameof(StringAttribute.Pattern):
-                    recordStructData.Pattern = value;
+                    recordStructData.Pattern = (string?)value;
+                    break;
+                case nameof(StringAttribute.ImplementIValidatableObject):
+                    recordStructData.ImplementIValidatableObject = (bool?)value ?? false;
                     break;
             }
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Primitively;
 
@@ -11,4 +10,5 @@ namespace Primitively;
 [Conditional(Constants.ConditionalCompilationSymbol)]
 public sealed class DateOnlyAttribute : Attribute
 {
+    public bool ImplementIValidatableObject { get; set; }
 }

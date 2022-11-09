@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Primitively;
+﻿namespace Primitively;
 
 public interface IPrimitive
 {

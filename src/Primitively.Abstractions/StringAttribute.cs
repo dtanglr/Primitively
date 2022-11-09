@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Primitively;
 
@@ -49,4 +48,5 @@ public sealed class StringAttribute : Attribute
     public string? Example { get; set; }
     public string? Format { get; set; }
 #nullable disable
+    public bool ImplementIValidatableObject { get; set; }
 }

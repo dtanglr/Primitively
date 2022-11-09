@@ -17,3 +17,6 @@ public partial record struct ThirtyEightDigitsWithHyphensAndParentheses;
 
 [Guid(Specifier.X)]
 public partial record struct SixtyEightHexadecimalsWithHyphensAndBraces;
+
+[Guid(ImplementIValidatableObject = true)]
+public partial record struct ValidatableGuid;

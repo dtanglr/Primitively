@@ -25,7 +25,12 @@ internal class GuidParser
 
         recordStructData = new RecordStructData(DataType.Guid, name, nameSpace, parentData);
 
-        return TryParseConstructorArguments(attributeData, recordStructData);
+        if (!TryParseConstructorArguments(attributeData, recordStructData))
+        {
+            return false;
+        }
+
+        return TryParseNamedArguments(attributeData, recordStructData);
     }
 
     private static bool TryParseConstructorArguments(AttributeData attributeData, RecordStructData recordStructData)
@@ -81,6 +86,36 @@ internal class GuidParser
                 recordStructData.Length = MetaData.Guid.D.Length;
                 recordStructData.Specifier = Specifier.D;
                 break;
+        }
+
+        return true;
+    }
+
+    private static bool TryParseNamedArguments(AttributeData attributeData, RecordStructData recordStructData)
+    {
+        if (attributeData.NamedArguments.IsEmpty)
+        {
+            return true;
+        }
+
+        var args = attributeData.NamedArguments;
+
+        if (args.Any(a => a.Value.Kind == TypedConstantKind.Error))
+        {
+            return false;
+        }
+
+        foreach (var arg in args)
+        {
+            var key = arg.Key;
+            var value = arg.Value.Value;
+
+            switch (key)
+            {
+                case nameof(GuidAttribute.ImplementIValidatableObject):
+                    recordStructData.ImplementIValidatableObject = (bool?)value ?? false;
+                    break;
+            }
         }
 
         return true;
