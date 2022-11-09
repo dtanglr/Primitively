@@ -6,38 +6,51 @@
     <Copyright>Copyright © Dtangl Limited</Copyright>
     <NeutralLanguage>en-GB</NeutralLanguage>
     <LangVersion>10.0</LangVersion>
+    <VersionPrefix>1.0.25</VersionPrefix>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>logo.png</PackageIcon>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>primitively stronglytypedid primitive obsession primitiveobsession generator generation codegen codegenerator codegeneration source sourcegen sourcegenerator</PackageTags>
     <PackageProjectUrl>https://github.com/dtanglr/Primitively</PackageProjectUrl>
-    <PackageTags>primitively stronglytypedid primitive obsession generator generation codegen codegenerator codegeneration</PackageTags>
     <RepositoryUrl>https://github.com/dtanglr/Primitively</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <Deterministic>true</Deterministic>
     <ContinuousIntegrationBuild Condition="'$(TF_BUILD)' == 'true'">true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <DebugType>embedded</DebugType>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <VersionPrefix>1.0.23</VersionPrefix>
     <VersionSuffix>beta</VersionSuffix>
-    <PackageVersion Condition="'$(VersionSuffix)' == ''">$(VersionPrefix)</PackageVersion>
-    <PackageVersion Condition="'$(VersionSuffix)' != ''">$(VersionPrefix)-$(VersionSuffix)</PackageVersion>
-    <PackageOutputPath>$(MSBuildThisFileDirectory)artifacts</PackageOutputPath>
+    <PackageVersion>$(VersionPrefix)-$(VersionSuffix)</PackageVersion>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
+    <VersionSuffix></VersionSuffix>
+    <PackageVersion>$(VersionPrefix)</PackageVersion>
   </PropertyGroup>
 
   <PropertyGroup>
-    <NoPackageAnalysis>true</NoPackageAnalysis>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)artifacts</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)logo.png" Pack="true" PackagePath="\"/>
-    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\"/>
+    <None Include="$(MSBuildThisFileDirectory)logo.png" Pack="true" PackagePath="\">
+      <Visible>false</Visible>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)icon.png" Pack="true" PackagePath="\">
+      <Visible>false</Visible>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\">
+      <Visible>false</Visible>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

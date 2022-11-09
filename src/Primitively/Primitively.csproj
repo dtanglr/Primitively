@@ -5,7 +5,7 @@
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <Nullable>enable</Nullable>
     <PackageId>Primitively</PackageId>
-    <Description>A source generator for creating encapsulated primitives to combat "Primitive Obsession"</Description>
+    <Description>A C# source generator that promotes the benefits of type-safety by encapsulating primitive types commonly used as identifiers or value objects</Description>
   </PropertyGroup>
 
   <PropertyGroup>
