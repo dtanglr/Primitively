@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Description>A library which provides ASP.NET Core Model Binding and Open Api Schema support for types produced by the Primitively C# source generator</Description>
   </PropertyGroup>
 
   <ItemGroup>

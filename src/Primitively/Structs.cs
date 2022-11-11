@@ -11,7 +11,7 @@ namespace Primitively;
 
 /// <inheritdoc />
 [Generator]
-public class SourceGeneration : IIncrementalGenerator
+public class Structs : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
