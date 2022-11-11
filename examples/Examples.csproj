@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Primitively" Version="1.0.25" PrivateAssets="all">
+    <PackageReference Include="Primitively" Version="1.0.*" PrivateAssets="all">
       <ExcludeAssets>compile;runtime</ExcludeAssets>
       <TreatAsUsed>true</TreatAsUsed>
       <IncludeAssets>build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Primitively.Abstractions" Version="1.0.25">
+    <PackageReference Include="Primitively.Abstractions" Version="1.0.*">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
   </ItemGroup>

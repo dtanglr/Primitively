@@ -33,14 +33,13 @@ public class SourceGeneration : IIncrementalGenerator
         });
     }
 
-    private static IncrementalValueProvider<(Compilation Compilation, ImmutableArray<RecordDeclarationSyntax> RecordStructs)> GetTargetSyntax(IncrementalGeneratorInitializationContext context)
+    private static IncrementalValueProvider<(Compilation Compilation, ImmutableArray<RecordDeclarationSyntax?> RecordStructs)> GetTargetSyntax(IncrementalGeneratorInitializationContext context)
     {
         // Create SyntaxProvider which sniffs out Record Structs decorated with a Primitively attribute
-        IncrementalValuesProvider<RecordDeclarationSyntax> recordDeclarationSyntaxProvider = context.SyntaxProvider
+        var recordDeclarationSyntaxProvider = context.SyntaxProvider
             .CreateSyntaxProvider(
                 predicate: static (node, _) => Parser.IsRecordStructTargetForGeneration(node),
-                transform: static (context, cancellationToken) => Parser.GetRecordStructSemanticTargetForGeneration(context, cancellationToken))
-            .Where(static m => m is not null)!;
+                transform: static (ctx, cancellationToken) => Parser.GetRecordStructSemanticTargetForGeneration(ctx, cancellationToken));
 
         var targets = recordDeclarationSyntaxProvider.Collect();
         var compilationAndValues = context.CompilationProvider.Combine(targets);

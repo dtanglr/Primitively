@@ -32,18 +32,30 @@ internal static class Parser
     public static RecordDeclarationSyntax? GetRecordStructSemanticTargetForGeneration(GeneratorSyntaxContext context, CancellationToken cancellationToken)
     {
         // We know the node is a RecordDeclarationSyntax thanks to IsRecordStructTargetForGeneration
-        var syntaxDeclaration = (RecordDeclarationSyntax)context.Node;
+        if (context.Node is not RecordDeclarationSyntax syntaxDeclaration)
+        {
+            return null;
+        }
 
         // Loop through all the attributes on the Record Struct
         foreach (var attributeListSyntax in syntaxDeclaration.AttributeLists)
         {
+            if (attributeListSyntax is null)
+            {
+                continue;
+            }
+
             foreach (var attributeSyntax in attributeListSyntax.Attributes)
             {
-                var symbolInfo = ModelExtensions.GetSymbolInfo(context.SemanticModel, attributeSyntax, cancellationToken);
+                if (attributeSyntax is null)
+                {
+                    continue;
+                }
+
+                var symbolInfo = context.SemanticModel.GetSymbolInfo(attributeSyntax, cancellationToken);
 
                 if (symbolInfo.Symbol is not IMethodSymbol attributeSymbol)
                 {
-                    // Weird, we couldn't get the symbol, so ignore it
                     continue;
                 }
 
@@ -62,7 +74,7 @@ internal static class Parser
         return null;
     }
 
-    public static List<RecordStructData> GetRecordStructDataToGenerate(SourceProductionContext context, Compilation compilation, ImmutableArray<RecordDeclarationSyntax> recordStructs)
+    public static List<RecordStructData> GetRecordStructDataToGenerate(SourceProductionContext context, Compilation compilation, ImmutableArray<RecordDeclarationSyntax?> recordStructs)
     {
         var recordStructDataToGenerate = new List<RecordStructData>();
 
@@ -71,14 +83,15 @@ internal static class Parser
             return recordStructDataToGenerate;
         }
 
-        var reportDiagnostic = context.ReportDiagnostic;
-        var cancellationToken = context.CancellationToken;
         var attributeSymbols = GetPrimitiveAttributeSymbols(compilation);
 
         if (attributeSymbols == null)
         {
             return recordStructDataToGenerate;
         }
+
+        var reportDiagnostic = context.ReportDiagnostic;
+        var cancellationToken = context.CancellationToken;
 
         foreach (var recordDeclarationSyntax in recordStructs)
         {
