@@ -2,7 +2,15 @@
 
 public enum DataType
 {
+    Byte,
     DateOnly,
     Guid,
-    String
+    Int,
+    Long,
+    SByte,
+    Short,
+    String,
+    UInt,
+    ULong,
+    UShort
 }

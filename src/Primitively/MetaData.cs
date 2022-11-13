@@ -14,6 +14,21 @@ internal readonly struct MetaData
         }
     }
 
+    public readonly struct Integer
+    {
+        public readonly struct Int
+        {
+            public const string Example = "123456789";
+            public const string Format = "int32";
+        }
+
+        public readonly struct Long
+        {
+            public const string Example = "123456789";
+            public const string Format = "int64";
+        }
+    }
+
     public readonly struct Guid
     {
         public readonly struct N
