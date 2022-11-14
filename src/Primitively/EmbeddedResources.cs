@@ -30,6 +30,13 @@ internal readonly struct EmbeddedResources
         internal static readonly string TypeConverter = GetEmbeddedResource(nameof(Guid), nameof(TypeConverter));
     }
 
+    internal readonly struct Integer
+    {
+        internal static readonly string Base = GetEmbeddedResource(nameof(Integer), nameof(Base));
+        internal static readonly string JsonConverter = GetEmbeddedResource(nameof(Integer), nameof(JsonConverter));
+        internal static readonly string TypeConverter = GetEmbeddedResource(nameof(Integer), nameof(TypeConverter));
+    }
+
     internal readonly struct String
     {
         internal static readonly string Base = GetEmbeddedResource(nameof(String), nameof(Base));

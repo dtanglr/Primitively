@@ -11,7 +11,7 @@
         {
             return value switch
             {
-                string @string => PRIMITIVE_TYPE.Parse(@string),
+                string @string => new PRIMITIVE_TYPE(@string),
                 System.Guid @guid => new PRIMITIVE_TYPE(@guid),
                 _ => base.ConvertFrom(context, culture, value),
             };

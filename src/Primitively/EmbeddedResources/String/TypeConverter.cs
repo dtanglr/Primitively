@@ -8,7 +8,7 @@
         {
             return value switch
             {
-                string @string => PRIMITIVE_TYPE.Parse(@string),
+                string @string => new PRIMITIVE_TYPE(@string),
                 _ => base.ConvertFrom(context, culture, value),
             };
         }

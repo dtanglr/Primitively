@@ -6,6 +6,9 @@ internal readonly struct MetaData
 
     public readonly struct DateOnly
     {
+        public static readonly string Interface = typeof(IDateOnly).FullName;
+        public static readonly string Type = typeof(Guid).FullName;
+
         public readonly struct Iso8601
         {
             public const int Length = 10;
@@ -16,21 +19,76 @@ internal readonly struct MetaData
 
     public readonly struct Integer
     {
+        public readonly struct Byte
+        {
+            public static readonly string Interface = typeof(IByte).FullName;
+            public static readonly string Type = typeof(byte).FullName;
+            public static readonly string Example = $"{byte.MaxValue / 2}";
+            public static readonly string JsonReaderMethod = "TryGetByte";
+        }
+
+        public readonly struct SByte
+        {
+            public static readonly string Interface = typeof(ISByte).FullName;
+            public static readonly string Type = typeof(sbyte).FullName;
+            public static readonly string Example = $"{sbyte.MaxValue / 2}";
+            public static readonly string JsonReaderMethod = "TryGetSByte";
+        }
+
+        public readonly struct Short
+        {
+            public static readonly string Interface = typeof(IShort).FullName;
+            public static readonly string Type = typeof(short).FullName;
+            public static readonly string Example = $"{short.MaxValue / 2}";
+            public static readonly string JsonReaderMethod = "TryGetInt16";
+        }
+
+        public readonly struct UShort
+        {
+            public static readonly string Interface = typeof(IUShort).FullName;
+            public static readonly string Type = typeof(ushort).FullName;
+            public static readonly string Example = $"{ushort.MaxValue / 2}";
+            public static readonly string JsonReaderMethod = "TryGetUInt16";
+        }
+
         public readonly struct Int
         {
-            public const string Example = "123456789";
-            public const string Format = "int32";
+            public static readonly string Interface = typeof(IInt).FullName;
+            public static readonly string Type = typeof(int).FullName;
+            public static readonly string Example = $"{int.MaxValue / 2}";
+            public static readonly string JsonReaderMethod = "TryGetInt32";
+        }
+
+        public readonly struct UInt
+        {
+            public static readonly string Interface = typeof(IUInt).FullName;
+            public static readonly string Type = typeof(uint).FullName;
+            public static readonly string Example = $"{uint.MaxValue / 2}";
+            public static readonly string JsonReaderMethod = "TryGetUInt32";
         }
 
         public readonly struct Long
         {
-            public const string Example = "123456789";
-            public const string Format = "int64";
+            public static readonly string Interface = typeof(ILong).FullName;
+            public static readonly string Type = typeof(long).FullName;
+            public static readonly string Example = $"{long.MaxValue / 2}";
+            public static readonly string JsonReaderMethod = "TryGetInt64";
+        }
+
+        public readonly struct ULong
+        {
+            public static readonly string Interface = typeof(IULong).FullName;
+            public static readonly string Type = typeof(ulong).FullName;
+            public static readonly string Example = $"{ulong.MaxValue / 2}";
+            public static readonly string JsonReaderMethod = "TryGetUInt64";
         }
     }
 
     public readonly struct Guid
     {
+        public static readonly string Interface = typeof(IGuid).FullName;
+        public static readonly string Type = typeof(Guid).FullName;
+
         public readonly struct N
         {
             public const int Length = 32;

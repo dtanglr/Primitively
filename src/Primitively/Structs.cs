@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -15,6 +16,12 @@ public class Structs : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
+#if DEBUG
+        if (!Debugger.IsAttached)
+        {
+            //Debugger.Launch();
+        }
+#endif 
         // Register the record struct and factory class sources
         var source = GetTargetSyntax(context);
         context.RegisterSourceOutput(source, (ctx, src) =>
@@ -73,6 +80,18 @@ public class Structs : IIncrementalGenerator
                     sb.Append(EmbeddedResources.Guid.JsonConverter);
                     sb.Append(EmbeddedResources.Guid.TypeConverter);
                     break;
+                case DataType.Byte:
+                case DataType.SByte:
+                case DataType.Short:
+                case DataType.UShort:
+                case DataType.Int:
+                case DataType.UInt:
+                case DataType.Long:
+                case DataType.ULong:
+                    sb.Append(EmbeddedResources.Integer.Base);
+                    sb.Append(EmbeddedResources.Integer.JsonConverter);
+                    sb.Append(EmbeddedResources.Integer.TypeConverter);
+                    break;
                 case DataType.String:
                     sb.Append(EmbeddedResources.String.Base);
                     sb.Append(EmbeddedResources.String.DefaultPartialMethods);
@@ -91,13 +110,16 @@ public class Structs : IIncrementalGenerator
 
             // Replace variable names with values
             sb.Replace("PRIMITIVE_TYPE", recordStruct.Name);
-            sb.Replace("PRIMITIVE_IVALIDATABLEOBJECT", recordStruct.ImplementIValidatableObject ? ", System.ComponentModel.DataAnnotations.IValidatableObject" : string.Empty);
+            sb.Replace("PRIMITIVE_INTERFACE", recordStruct.Interface);
+            sb.Replace("PRIMITIVE_VALUE_TYPE", recordStruct.Type);
+            sb.Replace("PRIMITIVE_IVALIDATABLEOBJECT", recordStruct.ImplementIValidatableObject ? $", System.ComponentModel.DataAnnotations.IValidatableObject" : string.Empty);
             sb.Replace("PRIMITIVE_PATTERN", recordStruct.Pattern);
             sb.Replace("PRIMITIVE_EXAMPLE", recordStruct.Example);
             sb.Replace("PRIMITIVE_FORMAT", recordStruct.Format);
             sb.Replace("PRIMITIVE_LENGTH", recordStruct.Length.ToString());
             sb.Replace("PRIMITIVE_MINLENGTH", recordStruct.MinLength.ToString());
             sb.Replace("PRIMITIVE_MAXLENGTH", recordStruct.MaxLength.ToString());
+            sb.Replace("PRIMITIVE_JSON_READER_METHOD", recordStruct.JsonReaderMethod);
 
             // Construct source file text from string
             context.AddSource($"{recordStruct.NameSpace}.{recordStruct.Name}.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
@@ -161,6 +183,14 @@ public class Structs : IIncrementalGenerator
                     {
                         DataType.DateOnly => $"{Padding}yield return new DateOnlyInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(DateOnly), \"{rs.Example}\", \"{rs.Format}\", {rs.Length});",
                         DataType.Guid => $"{Padding}yield return new GuidInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(Guid), \"{rs.Example}\", {nameof(rs.Specifier)}.{rs.Specifier}, {rs.Length});",
+                        DataType.Byte => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.Byte)}, typeof({rs.NameSpace}.{rs.Name}), typeof(byte), \"{rs.Example}\");",
+                        DataType.SByte => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.SByte)}, typeof({rs.NameSpace}.{rs.Name}), typeof(sbyte), \"{rs.Example}\");",
+                        DataType.Short => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.Short)}, typeof({rs.NameSpace}.{rs.Name}), typeof(short), \"{rs.Example}\");",
+                        DataType.UShort => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.UShort)}, typeof({rs.NameSpace}.{rs.Name}), typeof(ushort), \"{rs.Example}\");",
+                        DataType.Int => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.Int)}, typeof({rs.NameSpace}.{rs.Name}), typeof(int), \"{rs.Example}\");",
+                        DataType.UInt => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.UInt)}, typeof({rs.NameSpace}.{rs.Name}), typeof(uint), \"{rs.Example}\");",
+                        DataType.Long => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.Long)}, typeof({rs.NameSpace}.{rs.Name}), typeof(long), \"{rs.Example}\");",
+                        DataType.ULong => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.ULong)}, typeof({rs.NameSpace}.{rs.Name}), typeof(ulong), \"{rs.Example}\");",
                         DataType.String => $"{Padding}yield return new StringInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(string), \"{rs.Example}\", \"{rs.Format}\", \"{rs.Pattern}\", {rs.MinLength}, {rs.MaxLength});",
                         _ => throw new NotImplementedException()
                     });

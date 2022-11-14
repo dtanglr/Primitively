@@ -13,15 +13,19 @@ namespace Primitively;
 
 internal static class Parser
 {
-    public const string DateOnlyAttribute = $"{nameof(Primitively)}.{nameof(Primitively.DateOnlyAttribute)}";
-    public const string GuidAttribute = $"{nameof(Primitively)}.{nameof(Primitively.GuidAttribute)}";
-    public const string StringAttribute = $"{nameof(Primitively)}.{nameof(Primitively.StringAttribute)}";
-
     private static readonly List<string> _attributeFullNames = new()
     {
-        DateOnlyAttribute,
-        GuidAttribute,
-        StringAttribute
+        typeof(DateOnlyAttribute).FullName,
+        typeof(GuidAttribute).FullName,
+        typeof(ByteAttribute).FullName,
+        typeof(SByteAttribute).FullName,
+        typeof(ShortAttribute).FullName,
+        typeof(UShortAttribute).FullName,
+        typeof(IntAttribute).FullName,
+        typeof(UIntAttribute).FullName,
+        typeof(LongAttribute).FullName,
+        typeof(ULongAttribute).FullName,
+        typeof(StringAttribute).FullName,
     };
 
     public static bool IsRecordStructTargetForGeneration(SyntaxNode node) =>
@@ -124,18 +128,21 @@ internal static class Parser
                 var parentData = GetParentData(recordDeclarationSyntax);
                 var attributeName = attributeData.AttributeClass?.Name;
 
-                switch (attributeName)
+                isMisconfigured = attributeName switch
                 {
-                    case nameof(Primitively.DateOnlyAttribute):
-                        isMisconfigured = !DateOnlyParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData);
-                        break;
-                    case nameof(Primitively.GuidAttribute):
-                        isMisconfigured = !GuidParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData);
-                        break;
-                    case nameof(Primitively.StringAttribute):
-                        isMisconfigured = !StringParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData);
-                        break;
-                }
+                    nameof(DateOnlyAttribute) => !DateOnlyParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData),
+                    nameof(GuidAttribute) => !GuidParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData),
+                    nameof(ByteAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Byte, out recordStructData),
+                    nameof(SByteAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.SByte, out recordStructData),
+                    nameof(ShortAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Short, out recordStructData),
+                    nameof(UShortAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.UShort, out recordStructData),
+                    nameof(IntAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Int, out recordStructData),
+                    nameof(UIntAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.UInt, out recordStructData),
+                    nameof(LongAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Long, out recordStructData),
+                    nameof(ULongAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.ULong, out recordStructData),
+                    nameof(StringAttribute) => !StringParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData),
+                    _ => throw new NotImplementedException(),
+                };
 
                 break;
             }
