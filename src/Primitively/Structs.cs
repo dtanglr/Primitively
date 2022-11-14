@@ -119,6 +119,8 @@ public class Structs : IIncrementalGenerator
             sb.Replace("PRIMITIVE_LENGTH", recordStruct.Length.ToString());
             sb.Replace("PRIMITIVE_MINLENGTH", recordStruct.MinLength.ToString());
             sb.Replace("PRIMITIVE_MAXLENGTH", recordStruct.MaxLength.ToString());
+            sb.Replace("PRIMITIVE_MINIMUM", recordStruct.Minimum?.ToString() ?? "0");
+            sb.Replace("PRIMITIVE_MAXIMUM", recordStruct.Maximum?.ToString() ?? "0");
             sb.Replace("PRIMITIVE_JSON_READER_METHOD", recordStruct.JsonReaderMethod);
 
             // Construct source file text from string
@@ -183,14 +185,14 @@ public class Structs : IIncrementalGenerator
                     {
                         DataType.DateOnly => $"{Padding}yield return new DateOnlyInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(DateOnly), \"{rs.Example}\", \"{rs.Format}\", {rs.Length});",
                         DataType.Guid => $"{Padding}yield return new GuidInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(Guid), \"{rs.Example}\", {nameof(rs.Specifier)}.{rs.Specifier}, {rs.Length});",
-                        DataType.Byte => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.Byte)}, typeof({rs.NameSpace}.{rs.Name}), typeof(byte), \"{rs.Example}\");",
-                        DataType.SByte => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.SByte)}, typeof({rs.NameSpace}.{rs.Name}), typeof(sbyte), \"{rs.Example}\");",
-                        DataType.Short => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.Short)}, typeof({rs.NameSpace}.{rs.Name}), typeof(short), \"{rs.Example}\");",
-                        DataType.UShort => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.UShort)}, typeof({rs.NameSpace}.{rs.Name}), typeof(ushort), \"{rs.Example}\");",
-                        DataType.Int => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.Int)}, typeof({rs.NameSpace}.{rs.Name}), typeof(int), \"{rs.Example}\");",
-                        DataType.UInt => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.UInt)}, typeof({rs.NameSpace}.{rs.Name}), typeof(uint), \"{rs.Example}\");",
-                        DataType.Long => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.Long)}, typeof({rs.NameSpace}.{rs.Name}), typeof(long), \"{rs.Example}\");",
-                        DataType.ULong => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.ULong)}, typeof({rs.NameSpace}.{rs.Name}), typeof(ulong), \"{rs.Example}\");",
+                        DataType.Byte => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.Byte)}, typeof({rs.NameSpace}.{rs.Name}), typeof(byte), \"{rs.Example}\", {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
+                        DataType.SByte => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.SByte)}, typeof({rs.NameSpace}.{rs.Name}), typeof(sbyte), \"{rs.Example}\", {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
+                        DataType.Short => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.Short)}, typeof({rs.NameSpace}.{rs.Name}), typeof(short), \"{rs.Example}\", {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
+                        DataType.UShort => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.UShort)}, typeof({rs.NameSpace}.{rs.Name}), typeof(ushort), \"{rs.Example}\", {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
+                        DataType.Int => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.Int)}, typeof({rs.NameSpace}.{rs.Name}), typeof(int), \"{rs.Example}\", {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
+                        DataType.UInt => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.UInt)}, typeof({rs.NameSpace}.{rs.Name}), typeof(uint), \"{rs.Example}\", {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
+                        DataType.Long => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.Long)}, typeof({rs.NameSpace}.{rs.Name}), typeof(long), \"{rs.Example}\", {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
+                        DataType.ULong => $"{Padding}yield return new IntegerInfo({nameof(DataType)}.{nameof(DataType.ULong)}, typeof({rs.NameSpace}.{rs.Name}), typeof(ulong), \"{rs.Example}\", {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
                         DataType.String => $"{Padding}yield return new StringInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(string), \"{rs.Example}\", \"{rs.Format}\", \"{rs.Pattern}\", {rs.MinLength}, {rs.MaxLength});",
                         _ => throw new NotImplementedException()
                     });

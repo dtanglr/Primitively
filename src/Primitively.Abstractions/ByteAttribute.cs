@@ -11,4 +11,8 @@ namespace Primitively;
 public sealed class ByteAttribute : Attribute
 {
     public bool ImplementIValidatableObject { get; set; }
+
+    public byte Minimum { get; set; } = byte.MinValue;
+
+    public byte Maximum { get; set; } = byte.MaxValue;
 }

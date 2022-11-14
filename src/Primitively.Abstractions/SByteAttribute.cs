@@ -11,4 +11,8 @@ namespace Primitively;
 public sealed class SByteAttribute : Attribute
 {
     public bool ImplementIValidatableObject { get; set; }
+
+    public sbyte Minimum { get; set; } = sbyte.MinValue;
+
+    public sbyte Maximum { get; set; } = sbyte.MaxValue;
 }

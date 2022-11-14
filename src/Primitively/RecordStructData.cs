@@ -13,4 +13,6 @@ internal record RecordStructData(DataType DataType, string Name, string NameSpac
     public string? JsonReaderMethod { get; set; }
     public Specifier? Specifier { get; set; }
     public bool ImplementIValidatableObject { get; set; }
+    public decimal? Minimum { get; set; }
+    public decimal? Maximum { get; set; }
 }

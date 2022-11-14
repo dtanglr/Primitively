@@ -11,4 +11,8 @@ namespace Primitively;
 public sealed class ShortAttribute : Attribute
 {
     public bool ImplementIValidatableObject { get; set; }
+
+    public short Minimum { get; set; } = short.MinValue;
+
+    public short Maximum { get; set; } = short.MaxValue;
 }

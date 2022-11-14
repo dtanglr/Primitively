@@ -1,19 +1,25 @@
 ﻿readonly partial record struct PRIMITIVE_TYPE : PRIMITIVE_INTERFACE, System.IEquatable<PRIMITIVE_TYPE>, System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
 {
-    private readonly PRIMITIVE_VALUE_TYPE _value;
+    private readonly PRIMITIVE_VALUE_TYPE _value = default;
 
     public const string Example = @"PRIMITIVE_EXAMPLE";
+    public const PRIMITIVE_VALUE_TYPE Minimum = PRIMITIVE_MINIMUM;
+    public const PRIMITIVE_VALUE_TYPE Maximum = PRIMITIVE_MAXIMUM;
 
     public PRIMITIVE_TYPE(PRIMITIVE_VALUE_TYPE value)
     {
-        _value = value;
+        if (value >= PRIMITIVE_MINIMUM && value <= PRIMITIVE_MAXIMUM)
+        {
+            _value = value;
+        }
     }
 
     private PRIMITIVE_TYPE(string value)
     {
-        PRIMITIVE_VALUE_TYPE.TryParse(value, out var result);
-
-        _value = result;
+        if (PRIMITIVE_VALUE_TYPE.TryParse(value, out var result) && result >= PRIMITIVE_MINIMUM && result <= PRIMITIVE_MAXIMUM)
+        {
+            _value = result;
+        }
     }
 
     [System.Text.Json.Serialization.JsonIgnore]

@@ -11,4 +11,8 @@ namespace Primitively;
 public sealed class IntAttribute : Attribute
 {
     public bool ImplementIValidatableObject { get; set; }
+
+    public int Minimum { get; set; } = int.MinValue;
+
+    public int Maximum { get; set; } = int.MaxValue;
 }

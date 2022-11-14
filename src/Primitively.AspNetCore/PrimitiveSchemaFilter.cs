@@ -23,6 +23,7 @@ public class PrimitiveSchemaFilter : ISchemaFilter
 
         var items = _primitiveInfo.Invoke();
         var item = items.SingleOrDefault(t => t.Type.Equals(type));
+
         if (item is null)
         {
             return;
@@ -61,6 +62,23 @@ public class PrimitiveSchemaFilter : ISchemaFilter
             schema.MinLength = stringInfo.MinLength;
             schema.MaxLength = stringInfo.MaxLength;
             schema.Pattern = stringInfo.Pattern;
+
+            return;
+        }
+
+        if (item is IntegerInfo integerInfo)
+        {
+            schema.Type = "integer";
+            schema.Properties = null;
+            schema.Example = new OpenApiString(item.Example);
+            schema.Minimum = integerInfo.Minimum;
+            schema.Maximum = integerInfo.Maximum;
+            schema.Format = integerInfo.DataType switch
+            {
+                DataType.Int => "int32",
+                DataType.Long => "int64",
+                _ => null
+            };
 
             return;
         }

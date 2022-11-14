@@ -130,8 +130,11 @@ internal static class Parser
 
                 isMisconfigured = attributeName switch
                 {
+                    // DateOnly
                     nameof(DateOnlyAttribute) => !DateOnlyParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData),
+                    // Guid
                     nameof(GuidAttribute) => !GuidParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData),
+                    // Integer
                     nameof(ByteAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Byte, out recordStructData),
                     nameof(SByteAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.SByte, out recordStructData),
                     nameof(ShortAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Short, out recordStructData),
@@ -140,6 +143,7 @@ internal static class Parser
                     nameof(UIntAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.UInt, out recordStructData),
                     nameof(LongAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Long, out recordStructData),
                     nameof(ULongAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.ULong, out recordStructData),
+                    // string
                     nameof(StringAttribute) => !StringParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData),
                     _ => throw new NotImplementedException(),
                 };
