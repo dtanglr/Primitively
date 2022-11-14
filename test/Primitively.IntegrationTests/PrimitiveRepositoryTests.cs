@@ -17,6 +17,7 @@ public class PrimitiveRepositoryTests
         {
             _ when type.IsAssignableTo(typeof(IDateOnly)) => typeof(DateOnlyInfo),
             _ when type.IsAssignableTo(typeof(IGuid)) => typeof(GuidInfo),
+            _ when type.IsAssignableTo(typeof(IInteger)) => typeof(IntegerInfo),
             _ when type.IsAssignableTo(typeof(IString)) => typeof(StringInfo),
             _ => throw new NotImplementedException(),
         };

@@ -1,5 +1,5 @@
 ﻿namespace Primitively;
 
-public interface IByte : IPrimitive
+public interface IByte : IInteger
 {
 }

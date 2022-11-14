@@ -26,8 +26,8 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
     public void JsonConverter_CanReadValue()
     {
         var converter = new TJsonConverter();
-        var json = $"\"{PrimitiveWithValue}\"";
-        var bytes = Encoding.UTF8.GetBytes(json);
+        var json = PrimitiveWithValue is IInteger ? PrimitiveWithValue.ToString() : $"\"{PrimitiveWithValue}\"";
+        var bytes = Encoding.UTF8.GetBytes(json!);
         var reader = new Utf8JsonReader(bytes.AsSpan());
         reader.Read();
 
@@ -40,8 +40,9 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
     public void JsonConverter_CanReadDefault()
     {
         var converter = new TJsonConverter();
-        var json = $"\"{default(TPrimitive)}\"";
-        var bytes = Encoding.UTF8.GetBytes(json);
+        var value = default(TPrimitive);
+        var json = value is IInteger ? value.ToString() : $"\"{value}\"";
+        var bytes = Encoding.UTF8.GetBytes(json!);
         var reader = new Utf8JsonReader(bytes.AsSpan());
         reader.Read();
 
@@ -53,6 +54,11 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
     [Fact]
     public void JsonConverter_CanReadNull()
     {
+        if (PrimitiveWithValue is IInteger)
+        {
+            return;
+        }
+
         var converter = new TJsonConverter();
         var json = "null";
         var bytes = Encoding.UTF8.GetBytes(json);
@@ -75,7 +81,7 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
         writer.Flush();
 
         var json = Encoding.UTF8.GetString(bytes.WrittenSpan);
-        json.Should().Be($"\"{PrimitiveWithValue}\"");
+        json.Should().Be(PrimitiveWithValue is IInteger ? PrimitiveWithValue.ToString() : $"\"{PrimitiveWithValue}\"");
     }
 
     [Fact]
@@ -90,6 +96,21 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
         writer.Flush();
 
         var json = Encoding.UTF8.GetString(bytes.WrittenSpan);
-        json.Should().Be(primitive is IString && !primitive.HasValue ? "null" : $"\"{primitive}\"");
+
+        if (primitive is IInteger)
+        {
+            json.Should().Be(primitive.ToString());
+
+            return;
+        }
+
+        if (primitive is IString && !primitive.HasValue)
+        {
+            json.Should().Be("null");
+
+            return;
+        }
+
+        json.Should().Be($"\"{primitive}\"");
     }
 }

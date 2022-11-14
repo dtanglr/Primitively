@@ -23,3 +23,6 @@ public partial record struct LongId;
 
 [ULong]
 public partial record struct ULongId;
+
+[Int(ImplementIValidatableObject = true)]
+public partial record struct ValidatableInteger;

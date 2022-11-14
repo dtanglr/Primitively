@@ -1,5 +1,5 @@
 ﻿namespace Primitively;
 
-public interface ILong : IPrimitive
+public interface ILong : IInteger
 {
 }

@@ -1,5 +1,5 @@
 ﻿namespace Primitively;
 
-public interface IShort : IPrimitive
+public interface IShort : IInteger
 {
 }
