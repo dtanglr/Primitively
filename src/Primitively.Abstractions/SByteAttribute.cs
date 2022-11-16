@@ -12,7 +12,7 @@ public sealed class SByteAttribute : Attribute
 {
     public bool ImplementIValidatableObject { get; set; }
 
-    public sbyte Minimum { get; set; } = sbyte.MinValue;
+    public sbyte Minimum { get; set; }
 
-    public sbyte Maximum { get; set; } = sbyte.MaxValue;
+    public sbyte Maximum { get; set; }
 }

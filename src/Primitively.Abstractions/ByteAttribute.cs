@@ -12,7 +12,7 @@ public sealed class ByteAttribute : Attribute
 {
     public bool ImplementIValidatableObject { get; set; }
 
-    public byte Minimum { get; set; } = byte.MinValue;
+    public byte Minimum { get; set; }
 
-    public byte Maximum { get; set; } = byte.MaxValue;
+    public byte Maximum { get; set; }
 }

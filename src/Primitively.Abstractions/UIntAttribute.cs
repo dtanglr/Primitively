@@ -12,7 +12,7 @@ public sealed class UIntAttribute : Attribute
 {
     public bool ImplementIValidatableObject { get; set; }
 
-    public uint Minimum { get; set; } = uint.MinValue;
+    public uint Minimum { get; set; }
 
-    public uint Maximum { get; set; } = uint.MaxValue;
+    public uint Maximum { get; set; }
 }

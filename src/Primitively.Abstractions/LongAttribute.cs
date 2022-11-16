@@ -12,7 +12,7 @@ public sealed class LongAttribute : Attribute
 {
     public bool ImplementIValidatableObject { get; set; }
 
-    public long Minimum { get; set; } = long.MinValue;
+    public long Minimum { get; set; }
 
-    public long Maximum { get; set; } = long.MaxValue;
+    public long Maximum { get; set; }
 }

@@ -12,7 +12,7 @@ public sealed class UShortAttribute : Attribute
 {
     public bool ImplementIValidatableObject { get; set; }
 
-    public ushort Minimum { get; set; } = ushort.MinValue;
+    public ushort Minimum { get; set; }
 
-    public ushort Maximum { get; set; } = ushort.MaxValue;
+    public ushort Maximum { get; set; }
 }

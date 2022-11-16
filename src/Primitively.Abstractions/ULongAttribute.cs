@@ -12,7 +12,7 @@ public sealed class ULongAttribute : Attribute
 {
     public bool ImplementIValidatableObject { get; set; }
 
-    public ulong Minimum { get; set; } = ulong.MinValue;
+    public ulong Minimum { get; set; }
 
-    public ulong Maximum { get; set; } = ulong.MaxValue;
+    public ulong Maximum { get; set; }
 }
