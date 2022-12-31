@@ -29,6 +29,8 @@ public class Structs : IIncrementalGenerator
             // Parse the c# and collect all the partial record structs decorated with a Primitively attribute
             var recordStructs = Parser.GetRecordStructDataToGenerate(ctx, src.Compilation, src.RecordStructs);
 
+            // TODO: Validate Integers ensuring Minimum and Maximum range is valid. If not, add Diagnostics
+
             // Create a c# file for each struct
             GenerateRecordStructFiles(ctx, recordStructs);
 
