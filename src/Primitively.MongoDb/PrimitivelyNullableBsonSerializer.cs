@@ -5,7 +5,7 @@ using static Primitively.MongoDb.PrimitivelyBson;
 
 namespace Primitively.MongoDb;
 
-public class PrimitivelyNullableBsonSerializer<TPrimitive> : SerializerBase<TPrimitive?>
+public class PrimitivelyBsonNullSerializer<TPrimitive> : SerializerBase<TPrimitive?>
     where TPrimitive : struct, IPrimitive
 {
     public override TPrimitive? Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
