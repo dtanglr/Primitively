@@ -1,11 +1,10 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using static Primitively.MongoDb.PrimitivelyBson;
 
 namespace Primitively.MongoDb;
 
-public class PrimitivelyBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
+public class PrimitiveSerializer<TPrimitive> : SerializerBase<TPrimitive>, IPrimitiveSerializer<TPrimitive>
     where TPrimitive : struct, IPrimitive
 {
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
@@ -17,11 +16,11 @@ public class PrimitivelyBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
             return new();
         }
 
-        return Deserialize<TPrimitive>(context);
+        return ((IPrimitiveSerializer<TPrimitive>)this).Deserialize(context);
     }
 
     public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
     {
-        Serialize<TPrimitive>(context, value);
+        ((IPrimitiveSerializer<TPrimitive>)this).Serialize(context, value);
     }
 }
