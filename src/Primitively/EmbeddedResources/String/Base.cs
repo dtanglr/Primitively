@@ -8,7 +8,7 @@
     public const int MinLength = PRIMITIVE_MINLENGTH;
     public const int MaxLength = PRIMITIVE_MAXLENGTH;
 
-    private PRIMITIVE_TYPE(string value)
+    public PRIMITIVE_TYPE(string value)
     {
         PreMatchCheck(ref value);
 

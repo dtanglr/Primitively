@@ -15,10 +15,10 @@ public interface IPrimitiveSerializer<TPrimitive> where TPrimitive : struct, IPr
             _ when type.IsAssignableTo(typeof(IShort)) => Convert.ToInt16(context.Reader.ReadInt32()),
             _ when type.IsAssignableTo(typeof(IUShort)) => Convert.ToUInt16(context.Reader.ReadInt32()),
             _ when type.IsAssignableTo(typeof(IInt)) => context.Reader.ReadInt32(),
-            _ when type.IsAssignableTo(typeof(IUInt)) => Convert.ToUInt32(context.Reader.ReadInt32()),
+            _ when type.IsAssignableTo(typeof(IUInt)) => Convert.ToUInt32(context.Reader.ReadInt64()),
             _ when type.IsAssignableTo(typeof(ILong)) => context.Reader.ReadInt64(),
-            _ when type.IsAssignableTo(typeof(IULong)) => Convert.ToUInt64(context.Reader.ReadInt64()),
-            _ when type.IsAssignableTo(typeof(IDateOnly)) => DateOnly.FromDateTime(Convert.ToDateTime(context.Reader.ReadDateTime())),
+            _ when type.IsAssignableTo(typeof(IULong)) => Convert.ToUInt64(context.Reader.ReadString()),
+            _ when type.IsAssignableTo(typeof(IDateOnly)) => DateOnly.Parse(context.Reader.ReadString()),
             _ when type.IsAssignableTo(typeof(IGuid)) => Guid.Parse(context.Reader.ReadString()),
             _ when type.IsAssignableTo(typeof(IString)) => context.Reader.ReadString(),
             _ => new NotImplementedException()
@@ -32,10 +32,16 @@ public interface IPrimitiveSerializer<TPrimitive> where TPrimitive : struct, IPr
         switch (value)
         {
             case ILong:
-            case IULong:
+            case IUInt:
                 {
                     _ = long.TryParse(value.ToString(), out var num);
                     context.Writer.WriteInt64(num);
+                    break;
+                }
+
+            case IULong: // Store as string because an unsigned long exceeds Mongo's Int64 maximum
+                {
+                    context.Writer.WriteString(value.ToString());
                     break;
                 }
 
@@ -46,13 +52,7 @@ public interface IPrimitiveSerializer<TPrimitive> where TPrimitive : struct, IPr
                     break;
                 }
 
-            case IDateOnly: // Store DataOnly as ticks
-                {
-                    _ = DateTime.TryParse(value.ToString(), out var dt);
-                    context.Writer.WriteDateTime(dt.Ticks);
-                    break;
-                }
-
+            case IDateOnly:
             case IGuid:
             case IString:
                 {
