@@ -2,8 +2,7 @@
 
 namespace Primitively.MongoDb;
 
-public interface IPrimitiveSerializer<TPrimitive>
-    where TPrimitive : struct, IPrimitive
+public interface IPrimitiveSerializer<TPrimitive> where TPrimitive : struct, IPrimitive
 {
     public TPrimitive Deserialize(BsonDeserializationContext context)
     {

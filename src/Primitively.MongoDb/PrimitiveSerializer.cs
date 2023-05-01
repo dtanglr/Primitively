@@ -13,6 +13,8 @@ public class PrimitiveSerializer<TPrimitive> : SerializerBase<TPrimitive>, IPrim
         {
             context.Reader.ReadNull();
 
+            // TODO: Revisit this and decide whether to throw an error instead, rather than return a
+            // struct in it's default state. 
             return new();
         }
 
