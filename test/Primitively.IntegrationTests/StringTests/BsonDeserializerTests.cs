@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using Moq;
 using Primitively.MongoDb;
 using Xunit;
@@ -60,7 +61,7 @@ public class BsonDeserializerTests
         var expected = (SevenDigits)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new NullablePrimitiveSerializer<SevenDigits>();
+        var serializer = NullableSerializer.Create(new PrimitiveSerializer<SevenDigits>());
         bsonReader.Setup(r => r.ReadString()).Returns(example);
 
         // Act
@@ -80,7 +81,7 @@ public class BsonDeserializerTests
         var expected = (SevenDigits?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new NullablePrimitiveSerializer<SevenDigits>();
+        var serializer = NullableSerializer.Create(new PrimitiveSerializer<SevenDigits>());
         bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
 
         // Act
