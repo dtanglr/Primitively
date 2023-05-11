@@ -7,20 +7,6 @@ namespace Primitively.AspNetCore;
 
 public static class PrimitiveMongoDbExtensions
 {
-    public static IServiceCollection RegisterPrimitiveBsonSerializers(this IServiceCollection services)
-    {
-        var repositories = services
-            .BuildServiceProvider()
-            .GetServices<IPrimitiveRepository>();
-
-        if (!repositories.Any())
-        {
-            return services;
-        }
-
-        return services.RegisterPrimitiveBsonSerializers(repositories.ToArray());
-    }
-
     public static IServiceCollection RegisterPrimitiveBsonSerializers(this IServiceCollection services, params IPrimitiveRepository[] repositories)
     {
         if (!repositories.Any())
@@ -28,9 +14,10 @@ public static class PrimitiveMongoDbExtensions
             return services;
         }
 
+        // Get a list of the source generated Primitively types
         var types = repositories
             .SelectMany(r => r.GetTypes())
-            .Select(p => p.ValueType)
+            .Select(p => p.Type)
             .Distinct()
             .ToList();
 
@@ -39,19 +26,34 @@ public static class PrimitiveMongoDbExtensions
             return services;
         }
 
-        foreach (var type in types)
+        foreach (var primitiveType in types)
         {
-            BsonSerializer.TryRegisterSerializer(type, CreateInstance(type));
-            BsonSerializer.TryRegisterSerializer(typeof(Nullable<>).MakeGenericType(type), NullableSerializer.Create(CreateInstance(type)));
+            // Construct a Primitively serializer of the Primitively type
+            var serializerType = typeof(PrimitiveSerializer<>).MakeGenericType(primitiveType);
+
+            // Create a Primitively serializer instance
+            var serializerInstance = CreateInstance(serializerType);
+
+            // Register a Serializer for the Primitively type
+            BsonSerializer.TryRegisterSerializer(primitiveType, serializerInstance);
+
+            // Construct a nullable version of the Primitively type
+            var nullablePrimitiveType = typeof(Nullable<>).MakeGenericType(primitiveType);
+
+            // Create a Nullable Primitively serializer instance
+            var nullableSerializerInstance = NullableSerializer.Create(CreateInstance(serializerType));
+
+            // Register a NullableSerializer for a nullable version of the Primitively type
+            BsonSerializer.TryRegisterSerializer(nullablePrimitiveType, nullableSerializerInstance);
         }
 
         return services;
     }
 
-    private static IBsonSerializer CreateInstance(Type primitiveType)
+    private static IBsonSerializer CreateInstance(Type serializerType)
     {
-        var serializerType = typeof(PrimitiveSerializer<>).MakeGenericType(primitiveType);
-        var instance = Activator.CreateInstance(serializerType) ?? throw new Exception($"Unable to create serializer instance for type: {primitiveType.FullName}");
+        var instance = Activator.CreateInstance(serializerType)
+            ?? throw new Exception($"Unable to create serializer instance for type: {serializerType.FullName}");
 
         return (IBsonSerializer)instance;
     }

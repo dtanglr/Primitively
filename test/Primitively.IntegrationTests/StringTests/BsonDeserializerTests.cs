@@ -20,6 +20,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new PrimitiveSerializer<SevenDigits>();
+        bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.String);
         bsonReader.Setup(r => r.ReadString()).Returns(example);
 
         // Act
@@ -27,6 +28,7 @@ public class BsonDeserializerTests
 
         // Assert
         result.Should().Be(expected);
+        bsonReader.Verify(r => r.CurrentBsonType, Times.Once);
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
         bsonReader.Verify(r => r.ReadString(), Times.Once);
@@ -62,6 +64,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new PrimitiveSerializer<SevenDigits>());
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.String);
         bsonReader.Setup(r => r.ReadString()).Returns(example);
 
         // Act
@@ -69,6 +72,7 @@ public class BsonDeserializerTests
 
         // Assert
         result.Should().Be(expected);
+        bsonReader.Verify(r => r.GetCurrentBsonType(), Times.Once);
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
         bsonReader.Verify(r => r.ReadString(), Times.Once);
@@ -78,18 +82,17 @@ public class BsonDeserializerTests
     public void Nullable_Primitive_Deserialises_From_Bson_Correctly_When_Bson_Null()
     {
         // Assign
-        var expected = (SevenDigits?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new PrimitiveSerializer<SevenDigits>());
-        bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
 
         // Assert
-        result.Should().Be(expected);
-        bsonReader.Verify(r => r.CurrentBsonType, Times.Once);
+        result.Should().BeNull();
+        bsonReader.Verify(r => r.GetCurrentBsonType(), Times.Once);
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
         bsonReader.Verify(r => r.ReadString(), Times.Never);

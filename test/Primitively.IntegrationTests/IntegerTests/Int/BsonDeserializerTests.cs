@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using Moq;
 using Primitively.MongoDb;
 using Xunit;
@@ -78,7 +79,7 @@ public class BsonDeserializerTests
         var expected = (IntId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new NullablePrimitiveSerializer<IntId>();
+        var serializer = NullableSerializer.Create(new PrimitiveSerializer<IntId>());
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -99,7 +100,7 @@ public class BsonDeserializerTests
         var expected = (IntId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new NullablePrimitiveSerializer<IntId>();
+        var serializer = NullableSerializer.Create(new PrimitiveSerializer<IntId>());
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -119,15 +120,15 @@ public class BsonDeserializerTests
         var expected = (IntId?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new NullablePrimitiveSerializer<IntId>();
-        bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
+        var serializer = NullableSerializer.Create(new PrimitiveSerializer<IntId>());
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
 
         // Assert
         result.Should().Be(expected);
-        bsonReader.Verify(r => r.CurrentBsonType, Times.Once);
+        bsonReader.Verify(r => r.GetCurrentBsonType(), Times.Once);
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
     }

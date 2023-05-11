@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using Moq;
 using Primitively.MongoDb;
 using Xunit;
@@ -34,7 +35,7 @@ public class BsonSerializerTests
         var expected = (BirthDate)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = new NullablePrimitiveSerializer<BirthDate>();
+        var serializer = NullableSerializer.Create(new PrimitiveSerializer<BirthDate>());
         bsonWriter.Setup(r => r.WriteString(It.IsAny<string>()));
 
         // Act
@@ -51,7 +52,7 @@ public class BsonSerializerTests
         var expected = (BirthDate?)null;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = new NullablePrimitiveSerializer<BirthDate>();
+        var serializer = NullableSerializer.Create(new PrimitiveSerializer<BirthDate>());
         bsonWriter.Setup(r => r.WriteNull());
 
         // Act
