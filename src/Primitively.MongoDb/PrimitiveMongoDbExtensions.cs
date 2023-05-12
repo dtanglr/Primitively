@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using Primitively.MongoDb;
 
-namespace Primitively.AspNetCore;
+namespace Primitively.MongoDb;
 
 public static class PrimitiveMongoDbExtensions
 {
@@ -20,7 +19,7 @@ public static class PrimitiveMongoDbExtensions
             .Select(p => p.Type)
             .ToArray();
 
-        return RegisterPrimitiveBsonSerializers(services, primitiveTypes);
+        return services.RegisterPrimitiveBsonSerializers(primitiveTypes);
     }
 
     public static IServiceCollection RegisterPrimitiveBsonSerializers(this IServiceCollection services, params Type[] primitiveTypes)

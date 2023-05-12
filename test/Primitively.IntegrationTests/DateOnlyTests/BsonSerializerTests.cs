@@ -5,7 +5,7 @@ using Moq;
 using Primitively.MongoDb;
 using Xunit;
 
-namespace Primitively.IntegrationTests.StringTests;
+namespace Primitively.IntegrationTests.DateOnlyTests;
 
 public class BsonSerializerTests
 {
