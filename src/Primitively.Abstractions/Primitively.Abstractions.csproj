@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Primitively</RootNamespace>
     <Description>A library which provides the core abstractions for the Primitively C# source generator</Description>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
