@@ -15,18 +15,22 @@ public static class PrimitiveMongoDbExtensions
         }
 
         // Get a list of the source generated Primitively types
-        var types = repositories
+        var primitiveTypes = repositories
             .SelectMany(r => r.GetTypes())
             .Select(p => p.Type)
-            .Distinct()
-            .ToList();
+            .ToArray();
 
-        if (!types.Any())
+        return RegisterPrimitiveBsonSerializers(services, primitiveTypes);
+    }
+
+    public static IServiceCollection RegisterPrimitiveBsonSerializers(this IServiceCollection services, params Type[] primitiveTypes)
+    {
+        if (!primitiveTypes.Any())
         {
             return services;
         }
 
-        foreach (var primitiveType in types)
+        foreach (var primitiveType in primitiveTypes.Where(t => t.IsAssignableTo(typeof(IPrimitive))).Distinct())
         {
             // Construct a Primitively serializer of the Primitively type
             var serializerType = typeof(PrimitiveSerializer<>).MakeGenericType(primitiveType);
@@ -41,7 +45,7 @@ public static class PrimitiveMongoDbExtensions
             var nullablePrimitiveType = typeof(Nullable<>).MakeGenericType(primitiveType);
 
             // Create a Nullable Primitively serializer instance
-            var nullableSerializerInstance = NullableSerializer.Create(CreateInstance(serializerType));
+            var nullableSerializerInstance = NullableSerializer.Create(serializerInstance);
 
             // Register a NullableSerializer for a nullable version of the Primitively type
             BsonSerializer.TryRegisterSerializer(nullablePrimitiveType, nullableSerializerInstance);

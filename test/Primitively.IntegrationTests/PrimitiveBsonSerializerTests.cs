@@ -12,10 +12,11 @@ namespace Primitively.IntegrationTests;
 public class PrimitiveBsonSerializerTests
 {
     // Use reflection to get Primitively source generated types
-    private static readonly IEnumerable<Type> _types = Assembly
+    private static readonly Type[] _types = Assembly
         .GetExecutingAssembly()
         .GetTypes()
-        .Where(t => t.IsValueType && t.IsAssignableTo(typeof(IPrimitive)));
+        .Where(t => t.IsValueType && t.IsAssignableTo(typeof(IPrimitive)))
+        .ToArray();
 
     [Fact]
     public void BsonSerializers_Types_Are_Registered_Correctly_Using_IPrimitiveRepository_Instances_In_Params()
