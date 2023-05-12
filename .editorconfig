@@ -41,10 +41,10 @@ indent_size = 2
 [*.{cs,vb}]
 
 # IDE0055: Fix formatting
-dotnet_diagnostic.IDE0055.severity = suggestion
+dotnet_diagnostic.IDE0055.severity = warning
 
 # Sort using and Import directives with System.* appearing first
-dotnet_sort_system_directives_first = true:warning
+dotnet_sort_system_directives_first = true
 dotnet_separate_import_directive_groups = false
 
 # Avoid "this." and "Me." if not necessary
