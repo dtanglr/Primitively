@@ -4,8 +4,17 @@ using MongoDB.Bson.Serialization.Serializers;
 
 namespace Primitively.MongoDb;
 
+/// <summary>
+/// Service collection extensions to register Mongo BSON serializers for Primitively source generated types
+/// </summary>
 public static class PrimitiveMongoDbExtensions
 {
+    /// <summary>
+    /// Automatically register Mongo BSON serilizers for all the types stored in each Primitive Repository provided
+    /// </summary>
+    /// <param name="services">Service Collection</param>
+    /// <param name="repositories">One or more source generated Primitive Repository classes</param>
+    /// <returns>Services collection</returns>
     public static IServiceCollection RegisterPrimitiveBsonSerializers(this IServiceCollection services, params IPrimitiveRepository[] repositories)
     {
         if (!repositories.Any())
@@ -19,9 +28,15 @@ public static class PrimitiveMongoDbExtensions
             .Select(p => p.Type)
             .ToArray();
 
-        return services.RegisterPrimitiveBsonSerializers(primitiveTypes);
+        return RegisterPrimitiveBsonSerializers(services, primitiveTypes);
     }
 
+    /// <summary>
+    /// Automatically register Mongo BSON serilizers for all the IPrimitive types provided
+    /// </summary>
+    /// <param name="services">Services Collection</param>
+    /// <param name="primitiveTypes">One or more IPrimitive types</param>
+    /// <returns>Services collection</returns>
     public static IServiceCollection RegisterPrimitiveBsonSerializers(this IServiceCollection services, params Type[] primitiveTypes)
     {
         if (!primitiveTypes.Any())
@@ -29,6 +44,7 @@ public static class PrimitiveMongoDbExtensions
             return services;
         }
 
+        // Generate and instance of a serializer and nullable serializer for each Primitively type
         foreach (var primitiveType in primitiveTypes.Where(t => t.IsAssignableTo(typeof(IPrimitive))).Distinct())
         {
             // Construct a Primitively serializer of the Primitively type
