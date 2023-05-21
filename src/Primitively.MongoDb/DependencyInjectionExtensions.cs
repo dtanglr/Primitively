@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Primitively.Configuration;
+﻿using Primitively.Configuration;
 
 namespace Primitively.MongoDb;
 
 /// <summary>
-/// Primitively Configurator extensions to register MongoDB Bson serializers for Primitively source generated types
+/// Primitively Configurator extensions to register MongoDB Bson serializers 
+/// for Primitively source generated types
 /// </summary>
 public static class DependencyInjectionExtensions
 {
@@ -16,10 +16,8 @@ public static class DependencyInjectionExtensions
     /// <returns>Configurator</returns>
     public static IPrimitivelyConfigurator UseMongoDB(
         this IPrimitivelyConfigurator configurator,
-        Action<IPrimitiveBsonSerializerBuilder> builderAction)
-    {
-        return UseMongoDB(configurator, builderAction, new PrimitivelyMongoDbOptions());
-    }
+        Action<IPrimitiveBsonSerializerBuilder> builderAction) =>
+            UseMongoDB(configurator, builderAction, new PrimitivelyMongoDbOptions());
 
     /// <summary>
     /// Register MongoDB nullable and non-nullable Bson serializers

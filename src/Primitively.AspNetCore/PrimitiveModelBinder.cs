@@ -20,6 +20,7 @@ public class PrimitiveModelBinder : IModelBinder
     {
         // Try to fetch the value of the argument by name
         var result = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+
         if (result == ValueProviderResult.None)
         {
             return Task.CompletedTask;
