@@ -19,7 +19,7 @@ public class BsonDeserializerTests
         var expected = (BirthDate)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveSerializer<BirthDate>();
+        var serializer = new PrimitiveBsonSerializer<BirthDate>();
         bsonReader.Setup(r => r.ReadString()).Returns(example);
 
         // Act
@@ -39,7 +39,7 @@ public class BsonDeserializerTests
         var expected = new BirthDate();
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveSerializer<BirthDate>();
+        var serializer = new PrimitiveBsonSerializer<BirthDate>();
         bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
 
         // Act
@@ -61,7 +61,7 @@ public class BsonDeserializerTests
         var expected = (BirthDate)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveSerializer<BirthDate>());
+        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<BirthDate>());
         bsonReader.Setup(r => r.ReadString()).Returns(example);
 
         // Act
@@ -81,7 +81,7 @@ public class BsonDeserializerTests
         var expected = (BirthDate?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveSerializer<BirthDate>());
+        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<BirthDate>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act

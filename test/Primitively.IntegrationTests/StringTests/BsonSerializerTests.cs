@@ -17,7 +17,7 @@ public class BsonSerializerTests
         var expected = (SevenDigits)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = new PrimitiveSerializer<SevenDigits>();
+        var serializer = new PrimitiveBsonSerializer<SevenDigits>();
         bsonWriter.Setup(r => r.WriteString(It.IsAny<string>()));
 
         // Act
@@ -35,7 +35,7 @@ public class BsonSerializerTests
         var expected = (SevenDigits)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveSerializer<SevenDigits>());
+        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<SevenDigits>());
         bsonWriter.Setup(r => r.WriteString(It.IsAny<string>()));
 
         // Act
@@ -52,7 +52,7 @@ public class BsonSerializerTests
         var expected = (SevenDigits?)null;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveSerializer<SevenDigits>());
+        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<SevenDigits>());
         bsonWriter.Setup(r => r.WriteNull());
 
         // Act

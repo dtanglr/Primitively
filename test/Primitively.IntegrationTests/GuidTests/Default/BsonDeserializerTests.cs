@@ -19,7 +19,7 @@ public class BsonDeserializerTests
         var expected = (DefaultThirtySixDigitsWithHyphens)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveSerializer<DefaultThirtySixDigitsWithHyphens>();
+        var serializer = new PrimitiveBsonSerializer<DefaultThirtySixDigitsWithHyphens>();
         bsonReader.Setup(r => r.ReadString()).Returns(example);
 
         // Act
@@ -39,7 +39,7 @@ public class BsonDeserializerTests
         var expected = new DefaultThirtySixDigitsWithHyphens();
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveSerializer<DefaultThirtySixDigitsWithHyphens>();
+        var serializer = new PrimitiveBsonSerializer<DefaultThirtySixDigitsWithHyphens>();
         bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
 
         // Act
@@ -61,7 +61,7 @@ public class BsonDeserializerTests
         var expected = (DefaultThirtySixDigitsWithHyphens)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveSerializer<DefaultThirtySixDigitsWithHyphens>());
+        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<DefaultThirtySixDigitsWithHyphens>());
         bsonReader.Setup(r => r.ReadString()).Returns(example);
 
         // Act
@@ -81,7 +81,7 @@ public class BsonDeserializerTests
         var expected = (DefaultThirtySixDigitsWithHyphens?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveSerializer<DefaultThirtySixDigitsWithHyphens>());
+        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<DefaultThirtySixDigitsWithHyphens>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act

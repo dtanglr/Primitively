@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Serializers;
 
 namespace Primitively.MongoDb;
 
-public class PrimitiveSerializer<TPrimitive> : SerializerBase<TPrimitive>
+public class PrimitiveBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
     where TPrimitive : struct, IPrimitive
 {
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)

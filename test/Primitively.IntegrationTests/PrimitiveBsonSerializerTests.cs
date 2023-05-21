@@ -3,6 +3,7 @@ using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using Primitively.Configuration;
 using Primitively.MongoDb;
 using Xunit;
 
@@ -24,7 +25,16 @@ public class PrimitiveBsonSerializerTests
         var services = new ServiceCollection();
 
         // Act
-        services.RegisterPrimitiveBsonSerializers(new PrimitiveRepository());
+        services.AddPrimitively(configure =>
+        {
+            // Add MongoDB support
+            configure.UseMongoDB(builder =>
+            {
+                // Generate and register BSON serializers for all the types
+                // contained in the given source generated Primitive repository
+                builder.AddBsonSerializers(_types);
+            });
+        });
 
         // Assert
         AssertThatBsonSerializersAreRegistered();
@@ -36,7 +46,7 @@ public class PrimitiveBsonSerializerTests
         {
             // Bson Serializers
             var nullableType = typeof(Nullable<>).MakeGenericType(type);
-            var serializerType = typeof(PrimitiveSerializer<>).MakeGenericType(type);
+            var serializerType = typeof(PrimitiveBsonSerializer<>).MakeGenericType(type);
             var nullableSerializerType = typeof(NullableSerializer<>).MakeGenericType(type);
 
             // Assert non-nullable serializer created

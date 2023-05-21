@@ -19,7 +19,7 @@ public class BsonDeserializerTests
         var expected = (SevenDigits)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveSerializer<SevenDigits>();
+        var serializer = new PrimitiveBsonSerializer<SevenDigits>();
         bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.String);
         bsonReader.Setup(r => r.ReadString()).Returns(example);
 
@@ -41,7 +41,7 @@ public class BsonDeserializerTests
         var expected = new SevenDigits();
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveSerializer<SevenDigits>();
+        var serializer = new PrimitiveBsonSerializer<SevenDigits>();
         bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
 
         // Act
@@ -63,7 +63,7 @@ public class BsonDeserializerTests
         var expected = (SevenDigits)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveSerializer<SevenDigits>());
+        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<SevenDigits>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.String);
         bsonReader.Setup(r => r.ReadString()).Returns(example);
 
@@ -84,7 +84,7 @@ public class BsonDeserializerTests
         // Assign
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveSerializer<SevenDigits>());
+        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<SevenDigits>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act
