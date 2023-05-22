@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Primitively.AspNetCore;
@@ -10,6 +11,36 @@ namespace Primitively.IntegrationTests;
 
 public class PrimitiveAspNetTests
 {
+    [Fact]
+    public void ModelBinder_Types_Are_Registered_Correctly_Using_IPrimitiveFactory_Instances_In_Params()
+    {
+        // Arrange
+        var services = new ServiceCollection();
+        var factory = new PrimitiveFactory();
+
+        services.AddPrimitively(configure =>
+        {
+            // Add AspNet support
+            configure.UseAspNet(builder =>
+            {
+                // Register types to be used by Model Binders
+                builder.AddModelBindersFor(factory);
+                builder.Build();
+            });
+        });
+
+        // Act
+        var serviceProvider = services.BuildServiceProvider();
+
+        // Assert
+        var options = serviceProvider.GetService<IOptions<MvcOptions>>();
+        options.Should().NotBeNull();
+        options!.Value.ModelBinderProviders.Count.Should().Be(1);
+
+        var provider = options.Value.ModelBinderProviders[0] as PrimitiveModelBinderProvider;
+        provider.Should().NotBeNull();
+    }
+
     [Fact]
     public void SwaggerSchemaFilter_Types_Are_Registered_Correctly_Using_IPrimitive_In_Params()
     {
