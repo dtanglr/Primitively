@@ -44,11 +44,17 @@ public class PrimitiveAspNetBuilder : IPrimitiveAspNetBuilder
 
     public void Build()
     {
-        _configurator.ConfigureSwaggerGen(options =>
-            options.SchemaFilter<PrimitiveSchemaFilter>(() => _infos));
+        if (_infos.Any())
+        {
+            _configurator.ConfigureSwaggerGen(options =>
+                options.SchemaFilter<PrimitiveSchemaFilter>(() => _infos));
+        }
 
-        _configurator.Configure<MvcOptions>(options =>
-            options.ModelBinderProviders.Insert(0, new PrimitiveModelBinderProvider(_factories)));
+        if (_factories.Any())
+        {
+            _configurator.Configure<MvcOptions>(options =>
+                options.ModelBinderProviders.Insert(0, new PrimitiveModelBinderProvider(_factories)));
+        }
     }
 
     private void AddPrimitiveInfo(PrimitiveInfo primitiveInfo)
