@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
@@ -11,18 +10,12 @@ namespace Primitively.IntegrationTests;
 
 public class PrimitiveBsonSerializerTests
 {
-    // Use reflection to get Primitively source generated types
-    private static readonly Type[] _types = Assembly
-        .GetExecutingAssembly()
-        .GetTypes()
-        .Where(t => t.IsValueType && t.IsAssignableTo(typeof(IPrimitive)))
-        .ToArray();
-
     [Fact]
     public void BsonSerializers_Types_Are_Registered_Correctly_Using_IPrimitiveRepository_Instances_In_Params()
     {
         // Arrange
         var services = new ServiceCollection();
+        var repository = new PrimitiveRepository();
 
         // Act
         services.AddPrimitively(configure =>
@@ -32,17 +25,17 @@ public class PrimitiveBsonSerializerTests
             {
                 // Generate and register BSON serializers for all the types
                 // contained in the given source generated Primitive repository
-                builder.AddBsonSerializers(_types);
+                builder.AddBsonSerializersFor(repository);
             });
         });
 
         // Assert
-        AssertThatBsonSerializersAreRegistered();
+        AssertThatBsonSerializersAreRegistered(repository.GetTypes().Select(t => t.Type));
     }
 
-    private static void AssertThatBsonSerializersAreRegistered()
+    private static void AssertThatBsonSerializersAreRegistered(IEnumerable<Type> types)
     {
-        foreach (var type in _types)
+        foreach (var type in types)
         {
             // Bson Serializers
             var nullableType = typeof(Nullable<>).MakeGenericType(type);
