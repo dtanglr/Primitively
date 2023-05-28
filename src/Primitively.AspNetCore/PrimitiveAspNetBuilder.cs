@@ -8,12 +8,15 @@ public class PrimitiveAspNetBuilder : IPrimitiveAspNetBuilder
 {
     private readonly List<PrimitiveInfo> _infos = new();
     private readonly List<IPrimitiveFactory> _factories = new();
-    private readonly IPrimitivelyConfigurator _configurator;
 
     public PrimitiveAspNetBuilder(IPrimitivelyConfigurator configurator)
     {
-        _configurator = configurator ?? throw new ArgumentNullException(nameof(configurator));
+        Configurator = configurator ?? throw new ArgumentNullException(nameof(configurator));
+        Configurator.ConfigureSwaggerGen(options => options.SchemaFilter<PrimitiveSchemaFilter>(() => _infos));
+        Configurator.Configure<MvcOptions>(options => options.ModelBinderProviders.Insert(0, new PrimitiveModelBinderProvider(_factories)));
     }
+
+    public IPrimitivelyConfigurator Configurator { get; }
 
     public IPrimitiveAspNetBuilder AddModelBindersFor(IPrimitiveFactory primitiveFactory)
     {
@@ -25,14 +28,33 @@ public class PrimitiveAspNetBuilder : IPrimitiveAspNetBuilder
         return this;
     }
 
-    public IPrimitiveAspNetBuilder AddSwaggerSchemaFilterFor(PrimitiveInfo primitiveInfo)
+    public IPrimitiveAspNetBuilder AddOpenApiSchemaFor(Type primitiveType)
+    {
+        if (primitiveType is null)
+        {
+            throw new ArgumentNullException(nameof(primitiveType));
+        }
+
+        if (!primitiveType.IsAssignableTo(typeof(IPrimitive)))
+        {
+            throw new ArgumentException($"The provided type does not implement: {nameof(IPrimitive)}", nameof(primitiveType));
+        }
+
+        var primitiveInfo = GetPrimitiveInfo(primitiveType);
+
+        AddPrimitiveInfo(primitiveInfo);
+
+        return this;
+    }
+
+    public IPrimitiveAspNetBuilder AddOpenApiSchemaFor(PrimitiveInfo primitiveInfo)
     {
         AddPrimitiveInfo(primitiveInfo);
 
         return this;
     }
 
-    public IPrimitiveAspNetBuilder AddSwaggerSchemaFiltersFor(IPrimitiveRepository primitiveRepository)
+    public IPrimitiveAspNetBuilder AddOpenApiSchemasFor(IPrimitiveRepository primitiveRepository)
     {
         foreach (var primitiveInfo in primitiveRepository.GetTypes())
         {
@@ -42,26 +64,21 @@ public class PrimitiveAspNetBuilder : IPrimitiveAspNetBuilder
         return this;
     }
 
-    public void Build()
-    {
-        if (_infos.Any())
-        {
-            _configurator.ConfigureSwaggerGen(options =>
-                options.SchemaFilter<PrimitiveSchemaFilter>(() => _infos));
-        }
-
-        if (_factories.Any())
-        {
-            _configurator.Configure<MvcOptions>(options =>
-                options.ModelBinderProviders.Insert(0, new PrimitiveModelBinderProvider(_factories)));
-        }
-    }
-
     private void AddPrimitiveInfo(PrimitiveInfo primitiveInfo)
     {
         if (!_infos.Contains(primitiveInfo))
         {
             _infos.Add(primitiveInfo);
         }
+    }
+
+    private static PrimitiveInfo GetPrimitiveInfo(Type primitiveType)
+    {
+        var primitiveRepositoryTypeName = $"{primitiveType.Assembly.GetName().Name}.{Constants.PrimitiveRepository}";
+        var primitiveRepositoryType = primitiveType.Assembly.GetType(primitiveRepositoryTypeName, true);
+        var primitiveRepository = Activator.CreateInstance(primitiveRepositoryType!) as IPrimitiveRepository;
+        var primitiveInfo = primitiveRepository!.GetType(primitiveType);
+
+        return primitiveInfo;
     }
 }

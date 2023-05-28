@@ -9,7 +9,7 @@ namespace Primitively.MongoDb;
 public class PrimitiveBsonSerializerBuilder : IPrimitiveBsonSerializerBuilder
 {
     /// <summary>
-    /// Automatically register MongoDB a nullable and a non-nullable Bson serializer for the provided Primitively type
+    /// Automatically register a nullable and a non-nullable Bson serializer for the provided Primitively type
     /// </summary>
     /// <param name="primitiveType">A Primitively type</param>
     public IPrimitiveBsonSerializerBuilder AddBsonSerializerFor(Type primitiveType)
@@ -31,7 +31,7 @@ public class PrimitiveBsonSerializerBuilder : IPrimitiveBsonSerializerBuilder
     }
 
     /// <summary>
-    /// Automatically register MongoDB nullable and non-nullable Bson serializers for the provided Primitively types contained in the source generated repository
+    /// Automatically register nullable and non-nullable Bson serializers for the provided Primitively types contained in the source generated repository
     /// </summary>
     /// <param name="primitiveRepository">A source generated Primitive Repository classes</param>
     public IPrimitiveBsonSerializerBuilder AddBsonSerializersFor(IPrimitiveRepository primitiveRepository)

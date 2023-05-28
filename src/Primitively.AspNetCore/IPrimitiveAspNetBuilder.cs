@@ -3,7 +3,7 @@
 public interface IPrimitiveAspNetBuilder
 {
     IPrimitiveAspNetBuilder AddModelBindersFor(IPrimitiveFactory primitiveFactory);
-    IPrimitiveAspNetBuilder AddSwaggerSchemaFilterFor(PrimitiveInfo primitiveInfo);
-    IPrimitiveAspNetBuilder AddSwaggerSchemaFiltersFor(IPrimitiveRepository primitiveRepository);
-    void Build();
+    IPrimitiveAspNetBuilder AddOpenApiSchemaFor(Type primitiveType);
+    IPrimitiveAspNetBuilder AddOpenApiSchemaFor(PrimitiveInfo primitiveInfo);
+    IPrimitiveAspNetBuilder AddOpenApiSchemasFor(IPrimitiveRepository primitiveRepository);
 }
