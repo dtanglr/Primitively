@@ -6,14 +6,24 @@ public class PrimitiveModelBinder : IModelBinder
 {
     private readonly IEnumerable<IPrimitiveFactory> _factories;
 
+    public PrimitiveModelBinder()
+    {
+        _factories = new List<IPrimitiveFactory>();
+    }
+
     public PrimitiveModelBinder(IPrimitiveFactory factory)
     {
+        if (factory is null)
+        {
+            throw new ArgumentNullException(nameof(factory));
+        }
+
         _factories = new List<IPrimitiveFactory> { factory };
     }
 
     public PrimitiveModelBinder(IEnumerable<IPrimitiveFactory> factories)
     {
-        _factories = factories;
+        _factories = factories ?? throw new ArgumentNullException(nameof(factories));
     }
 
     public Task BindModelAsync(ModelBindingContext bindingContext)
@@ -40,20 +50,35 @@ public class PrimitiveModelBinder : IModelBinder
         return Task.CompletedTask;
     }
 
-    private bool TryCreate(Type type, string? value, out IPrimitive? result)
+    private bool TryCreate(Type type, string? value, out object? result)
     {
-        result = null;
-
+        // Try the configured factories first (if any)
         foreach (var factory in _factories)
         {
-            var created = factory.TryCreate(type, value, out result);
-
-            if (created)
+            if (factory.TryCreate(type, value, out var factoryResult))
             {
+                result = factoryResult;
                 return true;
             }
         }
 
-        return false;
+        // Try to instantiate via relection/activation instead 
+        result = type switch
+        {
+            _ when type.IsAssignableTo(typeof(IULong)) => ulong.TryParse(value, out var parsed) ? Activator.CreateInstance(type, parsed) : Activator.CreateInstance(type),
+            _ when type.IsAssignableTo(typeof(ILong)) => long.TryParse(value, out var parsed) ? Activator.CreateInstance(type, parsed) : Activator.CreateInstance(type),
+            _ when type.IsAssignableTo(typeof(IUInt)) => uint.TryParse(value, out var parsed) ? Activator.CreateInstance(type, parsed) : Activator.CreateInstance(type),
+            _ when type.IsAssignableTo(typeof(IInt)) => int.TryParse(value, out var parsed) ? Activator.CreateInstance(type, parsed) : Activator.CreateInstance(type),
+            _ when type.IsAssignableTo(typeof(IUShort)) => ushort.TryParse(value, out var parsed) ? Activator.CreateInstance(type, parsed) : Activator.CreateInstance(type),
+            _ when type.IsAssignableTo(typeof(IShort)) => short.TryParse(value, out var parsed) ? Activator.CreateInstance(type, parsed) : Activator.CreateInstance(type),
+            _ when type.IsAssignableTo(typeof(IByte)) => byte.TryParse(value, out var parsed) ? Activator.CreateInstance(type, parsed) : Activator.CreateInstance(type),
+            _ when type.IsAssignableTo(typeof(ISByte)) => sbyte.TryParse(value, out var parsed) ? Activator.CreateInstance(type, parsed) : Activator.CreateInstance(type),
+            _ when type.IsAssignableTo(typeof(IDateOnly)) => DateOnly.TryParse(value, out var parsed) ? Activator.CreateInstance(type, parsed) : Activator.CreateInstance(type),
+            _ when type.IsAssignableTo(typeof(IGuid)) => Guid.TryParse(value, out var parsed) ? Activator.CreateInstance(type, parsed) : Activator.CreateInstance(type),
+            _ when type.IsAssignableTo(typeof(IString)) => Activator.CreateInstance(type, value),
+            _ => null
+        };
+
+        return result is not null;
     }
 }

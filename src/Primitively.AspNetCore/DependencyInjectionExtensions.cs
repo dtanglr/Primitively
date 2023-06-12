@@ -14,24 +14,11 @@ public static class DependencyInjectionExtensions
     /// <param name="configurator">Configurator</param>
     /// <param name="builderAction">AspNet Builder</param>
     /// <returns>Configurator</returns>
-    public static IPrimitivelyConfigurator UseAspNet(
-        this IPrimitivelyConfigurator configurator,
-        Action<IPrimitiveAspNetBuilder> builderAction) =>
-            configurator.UseAspNet(builderAction, new PrimitiveAspNetOptions(configurator));
-
-    /// <summary>
-    /// Register ASP.NET related dependencies
-    /// </summary>
-    /// <param name="configurator"><Configurator/param>
-    /// <param name="builderAction">AspNet Builder</param>
-    /// <param name="options">AspNet Options</param>
-    /// <returns>Configurator</returns>
-    public static IPrimitivelyConfigurator UseAspNet(
-        this IPrimitivelyConfigurator configurator,
-        Action<IPrimitiveAspNetBuilder> builderAction,
-        PrimitiveAspNetOptions options)
+    public static IPrimitivelyConfigurator UseAspNet(this IPrimitivelyConfigurator configurator, Action<IPrimitiveAspNetBuilder>? builderAction = null)
     {
-        builderAction.Invoke(options.AspNetBuilder);
+        var builder = new PrimitiveAspNetBuilder(configurator);
+
+        builderAction?.Invoke(builder);
 
         return configurator;
     }

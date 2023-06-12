@@ -1,61 +1,50 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Concurrent;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Primitively.Configuration;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Primitively.AspNetCore;
 
 public class PrimitiveAspNetBuilder : IPrimitiveAspNetBuilder
 {
+    private static readonly ConcurrentDictionary<string, IPrimitiveRepository> _repos = new();
+
     private readonly List<PrimitiveInfo> _infos = new();
     private readonly List<IPrimitiveFactory> _factories = new();
 
     public PrimitiveAspNetBuilder(IPrimitivelyConfigurator configurator)
     {
         Configurator = configurator ?? throw new ArgumentNullException(nameof(configurator));
-        Configurator.ConfigureSwaggerGen(options => options.SchemaFilter<PrimitiveSchemaFilter>(() => _infos));
+        Configurator.Configure<SwaggerGenOptions>(options => options.SchemaFilter<PrimitiveSchemaFilter>(() => _infos));
         Configurator.Configure<MvcOptions>(options => options.ModelBinderProviders.Insert(0, new PrimitiveModelBinderProvider(_factories)));
     }
 
     public IPrimitivelyConfigurator Configurator { get; }
 
-    public IPrimitiveAspNetBuilder AddModelBindersFor(IPrimitiveFactory primitiveFactory)
+    public IPrimitiveAspNetBuilder AddModelBindersFor<T>() where T : class, IPrimitiveFactory, new()
     {
-        if (!_factories.Contains(primitiveFactory))
+        if (!_factories.Exists(f => f.GetType() == typeof(T)))
         {
-            _factories.Add(primitiveFactory);
+            _factories.Add(new T());
         }
 
         return this;
     }
 
-    public IPrimitiveAspNetBuilder AddOpenApiSchemaFor(Type primitiveType)
+    public IPrimitiveAspNetBuilder AddOpenApiSchemaFor<T>() where T : struct, IPrimitive
     {
-        if (primitiveType is null)
-        {
-            throw new ArgumentNullException(nameof(primitiveType));
-        }
-
-        if (!primitiveType.IsAssignableTo(typeof(IPrimitive)))
-        {
-            throw new ArgumentException($"The provided type does not implement: {nameof(IPrimitive)}", nameof(primitiveType));
-        }
-
-        var primitiveInfo = GetPrimitiveInfo(primitiveType);
+        var primitiveInfo = GetPrimitiveInfo(typeof(T));
 
         AddPrimitiveInfo(primitiveInfo);
 
         return this;
     }
 
-    public IPrimitiveAspNetBuilder AddOpenApiSchemaFor(PrimitiveInfo primitiveInfo)
+    public IPrimitiveAspNetBuilder AddOpenApiSchemasFor<T>() where T : class, IPrimitiveRepository, new()
     {
-        AddPrimitiveInfo(primitiveInfo);
+        var primitiveRepository = new T();
 
-        return this;
-    }
-
-    public IPrimitiveAspNetBuilder AddOpenApiSchemasFor(IPrimitiveRepository primitiveRepository)
-    {
         foreach (var primitiveInfo in primitiveRepository.GetTypes())
         {
             AddPrimitiveInfo(primitiveInfo);
@@ -74,9 +63,20 @@ public class PrimitiveAspNetBuilder : IPrimitiveAspNetBuilder
 
     private static PrimitiveInfo GetPrimitiveInfo(Type primitiveType)
     {
+        IPrimitiveRepository? primitiveRepository;
         var primitiveRepositoryTypeName = $"{primitiveType.Assembly.GetName().Name}.{Constants.PrimitiveRepository}";
-        var primitiveRepositoryType = primitiveType.Assembly.GetType(primitiveRepositoryTypeName, true);
-        var primitiveRepository = Activator.CreateInstance(primitiveRepositoryType!) as IPrimitiveRepository;
+
+        if (!_repos.ContainsKey(primitiveRepositoryTypeName))
+        {
+            var primitiveRepositoryType = primitiveType.Assembly.GetType(primitiveRepositoryTypeName, true);
+            primitiveRepository = Activator.CreateInstance(primitiveRepositoryType!) as IPrimitiveRepository;
+            var _ = _repos.TryAdd(primitiveRepositoryTypeName, primitiveRepository!);
+        }
+        else
+        {
+            _repos.TryGetValue(primitiveRepositoryTypeName, out primitiveRepository);
+        }
+
         var primitiveInfo = primitiveRepository!.GetType(primitiveType);
 
         return primitiveInfo;

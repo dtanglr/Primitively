@@ -20,7 +20,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new PrimitiveBsonSerializer<BirthDate>();
-        bsonReader.Setup(r => r.ReadString()).Returns(example);
+        bsonReader.Setup(r => r.ReadDateTime()).Returns(DateTime.Parse(expected).Ticks);
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
@@ -29,7 +29,8 @@ public class BsonDeserializerTests
         result.Should().Be(expected);
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Once);
+        bsonReader.Verify(r => r.ReadString(), Times.Never);
+        bsonReader.Verify(r => r.ReadDateTime(), Times.Once);
     }
 
     [Fact]
@@ -51,6 +52,7 @@ public class BsonDeserializerTests
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
         bsonReader.Verify(r => r.ReadString(), Times.Never);
+        bsonReader.Verify(r => r.ReadDateTime(), Times.Never);
     }
 
     [Fact]
@@ -62,7 +64,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<BirthDate>());
-        bsonReader.Setup(r => r.ReadString()).Returns(example);
+        bsonReader.Setup(r => r.ReadDateTime()).Returns(DateTime.Parse(expected).Ticks);
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
@@ -71,7 +73,8 @@ public class BsonDeserializerTests
         result.Should().Be(expected);
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Once);
+        bsonReader.Verify(r => r.ReadString(), Times.Never);
+        bsonReader.Verify(r => r.ReadDateTime(), Times.Once);
     }
 
     [Fact]
@@ -93,5 +96,6 @@ public class BsonDeserializerTests
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
         bsonReader.Verify(r => r.ReadString(), Times.Never);
+        bsonReader.Verify(r => r.ReadDateTime(), Times.Never);
     }
 }

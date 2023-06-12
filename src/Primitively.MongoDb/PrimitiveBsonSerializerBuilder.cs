@@ -8,40 +8,26 @@ namespace Primitively.MongoDb;
 /// </summary>
 public class PrimitiveBsonSerializerBuilder : IPrimitiveBsonSerializerBuilder
 {
+    private static readonly List<Type> _primitiveTypes = new();
+
     /// <summary>
     /// Automatically register a nullable and a non-nullable Bson serializer for the provided Primitively type
     /// </summary>
-    /// <param name="primitiveType">A Primitively type</param>
-    public IPrimitiveBsonSerializerBuilder AddBsonSerializerFor(Type primitiveType)
+    public IPrimitiveBsonSerializerBuilder AddBsonSerializerFor<T>() where T : struct, IPrimitive
     {
-        if (primitiveType is null)
-        {
-            throw new ArgumentNullException(nameof(primitiveType));
-        }
-
-        if (!primitiveType.IsAssignableTo(typeof(IPrimitive)))
-        {
-            throw new ArgumentException($"The provided type does not implement: {nameof(IPrimitive)}", nameof(primitiveType));
-        }
-
         // Generate an nullable and non-nullable Bson serializer for the Primitively type
-        RegisterBsonSerializer(primitiveType);
+        RegisterBsonSerializer(typeof(T));
 
         return this;
     }
 
     /// <summary>
-    /// Automatically register nullable and non-nullable Bson serializers for the provided Primitively types contained in the source generated repository
+    /// Automatically register nullable and non-nullable Bson serializers for all the Primitively types contained in the source generated repository
     /// </summary>
-    /// <param name="primitiveRepository">A source generated Primitive Repository classes</param>
-    public IPrimitiveBsonSerializerBuilder AddBsonSerializersFor(IPrimitiveRepository primitiveRepository)
+    public IPrimitiveBsonSerializerBuilder AddBsonSerializersFor<T>() where T : class, IPrimitiveRepository, new()
     {
-        if (primitiveRepository is null)
-        {
-            throw new ArgumentNullException(nameof(primitiveRepository));
-        }
-
         // Get a list of the source generated Primitively types
+        var primitiveRepository = new T();
         var primitiveTypes = primitiveRepository
             .GetTypes()
             .Select(p => p.Type)
@@ -57,6 +43,15 @@ public class PrimitiveBsonSerializerBuilder : IPrimitiveBsonSerializerBuilder
 
     private static void RegisterBsonSerializer(Type primitiveType)
     {
+        // Check that Primitive types has not been handled already
+        if (_primitiveTypes.Contains(primitiveType))
+        {
+            return;
+        }
+
+        // Add the type to a collection to provide a data source for the above check
+        _primitiveTypes.Add(primitiveType);
+
         // Construct a Primitively serializer of the Primitively type
         var serializerType = typeof(PrimitiveBsonSerializer<>).MakeGenericType(primitiveType);
 

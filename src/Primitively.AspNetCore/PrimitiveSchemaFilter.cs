@@ -16,6 +16,7 @@ public class PrimitiveSchemaFilter : ISchemaFilter
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
         var type = context.Type;
+
         if (type is null || !type.IsValueType || !type.IsAssignableTo(typeof(IPrimitive)))
         {
             return;
@@ -24,63 +25,64 @@ public class PrimitiveSchemaFilter : ISchemaFilter
         var items = _primitiveInfo.Invoke();
         var item = items.SingleOrDefault(t => t.Type.Equals(type));
 
-        if (item is null)
+        switch (item)
         {
-            return;
-        }
+            case DateOnlyInfo dateOnlyInfo:
+                {
+                    schema.Type = "string";
+                    schema.Properties = null;
+                    schema.Example = new OpenApiString(item.Example);
+                    schema.Format = "date";
+                    schema.MinLength = dateOnlyInfo.Length;
+                    schema.MaxLength = dateOnlyInfo.Length;
 
-        if (item is DateOnlyInfo dateOnlyInfo)
-        {
-            schema.Type = "string";
-            schema.Properties = null;
-            schema.Example = new OpenApiString(item.Example);
-            schema.Format = "date";
-            schema.MinLength = dateOnlyInfo.Length;
-            schema.MaxLength = dateOnlyInfo.Length;
+                    break;
+                }
 
-            return;
-        }
+            case GuidInfo guidInfo:
+                {
+                    schema.Type = "string";
+                    schema.Properties = null;
+                    schema.Example = new OpenApiString(item.Example);
+                    schema.Format = "uuid";
+                    schema.MinLength = guidInfo.Length;
+                    schema.MaxLength = guidInfo.Length;
 
-        if (item is GuidInfo guidInfo)
-        {
-            schema.Type = "string";
-            schema.Properties = null;
-            schema.Example = new OpenApiString(item.Example);
-            schema.Format = "uuid";
-            schema.MinLength = guidInfo.Length;
-            schema.MaxLength = guidInfo.Length;
+                    break;
+                }
 
-            return;
-        }
+            case StringInfo stringInfo:
+                {
+                    schema.Type = "string";
+                    schema.Properties = null;
+                    schema.Example = new OpenApiString(item.Example);
+                    schema.Format = stringInfo.Format;
+                    schema.MinLength = stringInfo.MinLength;
+                    schema.MaxLength = stringInfo.MaxLength;
+                    schema.Pattern = stringInfo.Pattern;
 
-        if (item is StringInfo stringInfo)
-        {
-            schema.Type = "string";
-            schema.Properties = null;
-            schema.Example = new OpenApiString(item.Example);
-            schema.Format = stringInfo.Format;
-            schema.MinLength = stringInfo.MinLength;
-            schema.MaxLength = stringInfo.MaxLength;
-            schema.Pattern = stringInfo.Pattern;
+                    break;
+                }
 
-            return;
-        }
+            case IntegerInfo integerInfo:
+                {
+                    schema.Type = "integer";
+                    schema.Properties = null;
+                    schema.Example = new OpenApiString(item.Example);
+                    schema.Minimum = integerInfo.Minimum;
+                    schema.Maximum = integerInfo.Maximum;
+                    schema.Format = integerInfo.DataType switch
+                    {
+                        DataType.Int => "int32",
+                        DataType.Long => "int64",
+                        _ => null
+                    };
 
-        if (item is IntegerInfo integerInfo)
-        {
-            schema.Type = "integer";
-            schema.Properties = null;
-            schema.Example = new OpenApiString(item.Example);
-            schema.Minimum = integerInfo.Minimum;
-            schema.Maximum = integerInfo.Maximum;
-            schema.Format = integerInfo.DataType switch
-            {
-                DataType.Int => "int32",
-                DataType.Long => "int64",
-                _ => null
-            };
+                    break;
+                }
 
-            return;
+            default:
+                break;
         }
     }
 }

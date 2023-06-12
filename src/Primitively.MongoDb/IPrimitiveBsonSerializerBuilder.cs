@@ -2,6 +2,6 @@
 
 public interface IPrimitiveBsonSerializerBuilder
 {
-    IPrimitiveBsonSerializerBuilder AddBsonSerializerFor(Type primitiveType);
-    IPrimitiveBsonSerializerBuilder AddBsonSerializersFor(IPrimitiveRepository primitiveRepository);
+    IPrimitiveBsonSerializerBuilder AddBsonSerializerFor<T>() where T : struct, IPrimitive;
+    IPrimitiveBsonSerializerBuilder AddBsonSerializersFor<T>() where T : class, IPrimitiveRepository, new();
 }

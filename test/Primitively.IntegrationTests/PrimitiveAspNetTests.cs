@@ -12,11 +12,34 @@ namespace Primitively.IntegrationTests;
 public class PrimitiveAspNetTests
 {
     [Fact]
+    public void ModelBinder_Types_Are_Registered_Correctly_Not_Using_IPrimitiveFactory_Instances_In_Params()
+    {
+        // Arrange
+        var services = new ServiceCollection();
+
+        services.AddPrimitively(configure =>
+        {
+            // Add AspNet support
+            configure.UseAspNet();
+        });
+
+        // Act
+        var serviceProvider = services.BuildServiceProvider();
+
+        // Assert
+        var options = serviceProvider.GetService<IOptions<MvcOptions>>();
+        options.Should().NotBeNull();
+        options!.Value.ModelBinderProviders.Count.Should().Be(1);
+
+        var provider = options.Value.ModelBinderProviders[0] as PrimitiveModelBinderProvider;
+        provider.Should().NotBeNull();
+    }
+
+    [Fact]
     public void ModelBinder_Types_Are_Registered_Correctly_Using_IPrimitiveFactory_Instances_In_Params()
     {
         // Arrange
         var services = new ServiceCollection();
-        var factory = new PrimitiveFactory();
 
         services.AddPrimitively(configure =>
         {
@@ -24,7 +47,7 @@ public class PrimitiveAspNetTests
             configure.UseAspNet(builder =>
             {
                 // Register types to be used by Model Binders
-                builder.AddModelBindersFor(factory);
+                builder.AddModelBindersFor<PrimitiveFactory>();
             });
         });
 
@@ -45,8 +68,6 @@ public class PrimitiveAspNetTests
     {
         // Arrange
         var services = new ServiceCollection();
-        var birthDateType = typeof(BirthDate);
-        var deathDateType = typeof(DeathDate);
 
         services.AddPrimitively(configure =>
         {
@@ -55,8 +76,8 @@ public class PrimitiveAspNetTests
             {
                 // Register types to be used for Swagger schema filters
                 builder
-                    .AddOpenApiSchemaFor(birthDateType)
-                    .AddOpenApiSchemaFor(deathDateType);
+                    .AddOpenApiSchemaFor<BirthDate>()
+                    .AddOpenApiSchemaFor<DeathDate>();
             });
         });
 
@@ -76,52 +97,8 @@ public class PrimitiveAspNetTests
         arg.Should().NotBeNull();
 
         var types = arg!.Invoke();
-        types.SingleOrDefault(i => i.Type == birthDateType).Should().NotBeNull();
-        types.SingleOrDefault(i => i.Type == deathDateType).Should().NotBeNull();
-
-        var schemaFilter = Activator.CreateInstance(filter.Type, filter.Arguments) as PrimitiveSchemaFilter;
-        schemaFilter.Should().NotBeNull();
-    }
-
-    [Fact]
-    public void SwaggerSchemaFilter_Types_Are_Registered_Correctly_Using_IPrimitiveInfo_In_Params()
-    {
-        // Arrange
-        var services = new ServiceCollection();
-        var repository = new PrimitiveRepository();
-        var birthDateInfo = repository.GetType(typeof(BirthDate));
-        var deathDateInfo = repository.GetType(typeof(DeathDate));
-
-        services.AddPrimitively(configure =>
-        {
-            // Add AspNet support
-            configure.UseAspNet(builder =>
-            {
-                // Register types to be used for Swagger schema filters
-                builder
-                    .AddOpenApiSchemaFor(birthDateInfo)
-                    .AddOpenApiSchemaFor(deathDateInfo);
-            });
-        });
-
-        // Act
-        var serviceProvider = services.BuildServiceProvider();
-
-        // Assert
-        var options = serviceProvider.GetService<IOptions<SwaggerGenOptions>>();
-        options.Should().NotBeNull();
-        options!.Value.SchemaFilterDescriptors.Exists(f => f.Type == typeof(PrimitiveSchemaFilter)).Should().BeTrue();
-
-        var filter = options.Value.SchemaFilterDescriptors.SingleOrDefault(f => f.Type == typeof(PrimitiveSchemaFilter));
-        filter.Should().NotBeNull();
-        filter!.Arguments.Count().Should().Be(1);
-
-        var arg = filter.Arguments[0] as Func<IEnumerable<PrimitiveInfo>>;
-        arg.Should().NotBeNull();
-
-        var types = arg!.Invoke();
-        types.Contains(birthDateInfo).Should().BeTrue();
-        types.Contains(deathDateInfo).Should().BeTrue();
+        types.SingleOrDefault(i => i.Type == typeof(BirthDate)).Should().NotBeNull();
+        types.SingleOrDefault(i => i.Type == typeof(DeathDate)).Should().NotBeNull();
 
         var schemaFilter = Activator.CreateInstance(filter.Type, filter.Arguments) as PrimitiveSchemaFilter;
         schemaFilter.Should().NotBeNull();
@@ -132,7 +109,6 @@ public class PrimitiveAspNetTests
     {
         // Arrange
         var services = new ServiceCollection();
-        var repository = new PrimitiveRepository();
 
         services.AddPrimitively(configure =>
         {
@@ -140,7 +116,7 @@ public class PrimitiveAspNetTests
             configure.UseAspNet(builder =>
             {
                 // Register types to be used for Swagger schema filters
-                builder.AddOpenApiSchemasFor(repository);
+                builder.AddOpenApiSchemasFor<PrimitiveRepository>();
             });
         });
 
@@ -158,6 +134,8 @@ public class PrimitiveAspNetTests
 
         var arg = filter.Arguments[0] as Func<IEnumerable<PrimitiveInfo>>;
         arg.Should().NotBeNull();
+
+        var repository = new PrimitiveRepository();
 
         foreach (var type in arg!.Invoke())
         {

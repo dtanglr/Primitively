@@ -11,14 +11,8 @@ public class PrimitivelyConfigurator : IPrimitivelyConfigurator
 
     public ServiceDescriptor this[int index]
     {
-        get
-        {
-            return _services[index];
-        }
-        set
-        {
-            _services[index] = value;
-        }
+        get => _services[index];
+        set => _services[index] = value;
     }
 
     public int Count => _services.Count;

@@ -6,16 +6,38 @@ public class PrimitiveModelBinderProvider : IModelBinderProvider
 {
     private readonly IEnumerable<IPrimitiveFactory> _factories;
 
+    public PrimitiveModelBinderProvider()
+    {
+        _factories = new List<IPrimitiveFactory>();
+    }
+
     public PrimitiveModelBinderProvider(IPrimitiveFactory factory)
     {
+        if (factory is null)
+        {
+            throw new ArgumentNullException(nameof(factory));
+        }
+
         _factories = new List<IPrimitiveFactory> { factory };
     }
 
     public PrimitiveModelBinderProvider(IEnumerable<IPrimitiveFactory> factories)
     {
-        _factories = factories;
+        _factories = factories ?? throw new ArgumentNullException(nameof(factories));
     }
 
-    public IModelBinder? GetBinder(ModelBinderProviderContext context) =>
-        context.Metadata.ModelType.IsAssignableTo(typeof(IPrimitive)) ? new PrimitiveModelBinder(_factories) : null;
+    public IModelBinder? GetBinder(ModelBinderProviderContext context)
+    {
+        if (!context.Metadata.ModelType.IsAssignableTo(typeof(IPrimitive)))
+        {
+            return null;
+        }
+
+        if (_factories.Any())
+        {
+            return new PrimitiveModelBinder(_factories);
+        }
+
+        return new PrimitiveModelBinder();
+    }
 }

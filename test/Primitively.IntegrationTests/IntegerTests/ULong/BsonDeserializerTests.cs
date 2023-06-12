@@ -20,7 +20,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new PrimitiveBsonSerializer<ULongId>();
-        bsonReader.Setup(r => r.ReadString()).Returns(number.ToString());
+        bsonReader.Setup(r => r.ReadDecimal128()).Returns(new Decimal128(expected));
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
@@ -29,7 +29,8 @@ public class BsonDeserializerTests
         result.Should().Be(expected);
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Once);
+        bsonReader.Verify(r => r.ReadString(), Times.Never);
+        bsonReader.Verify(r => r.ReadDecimal128(), Times.Once);
     }
 
     [Fact]
@@ -41,7 +42,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new PrimitiveBsonSerializer<ULongId>();
-        bsonReader.Setup(r => r.ReadString()).Returns(number.ToString());
+        bsonReader.Setup(r => r.ReadDecimal128()).Returns(new Decimal128(expected));
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
@@ -50,7 +51,8 @@ public class BsonDeserializerTests
         result.Should().Be(expected);
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Once);
+        bsonReader.Verify(r => r.ReadString(), Times.Never);
+        bsonReader.Verify(r => r.ReadDecimal128(), Times.Once);
     }
 
     [Fact]
@@ -72,6 +74,7 @@ public class BsonDeserializerTests
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
         bsonReader.Verify(r => r.ReadString(), Times.Never);
+        bsonReader.Verify(r => r.ReadDecimal128(), Times.Never);
     }
 
     [Fact]
@@ -83,7 +86,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<ULongId>());
-        bsonReader.Setup(r => r.ReadString()).Returns(number.ToString());
+        bsonReader.Setup(r => r.ReadDecimal128()).Returns(new Decimal128(expected));
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
@@ -92,7 +95,8 @@ public class BsonDeserializerTests
         result.Should().Be(expected);
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Once);
+        bsonReader.Verify(r => r.ReadString(), Times.Never);
+        bsonReader.Verify(r => r.ReadDecimal128(), Times.Once);
     }
 
     [Fact]
@@ -104,7 +108,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<ULongId>());
-        bsonReader.Setup(r => r.ReadString()).Returns(number.ToString());
+        bsonReader.Setup(r => r.ReadDecimal128()).Returns(new Decimal128(expected));
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
@@ -113,7 +117,8 @@ public class BsonDeserializerTests
         result.Should().Be(expected);
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Once);
+        bsonReader.Verify(r => r.ReadString(), Times.Never);
+        bsonReader.Verify(r => r.ReadDecimal128(), Times.Once);
     }
 
     [Fact]
@@ -135,5 +140,6 @@ public class BsonDeserializerTests
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
         bsonReader.Verify(r => r.ReadInt64(), Times.Never);
         bsonReader.Verify(r => r.ReadString(), Times.Never);
+        bsonReader.Verify(r => r.ReadDecimal128(), Times.Never);
     }
 }

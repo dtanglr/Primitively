@@ -26,6 +26,8 @@
  
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DebugType>embedded</DebugType>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   
   <ItemGroup>

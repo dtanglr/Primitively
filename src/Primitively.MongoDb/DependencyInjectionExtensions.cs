@@ -14,24 +14,9 @@ public static class DependencyInjectionExtensions
     /// <param name="configurator">Configurator</param>
     /// <param name="builderAction">Bson Serializer Builder</param>
     /// <returns>Configurator</returns>
-    public static IPrimitivelyConfigurator UseMongoDB(
-        this IPrimitivelyConfigurator configurator,
-        Action<IPrimitiveBsonSerializerBuilder> builderAction) =>
-            UseMongoDB(configurator, builderAction, new PrimitivelyMongoDbOptions());
-
-    /// <summary>
-    /// Register MongoDB nullable and non-nullable Bson serializers
-    /// </summary>
-    /// <param name="configurator">Configurator</param>
-    /// <param name="builderAction">Bson Serializer Builder</param>
-    /// <param name="options">Options</param>
-    /// <returns>Configurator</returns>
-    public static IPrimitivelyConfigurator UseMongoDB(
-        this IPrimitivelyConfigurator configurator,
-        Action<IPrimitiveBsonSerializerBuilder> builderAction,
-        PrimitivelyMongoDbOptions options)
+    public static IPrimitivelyConfigurator UseMongoDB(this IPrimitivelyConfigurator configurator, Action<IPrimitiveBsonSerializerBuilder> builderAction)
     {
-        builderAction.Invoke(options.BsonSerializerBuilder);
+        builderAction.Invoke(new PrimitiveBsonSerializerBuilder());
 
         return configurator;
     }
