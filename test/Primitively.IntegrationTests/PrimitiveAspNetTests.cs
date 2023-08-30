@@ -23,6 +23,8 @@ public class PrimitiveAspNetTests
             configure.UseAspNet();
         });
 
+        var s = new TimeSpan(0, 10, 0).ToString();
+
         // Act
         var serviceProvider = services.BuildServiceProvider();
 

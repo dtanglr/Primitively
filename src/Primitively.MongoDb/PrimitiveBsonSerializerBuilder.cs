@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using Primitively.MongoDb.Bson.Serialization.Serializers;
 
 namespace Primitively.MongoDb;
 

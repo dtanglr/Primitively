@@ -6,7 +6,7 @@ namespace Primitively.MongoDb;
 /// Primitively Configurator extensions to register MongoDB Bson serializers 
 /// for Primitively source generated types
 /// </summary>
-public static class DependencyInjectionExtensions
+public static class DependencyInjection
 {
     /// <summary>
     /// Register MongoDB nullable and non-nullable Bson serializers

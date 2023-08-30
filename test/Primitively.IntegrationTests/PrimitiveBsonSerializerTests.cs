@@ -4,6 +4,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Primitively.Configuration;
 using Primitively.MongoDb;
+using Primitively.MongoDb.Bson.Serialization.Serializers;
 using Xunit;
 
 namespace Primitively.IntegrationTests;
