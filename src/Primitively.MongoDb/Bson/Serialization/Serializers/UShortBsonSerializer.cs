@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDb.Bson.Serialization.Serializers;
 
 public class UShortBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
-    where TPrimitive : struct, IPrimitive, IUShort
+    where TPrimitive : struct, IUShort
 {
     public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
     {

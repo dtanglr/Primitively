@@ -6,7 +6,7 @@ namespace Primitively.MongoDb.Bson.Serialization.Serializers;
 
 // Store as decimal128 because an unsigned long can exceed the Mongo int64 maximum
 public class ULongBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
-    where TPrimitive : struct, IPrimitive, IULong
+    where TPrimitive : struct, IULong
 {
     public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
     {
