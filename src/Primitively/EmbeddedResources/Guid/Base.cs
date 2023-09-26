@@ -18,11 +18,16 @@
         _value = guid;
     }
 
+    System.Guid Primitively.IPrimitive<System.Guid>.Value => _value;
+
     [System.Text.Json.Serialization.JsonIgnore]
     public bool HasValue => _value != default;
 
     [System.Text.Json.Serialization.JsonIgnore]
     public System.Type ValueType => typeof(System.Guid);
+
+    [System.Text.Json.Serialization.JsonIgnore]
+    public Primitively.DataType DataType => Primitively.DataType.PRIMITIVE_DATA_TYPE;
 
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
     public int CompareTo(PRIMITIVE_TYPE other) => _value.CompareTo(other._value);

@@ -4,7 +4,7 @@ using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Moq;
-using Primitively.MongoDb;
+using Primitively.MongoDb.Bson.Serialization.Serializers;
 using Xunit;
 
 namespace Primitively.IntegrationTests.StringTests;
@@ -19,7 +19,7 @@ public class BsonDeserializerTests
         var expected = (SevenDigits)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveBsonSerializer<SevenDigits>();
+        var serializer = new StringBsonSerializer<SevenDigits>();
         bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.String);
         bsonReader.Setup(r => r.ReadString()).Returns(example);
 
@@ -41,7 +41,7 @@ public class BsonDeserializerTests
         var expected = new SevenDigits();
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveBsonSerializer<SevenDigits>();
+        var serializer = new StringBsonSerializer<SevenDigits>();
         bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
 
         // Act
@@ -63,7 +63,7 @@ public class BsonDeserializerTests
         var expected = (SevenDigits)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<SevenDigits>());
+        var serializer = NullableSerializer.Create(new StringBsonSerializer<SevenDigits>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.String);
         bsonReader.Setup(r => r.ReadString()).Returns(example);
 
@@ -84,7 +84,7 @@ public class BsonDeserializerTests
         // Assign
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<SevenDigits>());
+        var serializer = NullableSerializer.Create(new StringBsonSerializer<SevenDigits>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act

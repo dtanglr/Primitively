@@ -16,7 +16,7 @@ public class PrimitiveBsonSerializerTests
     {
         // Arrange
         var services = new ServiceCollection();
-        var expectedTypes = new Type[] { typeof(BirthDate), typeof(IntId), typeof(EightDigits) };
+        var expectedTypes = new Type[] { typeof(BirthDate), typeof(ByteId), typeof(IntId), typeof(LongId), typeof(SByteId), typeof(ShortId), typeof(UIntId), typeof(ULongId), typeof(UShortId), typeof(EightDigits) };
 
         // Act
         services.AddPrimitively(configure =>
@@ -25,54 +25,43 @@ public class PrimitiveBsonSerializerTests
             configure.UseMongoDB(builder =>
             {
                 // Generate and register BSON serializers for the given source generated Primitive types
-                builder.AddBsonSerializerFor<BirthDate>();
-                builder.AddBsonSerializerFor<IntId>();
-                builder.AddBsonSerializerFor<EightDigits>();
+                builder.RegisterBsonSerializerForType<BirthDate>();
+                builder.RegisterBsonSerializerForType<ByteId>();
+                builder.RegisterBsonSerializerForType<IntId>();
+                builder.RegisterBsonSerializerForType<LongId>();
+                builder.RegisterBsonSerializerForType<SByteId>();
+                builder.RegisterBsonSerializerForType<ShortId>();
+                builder.RegisterBsonSerializerForType<UIntId>();
+                builder.RegisterBsonSerializerForType<ULongId>();
+                builder.RegisterBsonSerializerForType<UShortId>();
+                builder.RegisterBsonSerializerForType<EightDigits>();
             });
         });
 
         // Assert
-        AssertThatBsonSerializersAreRegistered(expectedTypes);
+        AssertThatBsonSerializerIsRegistered(expectedTypes[0], typeof(DateOnlyBsonSerializer<>));
+        AssertThatBsonSerializerIsRegistered(expectedTypes[1], typeof(ByteBsonSerializer<>));
+        AssertThatBsonSerializerIsRegistered(expectedTypes[2], typeof(IntBsonSerializer<>));
+        AssertThatBsonSerializerIsRegistered(expectedTypes[3], typeof(LongBsonSerializer<>));
+        AssertThatBsonSerializerIsRegistered(expectedTypes[4], typeof(SByteBsonSerializer<>));
+        AssertThatBsonSerializerIsRegistered(expectedTypes[5], typeof(ShortBsonSerializer<>));
+        AssertThatBsonSerializerIsRegistered(expectedTypes[6], typeof(UIntBsonSerializer<>));
+        AssertThatBsonSerializerIsRegistered(expectedTypes[7], typeof(ULongBsonSerializer<>));
+        AssertThatBsonSerializerIsRegistered(expectedTypes[8], typeof(UShortBsonSerializer<>));
+        AssertThatBsonSerializerIsRegistered(expectedTypes[9], typeof(StringBsonSerializer<>));
     }
 
-    [Fact]
-    public void BsonSerializers_Types_Are_Registered_Correctly_Using_IPrimitiveRepository_Instances_In_Params()
+    private static void AssertThatBsonSerializerIsRegistered(Type primitivelyType, Type serializerType)
     {
-        // Arrange
-        var services = new ServiceCollection();
-        var excludedTypes = new Type[] { typeof(BirthDate), typeof(IntId), typeof(EightDigits) };
-        var expectedTypes = new PrimitiveRepository().GetTypes().Select(t => t.Type).Where(t => !excludedTypes.Any(e => e == t));
+        // Bson Serializers
+        var nullablePrimitivelyType = typeof(Nullable<>).MakeGenericType(primitivelyType);
+        var primitivelySerializerType = serializerType.MakeGenericType(primitivelyType);
+        var nullablePrimitivelySerializerType = typeof(NullableSerializer<>).MakeGenericType(primitivelyType);
 
-        // Act
-        services.AddPrimitively(configure =>
-        {
-            // Add MongoDB support
-            configure.UseMongoDB(builder =>
-            {
-                // Generate and register BSON serializers for all the types
-                // contained in the given source generated Primitive repository
-                builder.AddBsonSerializersFor<PrimitiveRepository>();
-            });
-        });
+        // Assert non-nullable serializer created
+        BsonSerializer.LookupSerializer(primitivelyType).Should().BeOfType(primitivelySerializerType);
 
-        // Assert
-        AssertThatBsonSerializersAreRegistered(expectedTypes);
-    }
-
-    private static void AssertThatBsonSerializersAreRegistered(IEnumerable<Type> types)
-    {
-        foreach (var type in types)
-        {
-            // Bson Serializers
-            var nullableType = typeof(Nullable<>).MakeGenericType(type);
-            var serializerType = typeof(PrimitiveBsonSerializer<>).MakeGenericType(type);
-            var nullableSerializerType = typeof(NullableSerializer<>).MakeGenericType(type);
-
-            // Assert non-nullable serializer created
-            BsonSerializer.LookupSerializer(type).Should().BeOfType(serializerType);
-
-            // Assert nullable serializer created
-            BsonSerializer.LookupSerializer(nullableType).Should().BeOfType(nullableSerializerType);
-        }
+        // Assert nullable serializer created
+        BsonSerializer.LookupSerializer(nullablePrimitivelyType).Should().BeOfType(nullablePrimitivelySerializerType);
     }
 }

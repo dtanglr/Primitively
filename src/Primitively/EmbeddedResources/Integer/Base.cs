@@ -22,11 +22,16 @@
         }
     }
 
+    PRIMITIVE_VALUE_TYPE Primitively.IPrimitive<PRIMITIVE_VALUE_TYPE>.Value => _value;
+
     [System.Text.Json.Serialization.JsonIgnore]
     public bool HasValue => _value != default;
 
     [System.Text.Json.Serialization.JsonIgnore]
     public System.Type ValueType => typeof(PRIMITIVE_VALUE_TYPE);
+
+    [System.Text.Json.Serialization.JsonIgnore]
+    public Primitively.DataType DataType => Primitively.DataType.PRIMITIVE_DATA_TYPE;
 
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
     public int CompareTo(PRIMITIVE_TYPE other) => _value.CompareTo(other._value);

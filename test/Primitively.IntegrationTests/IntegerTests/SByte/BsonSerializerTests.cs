@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Moq;
-using Primitively.MongoDb;
+using Primitively.MongoDb.Bson.Serialization.Serializers;
 using Xunit;
 
 namespace Primitively.IntegrationTests.IntegerTests.SByte;
@@ -17,7 +17,7 @@ public class BsonSerializerTests
         var expected = (SByteId)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = new PrimitiveBsonSerializer<SByteId>();
+        var serializer = new SByteBsonSerializer<SByteId>();
         bsonWriter.Setup(r => r.WriteInt32(It.IsAny<int>()));
 
         // Act
@@ -35,7 +35,7 @@ public class BsonSerializerTests
         var expected = (SByteId)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<SByteId>());
+        var serializer = NullableSerializer.Create(new SByteBsonSerializer<SByteId>());
         bsonWriter.Setup(r => r.WriteInt32(It.IsAny<int>()));
 
         // Act
@@ -52,7 +52,7 @@ public class BsonSerializerTests
         var expected = (SByteId?)null;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<SByteId>());
+        var serializer = NullableSerializer.Create(new SByteBsonSerializer<SByteId>());
         bsonWriter.Setup(r => r.WriteNull());
 
         // Act

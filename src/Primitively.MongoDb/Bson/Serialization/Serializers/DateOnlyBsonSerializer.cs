@@ -9,8 +9,7 @@ public class DateOnlyBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
 {
     public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
     {
-        _ = DateOnly.TryParse(value.ToString(), out var date);
-        context.Writer.WriteDateTime(new DateTime(date.Year, date.Month, date.Day).Ticks);
+        context.Writer.WriteDateTime(value.Value.Ticks);
     }
 
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)

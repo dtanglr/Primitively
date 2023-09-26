@@ -4,7 +4,7 @@ using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Moq;
-using Primitively.MongoDb;
+using Primitively.MongoDb.Bson.Serialization.Serializers;
 using Xunit;
 
 namespace Primitively.IntegrationTests.IntegerTests.Int;
@@ -19,7 +19,7 @@ public class BsonDeserializerTests
         var expected = (IntId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveBsonSerializer<IntId>();
+        var serializer = new IntBsonSerializer<IntId>();
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -39,7 +39,7 @@ public class BsonDeserializerTests
         var expected = (IntId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveBsonSerializer<IntId>();
+        var serializer = new IntBsonSerializer<IntId>();
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -58,7 +58,7 @@ public class BsonDeserializerTests
         var expected = new IntId();
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveBsonSerializer<IntId>();
+        var serializer = new IntBsonSerializer<IntId>();
         bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
 
         // Act
@@ -79,7 +79,7 @@ public class BsonDeserializerTests
         var expected = (IntId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<IntId>());
+        var serializer = NullableSerializer.Create(new IntBsonSerializer<IntId>());
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -100,7 +100,7 @@ public class BsonDeserializerTests
         var expected = (IntId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<IntId>());
+        var serializer = NullableSerializer.Create(new IntBsonSerializer<IntId>());
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -120,7 +120,7 @@ public class BsonDeserializerTests
         var expected = (IntId?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<IntId>());
+        var serializer = NullableSerializer.Create(new IntBsonSerializer<IntId>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act

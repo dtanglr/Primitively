@@ -9,7 +9,7 @@ public class StringBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
 {
     public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
     {
-        context.Writer.WriteString(value.ToString());
+        context.Writer.WriteString(value.Value);
     }
 
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)

@@ -4,7 +4,7 @@ using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Moq;
-using Primitively.MongoDb;
+using Primitively.MongoDb.Bson.Serialization.Serializers;
 using Xunit;
 
 namespace Primitively.IntegrationTests.DateOnlyTests;
@@ -19,7 +19,7 @@ public class BsonDeserializerTests
         var expected = (BirthDate)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveBsonSerializer<BirthDate>();
+        var serializer = new DateOnlyBsonSerializer<BirthDate>();
         bsonReader.Setup(r => r.ReadDateTime()).Returns(DateTime.Parse(expected).Ticks);
 
         // Act
@@ -40,7 +40,7 @@ public class BsonDeserializerTests
         var expected = new BirthDate();
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveBsonSerializer<BirthDate>();
+        var serializer = new DateOnlyBsonSerializer<BirthDate>();
         bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
 
         // Act
@@ -63,7 +63,7 @@ public class BsonDeserializerTests
         var expected = (BirthDate)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<BirthDate>());
+        var serializer = NullableSerializer.Create(new DateOnlyBsonSerializer<BirthDate>());
         bsonReader.Setup(r => r.ReadDateTime()).Returns(DateTime.Parse(expected).Ticks);
 
         // Act
@@ -84,7 +84,7 @@ public class BsonDeserializerTests
         var expected = (BirthDate?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<BirthDate>());
+        var serializer = NullableSerializer.Create(new DateOnlyBsonSerializer<BirthDate>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act

@@ -9,8 +9,7 @@ public class UIntBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
 {
     public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
     {
-        _ = long.TryParse(value.ToString(), out var num);
-        context.Writer.WriteInt64(num);
+        context.Writer.WriteInt64(value.Value);
     }
 
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)

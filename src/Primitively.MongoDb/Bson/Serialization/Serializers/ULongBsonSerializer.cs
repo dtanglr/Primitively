@@ -4,14 +4,13 @@ using MongoDB.Bson.Serialization.Serializers;
 
 namespace Primitively.MongoDb.Bson.Serialization.Serializers;
 
-// Store as decimal128 because an unsigned long can exceed the Mongo int64 maximum
 public class ULongBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
     where TPrimitive : struct, IULong
 {
     public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
     {
-        _ = ulong.TryParse(value.ToString(), out var num);
-        context.Writer.WriteDecimal128(new Decimal128(num));
+        // Store as decimal128 because an unsigned long can exceed the Mongo int64 maximum
+        context.Writer.WriteDecimal128(new Decimal128(value.Value));
     }
 
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)

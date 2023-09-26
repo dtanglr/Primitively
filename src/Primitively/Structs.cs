@@ -114,6 +114,7 @@ public class Structs : IIncrementalGenerator
             sb.Replace("PRIMITIVE_TYPE", recordStruct.Name);
             sb.Replace("PRIMITIVE_INTERFACE", recordStruct.Interface);
             sb.Replace("PRIMITIVE_VALUE_TYPE", recordStruct.Type);
+            sb.Replace("PRIMITIVE_DATA_TYPE", recordStruct.DataType.ToString());
             sb.Replace("PRIMITIVE_IVALIDATABLEOBJECT", recordStruct.ImplementIValidatableObject ? $", System.ComponentModel.DataAnnotations.IValidatableObject" : string.Empty);
             sb.Replace("PRIMITIVE_PATTERN", recordStruct.Pattern);
             sb.Replace("PRIMITIVE_EXAMPLE", recordStruct.Example);

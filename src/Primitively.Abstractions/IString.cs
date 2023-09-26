@@ -1,5 +1,5 @@
 ﻿namespace Primitively;
 
-public interface IString : IPrimitive
+public interface IString : IPrimitive<string>
 {
 }

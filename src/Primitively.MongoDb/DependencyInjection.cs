@@ -1,4 +1,5 @@
 ﻿using Primitively.Configuration;
+using Primitively.MongoDb.Bson.Serialization;
 
 namespace Primitively.MongoDb;
 
@@ -13,10 +14,11 @@ public static class DependencyInjection
     /// </summary>
     /// <param name="configurator">Configurator</param>
     /// <param name="builderAction">Bson Serializer Builder</param>
+    /// <param name="options">Bson Serializer Options</param>
     /// <returns>Configurator</returns>
-    public static IPrimitivelyConfigurator UseMongoDB(this IPrimitivelyConfigurator configurator, Action<IPrimitiveBsonSerializerBuilder> builderAction)
+    public static IPrimitivelyConfigurator UseMongoDB(this IPrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> builderAction, BsonSerializerOptions? options = null)
     {
-        builderAction.Invoke(new PrimitiveBsonSerializerBuilder());
+        builderAction.Invoke(new BsonSerializerBuilder(options ?? new BsonSerializerOptions()));
 
         return configurator;
     }

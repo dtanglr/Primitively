@@ -1,5 +1,5 @@
 ﻿namespace Primitively;
 
-public interface IDateOnly : IPrimitive
+public interface IDateOnly : IPrimitive<DateTime>
 {
 }

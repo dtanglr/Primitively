@@ -4,7 +4,7 @@ using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Moq;
-using Primitively.MongoDb;
+using Primitively.MongoDb.Bson.Serialization.Serializers;
 using Xunit;
 
 namespace Primitively.IntegrationTests.IntegerTests.ULong;
@@ -19,7 +19,7 @@ public class BsonDeserializerTests
         var expected = (ULongId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveBsonSerializer<ULongId>();
+        var serializer = new ULongBsonSerializer<ULongId>();
         bsonReader.Setup(r => r.ReadDecimal128()).Returns(new Decimal128(expected));
 
         // Act
@@ -41,7 +41,7 @@ public class BsonDeserializerTests
         var expected = (ULongId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveBsonSerializer<ULongId>();
+        var serializer = new ULongBsonSerializer<ULongId>();
         bsonReader.Setup(r => r.ReadDecimal128()).Returns(new Decimal128(expected));
 
         // Act
@@ -62,7 +62,7 @@ public class BsonDeserializerTests
         var expected = new ULongId();
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new PrimitiveBsonSerializer<ULongId>();
+        var serializer = new ULongBsonSerializer<ULongId>();
         bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
 
         // Act
@@ -85,7 +85,7 @@ public class BsonDeserializerTests
         var expected = (ULongId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<ULongId>());
+        var serializer = NullableSerializer.Create(new ULongBsonSerializer<ULongId>());
         bsonReader.Setup(r => r.ReadDecimal128()).Returns(new Decimal128(expected));
 
         // Act
@@ -107,7 +107,7 @@ public class BsonDeserializerTests
         var expected = (ULongId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<ULongId>());
+        var serializer = NullableSerializer.Create(new ULongBsonSerializer<ULongId>());
         bsonReader.Setup(r => r.ReadDecimal128()).Returns(new Decimal128(expected));
 
         // Act
@@ -128,7 +128,7 @@ public class BsonDeserializerTests
         var expected = (ULongId?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<ULongId>());
+        var serializer = NullableSerializer.Create(new ULongBsonSerializer<ULongId>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act

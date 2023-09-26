@@ -18,11 +18,16 @@
         _value = result;
     }
 
+    System.DateTime Primitively.IPrimitive<System.DateTime>.Value => new System.DateTime(_value.Year, _value.Month, _value.Day);
+
     [System.Text.Json.Serialization.JsonIgnore]
     public bool HasValue => _value != default;
 
     [System.Text.Json.Serialization.JsonIgnore]
     public System.Type ValueType => typeof(System.DateOnly);
+
+    [System.Text.Json.Serialization.JsonIgnore]
+    public Primitively.DataType DataType => Primitively.DataType.PRIMITIVE_DATA_TYPE;
 
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
     public int CompareTo(PRIMITIVE_TYPE other) => _value.CompareTo(other._value);

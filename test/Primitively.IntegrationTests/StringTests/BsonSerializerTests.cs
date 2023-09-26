@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Moq;
-using Primitively.MongoDb;
+using Primitively.MongoDb.Bson.Serialization.Serializers;
 using Xunit;
 
 namespace Primitively.IntegrationTests.StringTests;
@@ -17,7 +17,7 @@ public class BsonSerializerTests
         var expected = (SevenDigits)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = new PrimitiveBsonSerializer<SevenDigits>();
+        var serializer = new StringBsonSerializer<SevenDigits>();
         bsonWriter.Setup(r => r.WriteString(It.IsAny<string>()));
 
         // Act
@@ -35,7 +35,7 @@ public class BsonSerializerTests
         var expected = (SevenDigits)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<SevenDigits>());
+        var serializer = NullableSerializer.Create(new StringBsonSerializer<SevenDigits>());
         bsonWriter.Setup(r => r.WriteString(It.IsAny<string>()));
 
         // Act
@@ -52,7 +52,7 @@ public class BsonSerializerTests
         var expected = (SevenDigits?)null;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<SevenDigits>());
+        var serializer = NullableSerializer.Create(new StringBsonSerializer<SevenDigits>());
         bsonWriter.Setup(r => r.WriteNull());
 
         // Act

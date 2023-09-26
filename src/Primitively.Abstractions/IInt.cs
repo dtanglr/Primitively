@@ -1,5 +1,5 @@
 ﻿namespace Primitively;
 
-public interface IInt : IInteger
+public interface IInt : IPrimitive<int>, IInteger
 {
 }

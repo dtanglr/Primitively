@@ -1,5 +1,5 @@
 ﻿namespace Primitively;
 
-public interface IGuid : IPrimitive
+public interface IGuid : IPrimitive<Guid>
 {
 }

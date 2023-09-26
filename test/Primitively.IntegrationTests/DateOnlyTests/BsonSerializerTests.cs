@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Moq;
-using Primitively.MongoDb;
+using Primitively.MongoDb.Bson.Serialization.Serializers;
 using Xunit;
 
 namespace Primitively.IntegrationTests.DateOnlyTests;
@@ -18,7 +18,7 @@ public class BsonSerializerTests
         var ticks = new DateTime(dateOnly.Year, dateOnly.Month, dateOnly.Day).Ticks; // TODO: Add Year, Month, Day to IDateOnly
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = new PrimitiveBsonSerializer<BirthDate>();
+        var serializer = new DateOnlyBsonSerializer<BirthDate>();
         bsonWriter.Setup(r => r.WriteDateTime(It.IsAny<long>()));
 
         // Act
@@ -37,7 +37,7 @@ public class BsonSerializerTests
         var ticks = new DateTime(dateOnly.Year, dateOnly.Month, dateOnly.Day).Ticks; // TODO: Add Year, Month, Day to IDateOnly
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<BirthDate>());
+        var serializer = NullableSerializer.Create(new DateOnlyBsonSerializer<BirthDate>());
         bsonWriter.Setup(r => r.WriteString(It.IsAny<string>()));
 
         // Act
@@ -54,7 +54,7 @@ public class BsonSerializerTests
         var expected = (BirthDate?)null;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new PrimitiveBsonSerializer<BirthDate>());
+        var serializer = NullableSerializer.Create(new DateOnlyBsonSerializer<BirthDate>());
         bsonWriter.Setup(r => r.WriteNull());
 
         // Act

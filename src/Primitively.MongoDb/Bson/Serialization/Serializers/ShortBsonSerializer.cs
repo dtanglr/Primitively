@@ -1,5 +1,5 @@
-﻿using MongoDB.Bson.Serialization;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
 namespace Primitively.MongoDb.Bson.Serialization.Serializers;
@@ -9,8 +9,7 @@ public class ShortBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
 {
     public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
     {
-        _ = int.TryParse(value.ToString(), out var num);
-        context.Writer.WriteInt32(num);
+        context.Writer.WriteInt32(value.Value);
     }
 
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
