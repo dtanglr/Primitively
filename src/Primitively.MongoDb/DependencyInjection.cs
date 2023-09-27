@@ -16,9 +16,9 @@ public static class DependencyInjection
     /// <param name="builderAction">Bson Serializer Builder</param>
     /// <param name="options">Bson Serializer Options</param>
     /// <returns>Configurator</returns>
-    public static IPrimitivelyConfigurator UseMongoDB(this IPrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> builderAction, BsonSerializerOptions? options = null)
+    public static IPrimitivelyConfigurator UseMongoDB(this IPrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> builderAction)
     {
-        builderAction.Invoke(new BsonSerializerBuilder(options ?? new BsonSerializerOptions()));
+        builderAction.Invoke(new BsonSerializerBuilder());
 
         return configurator;
     }

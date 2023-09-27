@@ -10,75 +10,88 @@ public class BsonSerializerBuilder
 {
     private static readonly List<Type> _primitiveTypes = new();
 
-    private readonly BsonSerializerOptions _options;
-
-    public BsonSerializerBuilder()
+    /// <summary>
+    /// Replace the default Primitively Bson Serializer with a custom one.
+    /// </summary>
+    /// <param name="dataType"></param>
+    /// <param name="serializerType"></param>
+    /// <returns>BsonSerializerBuilder</returns>
+    public BsonSerializerBuilder SetBsonSerializerForDataType(DataType dataType, Type serializerType)
     {
-        _options = new BsonSerializerOptions();
-    }
+        BsonSerializerCache.Set(dataType, serializerType);
 
-    public BsonSerializerBuilder(BsonSerializerOptions options)
-    {
-        _options = options;
+        return this;
     }
 
     /// <summary>
     /// Automatically register a nullable and a non-nullable Bson serializer for the provided Primitively type
     /// </summary>
-    /// <typeparam name="T">IPrimitive</typeparam>
-    /// <returns>PrimitiveBsonSerializerBuilder</returns>
-    public BsonSerializerBuilder RegisterBsonSerializerForType<T>()
-        where T : struct, IPrimitive
+    /// <typeparam name="TPrimitive">IPrimitive</typeparam>
+    /// <returns>BsonSerializerBuilder</returns>
+    /// <remarks>
+    /// The type of serializer used is governed by the BsonSerializerOptions. If a serializer for the given type 
+    /// is already registered, subsequent attempts for the same type will be ignored.
+    /// </remarks>
+    public BsonSerializerBuilder RegisterBsonSerializerForType<TPrimitive>()
+        where TPrimitive : struct, IPrimitive
     {
         // Get a default instance of the provided Primitively struct type
-        var primitive = new T();
+        var primitive = new TPrimitive();
 
         // Generate an nullable and non-nullable Bson serializer for the Primitively struct
-        var serializerType = GetSerializerType(_options, primitive.DataType);
+        var serializerType = BsonSerializerCache.Get(primitive.DataType);
 
-        RegisterBsonSerializer(primitive.GetType(), serializerType);
+        RegisterBsonSerializer(typeof(TPrimitive), serializerType);
 
         return this;
     }
 
     /// <summary>
-    /// Automatically register nullable and non-nullable Bson serializers for all the Primitively types contained in the source generated repository
+    /// Automatically register a nullable and a non-nullable Bson serializer for the provided Primitively type
     /// </summary>
-    /// <typeparam name="T">IPrimitive</typeparam>
-    /// <returns>PrimitiveBsonSerializerBuilder</returns>
-    public BsonSerializerBuilder RegisterBsonSerializerForEachTypeIn<T>()
-        where T : class, IPrimitiveRepository, new()
+    /// <typeparam name="TPrimitive">IPrimitive</typeparam>
+    /// <typeparam name="TBsonSerializer">IBsonSerializer</typeparam>
+    /// <returns>BsonSerializerBuilder</returns>
+    /// <remarks>
+    /// The type of serializer used is governed by the TBsonSerializer type parameter.  This allows for
+    /// individual primitive types to have their own serialiser, rather than the one defined in BsonSerializerOptions.
+    /// If a serializer for the given type is already registered, subsequent attempts for the same type will be ignored.
+    /// </remarks>
+    public BsonSerializerBuilder RegisterBsonSerializerForType<TPrimitive, TBsonSerializer>()
+        where TPrimitive : struct, IPrimitive
+        where TBsonSerializer : class, IBsonSerializer<TPrimitive>
+    {
+        RegisterBsonSerializer(typeof(TPrimitive), typeof(TBsonSerializer));
+
+        return this;
+    }
+
+    /// <summary>
+    /// Automatically register nullable and non-nullable Bson serializers for all the Primitively types contained 
+    /// in the source generated repository
+    /// </summary>
+    /// <typeparam name="TPrimitiveRepository">IPrimitiveRepository</typeparam>
+    /// <returns>BsonSerializerBuilder</returns>
+    /// <remarks>
+    /// The type of serializer used is governed by the BsonSerializerOptions. 
+    /// If a serializer for the given type is already registered, subsequent attempts for the same type will be ignored.
+    /// To use a custom serializer for one or more types in a repository. Simply register them individually 
+    /// first before calling this method.
+    /// </remarks>
+    public BsonSerializerBuilder RegisterBsonSerializerForEachTypeIn<TPrimitiveRepository>()
+        where TPrimitiveRepository : class, IPrimitiveRepository, new()
     {
         // Get a list of the source generated Primitively types
-        var primitiveRepository = new T();
+        var primitiveRepository = new TPrimitiveRepository();
 
         foreach (var primitiveInfo in primitiveRepository.GetTypes())
         {
-            var serializerType = GetSerializerType(_options, primitiveInfo.DataType);
+            var serializerType = BsonSerializerCache.Get(primitiveInfo.DataType);
 
             RegisterBsonSerializer(primitiveInfo.Type, serializerType);
         }
 
         return this;
-    }
-
-    private static Type GetSerializerType(BsonSerializerOptions options, DataType dataType)
-    {
-        return dataType switch
-        {
-            DataType.Byte => options.ByteBsonSerializer,
-            DataType.DateOnly => options.DateOnlyBsonSerializer,
-            DataType.Guid => options.GuidBsonSerializer,
-            DataType.Int => options.IntBsonSerializer,
-            DataType.Long => options.LongBsonSerializer,
-            DataType.SByte => options.SByteBsonSerializer,
-            DataType.Short => options.ShortBsonSerializer,
-            DataType.String => options.StringBsonSerializer,
-            DataType.UInt => options.UIntBsonSerializer,
-            DataType.ULong => options.ULongBsonSerializer,
-            DataType.UShort => options.UShortBsonSerializer,
-            _ => throw new NotImplementedException(),
-        };
     }
 
     private static void RegisterBsonSerializer(Type primitiveType, Type serializerType)
@@ -93,7 +106,7 @@ public class BsonSerializerBuilder
         _primitiveTypes.Add(primitiveType);
 
         // Construct a Primitively serializer of the Primitively type
-        var primitiveSerializerType = serializerType.MakeGenericType(primitiveType);
+        var primitiveSerializerType = serializerType.IsGenericTypeDefinition ? serializerType.MakeGenericType(primitiveType) : serializerType;
 
         // Create a Primitively serializer instance
         var primitiveSerializerInstance = CreateSerializerInstance(primitiveSerializerType);
