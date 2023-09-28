@@ -28,36 +28,41 @@ public class PrimitiveBsonSerializerTests
             // Add MongoDB support and register BSON serializers for the given source generated Primitive types
             configure.UseMongoDB(builder =>
             {
-                // Override default serializers (Nb. Re-adding the default rather than create a new type
-                builder.SetBsonSerializerForDataType(DataType.DateOnly, typeof(DateOnlyBsonSerializer<>));
-                builder.SetBsonSerializerForDataType(DataType.Byte, typeof(ByteBsonSerializer<>));
-                builder.SetBsonSerializerForDataType(DataType.Guid, typeof(GuidBsonSerializer<>));
-                builder.SetBsonSerializerForDataType(DataType.Int, typeof(IntBsonSerializer<>));
-                builder.SetBsonSerializerForDataType(DataType.Long, typeof(LongBsonSerializer<>));
-                builder.SetBsonSerializerForDataType(DataType.SByte, typeof(SByteBsonSerializer<>));
-                builder.SetBsonSerializerForDataType(DataType.Short, typeof(ShortBsonSerializer<>));
-                builder.SetBsonSerializerForDataType(DataType.String, typeof(StringBsonSerializer<>));
-                builder.SetBsonSerializerForDataType(DataType.UInt, typeof(UIntBsonSerializer<>));
-                builder.SetBsonSerializerForDataType(DataType.ULong, typeof(ULongBsonSerializer<>));
-                builder.SetBsonSerializerForDataType(DataType.UShort, typeof(UShortBsonSerializer<>));
+                // Override default serializers by replacing the item in the cache (Nb. Re-adding the default rather than creating and assigning a new type)
+                // Nb. This method does not need to be called unless a custom serializer is preferred 
+                builder.UseBsonSerializer()
+                    .ForDataType(DataType.DateOnly, typeof(DateOnlyBsonSerializer<>))
+                    .ForDataType(DataType.Byte, typeof(ByteBsonSerializer<>))
+                    .ForDataType(DataType.Guid, typeof(GuidBsonSerializer<>))
+                    .ForDataType(DataType.Int, typeof(IntBsonSerializer<>))
+                    .ForDataType(DataType.Long, typeof(LongBsonSerializer<>))
+                    .ForDataType(DataType.SByte, typeof(SByteBsonSerializer<>))
+                    .ForDataType(DataType.Short, typeof(ShortBsonSerializer<>))
+                    .ForDataType(DataType.String, typeof(StringBsonSerializer<>))
+                    .ForDataType(DataType.UInt, typeof(UIntBsonSerializer<>))
+                    .ForDataType(DataType.ULong, typeof(ULongBsonSerializer<>))
+                    .ForDataType(DataType.UShort, typeof(UShortBsonSerializer<>));
 
-                // Use serializer defined in the BsonSerializerOptions class
-                builder.RegisterBsonSerializerForType<BirthDate>();
-                builder.RegisterBsonSerializerForType<ByteId>();
-                builder.RegisterBsonSerializerForType<IntId>();
-                builder.RegisterBsonSerializerForType<LongId>();
-                builder.RegisterBsonSerializerForType<SByteId>();
-                builder.RegisterBsonSerializerForType<ShortId>();
-                builder.RegisterBsonSerializerForType<UIntId>();
-                builder.RegisterBsonSerializerForType<ULongId>();
-                builder.RegisterBsonSerializerForType<UShortId>();
-                builder.RegisterBsonSerializerForType<EightDigits>();
+                // Use serializer defined in the BsonSerializerCache class
+                builder.RegisterBsonSerializer()
+                    .ForType<BirthDate>()
+                    .ForType<ByteId>()
+                    .ForType<IntId>()
+                    .ForType<LongId>()
+                    .ForType<SByteId>()
+                    .ForType<ShortId>()
+                    .ForType<UIntId>()
+                    .ForType<ULongId>()
+                    .ForType<UShortId>()
+                    .ForType<EightDigits>();
 
                 // User serializer defined in the IBsonSerializer type parameter
-                builder.RegisterBsonSerializerForType<MinimumOf100, IntBsonSerializer<MinimumOf100>>();
+                builder.RegisterBsonSerializer()
+                    .ForType<MinimumOf100, IntBsonSerializer<MinimumOf100>>();
 
                 // Use serializer defined in the BsonSerializerOptions class
-                builder.RegisterBsonSerializerForEachTypeIn<PrimitiveRepository>();
+                builder.RegisterBsonSerializer()
+                    .ForEachTypeIn<PrimitiveRepository>();
             });
         });
 
