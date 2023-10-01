@@ -1,5 +1,8 @@
 ﻿namespace Primitively.MongoDb.Bson.Serialization;
 
+/// <summary>
+/// Fluent builder class to replace the default Primitively serializers with custom implementations
+/// </summary>
 public class BsonSerializerCacheBuilder
 {
     internal BsonSerializerCacheBuilder() { }
@@ -10,7 +13,7 @@ public class BsonSerializerCacheBuilder
     /// <param name="dataType"></param>
     /// <param name="serializerType"></param>
     /// <returns>BsonSerializerBuilder</returns>
-    public BsonSerializerCacheBuilder ForDataType(DataType dataType, Type serializerType)
+    public BsonSerializerCacheBuilder SetSerializer(DataType dataType, Type serializerType)
     {
         BsonSerializerCache.Set(dataType, serializerType);
 

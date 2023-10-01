@@ -3,6 +3,9 @@ using MongoDB.Bson.Serialization.Serializers;
 
 namespace Primitively.MongoDb.Bson.Serialization;
 
+/// <summary>
+/// Fluent builder used to create and register instances of serializers for Primitively types
+/// </summary>
 public class BsonSerializerRegisterBuilder
 {
     private static readonly List<Type> _primitiveTypes = new();
@@ -18,7 +21,7 @@ public class BsonSerializerRegisterBuilder
     /// The type of serializer used is governed by the BsonSerializerOptions. If a serializer for the given type 
     /// is already registered, subsequent attempts for the same type will be ignored.
     /// </remarks>
-    public BsonSerializerRegisterBuilder ForType<TPrimitive>()
+    public BsonSerializerRegisterBuilder AddSerializerForType<TPrimitive>()
         where TPrimitive : struct, IPrimitive
     {
         // Get a default instance of the provided Primitively struct type
@@ -33,7 +36,7 @@ public class BsonSerializerRegisterBuilder
     }
 
     /// <summary>
-    /// Automatically register a nullable and a non-nullable Bson serializer for the provided Primitively type
+    /// Register a nullable and a non-nullable Bson serializer for the provided Primitively type
     /// </summary>
     /// <typeparam name="TPrimitive">IPrimitive</typeparam>
     /// <typeparam name="TBsonSerializer">IBsonSerializer</typeparam>
@@ -43,7 +46,7 @@ public class BsonSerializerRegisterBuilder
     /// individual primitive types to have their own serialiser, rather than the one defined in BsonSerializerOptions.
     /// If a serializer for the given type is already registered, subsequent attempts for the same type will be ignored.
     /// </remarks>
-    public BsonSerializerRegisterBuilder ForType<TPrimitive, TBsonSerializer>()
+    public BsonSerializerRegisterBuilder AddSerializerForType<TPrimitive, TBsonSerializer>()
         where TPrimitive : struct, IPrimitive
         where TBsonSerializer : class, IBsonSerializer<TPrimitive>
     {
@@ -53,7 +56,7 @@ public class BsonSerializerRegisterBuilder
     }
 
     /// <summary>
-    /// Automatically register nullable and non-nullable Bson serializers for all the Primitively types contained 
+    /// Register nullable and non-nullable Bson serializers for all the Primitively types contained 
     /// in the source generated repository
     /// </summary>
     /// <typeparam name="TPrimitiveRepository">IPrimitiveRepository</typeparam>
@@ -64,7 +67,7 @@ public class BsonSerializerRegisterBuilder
     /// To use a custom serializer for one or more types in a repository. Simply register them individually 
     /// first before calling this method.
     /// </remarks>
-    public BsonSerializerRegisterBuilder ForEachTypeIn<TPrimitiveRepository>()
+    public BsonSerializerRegisterBuilder AddSerializerForEachTypeIn<TPrimitiveRepository>()
         where TPrimitiveRepository : class, IPrimitiveRepository, new()
     {
         // Get a list of the source generated Primitively types

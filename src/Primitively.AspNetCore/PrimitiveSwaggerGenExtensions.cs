@@ -2,7 +2,7 @@
 
 namespace Primitively.AspNetCore;
 
-[Obsolete($"Use {nameof(DependencyInjectionExtensions)} instead")]
+[Obsolete($"Use {nameof(DependencyInjection)} instead")]
 public static class PrimitiveSwaggerGenExtensions
 {
     [Obsolete($"Use {nameof(IPrimitiveAspNetBuilder.AddOpenApiSchemasFor)} on {nameof(IPrimitiveAspNetBuilder)} instead")]

@@ -6,7 +6,7 @@ namespace Primitively.AspNetCore;
 /// Primitively Configurator extensions to register AspNet Swagger schema filters and 
 /// model binders for Primitively source generated types
 /// </summary>
-public static class DependencyInjectionExtensions
+public static class DependencyInjection
 {
     /// <summary>
     /// Register ASP.NET related dependencies

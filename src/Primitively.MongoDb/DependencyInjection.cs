@@ -13,12 +13,11 @@ public static class DependencyInjection
     /// Register MongoDB nullable and non-nullable Bson serializers
     /// </summary>
     /// <param name="configurator">Configurator</param>
-    /// <param name="builderAction">Bson Serializer Builder</param>
-    /// <param name="options">Bson Serializer Options</param>
+    /// <param name="configure">Bson Serializer Builder</param>
     /// <returns>Configurator</returns>
-    public static IPrimitivelyConfigurator UseMongoDB(this IPrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> builderAction)
+    public static IPrimitivelyConfigurator WithMongoDb(this IPrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> configure)
     {
-        builderAction.Invoke(new BsonSerializerBuilder());
+        configure.Invoke(new BsonSerializerBuilder());
 
         return configurator;
     }

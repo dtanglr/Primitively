@@ -2,6 +2,9 @@
 
 namespace Primitively.MongoDb.Bson.Serialization;
 
+/// <summary>
+/// A cache of the default serializer classes
+/// </summary>
 internal static class BsonSerializerCache
 {
     private static readonly Dictionary<DataType, Type> _items = new()

@@ -23,64 +23,64 @@ public class PrimitiveBsonSerializerTests
         };
 
         // Act
-        services.AddPrimitively(configure =>
-        {
+        services.AddPrimitively()
             // Add MongoDB support and register BSON serializers for the given source generated Primitive types
-            configure.UseMongoDB(builder =>
+            .WithMongoDb(configure =>
             {
-                // Override default serializers by replacing the item in the cache (Nb. Re-adding the default rather than creating and assigning a new type)
-                // Nb. This method does not need to be called unless a custom serializer is preferred 
-                builder.UseBsonSerializer()
-                    .ForDataType(DataType.DateOnly, typeof(DateOnlyBsonSerializer<>))
-                    .ForDataType(DataType.Byte, typeof(ByteBsonSerializer<>))
-                    .ForDataType(DataType.Guid, typeof(GuidBsonSerializer<>))
-                    .ForDataType(DataType.Int, typeof(IntBsonSerializer<>))
-                    .ForDataType(DataType.Long, typeof(LongBsonSerializer<>))
-                    .ForDataType(DataType.SByte, typeof(SByteBsonSerializer<>))
-                    .ForDataType(DataType.Short, typeof(ShortBsonSerializer<>))
-                    .ForDataType(DataType.String, typeof(StringBsonSerializer<>))
-                    .ForDataType(DataType.UInt, typeof(UIntBsonSerializer<>))
-                    .ForDataType(DataType.ULong, typeof(ULongBsonSerializer<>))
-                    .ForDataType(DataType.UShort, typeof(UShortBsonSerializer<>));
+                configure.DefaultSerializers(cache =>
+                {
+                    // Override default serializers by replacing the item in the cache (Nb. Re-adding the default rather
+                    // than creating and assigning a new type). This method does not need to be called unless a custom serializer is preferred 
+                    cache.SetSerializer(DataType.DateOnly, typeof(DateOnlyBsonSerializer<>));
+                    cache.SetSerializer(DataType.Guid, typeof(GuidBsonSerializer<>));
+                    cache.SetSerializer(DataType.Int, typeof(IntBsonSerializer<>));
+                    cache.SetSerializer(DataType.Long, typeof(LongBsonSerializer<>));
+                    cache.SetSerializer(DataType.SByte, typeof(SByteBsonSerializer<>));
+                    cache.SetSerializer(DataType.Short, typeof(ShortBsonSerializer<>));
+                    cache.SetSerializer(DataType.String, typeof(StringBsonSerializer<>));
+                    cache.SetSerializer(DataType.UInt, typeof(UIntBsonSerializer<>));
+                    cache.SetSerializer(DataType.ULong, typeof(ULongBsonSerializer<>));
+                    cache.SetSerializer(DataType.UShort, typeof(UShortBsonSerializer<>));
+                });
 
-                // Use serializer defined in the BsonSerializerCache class
-                builder.RegisterBsonSerializer()
-                    .ForType<BirthDate>()
-                    .ForType<ByteId>()
-                    .ForType<IntId>()
-                    .ForType<LongId>()
-                    .ForType<SByteId>()
-                    .ForType<ShortId>()
-                    .ForType<UIntId>()
-                    .ForType<ULongId>()
-                    .ForType<UShortId>()
-                    .ForType<EightDigits>();
+                configure.RegisterSerializers(register =>
+                {
+                    // Create an instance of a Bson Serializer for the given Primitively types using the configured
+                    // Bson Serializers held in the BsonSerializerCache
+                    register.AddSerializerForType<BirthDate>();
+                    register.AddSerializerForType<ByteId>();
+                    register.AddSerializerForType<IntId>();
+                    register.AddSerializerForType<LongId>();
+                    register.AddSerializerForType<SByteId>();
+                    register.AddSerializerForType<ShortId>();
+                    register.AddSerializerForType<UIntId>();
+                    register.AddSerializerForType<ULongId>();
+                    register.AddSerializerForType<UShortId>();
+                    register.AddSerializerForType<EightDigits>();
 
-                // User serializer defined in the IBsonSerializer type parameter
-                builder.RegisterBsonSerializer()
-                    .ForType<MinimumOf100, IntBsonSerializer<MinimumOf100>>();
+                    // User serializer defined in the IBsonSerializer type parameter
+                    register.AddSerializerForType<MinimumOf100, IntBsonSerializer<MinimumOf100>>();
 
-                // Use serializer defined in the BsonSerializerOptions class
-                builder.RegisterBsonSerializer()
-                    .ForEachTypeIn<PrimitiveRepository>();
+                    // Use serializer defined in the BsonSerializerOptions class
+                    register.AddSerializerForEachTypeIn<PrimitiveRepository>();
+                });
             });
-        });
 
         // Assert
-        AssertThatBsonSerializerIsRegistered(expectedTypes[0], typeof(DateOnlyBsonSerializer<>));
-        AssertThatBsonSerializerIsRegistered(expectedTypes[1], typeof(ByteBsonSerializer<>));
-        AssertThatBsonSerializerIsRegistered(expectedTypes[2], typeof(IntBsonSerializer<>));
-        AssertThatBsonSerializerIsRegistered(expectedTypes[3], typeof(LongBsonSerializer<>));
-        AssertThatBsonSerializerIsRegistered(expectedTypes[4], typeof(SByteBsonSerializer<>));
-        AssertThatBsonSerializerIsRegistered(expectedTypes[5], typeof(ShortBsonSerializer<>));
-        AssertThatBsonSerializerIsRegistered(expectedTypes[6], typeof(UIntBsonSerializer<>));
-        AssertThatBsonSerializerIsRegistered(expectedTypes[7], typeof(ULongBsonSerializer<>));
-        AssertThatBsonSerializerIsRegistered(expectedTypes[8], typeof(UShortBsonSerializer<>));
-        AssertThatBsonSerializerIsRegistered(expectedTypes[9], typeof(StringBsonSerializer<>));
-        AssertThatBsonSerializerIsRegistered(expectedTypes[10], typeof(IntBsonSerializer<>));
+        AssertThatSerializerIsRegistered(expectedTypes[0], typeof(DateOnlyBsonSerializer<>));
+        AssertThatSerializerIsRegistered(expectedTypes[1], typeof(ByteBsonSerializer<>));
+        AssertThatSerializerIsRegistered(expectedTypes[2], typeof(IntBsonSerializer<>));
+        AssertThatSerializerIsRegistered(expectedTypes[3], typeof(LongBsonSerializer<>));
+        AssertThatSerializerIsRegistered(expectedTypes[4], typeof(SByteBsonSerializer<>));
+        AssertThatSerializerIsRegistered(expectedTypes[5], typeof(ShortBsonSerializer<>));
+        AssertThatSerializerIsRegistered(expectedTypes[6], typeof(UIntBsonSerializer<>));
+        AssertThatSerializerIsRegistered(expectedTypes[7], typeof(ULongBsonSerializer<>));
+        AssertThatSerializerIsRegistered(expectedTypes[8], typeof(UShortBsonSerializer<>));
+        AssertThatSerializerIsRegistered(expectedTypes[9], typeof(StringBsonSerializer<>));
+        AssertThatSerializerIsRegistered(expectedTypes[10], typeof(IntBsonSerializer<>));
     }
 
-    private static void AssertThatBsonSerializerIsRegistered(Type primitivelyType, Type serializerType)
+    private static void AssertThatSerializerIsRegistered(Type primitivelyType, Type serializerType)
     {
         // Bson Serializers
         var nullablePrimitivelyType = typeof(Nullable<>).MakeGenericType(primitivelyType);

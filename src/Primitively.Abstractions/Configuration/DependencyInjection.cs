@@ -2,7 +2,7 @@
 
 namespace Primitively.Configuration;
 
-public static class DependencyInjectionExtensions
+public static class DependencyInjection
 {
     public static IServiceCollection AddPrimitively(this IServiceCollection services, Action<IPrimitivelyConfigurator> configure)
     {
@@ -10,5 +10,10 @@ public static class DependencyInjectionExtensions
         configure.Invoke(configurator);
 
         return services;
+    }
+
+    public static PrimitivelyConfigurator AddPrimitively(this IServiceCollection services)
+    {
+        return new PrimitivelyConfigurator(services);
     }
 }
