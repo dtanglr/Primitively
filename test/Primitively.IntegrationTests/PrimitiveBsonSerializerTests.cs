@@ -61,7 +61,7 @@ public class PrimitiveBsonSerializerTests
                     // User serializer defined in the IBsonSerializer type parameter
                     register.AddSerializerForType<MinimumOf100, IntBsonSerializer<MinimumOf100>>();
 
-                    // Use serializer defined in the BsonSerializerOptions class
+                    // Create an instance of a Bson Serializer for each Primitively type in the given Primitively repo
                     register.AddSerializerForEachTypeIn<PrimitiveRepository>();
                 });
             });

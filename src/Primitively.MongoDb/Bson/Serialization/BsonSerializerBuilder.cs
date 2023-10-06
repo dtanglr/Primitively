@@ -11,11 +11,11 @@ public class BsonSerializerBuilder
     /// <summary>
     /// Override any of the default Primitively serializers with custom ones
     /// </summary>
-    /// <param name="cache">Cache builder</param>
-    /// <returns>The current instance of the builder</returns>
+    /// <param name="cache">Cache builder. See <see cref="BsonSerializerCacheBuilder"/></param>
+    /// <returns>The current instance</returns>
     /// <remarks>
-    /// There is a default Primitively Bson Serializer for each type of Primitively type. These are held in a cache.
-    /// This method allows the default for any given Primitively DataType to be replaced with a custom implementation.
+    /// There is a default serializer for each Primitively <see cref="DataType"/>. These are held in cache.
+    /// This method allows the default serializer to be replaced with a custom implementation.
     /// </remarks>
     public BsonSerializerBuilder DefaultSerializers(Action<BsonSerializerCacheBuilder> cache)
     {
@@ -27,13 +27,13 @@ public class BsonSerializerBuilder
     /// <summary>
     /// Registers non-nullable and nullable serializer instances for each of the given Primitively types. 
     /// </summary>
-    /// <param name="register">Register builder</param>
-    /// <returns>The current instance of the builder</returns>
+    /// <param name="register">Register builder. See <see cref="BsonSerializerRegisterBuilder"/></param>
+    /// <returns>The current instance</returns>
     /// <remarks>
     /// For a Primitively type to be serialized correctly in MongoDB they must have an associated serializer.
     /// This method provides a mechanism which generates and registers an instance of a serializer for the given type.
-    /// Each Primitively DataType has a matching serializer held in cache. The defaults can be changed using 
-    /// the DefaultSerializers method.
+    /// Each Primitively <see cref="DataType"/> has a matching serializer held in cache. The defaults can be changed using 
+    /// the <see cref="DefaultSerializers(Action{BsonSerializerCacheBuilder})"/> method.
     /// </remarks>
     public BsonSerializerBuilder RegisterSerializers(Action<BsonSerializerRegisterBuilder> register)
     {
