@@ -62,7 +62,7 @@ public class PrimitiveModelBinder : IModelBinder
             }
         }
 
-        // Try to instantiate via relection/activation instead 
+        // Try to instantiate via reflection/activation instead 
         result = type switch
         {
             _ when type.IsAssignableTo(typeof(IULong)) => ulong.TryParse(value, out var parsed) ? Activator.CreateInstance(type, parsed) : Activator.CreateInstance(type),

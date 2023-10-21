@@ -13,14 +13,14 @@ public class PrimitiveAspNetBuilder : IPrimitiveAspNetBuilder
     private readonly List<PrimitiveInfo> _infos = new();
     private readonly List<IPrimitiveFactory> _factories = new();
 
-    public PrimitiveAspNetBuilder(IPrimitivelyConfigurator configurator)
+    public PrimitiveAspNetBuilder(PrimitivelyConfigurator configurator)
     {
         Configurator = configurator ?? throw new ArgumentNullException(nameof(configurator));
-        Configurator.Configure<SwaggerGenOptions>(options => options.SchemaFilter<PrimitiveSchemaFilter>(() => _infos));
-        Configurator.Configure<MvcOptions>(options => options.ModelBinderProviders.Insert(0, new PrimitiveModelBinderProvider(_factories)));
+        Configurator.Services.Configure<SwaggerGenOptions>(options => options.SchemaFilter<PrimitiveSchemaFilter>(() => _infos));
+        Configurator.Services.Configure<MvcOptions>(options => options.ModelBinderProviders.Insert(0, new PrimitiveModelBinderProvider(_factories)));
     }
 
-    public IPrimitivelyConfigurator Configurator { get; }
+    public PrimitivelyConfigurator Configurator { get; }
 
     public IPrimitiveAspNetBuilder AddModelBindersFor<T>() where T : class, IPrimitiveFactory, new()
     {

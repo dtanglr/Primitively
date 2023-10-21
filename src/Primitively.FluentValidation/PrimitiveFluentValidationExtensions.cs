@@ -28,7 +28,7 @@ public static class PrimitiveFluentValidationExtensions
     {
         if (!value.HasValue)
         {
-            context.AddFailure($"'{context.PropertyName}' must be valid.");
+            context.AddFailure($"'{context.PropertyPath}' must be valid.");
         }
     }
 }

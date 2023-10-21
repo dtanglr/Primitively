@@ -14,7 +14,7 @@ public static class DependencyInjection
     /// <param name="configurator">Configurator</param>
     /// <param name="builderAction">AspNet Builder</param>
     /// <returns>Configurator</returns>
-    public static IPrimitivelyConfigurator UseAspNet(this IPrimitivelyConfigurator configurator, Action<IPrimitiveAspNetBuilder>? builderAction = null)
+    public static PrimitivelyConfigurator UseAspNet(this PrimitivelyConfigurator configurator, Action<PrimitiveAspNetBuilder>? builderAction = null)
     {
         var builder = new PrimitiveAspNetBuilder(configurator);
 

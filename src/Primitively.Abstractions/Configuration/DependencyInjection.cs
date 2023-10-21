@@ -4,16 +4,11 @@ namespace Primitively.Configuration;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddPrimitively(this IServiceCollection services, Action<IPrimitivelyConfigurator> configure)
+    public static PrimitivelyConfigurator AddPrimitively(this IServiceCollection services, Action<PrimitivelyOptions>? optionsAction = null)
     {
-        var configurator = new PrimitivelyConfigurator(services);
-        configure.Invoke(configurator);
+        var options = new PrimitivelyOptions();
+        optionsAction?.Invoke(options);
 
-        return services;
-    }
-
-    public static PrimitivelyConfigurator AddPrimitively(this IServiceCollection services)
-    {
-        return new PrimitivelyConfigurator(services);
+        return new PrimitivelyConfigurator(services, options);
     }
 }

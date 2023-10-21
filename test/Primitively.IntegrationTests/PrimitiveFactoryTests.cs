@@ -13,17 +13,22 @@ public class PrimitiveFactoryTests
 
     public static IEnumerable<object[]> PrimitiveTypes()
     {
+        if (!_types.Any())
+        {
+            yield return Array.Empty<object[]>();
+        }
+
+        foreach (var type in _types)
+        {
+            yield return new object[] { type, GetExample(type) };
+        }
+
         static string GetExample(Type type)
         {
             var repo = new PrimitiveRepository();
             repo.TryGetType(type, out var result);
 
             return result?.Example ?? string.Empty;
-        }
-
-        foreach (var type in _types)
-        {
-            yield return new object[] { type, GetExample(type) };
         }
     }
 

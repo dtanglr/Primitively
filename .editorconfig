@@ -41,7 +41,7 @@ indent_size = 2
 [*.{cs,vb}]
 
 # IDE0055: Fix formatting
-dotnet_diagnostic.IDE0055.severity = warning
+dotnet_diagnostic.IDE0055.severity = suggestion
 
 # Sort using and Import directives with System.* appearing first
 dotnet_sort_system_directives_first = true
@@ -82,7 +82,7 @@ dotnet_style_parentheses_in_other_operators = never_if_unnecessary:suggestion
 dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:suggestion
 
 # Modifier preferences
-dotnet_style_require_accessibility_modifiers = for_non_interface_members
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
 
 # Non-private static fields are PascalCase
 dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.severity = warning
@@ -98,7 +98,7 @@ dotnet_naming_style.non_private_static_field_style.capitalization = pascal_case
 # Non-private readonly fields are PascalCase
 dotnet_naming_rule.non_private_readonly_fields_should_be_pascal_case.severity = warning
 dotnet_naming_rule.non_private_readonly_fields_should_be_pascal_case.symbols = non_private_readonly_fields
-dotnet_naming_rule.non_private_readonly_fields_should_be_pascal_case.style = non_private_readonly_field_style
+dotnet_naming_rule.non_private_readonly_fields_should_be_pascal_case.style = non_private_static_field_style
 
 dotnet_naming_symbols.non_private_readonly_fields.applicable_kinds = field
 dotnet_naming_symbols.non_private_readonly_fields.applicable_accessibilities = public, protected, internal, protected_internal, private_protected
@@ -109,7 +109,7 @@ dotnet_naming_style.non_private_readonly_field_style.capitalization = pascal_cas
 # Constants are PascalCase
 dotnet_naming_rule.constants_should_be_pascal_case.severity = warning
 dotnet_naming_rule.constants_should_be_pascal_case.symbols = constants
-dotnet_naming_rule.constants_should_be_pascal_case.style = constant_style
+dotnet_naming_rule.constants_should_be_pascal_case.style = non_private_static_field_style
 
 dotnet_naming_symbols.constants.applicable_kinds = field, local
 dotnet_naming_symbols.constants.required_modifiers = const
@@ -119,7 +119,7 @@ dotnet_naming_style.constant_style.capitalization = pascal_case
 # Static fields are camelCase and start with _
 dotnet_naming_rule.static_fields_should_be_camel_case.severity = warning
 dotnet_naming_rule.static_fields_should_be_camel_case.symbols = static_fields
-dotnet_naming_rule.static_fields_should_be_camel_case.style = static_field_style
+dotnet_naming_rule.static_fields_should_be_camel_case.style = instance_field_style
 
 dotnet_naming_symbols.static_fields.applicable_kinds = field
 dotnet_naming_symbols.static_fields.required_modifiers = static
@@ -149,7 +149,7 @@ dotnet_naming_style.camel_case_style.capitalization = camel_case
 # Local functions are PascalCase
 dotnet_naming_rule.local_functions_should_be_pascal_case.severity = warning
 dotnet_naming_rule.local_functions_should_be_pascal_case.symbols = local_functions
-dotnet_naming_rule.local_functions_should_be_pascal_case.style = local_function_style
+dotnet_naming_rule.local_functions_should_be_pascal_case.style = non_private_static_field_style
 
 dotnet_naming_symbols.local_functions.applicable_kinds = local_function
 
@@ -158,7 +158,7 @@ dotnet_naming_style.local_function_style.capitalization = pascal_case
 # By default, name items with PascalCase
 dotnet_naming_rule.members_should_be_pascal_case.severity = warning
 dotnet_naming_rule.members_should_be_pascal_case.symbols = all_members
-dotnet_naming_rule.members_should_be_pascal_case.style = pascal_case_style
+dotnet_naming_rule.members_should_be_pascal_case.style = non_private_static_field_style
 
 dotnet_naming_symbols.all_members.applicable_kinds = *
 
@@ -191,6 +191,20 @@ dotnet_diagnostic.IDE0161.severity = warning
 
 # RS0016: Only enable if API files are present
 dotnet_public_api_analyzer.require_api_files = true
+
+# Currently only enabled for C# due to crash in VB analyzer.  VB can be enabled once
+# https://github.com/dotnet/roslyn/pull/54259 has been published.
+dotnet_style_allow_statement_immediately_after_block_experimental = false:warning
+
+# IDE0079: Remove unnecessary suppression
+dotnet_diagnostic.IDE0079.severity = suggestion
+
+# New additions
+tab_width = 4
+dotnet_style_readonly_field = true:suggestion
+dotnet_style_allow_multiple_blank_lines_experimental = false:warning
+dotnet_style_allow_statement_immediately_after_block_experimental = false:warning
+dotnet_code_quality_unused_parameters = all:suggestion
 
 # CSharp code style settings:
 [*.cs]
@@ -231,6 +245,7 @@ csharp_style_expression_bodied_operators = false:none
 csharp_style_expression_bodied_properties = true:none
 csharp_style_expression_bodied_indexers = true:none
 csharp_style_expression_bodied_accessors = true:none
+csharp_style_expression_bodied_lambdas = when_on_single_line:none
 
 # Suggest more modern language features when available
 csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
@@ -269,9 +284,30 @@ csharp_prefer_braces = true:warning
 csharp_preserve_single_line_blocks = true:warning
 csharp_preserve_single_line_statements = true:warning
 
-# Currently only enabled for C# due to crash in VB analyzer.  VB can be enabled once
-# https://github.com/dotnet/roslyn/pull/54259 has been published.
-dotnet_style_allow_statement_immediately_after_block_experimental = false:warning
-
-# IDE0079: Remove unnecessary suppression
-dotnet_diagnostic.IDE0079.severity = warning
+# New additions
+csharp_using_directive_placement = outside_namespace:warning
+csharp_style_namespace_declarations = file_scoped:warning
+csharp_style_prefer_method_group_conversion = true:silent
+csharp_style_prefer_top_level_statements = true:silent
+csharp_style_expression_bodied_lambdas = true:silent
+csharp_style_expression_bodied_local_functions = false:silent
+csharp_style_prefer_null_check_over_type_check = true:suggestion
+csharp_prefer_simple_default_expression = true:suggestion
+csharp_style_prefer_local_over_anonymous_function = true:suggestion
+csharp_style_prefer_index_operator = true:suggestion
+csharp_style_prefer_range_operator = true:suggestion
+csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
+csharp_style_prefer_tuple_swap = true:suggestion
+csharp_style_prefer_utf8_string_literals = true:suggestion
+csharp_style_deconstructed_variable_declaration = true:suggestion
+csharp_style_unused_value_assignment_preference = discard_variable:suggestion
+csharp_style_unused_value_expression_statement_preference = discard_variable:silent
+csharp_prefer_static_local_function = true:suggestion
+csharp_style_prefer_readonly_struct = true:suggestion
+csharp_style_prefer_readonly_struct_member = true:suggestion
+csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental = true:silent
+csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = true:silent
+csharp_style_prefer_switch_expression = true:suggestion
+csharp_style_prefer_pattern_matching = true:silent
+csharp_style_prefer_not_pattern = true:suggestion
+csharp_style_prefer_extended_property_pattern = true:suggestion
