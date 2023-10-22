@@ -23,8 +23,8 @@ public class PrimitiveBsonSerializerTests
         };
 
         // Act
-        services.AddPrimitively(options => options.Repositories.Add<PrimitiveRepository>())
-            .WithMongoDb(configure =>
+        services.AddPrimitively()
+            .UseMongoDb(configure =>
             {
                 // Add MongoDB support and register BSON serializers for the given source generated Primitive types
                 configure.DefaultSerializers(cache =>

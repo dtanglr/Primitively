@@ -13,6 +13,16 @@ public class PrimitiveSchemaFilter : ISchemaFilter
         _primitiveInfo = primitiveInfo ?? throw new ArgumentNullException(nameof(primitiveInfo));
     }
 
+    public PrimitiveSchemaFilter(IEnumerable<IPrimitiveRepository> primitiveRepositories)
+    {
+        if (primitiveRepositories is null)
+        {
+            throw new ArgumentNullException(nameof(primitiveRepositories));
+        }
+
+        _primitiveInfo = () => primitiveRepositories.SelectMany(r => r.GetTypes());
+    }
+
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
         var type = context.Type;

@@ -15,7 +15,7 @@ public static class DependencyInjection
     /// <param name="configurator">Configurator</param>
     /// <param name="configure">Bson Serializer Builder</param>
     /// <returns>Configurator</returns>
-    public static PrimitivelyConfigurator WithMongoDb(this PrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> configure)
+    public static PrimitivelyConfigurator UseMongoDb(this PrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> configure)
     {
         configure.Invoke(new BsonSerializerBuilder());
 

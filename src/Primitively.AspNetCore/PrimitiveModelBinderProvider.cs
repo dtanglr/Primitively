@@ -26,9 +26,20 @@ public class PrimitiveModelBinderProvider : IModelBinderProvider
         _factories = factories ?? throw new ArgumentNullException(nameof(factories));
     }
 
+    public static PrimitiveModelBinderProvider Instance(params IPrimitiveFactory[] factories)
+    {
+        if (factories == null || !factories.Any())
+        {
+            return new PrimitiveModelBinderProvider();
+        }
+
+        return new PrimitiveModelBinderProvider(factories);
+    }
+
     public IModelBinder? GetBinder(ModelBinderProviderContext context)
     {
-        if (!context.Metadata.ModelType.IsAssignableTo(typeof(IPrimitive)))
+        var type = context.Metadata.ModelType;
+        if (type is null || !type.IsValueType || !type.IsAssignableTo(typeof(IPrimitive)))
         {
             return null;
         }

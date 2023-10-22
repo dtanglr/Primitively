@@ -25,7 +25,7 @@ public class PrimitiveFactoryTests
 
         static string GetExample(Type type)
         {
-            var repo = new PrimitiveRepository();
+            var repo = PrimitiveLibrary.Respository;
             repo.TryGetType(type, out var result);
 
             return result?.Example ?? string.Empty;
