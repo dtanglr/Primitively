@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Primitively.AspNetCore.Mvc;
+namespace Primitively.AspNetCore;
 
 public static class MvcOptionsExtensions
 {

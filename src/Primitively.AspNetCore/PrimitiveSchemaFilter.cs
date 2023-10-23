@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Primitively.AspNetCore.SwaggerGen;
+namespace Primitively.AspNetCore;
 
 public class PrimitiveSchemaFilter : ISchemaFilter
 {

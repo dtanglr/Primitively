@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Primitively.Abstractions\Primitively.Abstractions.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mvc\ModelBinding\" />
-  </ItemGroup>
-
 </Project>
