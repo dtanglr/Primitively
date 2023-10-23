@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Primitively.AspNetCore;
+namespace Primitively.AspNetCore.SwaggerGen;
 
 public class PrimitiveSchemaFilter : ISchemaFilter
 {
@@ -11,16 +11,6 @@ public class PrimitiveSchemaFilter : ISchemaFilter
     public PrimitiveSchemaFilter(Func<IEnumerable<PrimitiveInfo>> primitiveInfo)
     {
         _primitiveInfo = primitiveInfo ?? throw new ArgumentNullException(nameof(primitiveInfo));
-    }
-
-    public PrimitiveSchemaFilter(IEnumerable<IPrimitiveRepository> primitiveRepositories)
-    {
-        if (primitiveRepositories is null)
-        {
-            throw new ArgumentNullException(nameof(primitiveRepositories));
-        }
-
-        _primitiveInfo = () => primitiveRepositories.SelectMany(r => r.GetTypes());
     }
 
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)

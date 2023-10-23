@@ -1,12 +1,13 @@
 ﻿using System.Collections.Concurrent;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Primitively.AspNetCore.SwaggerGen;
 using Primitively.Configuration;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Primitively.AspNetCore;
 
-public class PrimitiveAspNetBuilder : IPrimitiveAspNetBuilder
+public class PrimitiveAspNetBuilder
 {
     private static readonly ConcurrentDictionary<string, IPrimitiveRepository> _repos = new();
 
@@ -22,7 +23,7 @@ public class PrimitiveAspNetBuilder : IPrimitiveAspNetBuilder
 
     public PrimitivelyConfigurator Configurator { get; }
 
-    public IPrimitiveAspNetBuilder AddModelBindersFor<T>() where T : class, IPrimitiveFactory, new()
+    public PrimitiveAspNetBuilder AddModelBindersFor<T>() where T : class, IPrimitiveFactory, new()
     {
         if (!_factories.Exists(f => f.GetType() == typeof(T)))
         {
@@ -32,7 +33,7 @@ public class PrimitiveAspNetBuilder : IPrimitiveAspNetBuilder
         return this;
     }
 
-    public IPrimitiveAspNetBuilder AddOpenApiSchemaFor<T>() where T : struct, IPrimitive
+    public PrimitiveAspNetBuilder AddOpenApiSchemaFor<T>() where T : struct, IPrimitive
     {
         var primitiveInfo = GetPrimitiveInfo(typeof(T));
 
@@ -41,7 +42,7 @@ public class PrimitiveAspNetBuilder : IPrimitiveAspNetBuilder
         return this;
     }
 
-    public IPrimitiveAspNetBuilder AddOpenApiSchemasFor<T>() where T : class, IPrimitiveRepository, new()
+    public PrimitiveAspNetBuilder AddOpenApiSchemasFor<T>() where T : class, IPrimitiveRepository, new()
     {
         var primitiveRepository = new T();
 

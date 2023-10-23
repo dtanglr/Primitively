@@ -1,6 +1,6 @@
 ﻿namespace PRIMITIVE_NAMESPACE;
 
-public static class PrimitiveLibrary
+public readonly record struct PrimitiveLibrary
 {
     public static IPrimitiveRepository Respository { get; } = new PrimitiveRepository();
     public static IPrimitiveFactory Factory { get; } = new PrimitiveFactory();

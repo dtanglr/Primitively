@@ -28,7 +28,7 @@ public class PrimitiveModelBinderProvider : IModelBinderProvider
 
     public static PrimitiveModelBinderProvider Instance(params IPrimitiveFactory[] factories)
     {
-        if (factories == null || !factories.Any())
+        if (factories == null)
         {
             return new PrimitiveModelBinderProvider();
         }

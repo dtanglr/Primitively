@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Primitively.AspNetCore.SwaggerGen;
 
 namespace Primitively.AspNetCore;
 

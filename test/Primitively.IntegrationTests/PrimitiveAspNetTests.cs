@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Primitively.AspNetCore;
+using Primitively.AspNetCore.SwaggerGen;
 using Primitively.Configuration;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Xunit;
@@ -17,10 +18,8 @@ public class PrimitiveAspNetTests
         // Arrange
         var services = new ServiceCollection();
 
-        services.AddPrimitively(options => options.Repositories.Add<PrimitiveRepository>())
-            .UseAspNet();
-
-        var s = new TimeSpan(0, 10, 0).ToString();
+        services.AddPrimitively()
+            .ConfigureMvcOptions();
 
         // Act
         var serviceProvider = services.BuildServiceProvider();
@@ -41,11 +40,7 @@ public class PrimitiveAspNetTests
         var services = new ServiceCollection();
 
         services.AddPrimitively()
-            .UseAspNet(builder =>
-            {
-                // Register types to be used by Model Binders
-                builder.AddModelBindersFor<PrimitiveFactory>();
-            });
+            .ConfigureMvcOptions(PrimitiveLibrary.Factory);
 
         // Act
         var serviceProvider = services.BuildServiceProvider();
@@ -60,55 +55,14 @@ public class PrimitiveAspNetTests
     }
 
     [Fact]
-    public void SwaggerSchemaFilter_Types_Are_Registered_Correctly_Using_IPrimitive_In_Params()
-    {
-        // Arrange
-        var services = new ServiceCollection();
-
-        services.AddPrimitively()
-            .UseAspNet(builder =>
-            {
-                // Register types to be used for Swagger schema filters
-                builder
-                    .AddOpenApiSchemaFor<BirthDate>()
-                    .AddOpenApiSchemaFor<DeathDate>();
-            });
-
-        // Act
-        var serviceProvider = services.BuildServiceProvider();
-
-        // Assert
-        var options = serviceProvider.GetService<IOptions<SwaggerGenOptions>>();
-        options.Should().NotBeNull();
-        options!.Value.SchemaFilterDescriptors.Exists(f => f.Type == typeof(PrimitiveSchemaFilter)).Should().BeTrue();
-
-        var filter = options.Value.SchemaFilterDescriptors.SingleOrDefault(f => f.Type == typeof(PrimitiveSchemaFilter));
-        filter.Should().NotBeNull();
-        filter!.Arguments.Length.Should().Be(1);
-
-        var arg = filter.Arguments[0] as Func<IEnumerable<PrimitiveInfo>>;
-        arg.Should().NotBeNull();
-
-        var types = arg!.Invoke();
-        types.SingleOrDefault(i => i.Type == typeof(BirthDate)).Should().NotBeNull();
-        types.SingleOrDefault(i => i.Type == typeof(DeathDate)).Should().NotBeNull();
-
-        var schemaFilter = Activator.CreateInstance(filter.Type, filter.Arguments) as PrimitiveSchemaFilter;
-        schemaFilter.Should().NotBeNull();
-    }
-
-    [Fact]
     public void SwaggerSchemaFilter_Types_Are_Registered_Correctly_Using_IPrimitiveRepository_Instances_In_Params()
     {
         // Arrange
+        var repository = PrimitiveLibrary.Respository;
         var services = new ServiceCollection();
 
         services.AddPrimitively()
-            .UseAspNet(builder =>
-            {
-                // Register types to be used for Swagger schema filters
-                builder.AddOpenApiSchemasFor<PrimitiveRepository>();
-            });
+            .ConfigureSwaggerGenOptions(repository);
 
         // Act
         var serviceProvider = services.BuildServiceProvider();
@@ -124,8 +78,6 @@ public class PrimitiveAspNetTests
 
         var arg = filter.Arguments[0] as Func<IEnumerable<PrimitiveInfo>>;
         arg.Should().NotBeNull();
-
-        var repository = new PrimitiveRepository();
 
         foreach (var type in arg!.Invoke())
         {
