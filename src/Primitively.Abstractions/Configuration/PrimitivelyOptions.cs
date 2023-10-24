@@ -2,5 +2,5 @@
 
 public class PrimitivelyOptions
 {
-    public List<IPrimitiveRepository> Repositories { get; } = new();
+    public PrimitiveRegistry Registry { get; } = new();
 }

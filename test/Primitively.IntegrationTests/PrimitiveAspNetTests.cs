@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Primitively.AspNetCore;
+using Primitively.AspNetCore.Mvc;
+using Primitively.AspNetCore.Mvc.ModelBinding;
+using Primitively.AspNetCore.SwaggerGen;
 using Primitively.Configuration;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Xunit;
@@ -17,8 +19,8 @@ public class PrimitiveAspNetTests
         // Arrange
         var services = new ServiceCollection();
 
-        services.AddPrimitively()
-            .ConfigureMvcOptions();
+        services.AddPrimitively(PrimitiveLibrary.Respository)
+            .AddMvc();
 
         // Act
         var serviceProvider = services.BuildServiceProvider();
@@ -39,7 +41,7 @@ public class PrimitiveAspNetTests
         var services = new ServiceCollection();
 
         services.AddPrimitively()
-            .ConfigureMvcOptions(PrimitiveLibrary.Factory);
+            .AddMvc();
 
         // Act
         var serviceProvider = services.BuildServiceProvider();
@@ -60,8 +62,8 @@ public class PrimitiveAspNetTests
         var repository = PrimitiveLibrary.Respository;
         var services = new ServiceCollection();
 
-        services.AddPrimitively()
-            .ConfigureSwaggerGenOptions(repository);
+        services.AddPrimitively(repository)
+            .AddSwaggerGen();
 
         // Act
         var serviceProvider = services.BuildServiceProvider();
@@ -75,12 +77,12 @@ public class PrimitiveAspNetTests
         filter.Should().NotBeNull();
         filter!.Arguments.Length.Should().Be(1);
 
-        var arg = filter.Arguments[0] as Func<IEnumerable<PrimitiveInfo>>;
+        var arg = filter.Arguments[0] as PrimitiveRegistry;
         arg.Should().NotBeNull();
 
-        foreach (var type in arg!.Invoke())
+        foreach (var type in repository.GetTypes())
         {
-            repository.GetTypes().SingleOrDefault(p => p == type).Should().NotBeNull();
+            type.Should().NotBeNull();
         }
 
         var schemaFilter = Activator.CreateInstance(filter.Type, filter.Arguments) as PrimitiveSchemaFilter;

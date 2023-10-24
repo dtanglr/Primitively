@@ -1,25 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Primitively.Configuration;
 
-namespace Primitively.AspNetCore;
+namespace Primitively.AspNetCore.Mvc.ModelBinding;
 
 public class PrimitiveModelBinder : IModelBinder
 {
-    private readonly IEnumerable<IPrimitiveFactory> _factories;
+    private readonly PrimitiveRegistry _registry;
 
-    public PrimitiveModelBinder(IPrimitiveFactory factory)
+    public PrimitiveModelBinder(PrimitiveRegistry registry)
     {
-        _factories = new List<IPrimitiveFactory> { factory };
-    }
-
-    public PrimitiveModelBinder(IEnumerable<IPrimitiveFactory> factories)
-    {
-        _factories = factories;
+        _registry = registry;
     }
 
     public Task BindModelAsync(ModelBindingContext bindingContext)
     {
         // Try to fetch the value of the argument by name
         var result = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+
         if (result == ValueProviderResult.None)
         {
             return Task.CompletedTask;
@@ -29,7 +26,7 @@ public class PrimitiveModelBinder : IModelBinder
         bindingContext.ModelState.SetModelValue(bindingContext.ModelName, result);
 
         // Create an instance of the Primitive ModelType
-        var created = TryCreate(bindingContext.ModelType, result.FirstValue, out var model);
+        var created = _registry.TryCreate(bindingContext.ModelType, result.FirstValue, out var model);
 
         // Create a ModelBindingResult representing model binding operation outcome
         bindingContext.Result = created
@@ -37,22 +34,5 @@ public class PrimitiveModelBinder : IModelBinder
             : ModelBindingResult.Failed();
 
         return Task.CompletedTask;
-    }
-
-    private bool TryCreate(Type type, string? value, out IPrimitive? result)
-    {
-        result = null;
-
-        foreach (var factory in _factories)
-        {
-            var created = factory.TryCreate(type, value, out result);
-
-            if (created)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
