@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Primitively.IntegrationTests;
 
-public class PrimitiveModelBinderTests
+public class PrimitiveAspNetCoreTests
 {
     private static readonly IEnumerable<Type> _types = Assembly
         .GetExecutingAssembly()

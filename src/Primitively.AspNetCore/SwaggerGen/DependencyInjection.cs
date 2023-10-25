@@ -17,8 +17,11 @@ public static class DependencyInjection
             throw new ArgumentNullException(nameof(configurator));
         }
 
-        configurator.Services.Configure<SwaggerGenOptions>(config =>
-            config.SchemaFilter<SchemaFilter>(configurator.Options.Registry));
+        if (!configurator.Options.Registry.IsEmpty)
+        {
+            configurator.Services.Configure<SwaggerGenOptions>(config =>
+                config.SchemaFilter<SchemaFilter>(configurator.Options.Registry));
+        }
 
         return configurator;
     }

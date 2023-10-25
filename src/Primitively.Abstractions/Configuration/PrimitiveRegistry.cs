@@ -9,7 +9,9 @@ public sealed class PrimitiveRegistry
 
     internal PrimitiveRegistry() { }
 
-    public PrimitiveRegistry Add(IPrimitiveRepository repository)
+    public bool IsEmpty => _cache.IsEmpty;
+
+    public void Add(IPrimitiveRepository repository)
     {
         if (repository is null)
         {
@@ -29,8 +31,6 @@ public sealed class PrimitiveRegistry
         {
             _cache.TryAdd(primitiveInfo.Type, primitiveInfo);
         }
-
-        return this;
     }
 
     public bool TryGet(Type type, out PrimitiveInfo? primitiveInfo)

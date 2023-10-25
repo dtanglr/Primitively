@@ -17,8 +17,11 @@ public static class DependencyInjection
             throw new ArgumentNullException(nameof(configurator));
         }
 
-        configurator.Services.Configure<MvcOptions>(config =>
-            config.ModelBinderProviders.Insert(0, new ModelBinderProvider(configurator.Options.Registry)));
+        if (!configurator.Options.Registry.IsEmpty)
+        {
+            configurator.Services.Configure<MvcOptions>(config =>
+                config.ModelBinderProviders.Insert(0, new ModelBinderProvider(configurator.Options.Registry)));
+        }
 
         return configurator;
     }
