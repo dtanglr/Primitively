@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Primitively.Configuration;
-using ModelBinderProvider = Primitively.AspNetCore.Mvc.ModelBinding.PrimitiveModelBinderProvider;
+using Primitively.AspNetCore.Mvc.ModelBinding;
 
 namespace Primitively.AspNetCore.Mvc;
 
@@ -20,7 +20,7 @@ public static class DependencyInjection
         if (!configurator.Options.Registry.IsEmpty)
         {
             configurator.Services.Configure<MvcOptions>(config =>
-                config.ModelBinderProviders.Insert(0, new ModelBinderProvider(configurator.Options.Registry)));
+                config.ModelBinderProviders.Insert(0, new PrimitiveModelBinderProvider(configurator.Options.Registry)));
         }
 
         return configurator;

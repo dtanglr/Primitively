@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Primitively.Configuration;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using SchemaFilter = Primitively.AspNetCore.SwaggerGen.PrimitiveSchemaFilter;
 
 namespace Primitively.AspNetCore.SwaggerGen;
 
@@ -20,7 +19,7 @@ public static class DependencyInjection
         if (!configurator.Options.Registry.IsEmpty)
         {
             configurator.Services.Configure<SwaggerGenOptions>(config =>
-                config.SchemaFilter<SchemaFilter>(configurator.Options.Registry));
+                config.SchemaFilter<PrimitiveSchemaFilter>(configurator.Options.Registry));
         }
 
         return configurator;
