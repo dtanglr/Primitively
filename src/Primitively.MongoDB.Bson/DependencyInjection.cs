@@ -1,7 +1,7 @@
 ﻿using Primitively.Configuration;
-using Primitively.MongoDb.Bson.Serialization;
+using Primitively.MongoDB.Bson.Serialization;
 
-namespace Primitively.MongoDb;
+namespace Primitively.MongoDB.Bson;
 
 /// <summary>
 /// Primitively Configurator extensions to register MongoDB Bson serializers 
@@ -15,7 +15,7 @@ public static class DependencyInjection
     /// <param name="configurator">Configurator</param>
     /// <param name="configure">Bson Serializer Builder</param>
     /// <returns>Configurator</returns>
-    public static PrimitivelyConfigurator UseMongoDb(this PrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> configure)
+    public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> configure)
     {
         configure.Invoke(new BsonSerializerBuilder());
 

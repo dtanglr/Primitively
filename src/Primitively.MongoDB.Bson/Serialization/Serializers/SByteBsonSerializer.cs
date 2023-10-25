@@ -2,15 +2,14 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
-namespace Primitively.MongoDb.Bson.Serialization.Serializers;
+namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
-public class ULongBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
-    where TPrimitive : struct, IULong
+public class SByteBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
+    where TPrimitive : struct, ISByte
 {
     public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
     {
-        // Store as decimal128 because an unsigned long can exceed the Mongo int64 maximum
-        context.Writer.WriteDecimal128(new Decimal128(value.Value));
+        context.Writer.WriteInt32(value.Value);
     }
 
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
@@ -23,7 +22,7 @@ public class ULongBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
             return new();
         }
 
-        var value = Decimal128.ToUInt64(context.Reader.ReadDecimal128());
+        var value = Convert.ToSByte(context.Reader.ReadInt32());
 
         return (TPrimitive)Activator.CreateInstance(typeof(TPrimitive), value)!;
     }

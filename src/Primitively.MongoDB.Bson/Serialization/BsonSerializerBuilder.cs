@@ -1,4 +1,4 @@
-﻿namespace Primitively.MongoDb.Bson.Serialization;
+﻿namespace Primitively.MongoDB.Bson.Serialization;
 
 /// <summary>
 /// Fluent builder class to register MongoDB Bson serializers for Primitively source generated types

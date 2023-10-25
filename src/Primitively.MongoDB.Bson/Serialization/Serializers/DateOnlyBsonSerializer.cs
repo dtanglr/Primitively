@@ -2,14 +2,14 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
-namespace Primitively.MongoDb.Bson.Serialization.Serializers;
+namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
-public class GuidBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
-    where TPrimitive : struct, IGuid
+public class DateOnlyBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
+    where TPrimitive : struct, IDateOnly
 {
     public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
     {
-        context.Writer.WriteString(value.ToString());
+        context.Writer.WriteDateTime(value.Value.Ticks);
     }
 
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
@@ -22,7 +22,7 @@ public class GuidBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
             return new();
         }
 
-        var value = new Guid(context.Reader.ReadString());
+        var value = DateOnly.FromDateTime(new DateTime(context.Reader.ReadDateTime()));
 
         return (TPrimitive)Activator.CreateInstance(typeof(TPrimitive), value)!;
     }

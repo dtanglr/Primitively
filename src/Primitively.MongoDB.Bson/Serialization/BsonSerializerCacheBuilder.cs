@@ -1,4 +1,4 @@
-﻿namespace Primitively.MongoDb.Bson.Serialization;
+﻿namespace Primitively.MongoDB.Bson.Serialization;
 
 /// <summary>
 /// Fluent builder class to replace the default Primitively serializers with custom implementations

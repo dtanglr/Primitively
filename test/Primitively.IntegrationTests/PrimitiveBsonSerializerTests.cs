@@ -3,8 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Primitively.Configuration;
-using Primitively.MongoDb;
-using Primitively.MongoDb.Bson.Serialization.Serializers;
+using Primitively.MongoDB.Bson;
+using Primitively.MongoDB.Bson.Serialization.Serializers;
 using Xunit;
 
 namespace Primitively.IntegrationTests;
@@ -24,7 +24,7 @@ public class PrimitiveBsonSerializerTests
 
         // Act
         services.AddPrimitively()
-            .UseMongoDb(configure =>
+            .AddBson(configure =>
             {
                 // Add MongoDB support and register BSON serializers for the given source generated Primitive types
                 configure.DefaultSerializers(cache =>

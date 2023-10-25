@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
-namespace Primitively.MongoDb.Bson.Serialization;
+namespace Primitively.MongoDB.Bson.Serialization;
 
 /// <summary>
 /// Fluent builder used to create and register instances of serializers for Primitively types

@@ -2,14 +2,14 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
-namespace Primitively.MongoDb.Bson.Serialization.Serializers;
+namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
-public class ByteBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
-    where TPrimitive : struct, IByte
+public class StringBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
+    where TPrimitive : struct, IString
 {
     public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
     {
-        context.Writer.WriteInt32(value.Value);
+        context.Writer.WriteString(value.Value);
     }
 
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
@@ -22,7 +22,7 @@ public class ByteBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
             return new();
         }
 
-        var value = Convert.ToByte(context.Reader.ReadInt32());
+        var value = context.Reader.ReadString();
 
         return (TPrimitive)Activator.CreateInstance(typeof(TPrimitive), value)!;
     }

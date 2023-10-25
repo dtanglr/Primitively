@@ -1,6 +1,6 @@
-﻿using Primitively.MongoDb.Bson.Serialization.Serializers;
+﻿using Primitively.MongoDB.Bson.Serialization.Serializers;
 
-namespace Primitively.MongoDb.Bson.Serialization;
+namespace Primitively.MongoDB.Bson.Serialization;
 
 /// <summary>
 /// A cache of the default serializer classes
