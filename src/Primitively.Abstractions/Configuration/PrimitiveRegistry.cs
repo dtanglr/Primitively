@@ -33,6 +33,8 @@ public sealed class PrimitiveRegistry
         }
     }
 
+    public List<PrimitiveInfo> ToList() => _cache.Values.ToList();
+
     public bool TryGet(Type type, out PrimitiveInfo? primitiveInfo)
     {
         return _cache.TryGetValue(type, out primitiveInfo);

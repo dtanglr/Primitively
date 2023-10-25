@@ -27,10 +27,20 @@ public class BsonSerializerRegisterBuilder
         // Get a default instance of the provided Primitively struct type
         var primitive = new TPrimitive();
 
-        // Generate an nullable and non-nullable Bson serializer for the Primitively struct
+        // Generate a nullable and non-nullable Bson serializer for the Primitively struct
         var serializerType = BsonSerializerCache.Get(primitive.DataType);
 
         RegisterBsonSerializer(typeof(TPrimitive), serializerType);
+
+        return this;
+    }
+
+    public BsonSerializerRegisterBuilder AddSerializerForType(PrimitiveInfo primitive)
+    {
+        // Generate a nullable and non-nullable Bson serializer for the Primitively struct
+        var serializerType = BsonSerializerCache.Get(primitive.DataType);
+
+        RegisterBsonSerializer(primitive.Type, serializerType);
 
         return this;
     }

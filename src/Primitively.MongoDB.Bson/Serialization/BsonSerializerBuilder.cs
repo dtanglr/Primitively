@@ -1,4 +1,6 @@
-﻿namespace Primitively.MongoDB.Bson.Serialization;
+﻿using Primitively.Configuration;
+
+namespace Primitively.MongoDB.Bson.Serialization;
 
 /// <summary>
 /// Fluent builder class to register MongoDB Bson serializers for Primitively source generated types
@@ -7,6 +9,20 @@ public class BsonSerializerBuilder
 {
     private readonly BsonSerializerCacheBuilder _cacheBuilder = new();
     private readonly BsonSerializerRegisterBuilder _registerBuilder = new();
+    private readonly PrimitiveRegistry _registry;
+
+    public BsonSerializerBuilder(PrimitiveRegistry registry)
+    {
+        _registry = registry;
+    }
+
+    internal void RegisterSerializers()
+    {
+        foreach (var primitive in _registry.ToList())
+        {
+            _registerBuilder.AddSerializerForType(primitive);
+        }
+    }
 
     /// <summary>
     /// Override any of the default Primitively serializers with custom ones

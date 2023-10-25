@@ -13,11 +13,43 @@ public static class DependencyInjection
     /// Register MongoDB nullable and non-nullable Bson serializers
     /// </summary>
     /// <param name="configurator">Configurator</param>
+    /// <returns>Configurator</returns>
+    public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator)
+    {
+        if (configurator is null)
+        {
+            throw new ArgumentNullException(nameof(configurator));
+        }
+
+        if (!configurator.Options.Registry.IsEmpty)
+        {
+            var builder = new BsonSerializerBuilder(configurator.Options.Registry);
+            builder.RegisterSerializers();
+        }
+
+        return configurator;
+    }
+
+    /// <summary>
+    /// Register MongoDB nullable and non-nullable Bson serializers
+    /// </summary>
+    /// <param name="configurator">Configurator</param>
     /// <param name="configure">Bson Serializer Builder</param>
     /// <returns>Configurator</returns>
     public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> configure)
     {
-        configure.Invoke(new BsonSerializerBuilder());
+        if (configurator is null)
+        {
+            throw new ArgumentNullException(nameof(configurator));
+        }
+
+        var builder = new BsonSerializerBuilder(configurator.Options.Registry);
+        configure.Invoke(builder);
+
+        if (!configurator.Options.Registry.IsEmpty)
+        {
+            builder.RegisterSerializers();
+        }
 
         return configurator;
     }
