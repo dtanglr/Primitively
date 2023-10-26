@@ -12,11 +12,6 @@ public static class DependencyInjection
 {
     public static PrimitivelyConfigurator AddMvc(this PrimitivelyConfigurator configurator)
     {
-        if (configurator is null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
-
         if (!configurator.Options.Registry.IsEmpty)
         {
             configurator.Services.Configure<MvcOptions>(config =>

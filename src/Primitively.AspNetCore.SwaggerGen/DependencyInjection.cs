@@ -11,11 +11,6 @@ public static class DependencyInjection
 {
     public static PrimitivelyConfigurator AddSwaggerGen(this PrimitivelyConfigurator configurator)
     {
-        if (configurator is null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
-
         if (!configurator.Options.Registry.IsEmpty)
         {
             configurator.Services.Configure<SwaggerGenOptions>(config =>

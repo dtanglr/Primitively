@@ -16,11 +16,6 @@ public static class DependencyInjection
     /// <returns>Configurator</returns>
     public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator)
     {
-        if (configurator is null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
-
         if (!configurator.Options.Registry.IsEmpty)
         {
             var builder = new BsonSerializerBuilder(configurator.Options.Registry);
@@ -38,11 +33,6 @@ public static class DependencyInjection
     /// <returns>Configurator</returns>
     public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> configure)
     {
-        if (configurator is null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
-
         var builder = new BsonSerializerBuilder(configurator.Options.Registry);
         configure.Invoke(builder);
 
