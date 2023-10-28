@@ -13,15 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.IntegrationTest
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.Abstractions", "src\Primitively.Abstractions\Primitively.Abstractions.csproj", "{DBB27B83-64B3-4FCD-A57F-BCE56AD7E0AA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3C9FCC06-4E9E-458B-81F2-D452F5708536}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		Directory.Build.props = Directory.Build.props
-		global.json = global.json
-		README.md = README.md
-		version.json = version.json
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.FluentValidation", "src\Primitively.FluentValidation\Primitively.FluentValidation.csproj", "{02BC9061-061D-453D-A0BE-E0152DEF039C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.AspNetCore", "src\Primitively.AspNetCore\Primitively.AspNetCore.csproj", "{046434D6-5DF6-4EB8-AA71-E6B5D6B24B54}"
