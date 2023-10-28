@@ -1,4 +1,6 @@
-﻿namespace PRIMITIVE_NAMESPACE;
+﻿using Primitively;
+
+namespace PRIMITIVE_NAMESPACE;
 
 public readonly record struct PrimitiveLibrary
 {
