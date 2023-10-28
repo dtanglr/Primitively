@@ -16,11 +16,11 @@ builder.Services.AddSwaggerGen();
 // Add primitively configuration
 var primitively = builder.Services.AddPrimitively(options =>
 {
-    // Register the location of the source generated Primitively types
+    // Register the location of source generated Primitively types within the application
     // NB. No need to use reflection to scan assemblies! Each class library that contains source
-    // generated Primitively types also has a PrimitiveLibrary static class. Meta-data such
-    // as type name, underlying data type, example value, Min / Max Length etc can then be obtained
-    // from the PrimitiveRepository instance
+    // generated Primitively types also has a PrimitiveLibrary static helper class. Meta data such
+    // as type name, underlying data type, example value, min / max Length etc can then be obtained
+    // from the PrimitiveRepository instance within each class library
     options.Register(PrimitiveLibrary.Respository);
 });
 
@@ -32,9 +32,9 @@ primitively.AddMvc();
 primitively.AddSwaggerGen();
 
 // Add MongoDB BsonSerializer configuration
-// During initialization each type will have an approipriate Primitiely BSON serializer registered
-// This method also support registering types individually with a custom serializer and/or custom
-// serialisers can be registered to replace the default serializer for the any given Primitively DataType.
+// During initialization each type will have an approipriate Primitiely BSON serializer registered on it's behalf.
+// This method also support registering types individually with a custom serializer. A custom
+// serialiser can also be registered to replace the default serializer for the any given Primitively DataTypes.
 primitively.AddBson();
 
 var app = builder.Build();
