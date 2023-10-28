@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.AspNetCore.Mvc"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.AspNetCore.SwaggerGen", "src\Primitively.AspNetCore.SwaggerGen\Primitively.AspNetCore.SwaggerGen.csproj", "{507D94C8-CB04-42C5-A300-5A7764E14338}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.MongoDB.Bson", "src\Primitively.MongoDB.Bson\Primitively.MongoDB.Bson.csproj", "{7B98BCBA-B006-4C04-B2B6-17C8820736C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Primitively.MongoDB.Bson", "src\Primitively.MongoDB.Bson\Primitively.MongoDB.Bson.csproj", "{7B98BCBA-B006-4C04-B2B6-17C8820736C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

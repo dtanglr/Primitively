@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <Authors>Stuart Blackburn</Authors>
-    <Company>Dtangl Limited</Company>
-    <Copyright>Copyright © Dtangl Limited</Copyright>
+    <Company>Electronic Hands</Company>
+    <Copyright>Copyright © Electronic Hands</Copyright>
     <NeutralLanguage>en-GB</NeutralLanguage>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>11.0</LangVersion>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
@@ -21,7 +21,7 @@
     <Deterministic>true</Deterministic>
     <ContinuousIntegrationBuild Condition="'$(TF_BUILD)' == 'true'">true</ContinuousIntegrationBuild>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageOutputPath>$(MSBuildThisFileDirectory)artifacts</PackageOutputPath>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)..\artifacts</PackageOutputPath>
   </PropertyGroup>
  
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
