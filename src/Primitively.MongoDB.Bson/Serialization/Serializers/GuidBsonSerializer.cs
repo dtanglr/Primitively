@@ -15,6 +15,15 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     /// <summary>
     /// Initializes a new instance of the <see cref="GuidBsonSerializer{TPrimitive}"/> class.
     /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    private GuidBsonSerializer(GuidSerializer serializer)
+    {
+        _serializer = serializer;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GuidBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
     public GuidBsonSerializer()
     {
         _serializer = GuidSerializer.StandardInstance;
@@ -39,9 +48,9 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     }
 
     /// <summary>
-    /// Gets a cached instance of a GuidBsonSerializer with Standard representation.
+    /// Gets a cached instance of the <see cref="IntBsonSerializer{TPrimitive}"/> class with standard representation.
     /// </summary>
-    public static GuidBsonSerializer<TPrimitive> StandardInstance { get; } = new();
+    public static GuidBsonSerializer<TPrimitive> Instance { get; } = new();
 
     /// <summary>
     /// Gets the Guid representation.
@@ -52,6 +61,12 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     /// Gets the representation.
     /// </summary>
     public BsonType Representation => _serializer.Representation;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GuidBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    public static GuidBsonSerializer<TPrimitive> Create(GuidSerializer serializer) => new(serializer);
 
     /// <summary>
     /// Deserializes a value.
@@ -84,6 +99,11 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     /// <returns>The reconfigured serializer.</returns>
     public GuidBsonSerializer<TPrimitive> WithGuidRepresentation(GuidRepresentation guidRepresentation)
     {
+        if (guidRepresentation == _serializer.GuidRepresentation)
+        {
+            return this;
+        }
+
         return new GuidBsonSerializer<TPrimitive>(guidRepresentation);
     }
 
@@ -94,6 +114,11 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     /// <returns>The reconfigured serializer.</returns>
     public GuidBsonSerializer<TPrimitive> WithRepresentation(BsonType representation)
     {
+        if (representation == _serializer.Representation)
+        {
+            return this;
+        }
+
         return new GuidBsonSerializer<TPrimitive>(representation);
     }
 
