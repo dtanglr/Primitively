@@ -1,30 +1,137 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Options;
 using MongoDB.Bson.Serialization.Serializers;
 
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
-public class ULongBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
+/// <summary>
+/// Represents a serializer for Primitively types that encapsulate a ULong value.
+/// </summary>
+public class ULongBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<ULongBsonSerializer<TPrimitive>>, IRepresentationConverterConfigurable<ULongBsonSerializer<TPrimitive>>
     where TPrimitive : struct, IULong
 {
-    public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
+    private readonly UInt64Serializer _serializer;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ULongBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    private ULongBsonSerializer(UInt64Serializer serializer)
     {
-        // Store as decimal128 because an unsigned long can exceed the Mongo int64 maximum
-        context.Writer.WriteDecimal128(new Decimal128(value.Value));
+        _serializer = serializer;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ULongBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    public ULongBsonSerializer()
+    {
+        _serializer = new UInt64Serializer(BsonType.Decimal128);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ULongBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="representation">The representation.</param>
+    public ULongBsonSerializer(BsonType representation)
+    {
+        _serializer = new UInt64Serializer(representation);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ULongBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="representation">The representation.</param>
+    /// <param name="converter">The converter.</param>
+    public ULongBsonSerializer(BsonType representation, RepresentationConverter converter)
+    {
+        _serializer = new UInt64Serializer(representation, converter);
+    }
+
+    /// <summary>
+    /// Gets a cached instance of the <see cref="ULongBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    public static ULongBsonSerializer<TPrimitive> Instance { get; } = new();
+
+    /// <summary>
+    /// Gets the representation.
+    /// </summary>
+    public BsonType Representation => _serializer.Representation;
+
+    /// <summary>
+    /// Gets the converter.
+    /// </summary>
+    public RepresentationConverter Converter => _serializer.Converter;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ULongBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    public static ULongBsonSerializer<TPrimitive> Create(UInt64Serializer serializer) => new(serializer);
+
+    /// <summary>
+    /// Deserializes a value.
+    /// </summary>
+    /// <param name="context">The deserialization context.</param>
+    /// <param name="args">The deserialization args.</param>
+    /// <returns>A deserialized value.</returns>
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
     {
-        if (context.Reader.CurrentBsonType == BsonType.Null)
-        {
-            context.Reader.ReadNull();
-
-            // Return default if null
-            return new();
-        }
-
-        var value = Decimal128.ToUInt64(context.Reader.ReadDecimal128());
+        var value = _serializer.Deserialize(context, args);
 
         return (TPrimitive)Activator.CreateInstance(typeof(TPrimitive), value)!;
+    }
+
+    /// <summary>
+    /// Serializes a value.
+    /// </summary>
+    /// <param name="context">The serialization context.</param>
+    /// <param name="args">The serialization args.</param>
+    /// <param name="value">The object.</param>
+    public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
+    {
+        _serializer.Serialize(context, args, value.Value);
+    }
+
+    /// <summary>
+    /// Returns a serializer that has been reconfigured with the specified item serializer.
+    /// </summary>
+    /// <param name="converter">The converter.</param>
+    /// <returns>The reconfigured serializer.</returns>
+    public ULongBsonSerializer<TPrimitive> WithConverter(RepresentationConverter converter)
+    {
+        if (converter == _serializer.Converter)
+        {
+            return this;
+        }
+
+        return new ULongBsonSerializer<TPrimitive>(_serializer.Representation, converter);
+    }
+
+    /// <summary>
+    /// Returns a serializer that has been reconfigured with the specified representation.
+    /// </summary>
+    /// <param name="representation">The representation.</param>
+    /// <returns>The reconfigured serializer.</returns>
+    public ULongBsonSerializer<TPrimitive> WithRepresentation(BsonType representation)
+    {
+        if (representation == _serializer.Representation)
+        {
+            return this;
+        }
+
+        return new ULongBsonSerializer<TPrimitive>(representation, _serializer.Converter);
+    }
+
+    // explicit ULongerface implementations
+    IBsonSerializer IRepresentationConverterConfigurable.WithConverter(RepresentationConverter converter)
+    {
+        return WithConverter(converter);
+    }
+
+    IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
+    {
+        return WithRepresentation(representation);
     }
 }
