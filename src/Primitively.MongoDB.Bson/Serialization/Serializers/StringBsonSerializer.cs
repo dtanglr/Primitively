@@ -4,26 +4,98 @@ using MongoDB.Bson.Serialization.Serializers;
 
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
-public class StringBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
+/// <summary>
+/// Represents a serializer for Primitively types that encapsulate a String value.
+/// </summary>
+public class StringBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<StringBsonSerializer<TPrimitive>>
     where TPrimitive : struct, IString
 {
-    public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
+    private readonly StringSerializer _serializer;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StringBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    private StringBsonSerializer(StringSerializer serializer)
     {
-        context.Writer.WriteString(value.Value);
+        _serializer = serializer;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StringBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    public StringBsonSerializer()
+    {
+        _serializer = StringSerializer.Instance;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StringBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="representation">The representation.</param>
+    public StringBsonSerializer(BsonType representation)
+    {
+        _serializer = new StringSerializer(representation);
+    }
+
+    /// <summary>
+    /// Gets a cached instance of the <see cref="StringBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    public static StringBsonSerializer<TPrimitive> Instance { get; } = new();
+
+    /// <summary>
+    /// Gets the representation.
+    /// </summary>
+    public BsonType Representation => _serializer.Representation;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StringBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    public static StringBsonSerializer<TPrimitive> Create(StringSerializer serializer) => new(serializer);
+
+    /// <summary>
+    /// Deserializes a value.
+    /// </summary>
+    /// <param name="context">The deserialization context.</param>
+    /// <param name="args">The deserialization args.</param>
+    /// <returns>A deserialized value.</returns>
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
     {
-        if (context.Reader.CurrentBsonType == BsonType.Null)
-        {
-            context.Reader.ReadNull();
-
-            // Return default if null
-            return new();
-        }
-
-        var value = context.Reader.ReadString();
+        var value = _serializer.Deserialize(context, args);
 
         return (TPrimitive)Activator.CreateInstance(typeof(TPrimitive), value)!;
+    }
+
+    /// <summary>
+    /// Serializes a value.
+    /// </summary>
+    /// <param name="context">The serialization context.</param>
+    /// <param name="args">The serialization args.</param>
+    /// <param name="value">The object.</param>
+    public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
+    {
+        _serializer.Serialize(context, args, value.Value);
+    }
+
+    /// <summary>
+    /// Returns a serializer that has been reconfigured with the specified representation.
+    /// </summary>
+    /// <param name="representation">The representation.</param>
+    /// <returns>The reconfigured serializer.</returns>
+    public StringBsonSerializer<TPrimitive> WithRepresentation(BsonType representation)
+    {
+        if (representation == _serializer.Representation)
+        {
+            return this;
+        }
+
+        return new StringBsonSerializer<TPrimitive>(representation);
+    }
+
+    // explicit Stringerface implementations
+    IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
+    {
+        return WithRepresentation(representation);
     }
 }
