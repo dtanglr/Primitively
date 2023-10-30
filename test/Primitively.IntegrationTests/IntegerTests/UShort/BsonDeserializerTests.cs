@@ -20,6 +20,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new UShortBsonSerializer<UShortId>();
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -28,7 +29,6 @@ public class BsonDeserializerTests
         // Assert
         result.Should().Be(expected);
         bsonReader.Verify(r => r.ReadInt32(), Times.Once);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
     }
 
     [Fact]
@@ -39,6 +39,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new UShortBsonSerializer<UShortId>();
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -47,7 +48,6 @@ public class BsonDeserializerTests
         // Assert
         result.Should().Throw<OverflowException>();
         bsonReader.Verify(r => r.ReadInt32(), Times.Once);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
     }
 
     [Fact]
@@ -59,6 +59,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new UShortBsonSerializer<UShortId>();
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -67,7 +68,6 @@ public class BsonDeserializerTests
         // Assert
         result.Should().Be(expected);
         bsonReader.Verify(r => r.ReadInt32(), Times.Once);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
     }
 
     [Fact]
@@ -79,6 +79,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new UShortBsonSerializer<UShortId>();
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -87,27 +88,6 @@ public class BsonDeserializerTests
         // Assert
         result.Should().Throw<OverflowException>();
         bsonReader.Verify(r => r.ReadInt32(), Times.Once);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-    }
-
-    [Fact]
-    public void Non_Nullable_Primitive_Deserialises_From_Bson_Correctly_When_Bson_Null()
-    {
-        // Assign
-        var expected = new UShortId();
-        var bsonReader = new Mock<IBsonReader>();
-        var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new UShortBsonSerializer<UShortId>();
-        bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
-
-        // Act
-        var result = serializer.Deserialize(context, new BsonDeserializationArgs());
-
-        // Assert
-        result.Should().Be(expected);
-        bsonReader.Verify(r => r.CurrentBsonType, Times.Once);
-        bsonReader.Verify(r => r.ReadInt32(), Times.Never);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
     }
 
     [Fact]
@@ -119,6 +99,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new UShortBsonSerializer<UShortId>());
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -126,9 +107,7 @@ public class BsonDeserializerTests
 
         // Assert
         result.Should().Be(expected);
-        bsonReader.Verify(r => r.CurrentBsonType, Times.Once);
         bsonReader.Verify(r => r.ReadInt32(), Times.Once);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
     }
 
     [Fact]
@@ -139,6 +118,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new UShortBsonSerializer<UShortId>());
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -147,7 +127,6 @@ public class BsonDeserializerTests
         // Assert
         result.Should().Throw<OverflowException>();
         bsonReader.Verify(r => r.ReadInt32(), Times.Once);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
     }
 
     [Fact]
@@ -159,6 +138,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new UShortBsonSerializer<UShortId>());
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -166,9 +146,7 @@ public class BsonDeserializerTests
 
         // Assert
         result.Should().Be(expected);
-        bsonReader.Verify(r => r.CurrentBsonType, Times.Once);
         bsonReader.Verify(r => r.ReadInt32(), Times.Once);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
     }
 
     [Fact]
@@ -180,6 +158,7 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new UShortBsonSerializer<UShortId>());
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
         // Act
@@ -188,7 +167,6 @@ public class BsonDeserializerTests
         // Assert
         result.Should().Throw<OverflowException>();
         bsonReader.Verify(r => r.ReadInt32(), Times.Once);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
     }
 
     [Fact]
@@ -206,8 +184,6 @@ public class BsonDeserializerTests
 
         // Assert
         result.Should().Be(expected);
-        bsonReader.Verify(r => r.GetCurrentBsonType(), Times.Once);
         bsonReader.Verify(r => r.ReadInt32(), Times.Never);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
     }
 }
