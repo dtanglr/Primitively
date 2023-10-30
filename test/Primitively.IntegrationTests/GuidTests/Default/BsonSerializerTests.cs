@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.IO;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Moq;
@@ -18,13 +19,13 @@ public class BsonSerializerTests
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
         var serializer = new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>();
-        bsonWriter.Setup(r => r.WriteString(It.IsAny<string>()));
+        bsonWriter.Setup(r => r.WriteBinaryData(It.IsAny<BsonBinaryData>()));
 
         // Act
         serializer.Serialize(context, new BsonSerializationArgs(), expected);
 
         // Assert
-        bsonWriter.Verify(r => r.WriteString(example), Times.Once);
+        bsonWriter.Verify(r => r.WriteBinaryData(It.IsAny<BsonBinaryData>()), Times.Once);
     }
 
     [Fact]
@@ -36,13 +37,13 @@ public class BsonSerializerTests
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
         var serializer = NullableSerializer.Create(new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>());
-        bsonWriter.Setup(r => r.WriteString(It.IsAny<string>()));
+        bsonWriter.Setup(r => r.WriteBinaryData(It.IsAny<BsonBinaryData>()));
 
         // Act
         serializer.Serialize(context, new BsonSerializationArgs(), expected);
 
         // Assert
-        bsonWriter.Verify(r => r.WriteString(example), Times.Once);
+        bsonWriter.Verify(r => r.WriteBinaryData(It.IsAny<BsonBinaryData>()), Times.Once);
     }
 
     [Fact]

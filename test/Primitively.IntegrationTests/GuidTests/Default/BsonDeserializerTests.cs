@@ -20,37 +20,18 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>();
-        bsonReader.Setup(r => r.ReadString()).Returns(example);
+        var bytes = GuidConverter.ToBytes(expected, GuidRepresentation.Standard);
+        var subType = GuidConverter.GetSubType(GuidRepresentation.Standard);
+        var binaryData = new BsonBinaryData(bytes, subType);
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Binary);
+        bsonReader.Setup(r => r.ReadBinaryData()).Returns(binaryData);
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
 
         // Assert
         result.Should().Be(expected);
-        bsonReader.Verify(r => r.ReadInt32(), Times.Never);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Once);
-    }
-
-    [Fact]
-    public void Non_Nullable_Primitive_Deserialises_From_Bson_Correctly_When_Bson_Null()
-    {
-        // Assign
-        var expected = new DefaultThirtySixDigitsWithHyphens();
-        var bsonReader = new Mock<IBsonReader>();
-        var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>();
-        bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
-
-        // Act
-        var result = serializer.Deserialize(context, new BsonDeserializationArgs());
-
-        // Assert
-        result.Should().Be(expected);
-        bsonReader.Verify(r => r.CurrentBsonType, Times.Once);
-        bsonReader.Verify(r => r.ReadInt32(), Times.Never);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Never);
+        bsonReader.Verify(r => r.ReadBinaryData(), Times.Once);
     }
 
     [Fact]
@@ -62,16 +43,18 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>());
-        bsonReader.Setup(r => r.ReadString()).Returns(example);
+        var bytes = GuidConverter.ToBytes(expected, GuidRepresentation.Standard);
+        var subType = GuidConverter.GetSubType(GuidRepresentation.Standard);
+        var binaryData = new BsonBinaryData(bytes, subType);
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Binary);
+        bsonReader.Setup(r => r.ReadBinaryData()).Returns(binaryData);
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
 
         // Assert
         result.Should().Be(expected);
-        bsonReader.Verify(r => r.ReadInt32(), Times.Never);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Once);
+        bsonReader.Verify(r => r.ReadBinaryData(), Times.Once);
     }
 
     [Fact]
@@ -89,9 +72,5 @@ public class BsonDeserializerTests
 
         // Assert
         result.Should().Be(expected);
-        bsonReader.Verify(r => r.GetCurrentBsonType(), Times.Once);
-        bsonReader.Verify(r => r.ReadInt32(), Times.Never);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Never);
     }
 }

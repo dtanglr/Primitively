@@ -4,26 +4,102 @@ using MongoDB.Bson.Serialization.Serializers;
 
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
-public class GuidBsonSerializer<TPrimitive> : SerializerBase<TPrimitive>
+/// <summary>
+/// Represents a serializer for Primitively types that encapsulate a Guid value.
+/// </summary>
+public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<GuidBsonSerializer<TPrimitive>>
     where TPrimitive : struct, IGuid
 {
-    public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
+    private readonly GuidSerializer _serializer;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GuidBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    public GuidBsonSerializer()
     {
-        context.Writer.WriteString(value.ToString());
+        _serializer = GuidSerializer.StandardInstance;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GuidBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="representation">The representation.</param>
+    public GuidBsonSerializer(BsonType representation)
+    {
+        _serializer = new GuidSerializer(representation);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GuidBsonSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="guidRepresentation">The Guid representation.</param>
+    public GuidBsonSerializer(GuidRepresentation guidRepresentation)
+    {
+        _serializer = new GuidSerializer(guidRepresentation);
+    }
+
+    /// <summary>
+    /// Gets a cached instance of a GuidBsonSerializer with Standard representation.
+    /// </summary>
+    public static GuidBsonSerializer<TPrimitive> StandardInstance { get; } = new();
+
+    /// <summary>
+    /// Gets the Guid representation.
+    /// </summary>
+    public GuidRepresentation GuidRepresentation => _serializer.GuidRepresentation;
+
+    /// <summary>
+    /// Gets the representation.
+    /// </summary>
+    public BsonType Representation => _serializer.Representation;
+
+    /// <summary>
+    /// Deserializes a value.
+    /// </summary>
+    /// <param name="context">The deserialization context.</param>
+    /// <param name="args">The deserialization args.</param>
+    /// <returns>A deserialized value.</returns>
     public override TPrimitive Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
     {
-        if (context.Reader.CurrentBsonType == BsonType.Null)
-        {
-            context.Reader.ReadNull();
-
-            // Return default if null
-            return new();
-        }
-
-        var value = new Guid(context.Reader.ReadString());
+        var value = _serializer.Deserialize(context, args);
 
         return (TPrimitive)Activator.CreateInstance(typeof(TPrimitive), value)!;
+    }
+
+    /// <summary>
+    /// Serializes a value.
+    /// </summary>
+    /// <param name="context">The serialization context.</param>
+    /// <param name="args">The serialization args.</param>
+    /// <param name="value">The object.</param>
+    public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TPrimitive value)
+    {
+        _serializer.Serialize(context, args, value.Value);
+    }
+
+    /// <summary>
+    /// Returns a serializer that has been reconfigured with the specified Guid representation.
+    /// </summary>
+    /// <param name="guidRepresentation">The GuidRepresentation.</param>
+    /// <returns>The reconfigured serializer.</returns>
+    public GuidBsonSerializer<TPrimitive> WithGuidRepresentation(GuidRepresentation guidRepresentation)
+    {
+        return new GuidBsonSerializer<TPrimitive>(guidRepresentation);
+    }
+
+    /// <summary>
+    /// Returns a serializer that has been reconfigured with the specified representation.
+    /// </summary>
+    /// <param name="representation">The representation.</param>
+    /// <returns>The reconfigured serializer.</returns>
+    public GuidBsonSerializer<TPrimitive> WithRepresentation(BsonType representation)
+    {
+        return new GuidBsonSerializer<TPrimitive>(representation);
+    }
+
+    // explicit interface implementations
+    IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
+    {
+        return WithRepresentation(representation);
     }
 }
