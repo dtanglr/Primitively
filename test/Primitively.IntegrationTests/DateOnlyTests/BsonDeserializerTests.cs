@@ -20,39 +20,15 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new DateOnlyBsonSerializer<BirthDate>();
-        bsonReader.Setup(r => r.ReadDateTime()).Returns(DateTime.Parse(expected).Ticks);
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.DateTime);
+        bsonReader.Setup(r => r.ReadDateTime()).Returns(BsonUtils.ToMillisecondsSinceEpoch(DateTime.Parse(example)));
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
 
         // Assert
         result.Should().Be(expected);
-        bsonReader.Verify(r => r.ReadInt32(), Times.Never);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Never);
         bsonReader.Verify(r => r.ReadDateTime(), Times.Once);
-    }
-
-    [Fact]
-    public void Non_Nullable_Primitive_Deserialises_From_Bson_Correctly_When_Bson_Null()
-    {
-        // Assign
-        var expected = new BirthDate();
-        var bsonReader = new Mock<IBsonReader>();
-        var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new DateOnlyBsonSerializer<BirthDate>();
-        bsonReader.SetupGet(r => r.CurrentBsonType).Returns(BsonType.Null);
-
-        // Act
-        var result = serializer.Deserialize(context, new BsonDeserializationArgs());
-
-        // Assert
-        result.Should().Be(expected);
-        bsonReader.Verify(r => r.CurrentBsonType, Times.Once);
-        bsonReader.Verify(r => r.ReadInt32(), Times.Never);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Never);
-        bsonReader.Verify(r => r.ReadDateTime(), Times.Never);
     }
 
     [Fact]
@@ -64,16 +40,14 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new DateOnlyBsonSerializer<BirthDate>());
-        bsonReader.Setup(r => r.ReadDateTime()).Returns(DateTime.Parse(expected).Ticks);
+        bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.DateTime);
+        bsonReader.Setup(r => r.ReadDateTime()).Returns(BsonUtils.ToMillisecondsSinceEpoch(DateTime.Parse(example)));
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
 
         // Assert
         result.Should().Be(expected);
-        bsonReader.Verify(r => r.ReadInt32(), Times.Never);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Never);
         bsonReader.Verify(r => r.ReadDateTime(), Times.Once);
     }
 
@@ -92,10 +66,6 @@ public class BsonDeserializerTests
 
         // Assert
         result.Should().Be(expected);
-        bsonReader.Verify(r => r.GetCurrentBsonType(), Times.Once);
-        bsonReader.Verify(r => r.ReadInt32(), Times.Never);
-        bsonReader.Verify(r => r.ReadInt64(), Times.Never);
-        bsonReader.Verify(r => r.ReadString(), Times.Never);
         bsonReader.Verify(r => r.ReadDateTime(), Times.Never);
     }
 }

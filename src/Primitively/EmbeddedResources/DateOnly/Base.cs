@@ -11,6 +11,11 @@
         _value = value;
     }
 
+    public PRIMITIVE_TYPE(System.DateTime value)
+    {
+        _value = DateOnly.FromDateTime(value);
+    }
+
     private PRIMITIVE_TYPE(string value)
     {
         System.DateOnly.TryParseExact(value, Format, out var result);
