@@ -11,16 +11,23 @@ public class BsonSerializerBuilder
     private readonly BsonSerializerRegisterBuilder _registerBuilder = new();
     private readonly PrimitiveRegistry _registry;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BsonSerializerBuilder"/> class.
+    /// </summary>
+    /// <param name="registry">The registry of Primitively types</param>
     public BsonSerializerBuilder(PrimitiveRegistry registry)
     {
         _registry = registry;
     }
 
+    /// <summary>
+    /// Register serializers for each of the Primitively types in the registry
+    /// </summary>
     internal void RegisterSerializers()
     {
-        foreach (var primitive in _registry.ToList())
+        foreach (var primitiveInfo in _registry.ToList())
         {
-            _registerBuilder.AddSerializerForType(primitive);
+            _registerBuilder.AddSerializerForType(primitiveInfo);
         }
     }
 
