@@ -157,15 +157,9 @@ internal static class Parser
             }
 
             // Check there is a partial keyword. If not, report it.
-            var hasPartialModifier = false;
-            foreach (var modifier in recordDeclarationSyntax.Modifiers)
-            {
-                if (modifier.IsKind(SyntaxKind.PartialKeyword))
-                {
-                    hasPartialModifier = true;
-                    break;
-                }
-            }
+            var hasPartialModifier = recordDeclarationSyntax.Modifiers
+                .ToList()
+                .Exists(p => p.IsKind(SyntaxKind.PartialKeyword));
 
             if (!hasPartialModifier)
             {
