@@ -137,7 +137,7 @@ public class Structs : IIncrementalGenerator
     {
         const string Padding = "            ";
 
-        var dataTypes = recordStructs.Select(rs => rs.DataType)?.Distinct() ?? Enumerable.Empty<DataType>();
+        var dataTypes = recordStructs.Select(rs => rs.DataType).Distinct();
         var caseStatements = new List<string>();
 
         // Generate a list of switch case statements
@@ -171,7 +171,7 @@ public class Structs : IIncrementalGenerator
     {
         const string Padding = "        ";
 
-        var dataTypes = recordStructs.Select(rs => rs.DataType)?.Distinct() ?? Enumerable.Empty<DataType>();
+        var dataTypes = recordStructs.Select(rs => rs.DataType).Distinct();
         var yieldStatements = new List<string>();
 
         if (!dataTypes.Any())
