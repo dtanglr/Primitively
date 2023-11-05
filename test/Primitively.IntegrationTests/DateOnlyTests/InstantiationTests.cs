@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Globalization;
+using FluentAssertions;
 using Xunit;
 
 namespace Primitively.IntegrationTests.DateOnlyTests;
@@ -21,7 +22,7 @@ public class InstantiationTests
     [InlineData("2022-01-01", true)]
     public void ConvertFromThisToThatWithExpectedResults(string from, bool hasValue = default)
     {
-        var expectedDateOnly = hasValue ? DateOnly.Parse(from) : default;
+        var expectedDateOnly = hasValue ? DateOnly.ParseExact(from, BirthDate.Format, CultureInfo.InvariantCulture) : default;
         var expectedString = expectedDateOnly.ToString(BirthDate.Format);
 
         var @this = (BirthDate)from;

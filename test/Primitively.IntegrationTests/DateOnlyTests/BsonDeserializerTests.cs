@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Globalization;
+using FluentAssertions;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
@@ -20,8 +21,9 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new DateOnlyBsonSerializer<BirthDate>();
+        var milliseconds = BsonUtils.ToMillisecondsSinceEpoch(DateTime.ParseExact(example, BirthDate.Format, CultureInfo.InvariantCulture));
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.DateTime);
-        bsonReader.Setup(r => r.ReadDateTime()).Returns(BsonUtils.ToMillisecondsSinceEpoch(DateTime.Parse(example)));
+        bsonReader.Setup(r => r.ReadDateTime()).Returns(milliseconds);
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());
@@ -40,8 +42,9 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new DateOnlyBsonSerializer<BirthDate>());
+        var milliseconds = BsonUtils.ToMillisecondsSinceEpoch(DateTime.ParseExact(example, BirthDate.Format, CultureInfo.InvariantCulture));
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.DateTime);
-        bsonReader.Setup(r => r.ReadDateTime()).Returns(BsonUtils.ToMillisecondsSinceEpoch(DateTime.Parse(example)));
+        bsonReader.Setup(r => r.ReadDateTime()).Returns(milliseconds);
 
         // Act
         var result = serializer.Deserialize(context, new BsonDeserializationArgs());

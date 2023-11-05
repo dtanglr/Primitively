@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using System.Globalization;
+using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
@@ -15,7 +16,7 @@ public class BsonSerializerTests
     {
         // Assign
         var example = (BirthDate)BirthDate.Example;
-        var ticks = BsonUtils.ToMillisecondsSinceEpoch(DateTime.Parse(example));
+        var ticks = BsonUtils.ToMillisecondsSinceEpoch(DateTime.ParseExact(example, BirthDate.Format, CultureInfo.InvariantCulture));
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
         var serializer = new DateOnlyBsonSerializer<BirthDate>();
@@ -33,7 +34,7 @@ public class BsonSerializerTests
     {
         // Assign
         var example = (BirthDate)BirthDate.Example;
-        var ticks = BsonUtils.ToMillisecondsSinceEpoch(DateTime.Parse(example));
+        var ticks = BsonUtils.ToMillisecondsSinceEpoch(DateTime.ParseExact(example, BirthDate.Format, CultureInfo.InvariantCulture));
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
         var serializer = NullableSerializer.Create(new DateOnlyBsonSerializer<BirthDate>());
