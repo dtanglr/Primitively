@@ -67,7 +67,7 @@ internal static class Parser
                 var fullName = attributeSymbol.ContainingType.ToDisplayString();
 
                 // Is the Record Struct decorated with a matching Primitively attribute
-                if (_attributeFullNames.Any(a => a.Equals(fullName, StringComparison.Ordinal)))
+                if (_attributeFullNames.Exists(a => a.Equals(fullName, StringComparison.Ordinal)))
                 {
                     return syntaxDeclaration;
                 }

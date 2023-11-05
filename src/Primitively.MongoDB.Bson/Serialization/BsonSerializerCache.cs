@@ -43,8 +43,8 @@ internal static class BsonSerializerCache
         }
 
         var parameter = parameters[0];
-        var interfaces = parameter.GetInterfaces();
-        var isValidImplementation = interfaces.Any(w => w == dataType switch
+        var interfaces = parameter.GetInterfaces().ToList();
+        var isValidImplementation = interfaces.Exists(w => w == dataType switch
         {
             DataType.Byte => typeof(IByte),
             DataType.DateOnly => typeof(IDateOnly),
