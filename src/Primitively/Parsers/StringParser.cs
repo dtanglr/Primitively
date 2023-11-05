@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Primitively.Parsers;
 
-internal class StringParser
+internal static class StringParser
 {
     internal static bool TryParse(AttributeData attributeData, string name, string nameSpace, ParentData? parentData, out RecordStructData? recordStructData)
     {
