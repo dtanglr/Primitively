@@ -9,6 +9,7 @@
     <Description>A C# source generator that promotes the benefits of type-safety by encapsulating primitive types commonly used as identifiers or value objects</Description>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnableDebugger>false</EnableDebugger>
+    <NoWarn>$(NoWarn);S1135</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
