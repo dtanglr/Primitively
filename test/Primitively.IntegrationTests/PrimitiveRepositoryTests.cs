@@ -116,6 +116,6 @@ public class PrimitiveRepositoryTests
         };
 
         // Assert
-        result.Should().HaveCount(_types.Where(t => t.IsAssignableTo(type)).Count());
+        result.Should().HaveCount(_types.Count(t => t.IsAssignableTo(type)));
     }
 }
