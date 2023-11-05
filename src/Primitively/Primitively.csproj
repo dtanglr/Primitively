@@ -8,6 +8,7 @@
     <AssemblyName>Primitively.SourceGeneration</AssemblyName>
     <Description>A C# source generator that promotes the benefits of type-safety by encapsulating primitive types commonly used as identifiers or value objects</Description>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnableDebugger>false</EnableDebugger>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,5 +37,10 @@
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     <None Include="$(OutputPath)\Primitively.Abstractions.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <DebuggerEnabled Condition=" '$(Configuration)'=='Debug' and '$(EnableDebugger)'=='true' ">DEBUGGERENABLED</DebuggerEnabled>
+    <DefineConstants>$(DebuggerEnabled)</DefineConstants>
+  </PropertyGroup>
 
 </Project>

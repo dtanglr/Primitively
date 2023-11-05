@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -16,10 +15,10 @@ public class Structs : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-#if DEBUG
-        if (!Debugger.IsAttached)
+#if DEBUGGERENABLED
+        if (!System.Diagnostics.Debugger.IsAttached)
         {
-            //Debugger.Launch();
+            System.Diagnostics.Debugger.Launch();
         }
 #endif 
         // Register the record struct and factory class sources
