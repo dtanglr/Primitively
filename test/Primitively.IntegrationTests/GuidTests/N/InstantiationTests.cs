@@ -15,7 +15,7 @@ public class InstantiationTests
     [InlineData("9BC12195B4A94880B526A0BE96EDDA08", true)]
     public void ConvertFromThisToThatWithExpectedResults(string from, bool hasValue = default)
     {
-        var expectedGuid = hasValue ? Guid.Parse(from) : default;
+        var expectedGuid = hasValue ? Guid.Parse(from) : Guid.Empty;
         var expectedString = expectedGuid.ToString("N");
 
         var @this = (ThirtyTwoDigits)from;

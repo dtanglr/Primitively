@@ -15,7 +15,7 @@ public class InstantiationTests
     [InlineData("{0x2c48c152,0x7cb7,0x4f51,{0x8f,0x01,0x70,0x44,0x54,0xf3,0x6e,0x50}}", true)]
     public void ConvertFromThisToThatWithExpectedResults(string from, bool hasValue = default)
     {
-        var expectedGuid = hasValue ? Guid.Parse(from) : default;
+        var expectedGuid = hasValue ? Guid.Parse(from) : Guid.Empty;
         var expectedString = expectedGuid.ToString("X");
 
         var @this = (SixtyEightHexadecimalsWithHyphensAndBraces)from;
