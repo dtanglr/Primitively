@@ -10,7 +10,7 @@ public abstract class PrimitiveTypeConverterTests<TTypeConverter, TPrimitive>
    where TTypeConverter : TypeConverter, new()
    where TPrimitive : struct, IPrimitive
 {
-    private static readonly List<Type> _types = Assembly
+    private readonly List<Type> _types = Assembly
        .GetExecutingAssembly()
        .GetTypes()
        .Where(type => type.GetConstructor(Type.EmptyTypes) != null && !type.IsValueType)
