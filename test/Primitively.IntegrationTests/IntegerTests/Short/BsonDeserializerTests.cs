@@ -75,7 +75,6 @@ public class BsonDeserializerTests
     {
         // Assign
         var number = ShortId.Minimum - 1;
-        var expected = (ShortId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new ShortBsonSerializer<ShortId>();
@@ -154,7 +153,6 @@ public class BsonDeserializerTests
     {
         // Assign
         var number = ShortId.Minimum - 1;
-        var expected = (ShortId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new ShortBsonSerializer<ShortId>());
