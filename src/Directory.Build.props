@@ -20,8 +20,8 @@
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <Deterministic>true</Deterministic>
     <ContinuousIntegrationBuild Condition="'$(TF_BUILD)' == 'true'">true</ContinuousIntegrationBuild>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageOutputPath>$(MSBuildThisFileDirectory)..\artifacts</PackageOutputPath>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <!--PackageOutputPath>$(MSBuildThisFileDirectory)..\artifacts</PackageOutputPath-->
   </PropertyGroup>
  
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -44,10 +44,6 @@
   
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All " />
-    <!--PackageReference Include="Nerdbank.GitVersioning" Condition="!Exists('packages.config')">
-      <PrivateAssets>all</PrivateAssets>
-      <Version>3.6.133</Version>
-    </PackageReference-->
   </ItemGroup>
   
 </Project>
