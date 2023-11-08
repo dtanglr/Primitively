@@ -1,21 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>Primitively.Examples</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Primitively" Version="1.4.1-beta" PrivateAssets="all">
-      <ExcludeAssets>compile;runtime</ExcludeAssets>
-      <TreatAsUsed>true</TreatAsUsed>
-      <IncludeAssets>build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Primitively.Abstractions" Version="1.4.1-beta">
-      <TreatAsUsed>true</TreatAsUsed>
-    </PackageReference>
+    <PackageReference Include="Primitively" Version="1.4.3-beta" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
