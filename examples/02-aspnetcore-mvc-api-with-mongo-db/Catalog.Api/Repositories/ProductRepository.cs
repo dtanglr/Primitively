@@ -36,12 +36,4 @@ public class ProductRepository : IProductRepository
             .Find(p => p.Sku == sku)
             .FirstOrDefaultAsync();
     }
-
-    public async Task<Product> GetProduct2(Sku sku)
-    {
-        return await _context
-            .Products
-            .Find(p => p.Sku2 == sku)
-            .FirstOrDefaultAsync();
-    }
 }

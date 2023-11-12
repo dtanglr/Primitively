@@ -57,20 +57,4 @@ public class CatalogController : ControllerBase
 
         return Ok(product);
     }
-
-    [HttpGet("{sku}", Name = "GetProductBySku2")]
-    [ProducesResponseType((int)HttpStatusCode.NotFound)]
-    [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<Product>> GetProductBySku2(Sku sku)
-    {
-        var product = await _repository.GetProduct2(sku);
-
-        if (product == null)
-        {
-            _logger.LogError("Product with SKU: {sku}, not found.", sku);
-            return NotFound();
-        }
-
-        return Ok(product);
-    }
 }

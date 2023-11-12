@@ -24,9 +24,11 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     /// <summary>
     /// Initializes a new instance of the <see cref="GuidBsonSerializer{TPrimitive}"/> class.
     /// </summary>
-    public GuidBsonSerializer()
+    /// <remarks>
+    /// This defaults to BsonType.Binary and GuidRepresentation.Standard.
+    /// </remarks>
+    public GuidBsonSerializer() : this(GuidRepresentation.Standard)
     {
-        _serializer = GuidSerializer.StandardInstance;
     }
 
     /// <summary>
@@ -35,8 +37,7 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     /// <param name="representation">The representation.</param>
     public GuidBsonSerializer(BsonType representation)
     {
-        _serializer = new GuidSerializer(representation)
-            .WithGuidRepresentation(GuidRepresentation.Standard); // Default to Standard rather than Unspecified
+        _serializer = new GuidSerializer(representation);
     }
 
     /// <summary>
