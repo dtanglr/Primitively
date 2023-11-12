@@ -1,6 +1,5 @@
 ﻿using Catalog.Api.Data;
 using Catalog.Api.Entities;
-using Catalog.Api.Models;
 using MongoDB.Driver;
 
 namespace Catalog.Api.Repositories;
@@ -35,6 +34,14 @@ public class ProductRepository : IProductRepository
         return await _context
             .Products
             .Find(p => p.Sku == sku)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<Product> GetProduct2(Sku sku)
+    {
+        return await _context
+            .Products
+            .Find(p => p.Sku2 == sku)
             .FirstOrDefaultAsync();
     }
 }

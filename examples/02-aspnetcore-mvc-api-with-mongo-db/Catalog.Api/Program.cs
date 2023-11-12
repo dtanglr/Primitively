@@ -1,6 +1,7 @@
-﻿using Catalog.Api;
+﻿using Catalog.Abstractions;
 using Catalog.Api.Data;
 using Catalog.Api.Repositories;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Primitively.AspNetCore.Mvc;
 using Primitively.AspNetCore.SwaggerGen;
 using Primitively.Configuration;
@@ -9,9 +10,14 @@ using Primitively.MongoDB.Bson;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ICatalogContext, CatalogContext>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    // Removed text/plain output support
+    options.OutputFormatters.RemoveType<StringOutputFormatter>();
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 // Add primitively configuration
 var primitively = builder.Services.AddPrimitively(options =>

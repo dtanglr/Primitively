@@ -1,10 +1,7 @@
-﻿using Catalog.Api.Entities;
+﻿using System.Net;
+using Catalog.Api.Entities;
 using Catalog.Api.Repositories;
-using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Catalog.Api.Models;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Catalog.Api.Controllers;
 
@@ -51,6 +48,22 @@ public class CatalogController : ControllerBase
     public async Task<ActionResult<Product>> GetProductBySku(Sku sku)
     {
         var product = await _repository.GetProduct(sku);
+
+        if (product == null)
+        {
+            _logger.LogError("Product with SKU: {sku}, not found.", sku);
+            return NotFound();
+        }
+
+        return Ok(product);
+    }
+
+    [HttpGet("{sku}", Name = "GetProductBySku2")]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
+    [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<Product>> GetProductBySku2(Sku sku)
+    {
+        var product = await _repository.GetProduct2(sku);
 
         if (product == null)
         {

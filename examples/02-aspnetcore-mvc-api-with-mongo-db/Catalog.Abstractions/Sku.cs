@@ -1,6 +1,6 @@
 ﻿using Primitively;
 
-namespace Catalog.Api.Models;
+namespace Catalog;
 
 [Guid]
 public partial record struct Sku;

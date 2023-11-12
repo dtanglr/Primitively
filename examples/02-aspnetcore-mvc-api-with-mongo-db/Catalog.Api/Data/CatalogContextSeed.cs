@@ -1,5 +1,4 @@
 ﻿using Catalog.Api.Entities;
-using Catalog.Api.Models;
 using MongoDB.Driver;
 
 namespace Catalog.Api.Data;
@@ -24,7 +23,7 @@ public static class CatalogContextSeed
             {
                 Id = "602d2149e773f2a3990b47f5",
                 Sku = (Sku)Sku.Example, // Sku property type stored in default Bson.Binary format
-                Sku2 = Sku.New(), // Adding a second Sku property type to demo overriding default and storing value in string format
+                Sku2 = (Sku)Sku.Example, // Adding a second Sku property type to demo overriding default and storing value in Bson.String format
                 Name = "IPhone X",
                 Summary = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
                 Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
