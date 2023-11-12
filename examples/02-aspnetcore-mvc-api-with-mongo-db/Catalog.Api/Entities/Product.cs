@@ -10,7 +10,7 @@ public class Product
     public string? Id { get; set; }
 
     // This Sku property type will use the Primitively GuidBsonSerializer.
-    // This stores the value as a BsonType.Binary.
+    // This stores the value as a BsonType.Binary with GuidRepresentation.CSharpLegacy
     // Override option: [BsonRepresentation(BsonType.String)]
     public Sku Sku { get; set; }
 
