@@ -20,8 +20,8 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>();
-        var bytes = GuidConverter.ToBytes(expected, GuidRepresentation.Standard);
-        var subType = GuidConverter.GetSubType(GuidRepresentation.Standard);
+        var bytes = GuidConverter.ToBytes(expected, GuidRepresentation.CSharpLegacy);
+        var subType = GuidConverter.GetSubType(GuidRepresentation.CSharpLegacy);
         var binaryData = new BsonBinaryData(bytes, subType);
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Binary);
         bsonReader.Setup(r => r.ReadBinaryData()).Returns(binaryData);
@@ -43,8 +43,8 @@ public class BsonDeserializerTests
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
         var serializer = NullableSerializer.Create(new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>());
-        var bytes = GuidConverter.ToBytes(expected, GuidRepresentation.Standard);
-        var subType = GuidConverter.GetSubType(GuidRepresentation.Standard);
+        var bytes = GuidConverter.ToBytes(expected, GuidRepresentation.CSharpLegacy);
+        var subType = GuidConverter.GetSubType(GuidRepresentation.CSharpLegacy);
         var binaryData = new BsonBinaryData(bytes, subType);
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Binary);
         bsonReader.Setup(r => r.ReadBinaryData()).Returns(binaryData);
