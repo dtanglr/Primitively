@@ -12,6 +12,7 @@ public class Product
     // This Sku property type will use the Primitively GuidBsonSerializer.
     // This stores the value as a BsonType.Binary.
     // Override option: [BsonRepresentation(BsonType.String)]
+    [BsonRepresentation(BsonType.String)]
     public Sku Sku { get; set; }
 
     public string? Name { get; set; }
