@@ -7,7 +7,7 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents a serializer for Primitively types that encapsulate a Guid value.
 /// </summary>
-public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<GuidBsonSerializer<TPrimitive>>
+public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<GuidBsonSerializer<TPrimitive>>, IGuidRepresentationConfigurable<GuidBsonSerializer<TPrimitive>>
     where TPrimitive : struct, IGuid
 {
     private readonly GuidSerializer _serializer;
@@ -128,5 +128,10 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
     {
         return WithRepresentation(representation);
+    }
+
+    IBsonSerializer IGuidRepresentationConfigurable.WithGuidRepresentation(GuidRepresentation representation)
+    {
+        return WithGuidRepresentation(representation);
     }
 }
