@@ -27,8 +27,9 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     /// <remarks>
     /// This defaults to BsonType.Binary and GuidRepresentation.Standard.
     /// </remarks>
-    public GuidBsonSerializer() : this(GuidRepresentation.CSharpLegacy)
+    public GuidBsonSerializer()
     {
+        _serializer = new GuidSerializer();
     }
 
     /// <summary>
