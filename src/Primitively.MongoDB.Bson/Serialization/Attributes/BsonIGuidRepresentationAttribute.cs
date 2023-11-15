@@ -26,9 +26,7 @@ public class BsonIGuidRepresentationAttribute : Attribute, IBsonMemberMapAttribu
     /// <inheritdoc/>
     public void Apply(BsonMemberMap memberMap)
     {
-        var guidSerializer = memberMap.GetSerializer() as IGuidRepresentationConfigurable;
-
-        if (guidSerializer == null)
+        if (memberMap.GetSerializer() is not IGuidRepresentationConfigurable guidSerializer)
         {
             throw new InvalidOperationException("[BsonIGuidRepresentationAttribute] can only be used when the serializer implements IGuidRepresentationConfigurable.");
         }
