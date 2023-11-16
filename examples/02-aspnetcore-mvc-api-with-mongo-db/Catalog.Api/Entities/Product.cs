@@ -1,5 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Catalog.Api.Entities;
 
@@ -10,9 +10,11 @@ public class Product
     public string? Id { get; set; }
 
     // This Sku property type will use the Primitively GuidBsonSerializer.
-    // This stores the value as a BsonType.Binary with GuidRepresentation.CSharpLegacy
-    // Override option: [BsonRepresentation(BsonType.String)]
-    public Sku Sku { get; set; }
+    // By default, this property value will be stored as: BsonType.Binary + GuidRepresentation.CSharpLegacy (Base64)
+    // Override options
+    //  1: [BsonRepresentation(BsonType.String)] to store as a string
+    //  2: [BsonIGuidRepresentation(GuidRepresentation.Standard)] to store as a UUID
+    public Sku Sku { get; set; } = Sku.New();
 
     public string? Name { get; set; }
 

@@ -26,14 +26,14 @@ public class ProductRepository : IProductRepository
         return await _context
             .Products
             .Find(p => p.Id == id)
-            .FirstOrDefaultAsync();
+            .SingleOrDefaultAsync();
     }
 
     public async Task<Product> GetProduct(Sku sku)
     {
         return await _context
             .Products
-            .Find(p => p.Sku == sku)
-            .FirstOrDefaultAsync();
+            .Find(Builders<Product>.Filter.Eq(p => p.Sku, sku))
+            .SingleOrDefaultAsync();
     }
 }

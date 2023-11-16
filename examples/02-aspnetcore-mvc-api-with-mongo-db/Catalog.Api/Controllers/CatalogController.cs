@@ -51,7 +51,7 @@ public class CatalogController : ControllerBase
 
         if (product == null)
         {
-            _logger.LogError("Product with SKU: {sku}, not found.", sku);
+            _logger.LogError("Product with Sku: {sku}, not found.", sku);
             return NotFound();
         }
 
