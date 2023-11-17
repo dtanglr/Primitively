@@ -11,17 +11,26 @@ namespace Primitively.IntegrationTests.GuidTests.Default;
 
 public class BsonDeserializerTests
 {
-    [Fact]
-    public void Non_Nullable_Primitive_Deserialises_From_Bson_Correctly()
+    public static IEnumerable<object[]> GuidRepresentations()
+    {
+        yield return new object[] { GuidRepresentation.CSharpLegacy };
+        yield return new object[] { GuidRepresentation.JavaLegacy };
+        yield return new object[] { GuidRepresentation.PythonLegacy };
+        yield return new object[] { GuidRepresentation.Standard };
+    }
+
+    [Theory]
+    [MemberData(nameof(GuidRepresentations))]
+    public void Non_Nullable_Primitive_Deserialises_From_Bson_Correctly(GuidRepresentation representation)
     {
         // Assign
         var example = DefaultThirtySixDigitsWithHyphens.Example;
         var expected = (DefaultThirtySixDigitsWithHyphens)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>();
-        var bytes = GuidConverter.ToBytes(expected, GuidRepresentation.CSharpLegacy);
-        var subType = GuidConverter.GetSubType(GuidRepresentation.CSharpLegacy);
+        var serializer = new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>(representation);
+        var bytes = GuidConverter.ToBytes(expected, representation);
+        var subType = GuidConverter.GetSubType(representation);
         var binaryData = new BsonBinaryData(bytes, subType);
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Binary);
         bsonReader.Setup(r => r.ReadBinaryData()).Returns(binaryData);
@@ -34,17 +43,18 @@ public class BsonDeserializerTests
         bsonReader.Verify(r => r.ReadBinaryData(), Times.Once);
     }
 
-    [Fact]
-    public void Nullable_Primitive_Deserialises_From_Bson_Correctly()
+    [Theory]
+    [MemberData(nameof(GuidRepresentations))]
+    public void Nullable_Primitive_Deserialises_From_Bson_Correctly(GuidRepresentation representation)
     {
         // Assign
         var example = DefaultThirtySixDigitsWithHyphens.Example;
         var expected = (DefaultThirtySixDigitsWithHyphens)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>());
-        var bytes = GuidConverter.ToBytes(expected, GuidRepresentation.CSharpLegacy);
-        var subType = GuidConverter.GetSubType(GuidRepresentation.CSharpLegacy);
+        var serializer = NullableSerializer.Create(new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>(representation));
+        var bytes = GuidConverter.ToBytes(expected, representation);
+        var subType = GuidConverter.GetSubType(representation);
         var binaryData = new BsonBinaryData(bytes, subType);
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Binary);
         bsonReader.Setup(r => r.ReadBinaryData()).Returns(binaryData);
@@ -57,14 +67,15 @@ public class BsonDeserializerTests
         bsonReader.Verify(r => r.ReadBinaryData(), Times.Once);
     }
 
-    [Fact]
-    public void Nullable_Primitive_Deserialises_From_Bson_Correctly_When_Bson_Null()
+    [Theory]
+    [MemberData(nameof(GuidRepresentations))]
+    public void Nullable_Primitive_Deserialises_From_Bson_Correctly_When_Bson_Null(GuidRepresentation representation)
     {
         // Assign
         var expected = (DefaultThirtySixDigitsWithHyphens?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>());
+        var serializer = NullableSerializer.Create(new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>(representation));
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act
