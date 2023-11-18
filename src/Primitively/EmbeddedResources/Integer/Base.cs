@@ -22,6 +22,8 @@
         }
     }
 
+    object Primitively.IPrimitive.Value => _value;
+
     PRIMITIVE_VALUE_TYPE Primitively.IPrimitive<PRIMITIVE_VALUE_TYPE>.Value => _value;
 
     [System.Text.Json.Serialization.JsonIgnore]

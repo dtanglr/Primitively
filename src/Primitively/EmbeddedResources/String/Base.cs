@@ -24,6 +24,8 @@
         _value = value;
     }
 
+    object Primitively.IPrimitive.Value => _value;
+
     string Primitively.IPrimitive<string>.Value => _value;
 
     [System.Text.Json.Serialization.JsonIgnore]

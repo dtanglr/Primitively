@@ -2,14 +2,16 @@
 
 public interface IPrimitive
 {
-    bool HasValue { get; }
+    public bool HasValue { get; }
 
-    Type ValueType { get; }
+    public Type ValueType { get; }
 
-    DataType DataType { get; }
+    public DataType DataType { get; }
+
+    public object Value { get; }
 }
 
 public interface IPrimitive<out T> : IPrimitive
 {
-    public T Value { get; }
+    public new T Value { get; }
 }

@@ -23,6 +23,8 @@
         _value = result;
     }
 
+    object Primitively.IPrimitive.Value => new System.DateTime(_value.Year, _value.Month, _value.Day);
+
     System.DateTime Primitively.IPrimitive<System.DateTime>.Value => new System.DateTime(_value.Year, _value.Month, _value.Day);
 
     [System.Text.Json.Serialization.JsonIgnore]

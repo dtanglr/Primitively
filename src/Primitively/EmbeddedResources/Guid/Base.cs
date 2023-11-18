@@ -18,6 +18,8 @@
         _value = guid;
     }
 
+    object Primitively.IPrimitive.Value => _value;
+
     System.Guid Primitively.IPrimitive<System.Guid>.Value => _value;
 
     [System.Text.Json.Serialization.JsonIgnore]
