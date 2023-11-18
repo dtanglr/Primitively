@@ -57,4 +57,20 @@ public class CatalogController : ControllerBase
 
         return Ok(product);
     }
+
+    [HttpGet("category/{categoryId}", Name = "GetProductByCategoryId")]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
+    [ProducesResponseType(typeof(List<Product>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<List<Product>>> GetProductByCategoryId(CategoryId categoryId)
+    {
+        var products = await _repository.GetProducts(categoryId);
+
+        if (products == null)
+        {
+            _logger.LogError("Products with CategoryId: {categoryId}, not found.", categoryId);
+            return NotFound();
+        }
+
+        return Ok(products);
+    }
 }

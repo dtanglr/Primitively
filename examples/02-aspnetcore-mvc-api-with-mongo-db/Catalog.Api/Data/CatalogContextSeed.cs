@@ -17,6 +17,10 @@ public static class CatalogContextSeed
 
     private static IEnumerable<Product> GetPreconfiguredProducts()
     {
+        var smartPhone = new Category { CategoryId = (CategoryId)CategoryId.Example, Name = "Smart Phone" };
+        var whiteApplicance = new Category { CategoryId = CategoryId.New(), Name = "White Appliances" };
+        var homeKitchen = new Category { CategoryId = CategoryId.New(), Name = "Home Kitchen" };
+
         return new List<Product>()
         {
             new Product()
@@ -28,7 +32,7 @@ public static class CatalogContextSeed
                 Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
                 ImageFile = "product-1.png",
                 Price = 950.00M,
-                Category = "Smart Phone"
+                Category = smartPhone
             },
             new Product()
             {
@@ -39,7 +43,7 @@ public static class CatalogContextSeed
                 Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
                 ImageFile = "product-2.png",
                 Price = 840.00M,
-                Category = "Smart Phone"
+                Category = smartPhone
             },
             new Product()
             {
@@ -50,7 +54,7 @@ public static class CatalogContextSeed
                 Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
                 ImageFile = "product-3.png",
                 Price = 650.00M,
-                Category = "White Appliances"
+                Category = smartPhone
             },
             new Product()
             {
@@ -61,7 +65,7 @@ public static class CatalogContextSeed
                 Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
                 ImageFile = "product-4.png",
                 Price = 470.00M,
-                Category = "White Appliances"
+                Category = whiteApplicance
             },
             new Product()
             {
@@ -72,7 +76,7 @@ public static class CatalogContextSeed
                 Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
                 ImageFile = "product-5.png",
                 Price = 380.00M,
-                Category = "Smart Phone"
+                Category = smartPhone
             },
             new Product()
             {
@@ -83,7 +87,7 @@ public static class CatalogContextSeed
                 Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
                 ImageFile = "product-6.png",
                 Price = 240.00M,
-                Category = "Home Kitchen"
+                Category = homeKitchen
             }
         };
     }

@@ -17,7 +17,7 @@ public class ProductRepository : IProductRepository
     {
         return await _context
             .Products
-            .Find(p => true)
+            .Find(Builders<Product>.Filter.Empty)
             .ToListAsync();
     }
 
@@ -35,5 +35,13 @@ public class ProductRepository : IProductRepository
             .Products
             .Find(Builders<Product>.Filter.Eq(p => p.Sku, sku))
             .SingleOrDefaultAsync();
+    }
+
+    public async Task<List<Product>> GetProducts(CategoryId categoryId)
+    {
+        return await _context
+            .Products
+            .Find(Builders<Product>.Filter.Eq(p => p.Category.CategoryId, categoryId))
+            .ToListAsync();
     }
 }
