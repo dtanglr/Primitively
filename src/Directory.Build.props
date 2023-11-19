@@ -28,18 +28,9 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PublishDocumentationFiles>true</PublishDocumentationFiles>
     <PublishReferencesDocumentationFiles>true</PublishReferencesDocumentationFiles>
-  </PropertyGroup>
- 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <DebugType>pdbonly</DebugType>
-  </PropertyGroup>
- 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <DebugType>embedded</DebugType>
-  </PropertyGroup>
- 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net7.0'">
-    <DebugType>embedded</DebugType>
+    <!-- Include symbol files (*.pdb) in the built .nupkg -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
  
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
