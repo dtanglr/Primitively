@@ -15,7 +15,7 @@ public class ValidateMethodTests
     [InlineData("00")]
     [InlineData("001", true)]
     [InlineData(UShortId.Example, true)]
-    public void ConvertFromThisToThatWithExpectedResults(string value, bool isValid = false)
+    public void ConvertFromThisToThatWithExpectedResults(string? value, bool isValid = false)
     {
         // Arrange
         var validationContext = new ValidationContext(this);

@@ -29,7 +29,7 @@ public class FluentValidationTests
     [InlineData("123456")]
     [InlineData("1234567", true, true)]
     [InlineData("0123456", true, true)]
-    public void ConvertFromThisToThatWithExpectedResults(string value, bool nonNullableIsValid = false, bool nullableIsValid = false)
+    public void ConvertFromThisToThatWithExpectedResults(string? value, bool nonNullableIsValid = false, bool nullableIsValid = false)
     {
         var sut = new Sut(SevenDigits.Parse(value), value is null ? null : SevenDigits.Parse(value));
         var result = _validator.TestValidate(sut);

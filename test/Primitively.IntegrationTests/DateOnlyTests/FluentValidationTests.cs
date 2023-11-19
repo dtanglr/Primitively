@@ -34,7 +34,7 @@ public class FluentValidationTests
     [InlineData("31/01/2022")]
     [InlineData("01/31/2022")]
     [InlineData("2022-01-01", true, true)]
-    public void ConvertFromThisToThatWithExpectedResults(string value, bool nonNullableIsValid = false, bool nullableIsValid = false)
+    public void ConvertFromThisToThatWithExpectedResults(string? value, bool nonNullableIsValid = false, bool nullableIsValid = false)
     {
         var sut = new Sut(BirthDate.Parse(value), value is null ? null : BirthDate.Parse(value));
         var result = _validator.TestValidate(sut);

@@ -20,7 +20,7 @@ public class ValidateMethodTests
     [InlineData("31/01/2022")]
     [InlineData("01/31/2022")]
     [InlineData("2022-01-01", true)]
-    public void ConvertFromThisToThatWithExpectedResults(string value, bool isValid = false)
+    public void ConvertFromThisToThatWithExpectedResults(string? value, bool isValid = false)
     {
         // Arrange
         var validationContext = new ValidationContext(this);

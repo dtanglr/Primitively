@@ -26,11 +26,6 @@ internal static class BsonSerializerCache
 
     public static void Set(DataType dataType, Type serializerType)
     {
-        if (serializerType is null)
-        {
-            throw new ArgumentNullException(nameof(serializerType));
-        }
-
         if (!serializerType.IsGenericTypeDefinition)
         {
             throw new ArgumentException("The serializer type must be a generic type definition e.g. StringBsonSerializer<>", nameof(serializerType));

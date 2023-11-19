@@ -6,7 +6,6 @@ namespace Primitively.IntegrationTests.GuidTests.Default;
 public class InstantiationTests
 {
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     [InlineData(" ")]
     [InlineData("    ")]

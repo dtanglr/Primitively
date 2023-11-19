@@ -41,6 +41,7 @@ jobs:
         dotnet-version:  | 
           6.x
           7.0.x
+          8.0.x
 
     - name: Build
       run: dotnet build $SOLUTION --configuration $BUILD_CONFIG -p:Version=$BUILD_VERSION --no-restore

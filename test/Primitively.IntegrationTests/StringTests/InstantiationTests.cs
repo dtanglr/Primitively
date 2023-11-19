@@ -14,9 +14,9 @@ public class InstantiationTests
     [InlineData("123456")]
     [InlineData("1234567", true)]
     [InlineData("0123456", true)]
-    public void ConvertFromThisToThatWithExpectedResults(string from, bool hasValue = default)
+    public void ConvertFromThisToThatWithExpectedResults(string? from, bool hasValue = default)
     {
-        var expected = hasValue ? from.Replace(" ", string.Empty) : default;
+        var expected = hasValue ? from?.Replace(" ", string.Empty) : default;
 
         var @this = (SevenDigits)from;
         string to = @this;

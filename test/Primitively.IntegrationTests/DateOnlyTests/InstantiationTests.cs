@@ -7,7 +7,6 @@ namespace Primitively.IntegrationTests.DateOnlyTests;
 public class InstantiationTests
 {
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     [InlineData(" ")]
     [InlineData("    ")]

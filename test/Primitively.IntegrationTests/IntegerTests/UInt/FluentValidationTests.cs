@@ -29,7 +29,7 @@ public class FluentValidationTests
     [InlineData("00")]
     [InlineData("001", true, true)]
     [InlineData(UIntId.Example, true, true)]
-    public void ConvertFromThisToThatWithExpectedResults(string value, bool nonNullableIsValid = false, bool nullableIsValid = false)
+    public void ConvertFromThisToThatWithExpectedResults(string? value, bool nonNullableIsValid = false, bool nullableIsValid = false)
     {
         var sut = new Sut(UIntId.Parse(value), value is null ? null : UIntId.Parse(value));
         var result = _validator.TestValidate(sut);

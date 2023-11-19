@@ -13,7 +13,7 @@ public class EqualityTests
     [InlineData("")]
     [InlineData("invalid")]
     [InlineData(Value)]
-    public void WhenTheSameType_ThisEqualsThat(string value)
+    public void WhenTheSameType_ThisEqualsThat(string? value)
     {
         var @this = SevenDigits.Parse(value);
         var that = SevenDigits.Parse(value);
@@ -54,7 +54,7 @@ public class EqualityTests
     [InlineData(null)]
     [InlineData("")]
     [InlineData(Value)]
-    public void WhenTheOtherTypeWithSameValueType_ThisNotEqualsThat(string value)
+    public void WhenTheOtherTypeWithSameValueType_ThisNotEqualsThat(string? value)
     {
         var @this = SevenDigits.Parse(value);
         var that = EightDigits.Parse(value);

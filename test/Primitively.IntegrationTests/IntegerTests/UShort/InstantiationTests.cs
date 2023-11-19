@@ -14,7 +14,7 @@ public class InstantiationTests
     [InlineData("00")]
     [InlineData("001", true)]
     [InlineData(UShortId.Example, true)]
-    public void ConvertFromThisToThatWithExpectedResults(string from, bool hasValue = default)
+    public void ConvertFromThisToThatWithExpectedResults(string? from, bool hasValue = default)
     {
         var expectedInteger = hasValue ? UShortId.Parse(from) : default;
         var expectedString = expectedInteger.ToString();

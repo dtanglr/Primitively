@@ -29,7 +29,7 @@ public class FluentValidationTests
     [InlineData("00")]
     [InlineData("001", true, true)]
     [InlineData(LongId.Example, true, true)]
-    public void ConvertFromThisToThatWithExpectedResults(string value, bool nonNullableIsValid = false, bool nullableIsValid = false)
+    public void ConvertFromThisToThatWithExpectedResults(string? value, bool nonNullableIsValid = false, bool nullableIsValid = false)
     {
         var sut = new Sut(LongId.Parse(value), value is null ? null : LongId.Parse(value));
         var result = _validator.TestValidate(sut);

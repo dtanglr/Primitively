@@ -14,7 +14,7 @@ public class InstantiationTests
     [InlineData("00")]
     [InlineData("001", true)]
     [InlineData(LongId.Example, true)]
-    public void ConvertFromThisToThatWithExpectedResults(string from, bool hasValue = default)
+    public void ConvertFromThisToThatWithExpectedResults(string? from, bool hasValue = default)
     {
         var expectedInteger = hasValue ? LongId.Parse(from) : default;
         var expectedString = expectedInteger.ToString();

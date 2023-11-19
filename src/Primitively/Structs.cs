@@ -161,7 +161,7 @@ public class Structs : IIncrementalGenerator
         sb.Append(EmbeddedResources.PrimitiveFactory);
 
         // Replace variable names with values
-        sb.Replace("PRIMITIVE_FACTORY_CASE_STATEMENTS", string.Join(Environment.NewLine, caseStatements));
+        sb.Replace("PRIMITIVE_FACTORY_CASE_STATEMENTS", string.Join("\r\n", caseStatements));
 
         // Construct source file text from string
         context.AddSource("PrimitiveFactory.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
@@ -215,7 +215,7 @@ public class Structs : IIncrementalGenerator
 
         // Replace variable names with values
         sb.Replace("PRIMITIVE_NAMESPACE", compilation.AssemblyName); // TODO: Get Root Namespace from the Compilation class
-        sb.Replace("PRIMITIVE_REPOSITORY_YIELD_STATEMENTS", string.Join(Environment.NewLine, yieldStatements));
+        sb.Replace("PRIMITIVE_REPOSITORY_YIELD_STATEMENTS", string.Join("\r\n", yieldStatements));
 
         // Construct source file text from string
         context.AddSource("PrimitiveRepository.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));

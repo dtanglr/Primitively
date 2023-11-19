@@ -15,7 +15,7 @@ public class ValidateMethodTests
     [InlineData("123456")]
     [InlineData("1234567", true)]
     [InlineData("0123456", true)]
-    public void ConvertFromThisToThatWithExpectedResults(string value, bool isValid = false)
+    public void ConvertFromThisToThatWithExpectedResults(string? value, bool isValid = false)
     {
         // Arrange
         var validationContext = new ValidationContext(this);

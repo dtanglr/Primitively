@@ -28,7 +28,7 @@ public class FluentValidationTests
     [InlineData("{00000000-0000-0000-0000-000000000000}")]
     [InlineData("{11f72a78-ce37-4ad1-9f87-535b2c15e94d}", true, true)]
     [InlineData("{9BC12195-B4A9-4880-B526-A0BE96EDDA08}", true, true)]
-    public void ConvertFromThisToThatWithExpectedResults(string value, bool nonNullableIsValid = false, bool nullableIsValid = false)
+    public void ConvertFromThisToThatWithExpectedResults(string? value, bool nonNullableIsValid = false, bool nullableIsValid = false)
     {
         var sut = new Sut(ThirtyEightDigitsWithHyphensAndBraces.Parse(value), value is null ? null : ThirtyEightDigitsWithHyphensAndBraces.Parse(value));
         var result = _validator.TestValidate(sut);
