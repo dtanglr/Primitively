@@ -19,16 +19,16 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <Deterministic>true</Deterministic>
-    <ContinuousIntegrationBuild Condition="'$(TF_BUILD)' == 'true'">true</ContinuousIntegrationBuild>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
  
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <DebugType>embedded</DebugType>
     <PackageOutputPath>$(MSBuildThisFileDirectory)..\artifacts</PackageOutputPath>
-    <version>1.4.10-alpha.2</version>
+    <version>1.4.11-alpha.2</version>
   </PropertyGroup>
   
   <ItemGroup>
@@ -44,7 +44,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All " />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All " />
   </ItemGroup>
   
 </Project>
