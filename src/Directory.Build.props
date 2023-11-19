@@ -23,12 +23,28 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeSource>true</IncludeSource>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PublishDocumentationFiles>true</PublishDocumentationFiles>
+    <PublishReferencesDocumentationFiles>true</PublishReferencesDocumentationFiles>
+  </PropertyGroup>
+ 
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+ 
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+ 
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net7.0'">
     <DebugType>embedded</DebugType>
   </PropertyGroup>
  
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <PackageOutputPath>$(MSBuildThisFileDirectory)..\artifacts</PackageOutputPath>
-    <version>1.4.11-alpha.2</version>
+    <version>1.4.13-alpha</version>
   </PropertyGroup>
   
   <ItemGroup>
