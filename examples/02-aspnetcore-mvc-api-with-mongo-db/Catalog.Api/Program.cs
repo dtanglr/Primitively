@@ -50,4 +50,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 app.MapControllers();
-app.Run();
+
+// Seed the database with test data
+var cataglog = app.Services.GetRequiredService<ICatalogContext>();
+await CatalogContextSeed.SeedDataAsync(cataglog.Products);
+
+// Run the examples app
+await app.RunAsync();
