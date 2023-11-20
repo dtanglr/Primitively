@@ -15,15 +15,15 @@ public static class CatalogContextSeed
         }
     }
 
-    private static IEnumerable<Product> GetPreconfiguredProducts()
+    private static List<Product> GetPreconfiguredProducts()
     {
         var smartPhone = new Category { CategoryId = (CategoryId)CategoryId.Example, Name = "Smart Phone" };
         var whiteApplicance = new Category { CategoryId = CategoryId.New(), Name = "White Appliances" };
         var homeKitchen = new Category { CategoryId = CategoryId.New(), Name = "Home Kitchen" };
 
-        return new List<Product>()
-        {
-            new Product()
+        return
+        [
+            new()
             {
                 Id = "602d2149e773f2a3990b47f5",
                 Sku = (Sku)Sku.Example, // Sku property type stored in default Bson.Binary format
@@ -34,7 +34,7 @@ public static class CatalogContextSeed
                 Price = 950.00M,
                 Category = smartPhone
             },
-            new Product()
+            new()
             {
                 Id = "602d2149e773f2a3990b47f6",
                 Sku = Sku.New(),
@@ -45,7 +45,7 @@ public static class CatalogContextSeed
                 Price = 840.00M,
                 Category = smartPhone
             },
-            new Product()
+            new()
             {
                 Id = "602d2149e773f2a3990b47f7",
                 Sku = Sku.New(),
@@ -56,7 +56,7 @@ public static class CatalogContextSeed
                 Price = 650.00M,
                 Category = smartPhone
             },
-            new Product()
+            new()
             {
                 Id = "602d2149e773f2a3990b47f8",
                 Sku = Sku.New(),
@@ -67,7 +67,7 @@ public static class CatalogContextSeed
                 Price = 470.00M,
                 Category = whiteApplicance
             },
-            new Product()
+            new()
             {
                 Id = "602d2149e773f2a3990b47f9",
                 Sku = Sku.New(),
@@ -78,7 +78,7 @@ public static class CatalogContextSeed
                 Price = 380.00M,
                 Category = smartPhone
             },
-            new Product()
+            new()
             {
                 Id = "602d2149e773f2a3990b47fa",
                 Sku = Sku.New(),
@@ -89,6 +89,6 @@ public static class CatalogContextSeed
                 Price = 240.00M,
                 Category = homeKitchen
             }
-        };
+        ];
     }
 }

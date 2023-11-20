@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Api.Entities;
 
-public record struct Category
+public readonly record struct Category
 {
     public CategoryId CategoryId { get; init; }
 
