@@ -26,12 +26,12 @@ public class CatalogController : ControllerBase
         return Ok(products);
     }
 
-    [HttpGet("{id:length(24)}", Name = "GetProductById")]
+    [HttpGet("id/{id:length(24)}", Name = "GetProductById")]
     [ProducesResponseType((int)HttpStatusCode.NotFound)]
     [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<Product>> GetProductById(string id)
     {
-        var product = await _repository.GetProduct(id);
+        var product = await _repository.GetProductById(id);
 
         if (product == null)
         {
@@ -42,16 +42,48 @@ public class CatalogController : ControllerBase
         return Ok(product);
     }
 
-    [HttpGet("{sku}", Name = "GetProductBySku")]
+    [HttpGet("guid/{guid}", Name = "GetProductByGuid")]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
+    [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<Product>> GetProductByGuid(Guid guid)
+    {
+        var product = await _repository.GetProductByGuid(guid);
+
+        if (product == null)
+        {
+            _logger.LogError("Product with Guid: {guid}, not found.", guid);
+            return NotFound();
+        }
+
+        return Ok(product);
+    }
+
+    [HttpGet("sku/{sku}", Name = "GetProductBySku")]
     [ProducesResponseType((int)HttpStatusCode.NotFound)]
     [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<Product>> GetProductBySku(Sku sku)
     {
-        var product = await _repository.GetProduct(sku);
+        var product = await _repository.GetProductBySku(sku);
 
         if (product == null)
         {
             _logger.LogError("Product with Sku: {sku}, not found.", sku);
+            return NotFound();
+        }
+
+        return Ok(product);
+    }
+
+    [HttpGet("productId/{productId}", Name = "GetProductByProductId")]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
+    [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<Product>> GetProductByProductId(ProductId productId)
+    {
+        var product = await _repository.GetProductByProductId(productId);
+
+        if (product == null)
+        {
+            _logger.LogError("Product with ProductId: {productId}, not found.", productId);
             return NotFound();
         }
 

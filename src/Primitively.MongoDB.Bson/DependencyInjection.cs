@@ -1,5 +1,6 @@
 ﻿using Primitively.Configuration;
 using Primitively.MongoDB.Bson.Serialization;
+using Primitively.MongoDB.Bson.Serialization.Options;
 
 namespace Primitively.MongoDB.Bson;
 
@@ -13,33 +14,32 @@ public static class DependencyInjection
     /// Register MongoDB nullable and non-nullable Bson serializers
     /// </summary>
     /// <param name="configurator">Configurator</param>
+    /// <param name="options">BsonOptions</param>
     /// <returns>Configurator</returns>
-    public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator)
+    public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator, BsonOptions? options = null)
     {
-        if (!configurator.Options.Registry.IsEmpty)
-        {
-            var builder = new BsonSerializerBuilder(configurator.Options.Registry);
-            builder.RegisterSerializers();
-        }
-
-        return configurator;
+        return configurator.AddBson(configure => { }, options ?? new BsonOptions());
     }
 
     /// <summary>
     /// Register MongoDB nullable and non-nullable Bson serializers
     /// </summary>
     /// <param name="configurator">Configurator</param>
-    /// <param name="configure">Bson Serializer Builder</param>
+    /// <param name="options">BsonOptions</param>
+    /// <param name="configure">BsonSerializerBuilder</param>
     /// <returns>Configurator</returns>
-    public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> configure)
+    public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator, Action<BsonSerializerBuilder> configure, BsonOptions? options = null)
     {
-        var builder = new BsonSerializerBuilder(configurator.Options.Registry);
-        configure.Invoke(builder);
+        BsonSerializerBuilder builder = new(options ??= new BsonOptions());
+        builder.SetDefaultGuidRepresentation();
 
-        if (!configurator.Options.Registry.IsEmpty)
+        if (options.RegisterSerializersForEachTypeInRegistry)
         {
-            builder.RegisterSerializers();
+            builder.RegisterSerializers(register =>
+                register.AddSerializerForEachTypeIn(configurator.Options.Registry));
         }
+
+        configure.Invoke(builder);
 
         return configurator;
     }

@@ -1,4 +1,7 @@
-﻿using Primitively.Configuration;
+﻿using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson;
+using Primitively.MongoDB.Bson.Serialization.Options;
 
 namespace Primitively.MongoDB.Bson.Serialization;
 
@@ -9,26 +12,31 @@ public class BsonSerializerBuilder
 {
     private readonly BsonSerializerCacheBuilder _cacheBuilder = new();
     private readonly BsonSerializerRegisterBuilder _registerBuilder = new();
-    private readonly PrimitiveRegistry _registry;
+    private readonly BsonOptions _options;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BsonSerializerBuilder"/> class.
     /// </summary>
-    /// <param name="registry">The registry of Primitively types</param>
-    public BsonSerializerBuilder(PrimitiveRegistry registry)
+    internal BsonSerializerBuilder(BsonOptions options)
     {
-        _registry = registry;
+        _options = options;
     }
 
-    /// <summary>
-    /// Register serializers for each of the Primitively types in the registry
-    /// </summary>
-    internal void RegisterSerializers()
+    internal BsonSerializerBuilder SetDefaultGuidRepresentation()
     {
-        foreach (var primitiveInfo in _registry.ToList())
-        {
-            _registerBuilder.AddSerializerForType(primitiveInfo);
-        }
+        //var options = _options.GuidOptions;
+        //var guidSerializer = options.Representation == BsonType.String
+        //    ? new GuidSerializer(BsonType.String)
+        //    : new GuidSerializer(options.GuidRepresentation);
+
+#pragma warning disable CS0618 // Type or member is obsolete
+        //BsonDefaults.GuidRepresentation = options.GuidRepresentation;
+        //BsonDefaults.GuidRepresentationMode = options.GuidRepresentationMode;
+#pragma warning restore CS0618 // Type or member is obsolete
+
+        //BsonSerializer.TryRegisterSerializer(typeof(Guid), guidSerializer);
+
+        return this;
     }
 
     /// <summary>

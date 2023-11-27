@@ -28,7 +28,7 @@ public class BsonDeserializerTests
         var expected = (DefaultThirtySixDigitsWithHyphens)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>(representation);
+        var serializer = new BsonIGuidSerializer<DefaultThirtySixDigitsWithHyphens>(representation);
         var bytes = GuidConverter.ToBytes(expected, representation);
         var subType = GuidConverter.GetSubType(representation);
         var binaryData = new BsonBinaryData(bytes, subType);
@@ -52,7 +52,7 @@ public class BsonDeserializerTests
         var expected = (DefaultThirtySixDigitsWithHyphens)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>(representation));
+        var serializer = NullableSerializer.Create(new BsonIGuidSerializer<DefaultThirtySixDigitsWithHyphens>(representation));
         var bytes = GuidConverter.ToBytes(expected, representation);
         var subType = GuidConverter.GetSubType(representation);
         var binaryData = new BsonBinaryData(bytes, subType);
@@ -75,7 +75,7 @@ public class BsonDeserializerTests
         var expected = (DefaultThirtySixDigitsWithHyphens?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>(representation));
+        var serializer = NullableSerializer.Create(new BsonIGuidSerializer<DefaultThirtySixDigitsWithHyphens>(representation));
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act

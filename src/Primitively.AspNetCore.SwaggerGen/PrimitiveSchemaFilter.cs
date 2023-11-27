@@ -42,7 +42,12 @@ public class PrimitiveSchemaFilter : ISchemaFilter
                     schema.Type = "string";
                     schema.Properties = null;
                     schema.Example = new OpenApiString(primitiveInfo.Example);
-                    schema.Format = "uuid";
+                    schema.Format = guidInfo.Specifier switch
+                    {
+                        Specifier.N => "string",
+                        Specifier.X => "string",
+                        _ => "uuid"
+                    };
                     schema.MinLength = guidInfo.Length;
                     schema.MaxLength = guidInfo.Length;
 

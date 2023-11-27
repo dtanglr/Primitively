@@ -8,51 +8,51 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents a serializer for Primitively types that encapsulate a Int value.
 /// </summary>
-public class IntBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<IntBsonSerializer<TPrimitive>>, IRepresentationConverterConfigurable<IntBsonSerializer<TPrimitive>>
+public class BsonIIntSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<BsonIIntSerializer<TPrimitive>>, IRepresentationConverterConfigurable<BsonIIntSerializer<TPrimitive>>
     where TPrimitive : struct, IInt
 {
     private readonly Int32Serializer _serializer;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="IntBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIIntSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="serializer">The serializer.</param>
-    private IntBsonSerializer(Int32Serializer serializer)
+    private BsonIIntSerializer(Int32Serializer serializer)
     {
         _serializer = serializer;
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="IntBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIIntSerializer{TPrimitive}"/> class.
     /// </summary>
-    public IntBsonSerializer()
+    public BsonIIntSerializer()
     {
         _serializer = Int32Serializer.Instance;
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="IntBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIIntSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="representation">The representation.</param>
-    public IntBsonSerializer(BsonType representation)
+    public BsonIIntSerializer(BsonType representation)
     {
         _serializer = new Int32Serializer(representation);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="IntBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIIntSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="representation">The representation.</param>
     /// <param name="converter">The converter.</param>
-    public IntBsonSerializer(BsonType representation, RepresentationConverter converter)
+    public BsonIIntSerializer(BsonType representation, RepresentationConverter converter)
     {
         _serializer = new Int32Serializer(representation, converter);
     }
 
     /// <summary>
-    /// Gets a cached instance of the <see cref="IntBsonSerializer{TPrimitive}"/> class.
+    /// Gets a cached instance of the <see cref="BsonIIntSerializer{TPrimitive}"/> class.
     /// </summary>
-    public static IntBsonSerializer<TPrimitive> Instance { get; } = new();
+    public static BsonIIntSerializer<TPrimitive> Instance { get; } = new();
 
     /// <summary>
     /// Gets the representation.
@@ -65,10 +65,10 @@ public class IntBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, I
     public RepresentationConverter Converter => _serializer.Converter;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="IntBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIIntSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="serializer">The serializer.</param>
-    public static IntBsonSerializer<TPrimitive> Create(Int32Serializer serializer) => new(serializer);
+    public static BsonIIntSerializer<TPrimitive> Create(Int32Serializer serializer) => new(serializer);
 
     /// <summary>
     /// Deserializes a value.
@@ -99,14 +99,14 @@ public class IntBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, I
     /// </summary>
     /// <param name="converter">The converter.</param>
     /// <returns>The reconfigured serializer.</returns>
-    public IntBsonSerializer<TPrimitive> WithConverter(RepresentationConverter converter)
+    public BsonIIntSerializer<TPrimitive> WithConverter(RepresentationConverter converter)
     {
         if (converter == _serializer.Converter)
         {
             return this;
         }
 
-        return new IntBsonSerializer<TPrimitive>(_serializer.Representation, converter);
+        return new BsonIIntSerializer<TPrimitive>(_serializer.Representation, converter);
     }
 
     /// <summary>
@@ -114,14 +114,14 @@ public class IntBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, I
     /// </summary>
     /// <param name="representation">The representation.</param>
     /// <returns>The reconfigured serializer.</returns>
-    public IntBsonSerializer<TPrimitive> WithRepresentation(BsonType representation)
+    public BsonIIntSerializer<TPrimitive> WithRepresentation(BsonType representation)
     {
         if (representation == _serializer.Representation)
         {
             return this;
         }
 
-        return new IntBsonSerializer<TPrimitive>(representation, _serializer.Converter);
+        return new BsonIIntSerializer<TPrimitive>(representation, _serializer.Converter);
     }
 
     // explicit interface implementations

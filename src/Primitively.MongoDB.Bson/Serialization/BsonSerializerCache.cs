@@ -9,17 +9,17 @@ internal static class BsonSerializerCache
 {
     private static readonly Dictionary<DataType, Type> _items = new()
     {
-        { DataType.Byte, typeof(ByteBsonSerializer<>) },
-        { DataType.DateOnly, typeof(DateOnlyBsonSerializer<>) },
-        { DataType.Guid, typeof(GuidBsonSerializer<>) },
-        { DataType.Int, typeof(IntBsonSerializer<>) },
-        { DataType.Long, typeof(LongBsonSerializer<>) },
-        { DataType.SByte, typeof(SByteBsonSerializer<>) },
-        { DataType.Short, typeof(ShortBsonSerializer<>) },
-        { DataType.String, typeof(StringBsonSerializer<>) },
-        { DataType.UInt, typeof(UIntBsonSerializer<>) },
-        { DataType.ULong, typeof(ULongBsonSerializer<>) },
-        { DataType.UShort, typeof(UShortBsonSerializer<>) }
+        { DataType.Byte, typeof(BsonIByteSerializer<>) },
+        { DataType.DateOnly, typeof(BsonIDateOnlySerializer<>) },
+        { DataType.Guid, typeof(BsonIGuidSerializer<>) },
+        { DataType.Int, typeof(BsonIIntSerializer<>) },
+        { DataType.Long, typeof(BsonILongSerializer<>) },
+        { DataType.SByte, typeof(BsonISByteSerializer<>) },
+        { DataType.Short, typeof(BsonIShortSerializer<>) },
+        { DataType.String, typeof(BsonIStringSerializer<>) },
+        { DataType.UInt, typeof(BsonIUIntSerializer<>) },
+        { DataType.ULong, typeof(BsonIULongSerializer<>) },
+        { DataType.UShort, typeof(BsonIUShortSerializer<>) }
     };
 
     public static Type Get(DataType dataType) => _items[dataType];

@@ -4,16 +4,16 @@
     <Authors>Stuart Blackburn</Authors>
     <Company>Electronic Hands</Company>
     <Copyright>Copyright © Electronic Hands</Copyright>
-    <NeutralLanguage>en-GB</NeutralLanguage>
-    <LangVersion>11.0</LangVersion>
+    <NeutralLanguage>en</NeutralLanguage>
+    <RepositoryUrl>https://github.com/dtanglr/Primitively</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <LangVersion>12.0</LangVersion>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>primitively stronglytypedid primitive obsession primitiveobsession generator generation codegen codegenerator codegeneration source sourcegen sourcegenerator</PackageTags>
     <PackageProjectUrl>https://github.com/dtanglr/Primitively</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/dtanglr/Primitively</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
@@ -25,7 +25,7 @@
  
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <PackageOutputPath>$(MSBuildThisFileDirectory)..\artifacts</PackageOutputPath>
-    <version>1.4.14-beta.1</version>
+    <version>1.4.14-beta.14</version>
   </PropertyGroup>
   
   <ItemGroup>
@@ -38,10 +38,6 @@
     <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\">
       <Visible>false</Visible>
     </None>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All " />
   </ItemGroup>
   
 </Project>

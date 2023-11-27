@@ -5,43 +5,43 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a Byte value.
+/// Represents a serializer for Primitively types that encapsulate a SByte value.
 /// </summary>
-public class ByteBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<ByteBsonSerializer<TPrimitive>>
-    where TPrimitive : struct, IByte
+public class BsonISByteSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<BsonISByteSerializer<TPrimitive>>
+    where TPrimitive : struct, ISByte
 {
-    private readonly ByteSerializer _serializer;
+    private readonly SByteSerializer _serializer;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ByteBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonISByteSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="serializer">The serializer.</param>
-    private ByteBsonSerializer(ByteSerializer serializer)
+    private BsonISByteSerializer(SByteSerializer serializer)
     {
         _serializer = serializer;
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ByteBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonISByteSerializer{TPrimitive}"/> class.
     /// </summary>
-    public ByteBsonSerializer()
+    public BsonISByteSerializer()
     {
-        _serializer = new ByteSerializer();
+        _serializer = new SByteSerializer();
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ByteBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonISByteSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="representation">The representation.</param>
-    public ByteBsonSerializer(BsonType representation)
+    public BsonISByteSerializer(BsonType representation)
     {
-        _serializer = new ByteSerializer(representation);
+        _serializer = new SByteSerializer(representation);
     }
 
     /// <summary>
-    /// Gets a cached instance of the <see cref="ByteBsonSerializer{TPrimitive}"/> class.
+    /// Gets a cached instance of the <see cref="BsonISByteSerializer{TPrimitive}"/> class.
     /// </summary>
-    public static ByteBsonSerializer<TPrimitive> Instance { get; } = new();
+    public static BsonISByteSerializer<TPrimitive> Instance { get; } = new();
 
     /// <summary>
     /// Gets the representation.
@@ -49,10 +49,10 @@ public class ByteBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     public BsonType Representation => _serializer.Representation;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ByteBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonISByteSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="serializer">The serializer.</param>
-    public static ByteBsonSerializer<TPrimitive> Create(ByteSerializer serializer) => new(serializer);
+    public static BsonISByteSerializer<TPrimitive> Create(SByteSerializer serializer) => new(serializer);
 
     /// <summary>
     /// Deserializes a value.
@@ -83,17 +83,17 @@ public class ByteBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     /// </summary>
     /// <param name="representation">The representation.</param>
     /// <returns>The reconfigured serializer.</returns>
-    public ByteBsonSerializer<TPrimitive> WithRepresentation(BsonType representation)
+    public BsonISByteSerializer<TPrimitive> WithRepresentation(BsonType representation)
     {
         if (representation == _serializer.Representation)
         {
             return this;
         }
 
-        return new ByteBsonSerializer<TPrimitive>(representation);
+        return new BsonISByteSerializer<TPrimitive>(representation);
     }
 
-    // explicit Byteerface implementations
+    // explicit SByteerface implementations
     IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
     {
         return WithRepresentation(representation);

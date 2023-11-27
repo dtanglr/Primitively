@@ -21,7 +21,7 @@ public class ProductRepository : IProductRepository
             .ToListAsync();
     }
 
-    public async Task<Product> GetProduct(string id)
+    public async Task<Product> GetProductById(string id)
     {
         return await _context
             .Products
@@ -29,11 +29,27 @@ public class ProductRepository : IProductRepository
             .SingleOrDefaultAsync();
     }
 
-    public async Task<Product> GetProduct(Sku sku)
+    public async Task<Product> GetProductByGuid(Guid guid)
+    {
+        return await _context
+            .Products
+            .Find(p => p.Guid == guid)
+            .SingleOrDefaultAsync();
+    }
+
+    public async Task<Product> GetProductBySku(Sku sku)
     {
         return await _context
             .Products
             .Find(Builders<Product>.Filter.Eq(p => p.Sku, sku))
+            .SingleOrDefaultAsync();
+    }
+
+    public async Task<Product> GetProductByProductId(ProductId productId)
+    {
+        return await _context
+            .Products
+            .Find(p => p.ProductId == productId)
             .SingleOrDefaultAsync();
     }
 

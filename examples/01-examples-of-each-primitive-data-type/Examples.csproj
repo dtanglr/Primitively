@@ -12,8 +12,8 @@
   </ItemGroup>
   
   <!--
-  To target netstandard2.0, the below props are required to support some features introduced after netstandard2.0's and 
-  the c# 7.3 lang version release dates, such as record structs.
+  To target netstandard2.0, the below props are required to support some features introduced after netstandard2.0 and 
+  the c# 7.3 lang version release dates, such as 'record structs'.
   
   Nb. Primitively IDateOnly types are not 'currently' supported in netstandard2.0 because System.DateOnly is net6.0 or greater.
   -->
@@ -30,5 +30,5 @@
     <PackageReference Include="System.Text.Json" Version="8.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
-
+  
 </Project>

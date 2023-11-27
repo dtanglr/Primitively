@@ -2,10 +2,12 @@
 using Catalog.Api.Data;
 using Catalog.Api.Repositories;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using MongoDB.Bson;
 using Primitively.AspNetCore.Mvc;
 using Primitively.AspNetCore.SwaggerGen;
 using Primitively.Configuration;
 using Primitively.MongoDB.Bson;
+using Primitively.MongoDB.Bson.Serialization.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<ICatalogContext, CatalogContext>();
@@ -37,7 +39,18 @@ builder.Services.AddPrimitively(options =>
 // Add MongoDB BsonSerializer configuration 
 // This method also supports registering types individually with a custom serializer. A custom serialiser
 // can also be registered to replace the default serializer for any given Primitively DataType.
-.AddBson();
+.AddBson(new BsonOptions
+{
+    BsonIGuidSerializerOptions = new BsonIGuidSerializerOptions
+    {
+        // Stores all IGuid Primitively types (and System.Guid - this may change soon though) in UUID format
+        // by default (overidden using BsonIGuidRepresentation attribute)
+        GuidRepresentation = GuidRepresentation.Standard,
+        // V3: Permits Guid and IGuid properties to have different representations (configured using the
+        // BsonGuidRepresentation and BsonIGuidRepresentation property attribute)
+        GuidRepresentationMode = GuidRepresentationMode.V3
+    }
+});
 
 var app = builder.Build();
 

@@ -27,7 +27,7 @@ public class BsonSerializerTests
         var expected = (DefaultThirtySixDigitsWithHyphens)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>(representation);
+        var serializer = new BsonIGuidSerializer<DefaultThirtySixDigitsWithHyphens>(representation);
         bsonWriter.Setup(r => r.WriteBinaryData(It.IsAny<BsonBinaryData>()));
 
         // Act
@@ -46,7 +46,7 @@ public class BsonSerializerTests
         var expected = (DefaultThirtySixDigitsWithHyphens)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>(representation));
+        var serializer = NullableSerializer.Create(new BsonIGuidSerializer<DefaultThirtySixDigitsWithHyphens>(representation));
         bsonWriter.Setup(r => r.WriteBinaryData(It.IsAny<BsonBinaryData>()));
 
         // Act
@@ -64,7 +64,7 @@ public class BsonSerializerTests
         var expected = (DefaultThirtySixDigitsWithHyphens?)null;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new GuidBsonSerializer<DefaultThirtySixDigitsWithHyphens>(representation));
+        var serializer = NullableSerializer.Create(new BsonIGuidSerializer<DefaultThirtySixDigitsWithHyphens>(representation));
         bsonWriter.Setup(r => r.WriteNull());
 
         // Act

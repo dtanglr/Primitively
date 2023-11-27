@@ -17,7 +17,7 @@ public class BsonSerializerTests
         var expected = (UIntId)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = new UIntBsonSerializer<UIntId>();
+        var serializer = new BsonIUIntSerializer<UIntId>();
         bsonWriter.Setup(r => r.WriteInt64(It.IsAny<long>()));
 
         // Act
@@ -35,7 +35,7 @@ public class BsonSerializerTests
         var expected = (UIntId)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new UIntBsonSerializer<UIntId>());
+        var serializer = NullableSerializer.Create(new BsonIUIntSerializer<UIntId>());
         bsonWriter.Setup(r => r.WriteInt64(It.IsAny<long>()));
 
         // Act
@@ -52,7 +52,7 @@ public class BsonSerializerTests
         var expected = (UIntId?)null;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new UIntBsonSerializer<UIntId>());
+        var serializer = NullableSerializer.Create(new BsonIUIntSerializer<UIntId>());
         bsonWriter.Setup(r => r.WriteNull());
 
         // Act

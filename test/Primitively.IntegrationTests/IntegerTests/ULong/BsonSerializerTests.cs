@@ -18,7 +18,7 @@ public class BsonSerializerTests
         var expected = (ULongId)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = new ULongBsonSerializer<ULongId>();
+        var serializer = new BsonIULongSerializer<ULongId>();
         bsonWriter.Setup(r => r.WriteDecimal128(It.IsAny<Decimal128>()));
 
         // Act
@@ -36,7 +36,7 @@ public class BsonSerializerTests
         var expected = (ULongId)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new ULongBsonSerializer<ULongId>());
+        var serializer = NullableSerializer.Create(new BsonIULongSerializer<ULongId>());
         bsonWriter.Setup(r => r.WriteDecimal128(It.IsAny<Decimal128>()));
 
         // Act
@@ -53,7 +53,7 @@ public class BsonSerializerTests
         var expected = (ULongId?)null;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new ULongBsonSerializer<ULongId>());
+        var serializer = NullableSerializer.Create(new BsonIULongSerializer<ULongId>());
         bsonWriter.Setup(r => r.WriteNull());
 
         // Act

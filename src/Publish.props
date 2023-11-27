@@ -1,8 +1,6 @@
 <Project>
 
   <PropertyGroup>
-    <IncludeSource>true</IncludeSource>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <NoPackageAnalysis>false</NoPackageAnalysis>
     <EnablePackageValidation>true</EnablePackageValidation>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -12,10 +10,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <DebugType>full</DebugType>
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <IncludeSource>true</IncludeSource>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
 

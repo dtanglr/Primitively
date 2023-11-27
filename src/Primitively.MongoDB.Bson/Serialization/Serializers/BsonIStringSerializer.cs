@@ -5,43 +5,43 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a DateOnly value.
+/// Represents a serializer for Primitively types that encapsulate a String value.
 /// </summary>
-public class DateOnlyBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<DateOnlyBsonSerializer<TPrimitive>>
-    where TPrimitive : struct, IDateOnly
+public class BsonIStringSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<BsonIStringSerializer<TPrimitive>>
+    where TPrimitive : struct, IString
 {
-    private readonly DateTimeSerializer _serializer;
+    private readonly StringSerializer _serializer;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DateOnlyBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIStringSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="serializer">The serializer.</param>
-    private DateOnlyBsonSerializer(DateTimeSerializer serializer)
+    private BsonIStringSerializer(StringSerializer serializer)
     {
         _serializer = serializer;
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DateOnlyBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIStringSerializer{TPrimitive}"/> class.
     /// </summary>
-    public DateOnlyBsonSerializer()
+    public BsonIStringSerializer()
     {
-        _serializer = DateTimeSerializer.DateOnlyInstance;
+        _serializer = StringSerializer.Instance;
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DateOnlyBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIStringSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="representation">The representation.</param>
-    public DateOnlyBsonSerializer(BsonType representation)
+    public BsonIStringSerializer(BsonType representation)
     {
-        _serializer = new DateTimeSerializer(true, representation);
+        _serializer = new StringSerializer(representation);
     }
 
     /// <summary>
-    /// Gets a cached instance of the <see cref="DateOnlyBsonSerializer{TPrimitive}"/> class.
+    /// Gets a cached instance of the <see cref="BsonIStringSerializer{TPrimitive}"/> class.
     /// </summary>
-    public static DateOnlyBsonSerializer<TPrimitive> Instance { get; } = new();
+    public static BsonIStringSerializer<TPrimitive> Instance { get; } = new();
 
     /// <summary>
     /// Gets the representation.
@@ -49,10 +49,10 @@ public class DateOnlyBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitiv
     public BsonType Representation => _serializer.Representation;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DateOnlyBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIStringSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="serializer">The serializer.</param>
-    public static DateOnlyBsonSerializer<TPrimitive> Create(DateTimeSerializer serializer) => new(serializer);
+    public static BsonIStringSerializer<TPrimitive> Create(StringSerializer serializer) => new(serializer);
 
     /// <summary>
     /// Deserializes a value.
@@ -83,17 +83,17 @@ public class DateOnlyBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitiv
     /// </summary>
     /// <param name="representation">The representation.</param>
     /// <returns>The reconfigured serializer.</returns>
-    public DateOnlyBsonSerializer<TPrimitive> WithRepresentation(BsonType representation)
+    public BsonIStringSerializer<TPrimitive> WithRepresentation(BsonType representation)
     {
         if (representation == _serializer.Representation)
         {
             return this;
         }
 
-        return new DateOnlyBsonSerializer<TPrimitive>(representation);
+        return new BsonIStringSerializer<TPrimitive>(representation);
     }
 
-    // explicit DateOnlyerface implementations
+    // explicit Stringerface implementations
     IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
     {
         return WithRepresentation(representation);

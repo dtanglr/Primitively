@@ -19,7 +19,7 @@ public class BsonDeserializerTests
         var expected = (ByteId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new ByteBsonSerializer<ByteId>();
+        var serializer = new BsonIByteSerializer<ByteId>();
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
@@ -38,7 +38,7 @@ public class BsonDeserializerTests
         var number = ByteId.Maximum + 1;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new ByteBsonSerializer<ByteId>();
+        var serializer = new BsonIByteSerializer<ByteId>();
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
@@ -58,7 +58,7 @@ public class BsonDeserializerTests
         var expected = (ByteId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new ByteBsonSerializer<ByteId>();
+        var serializer = new BsonIByteSerializer<ByteId>();
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
@@ -77,7 +77,7 @@ public class BsonDeserializerTests
         var number = ByteId.Minimum - 1;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new ByteBsonSerializer<ByteId>();
+        var serializer = new BsonIByteSerializer<ByteId>();
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
@@ -97,7 +97,7 @@ public class BsonDeserializerTests
         var expected = (ByteId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new ByteBsonSerializer<ByteId>());
+        var serializer = NullableSerializer.Create(new BsonIByteSerializer<ByteId>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
@@ -116,7 +116,7 @@ public class BsonDeserializerTests
         var number = ByteId.Maximum + 1;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new ByteBsonSerializer<ByteId>());
+        var serializer = NullableSerializer.Create(new BsonIByteSerializer<ByteId>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
@@ -136,7 +136,7 @@ public class BsonDeserializerTests
         var expected = (ByteId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new ByteBsonSerializer<ByteId>());
+        var serializer = NullableSerializer.Create(new BsonIByteSerializer<ByteId>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
@@ -155,7 +155,7 @@ public class BsonDeserializerTests
         var number = ByteId.Minimum - 1;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new ByteBsonSerializer<ByteId>());
+        var serializer = NullableSerializer.Create(new BsonIByteSerializer<ByteId>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Int32);
         bsonReader.Setup(r => r.ReadInt32()).Returns(number);
 
@@ -174,7 +174,7 @@ public class BsonDeserializerTests
         var expected = (ByteId?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new ByteBsonSerializer<ByteId>());
+        var serializer = NullableSerializer.Create(new BsonIByteSerializer<ByteId>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act

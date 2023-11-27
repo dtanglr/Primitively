@@ -19,7 +19,7 @@ public class BsonDeserializerTests
         var expected = (ULongId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new ULongBsonSerializer<ULongId>();
+        var serializer = new BsonIULongSerializer<ULongId>();
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Decimal128);
         bsonReader.Setup(r => r.ReadDecimal128()).Returns(new Decimal128(expected));
 
@@ -39,7 +39,7 @@ public class BsonDeserializerTests
         var expected = (ULongId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new ULongBsonSerializer<ULongId>();
+        var serializer = new BsonIULongSerializer<ULongId>();
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Decimal128);
         bsonReader.Setup(r => r.ReadDecimal128()).Returns(new Decimal128(expected));
 
@@ -59,7 +59,7 @@ public class BsonDeserializerTests
         var expected = (ULongId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new ULongBsonSerializer<ULongId>());
+        var serializer = NullableSerializer.Create(new BsonIULongSerializer<ULongId>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Decimal128);
         bsonReader.Setup(r => r.ReadDecimal128()).Returns(new Decimal128(expected));
 
@@ -79,7 +79,7 @@ public class BsonDeserializerTests
         var expected = (ULongId)number;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new ULongBsonSerializer<ULongId>());
+        var serializer = NullableSerializer.Create(new BsonIULongSerializer<ULongId>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Decimal128);
         bsonReader.Setup(r => r.ReadDecimal128()).Returns(new Decimal128(expected));
 
@@ -98,7 +98,7 @@ public class BsonDeserializerTests
         var expected = (ULongId?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new ULongBsonSerializer<ULongId>());
+        var serializer = NullableSerializer.Create(new BsonIULongSerializer<ULongId>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act

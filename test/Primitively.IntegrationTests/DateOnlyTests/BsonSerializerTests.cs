@@ -19,7 +19,7 @@ public class BsonSerializerTests
         var ticks = BsonUtils.ToMillisecondsSinceEpoch(DateTime.ParseExact(example, BirthDate.Format, CultureInfo.InvariantCulture));
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = new DateOnlyBsonSerializer<BirthDate>();
+        var serializer = new BsonIDateOnlySerializer<BirthDate>();
         bsonWriter.Setup(r => r.WriteDateTime(It.IsAny<long>()));
 
         // Act
@@ -37,7 +37,7 @@ public class BsonSerializerTests
         var ticks = BsonUtils.ToMillisecondsSinceEpoch(DateTime.ParseExact(example, BirthDate.Format, CultureInfo.InvariantCulture));
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new DateOnlyBsonSerializer<BirthDate>());
+        var serializer = NullableSerializer.Create(new BsonIDateOnlySerializer<BirthDate>());
         bsonWriter.Setup(r => r.WriteString(It.IsAny<string>()));
 
         // Act
@@ -54,7 +54,7 @@ public class BsonSerializerTests
         var expected = (BirthDate?)null;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new DateOnlyBsonSerializer<BirthDate>());
+        var serializer = NullableSerializer.Create(new BsonIDateOnlySerializer<BirthDate>());
         bsonWriter.Setup(r => r.WriteNull());
 
         // Act

@@ -7,29 +7,29 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents a serializer for Primitively types that encapsulate a Guid value.
 /// </summary>
-public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<GuidBsonSerializer<TPrimitive>>, IGuidRepresentationConfigurable<GuidBsonSerializer<TPrimitive>>
+public class BsonIGuidSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<BsonIGuidSerializer<TPrimitive>>, IGuidRepresentationConfigurable<BsonIGuidSerializer<TPrimitive>>
     where TPrimitive : struct, IGuid
 {
     private readonly Lazy<GuidSerializer> _serializer;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GuidBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIGuidSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <remarks>
     /// This defaults to BsonType.Binary and GuidRepresentation.Standard.
     /// </remarks>
-    public GuidBsonSerializer() : this(BsonSerializer.SerializerRegistry) { }
+    public BsonIGuidSerializer() : this(BsonSerializer.SerializerRegistry) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GuidBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIGuidSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="serializer">The serializer.</param>
-    public GuidBsonSerializer(GuidSerializer serializer)
+    public BsonIGuidSerializer(GuidSerializer serializer)
     {
         _serializer = new Lazy<GuidSerializer>(() => serializer);
     }
 
-    public GuidBsonSerializer(IBsonSerializerRegistry serializerRegistry)
+    public BsonIGuidSerializer(IBsonSerializerRegistry serializerRegistry)
     {
         if (serializerRegistry is null)
         {
@@ -40,27 +40,27 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GuidBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIGuidSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="representation">The representation.</param>
-    public GuidBsonSerializer(BsonType representation)
+    public BsonIGuidSerializer(BsonType representation)
     {
         _serializer = new Lazy<GuidSerializer>(() => new GuidSerializer(representation));
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GuidBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIGuidSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="guidRepresentation">The Guid representation.</param>
-    public GuidBsonSerializer(GuidRepresentation guidRepresentation)
+    public BsonIGuidSerializer(GuidRepresentation guidRepresentation)
     {
         _serializer = new Lazy<GuidSerializer>(() => new GuidSerializer(guidRepresentation));
     }
 
     /// <summary>
-    /// Gets a cached instance of the <see cref="IntBsonSerializer{TPrimitive}"/> class with standard representation.
+    /// Gets a cached instance of the <see cref="BsonIIntSerializer{TPrimitive}"/> class with standard representation.
     /// </summary>
-    public static GuidBsonSerializer<TPrimitive> Instance { get; } = new();
+    public static BsonIGuidSerializer<TPrimitive> Instance { get; } = new();
 
     /// <summary>
     /// Gets the Guid representation.
@@ -73,10 +73,10 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     public BsonType Representation => _serializer.Value.Representation;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GuidBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIGuidSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="serializer">The serializer.</param>
-    public static GuidBsonSerializer<TPrimitive> Create(GuidSerializer serializer) => new(serializer);
+    public static BsonIGuidSerializer<TPrimitive> Create(GuidSerializer serializer) => new(serializer);
 
     /// <summary>
     /// Deserializes a value.
@@ -107,14 +107,14 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     /// </summary>
     /// <param name="guidRepresentation">The GuidRepresentation.</param>
     /// <returns>The reconfigured serializer.</returns>
-    public GuidBsonSerializer<TPrimitive> WithGuidRepresentation(GuidRepresentation guidRepresentation)
+    public BsonIGuidSerializer<TPrimitive> WithGuidRepresentation(GuidRepresentation guidRepresentation)
     {
         if (guidRepresentation == _serializer.Value.GuidRepresentation)
         {
             return this;
         }
 
-        return new GuidBsonSerializer<TPrimitive>(guidRepresentation);
+        return new BsonIGuidSerializer<TPrimitive>(guidRepresentation);
     }
 
     /// <summary>
@@ -122,14 +122,14 @@ public class GuidBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, 
     /// </summary>
     /// <param name="representation">The representation.</param>
     /// <returns>The reconfigured serializer.</returns>
-    public GuidBsonSerializer<TPrimitive> WithRepresentation(BsonType representation)
+    public BsonIGuidSerializer<TPrimitive> WithRepresentation(BsonType representation)
     {
         if (representation == _serializer.Value.Representation)
         {
             return this;
         }
 
-        return new GuidBsonSerializer<TPrimitive>(representation);
+        return new BsonIGuidSerializer<TPrimitive>(representation);
     }
 
     // explicit interface implementations

@@ -6,53 +6,53 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a ULong value.
+/// Represents a serializer for Primitively types that encapsulate a Short value.
 /// </summary>
-public class ULongBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<ULongBsonSerializer<TPrimitive>>, IRepresentationConverterConfigurable<ULongBsonSerializer<TPrimitive>>
-    where TPrimitive : struct, IULong
+public class BsonIShortSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<BsonIShortSerializer<TPrimitive>>, IRepresentationConverterConfigurable<BsonIShortSerializer<TPrimitive>>
+    where TPrimitive : struct, IShort
 {
-    private readonly UInt64Serializer _serializer;
+    private readonly Int16Serializer _serializer;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ULongBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIShortSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="serializer">The serializer.</param>
-    private ULongBsonSerializer(UInt64Serializer serializer)
+    private BsonIShortSerializer(Int16Serializer serializer)
     {
         _serializer = serializer;
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ULongBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIShortSerializer{TPrimitive}"/> class.
     /// </summary>
-    public ULongBsonSerializer()
+    public BsonIShortSerializer()
     {
-        _serializer = new UInt64Serializer(BsonType.Decimal128);
+        _serializer = new Int16Serializer();
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ULongBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIShortSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="representation">The representation.</param>
-    public ULongBsonSerializer(BsonType representation)
+    public BsonIShortSerializer(BsonType representation)
     {
-        _serializer = new UInt64Serializer(representation);
+        _serializer = new Int16Serializer(representation);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ULongBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIShortSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="representation">The representation.</param>
     /// <param name="converter">The converter.</param>
-    public ULongBsonSerializer(BsonType representation, RepresentationConverter converter)
+    public BsonIShortSerializer(BsonType representation, RepresentationConverter converter)
     {
-        _serializer = new UInt64Serializer(representation, converter);
+        _serializer = new Int16Serializer(representation, converter);
     }
 
     /// <summary>
-    /// Gets a cached instance of the <see cref="ULongBsonSerializer{TPrimitive}"/> class.
+    /// Gets a cached instance of the <see cref="BsonIShortSerializer{TPrimitive}"/> class.
     /// </summary>
-    public static ULongBsonSerializer<TPrimitive> Instance { get; } = new();
+    public static BsonIShortSerializer<TPrimitive> Instance { get; } = new();
 
     /// <summary>
     /// Gets the representation.
@@ -65,10 +65,10 @@ public class ULongBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>,
     public RepresentationConverter Converter => _serializer.Converter;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ULongBsonSerializer{TPrimitive}"/> class.
+    /// Initializes a new instance of the <see cref="BsonIShortSerializer{TPrimitive}"/> class.
     /// </summary>
     /// <param name="serializer">The serializer.</param>
-    public static ULongBsonSerializer<TPrimitive> Create(UInt64Serializer serializer) => new(serializer);
+    public static BsonIShortSerializer<TPrimitive> Create(Int16Serializer serializer) => new(serializer);
 
     /// <summary>
     /// Deserializes a value.
@@ -99,14 +99,14 @@ public class ULongBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>,
     /// </summary>
     /// <param name="converter">The converter.</param>
     /// <returns>The reconfigured serializer.</returns>
-    public ULongBsonSerializer<TPrimitive> WithConverter(RepresentationConverter converter)
+    public BsonIShortSerializer<TPrimitive> WithConverter(RepresentationConverter converter)
     {
         if (converter == _serializer.Converter)
         {
             return this;
         }
 
-        return new ULongBsonSerializer<TPrimitive>(_serializer.Representation, converter);
+        return new BsonIShortSerializer<TPrimitive>(_serializer.Representation, converter);
     }
 
     /// <summary>
@@ -114,17 +114,17 @@ public class ULongBsonSerializer<TPrimitive> : StructSerializerBase<TPrimitive>,
     /// </summary>
     /// <param name="representation">The representation.</param>
     /// <returns>The reconfigured serializer.</returns>
-    public ULongBsonSerializer<TPrimitive> WithRepresentation(BsonType representation)
+    public BsonIShortSerializer<TPrimitive> WithRepresentation(BsonType representation)
     {
         if (representation == _serializer.Representation)
         {
             return this;
         }
 
-        return new ULongBsonSerializer<TPrimitive>(representation, _serializer.Converter);
+        return new BsonIShortSerializer<TPrimitive>(representation, _serializer.Converter);
     }
 
-    // explicit ULongerface implementations
+    // explicit Shorterface implementations
     IBsonSerializer IRepresentationConverterConfigurable.WithConverter(RepresentationConverter converter)
     {
         return WithConverter(converter);

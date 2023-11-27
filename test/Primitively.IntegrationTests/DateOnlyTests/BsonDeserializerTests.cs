@@ -20,7 +20,7 @@ public class BsonDeserializerTests
         var expected = (BirthDate)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new DateOnlyBsonSerializer<BirthDate>();
+        var serializer = new BsonIDateOnlySerializer<BirthDate>();
         var milliseconds = BsonUtils.ToMillisecondsSinceEpoch(DateTime.ParseExact(example, BirthDate.Format, CultureInfo.InvariantCulture));
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.DateTime);
         bsonReader.Setup(r => r.ReadDateTime()).Returns(milliseconds);
@@ -41,7 +41,7 @@ public class BsonDeserializerTests
         var expected = (BirthDate)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new DateOnlyBsonSerializer<BirthDate>());
+        var serializer = NullableSerializer.Create(new BsonIDateOnlySerializer<BirthDate>());
         var milliseconds = BsonUtils.ToMillisecondsSinceEpoch(DateTime.ParseExact(example, BirthDate.Format, CultureInfo.InvariantCulture));
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.DateTime);
         bsonReader.Setup(r => r.ReadDateTime()).Returns(milliseconds);
@@ -61,7 +61,7 @@ public class BsonDeserializerTests
         var expected = (BirthDate?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new DateOnlyBsonSerializer<BirthDate>());
+        var serializer = NullableSerializer.Create(new BsonIDateOnlySerializer<BirthDate>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act

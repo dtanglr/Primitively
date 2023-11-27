@@ -24,7 +24,8 @@ public static class CatalogContextSeed
         yield return new()
         {
             Id = "602d2149e773f2a3990b47f5",
-            Sku = (Sku)Sku.Example, // Sku property type stored in default Bson.Binary format
+            ProductId = (ProductId)ProductId.Example,
+            Sku = (Sku)Sku.Example,
             Name = "IPhone X",
             Summary = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
             Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
@@ -36,7 +37,6 @@ public static class CatalogContextSeed
         yield return new()
         {
             Id = "602d2149e773f2a3990b47f6",
-            Sku = Sku.New(),
             Name = "Samsung 10",
             Summary = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
             Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
@@ -48,7 +48,6 @@ public static class CatalogContextSeed
         yield return new()
         {
             Id = "602d2149e773f2a3990b47f7",
-            Sku = Sku.New(),
             Name = "Huawei Plus",
             Summary = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
             Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
@@ -60,7 +59,6 @@ public static class CatalogContextSeed
         yield return new()
         {
             Id = "602d2149e773f2a3990b47f8",
-            Sku = Sku.New(),
             Name = "Xiaomi Mi 9",
             Summary = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
             Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
@@ -72,7 +70,6 @@ public static class CatalogContextSeed
         yield return new()
         {
             Id = "602d2149e773f2a3990b47f9",
-            Sku = Sku.New(),
             Name = "HTC U11+ Plus",
             Summary = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
             Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
@@ -84,7 +81,6 @@ public static class CatalogContextSeed
         yield return new()
         {
             Id = "602d2149e773f2a3990b47fa",
-            Sku = Sku.New(),
             Name = "LG G7 ThinQ",
             Summary = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
             Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",

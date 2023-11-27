@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using Primitively.Configuration;
 
 namespace Primitively.MongoDB.Bson.Serialization;
 
@@ -16,13 +17,12 @@ public class BsonSerializerRegisterBuilder
     /// Automatically register a nullable and a non-nullable Bson serializer for the provided Primitively type
     /// </summary>
     /// <typeparam name="TPrimitive">IPrimitive</typeparam>
-    /// <returns>BsonSerializerBuilder</returns>
+    /// <returns>BsonSerializerRegisterBuilder</returns>
     /// <remarks>
     /// The type of serializer used is governed by the BsonSerializerOptions. If a serializer for the given type 
     /// is already registered, subsequent attempts for the same type will be ignored.
     /// </remarks>
-    public BsonSerializerRegisterBuilder AddSerializerForType<TPrimitive>()
-        where TPrimitive : struct, IPrimitive
+    public BsonSerializerRegisterBuilder AddSerializerForType<TPrimitive>() where TPrimitive : struct, IPrimitive
     {
         // Get a default instance of the provided Primitively struct type
         var primitive = new TPrimitive();
@@ -36,30 +36,11 @@ public class BsonSerializerRegisterBuilder
     }
 
     /// <summary>
-    /// Automatically register a nullable and a non-nullable Bson serializer for the provided Primitively type
-    /// </summary>
-    /// <param name="primitiveInfo">PrimitiveInfo</param>
-    /// <returns>BsonSerializerBuilder</returns>
-    /// <remarks>
-    /// The type of serializer used is governed by the BsonSerializerOptions. If a serializer for the given type 
-    /// is already registered, subsequent attempts for the same type will be ignored.
-    /// </remarks>
-    public BsonSerializerRegisterBuilder AddSerializerForType(PrimitiveInfo primitiveInfo)
-    {
-        // Generate a nullable and non-nullable Bson serializer for the Primitively struct
-        var serializerType = BsonSerializerCache.Get(primitiveInfo.DataType);
-
-        RegisterBsonSerializer(primitiveInfo.Type, serializerType);
-
-        return this;
-    }
-
-    /// <summary>
     /// Register a nullable and a non-nullable Bson serializer for the provided Primitively type
     /// </summary>
     /// <typeparam name="TPrimitive">IPrimitive</typeparam>
     /// <typeparam name="TBsonSerializer">IBsonSerializer</typeparam>
-    /// <returns>BsonSerializerBuilder</returns>
+    /// <returns>BsonSerializerRegisterBuilder</returns>
     /// <remarks>
     /// The type of serializer used is governed by the TBsonSerializer type parameter.  This allows for
     /// individual primitive types to have their own serialiser, rather than the one defined in BsonSerializerOptions.
@@ -75,11 +56,31 @@ public class BsonSerializerRegisterBuilder
     }
 
     /// <summary>
+    /// Register nullable and non-nullable Bson serializers for each of the Primitively types in the registry
+    /// </summary>
+    /// <param name="registry">PrimitiveRegistry</param>
+    /// <returns>BsonSerializerRegisterBuilder</returns>
+    public BsonSerializerRegisterBuilder AddSerializerForEachTypeIn(PrimitiveRegistry registry)
+    {
+        if (registry.IsEmpty)
+        {
+            return this;
+        }
+
+        foreach (var primitiveInfo in registry.ToList())
+        {
+            AddSerializerForType(primitiveInfo);
+        }
+
+        return this;
+    }
+
+    /// <summary>
     /// Register nullable and non-nullable Bson serializers for all the Primitively types contained 
     /// in the source generated repository
     /// </summary>
     /// <typeparam name="TPrimitiveRepository">IPrimitiveRepository</typeparam>
-    /// <returns>BsonSerializerBuilder</returns>
+    /// <returns>BsonSerializerRegisterBuilder</returns>
     /// <remarks>
     /// The type of serializer used is governed by the BsonSerializerOptions. 
     /// If a serializer for the given type is already registered, subsequent attempts for the same type will be ignored.
@@ -130,5 +131,24 @@ public class BsonSerializerRegisterBuilder
 
         // Register a NullableSerializer for a nullable version of the Primitively type
         BsonSerializer.TryRegisterSerializer(nullablePrimitiveType, nullablePrimitiveSerializerInstance);
+    }
+
+    /// <summary>
+    /// Automatically register a nullable and a non-nullable Bson serializer for the provided Primitively type
+    /// </summary>
+    /// <param name="primitiveInfo">PrimitiveInfo</param>
+    /// <returns>BsonSerializerRegisterBuilder</returns>
+    /// <remarks>
+    /// The type of serializer used is governed by the BsonSerializerOptions. If a serializer for the given type 
+    /// is already registered, subsequent attempts for the same type will be ignored.
+    /// </remarks>
+    private BsonSerializerRegisterBuilder AddSerializerForType(PrimitiveInfo primitiveInfo)
+    {
+        // Generate a nullable and non-nullable Bson serializer for the Primitively struct
+        var serializerType = BsonSerializerCache.Get(primitiveInfo.DataType);
+
+        RegisterBsonSerializer(primitiveInfo.Type, serializerType);
+
+        return this;
     }
 }
