@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <Description>A library which provides MongoDB support for types produced by the Primitively C# source generator</Description>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);CA1510</NoWarn>
+    <NoWarn>$(NoWarn);CA1510;CS0618</NoWarn>
   </PropertyGroup>
 
   <Import Project="..\Publish.props" />

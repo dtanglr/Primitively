@@ -6,8 +6,7 @@ namespace Primitively.MongoDB.Bson.Serialization.Options;
 public interface IBsonSerializerOptions
 {
     DataType DataType { get; }
-    BsonType Representation { get; set; }
-    Type SerializerType { get; set; }
-    //Func<IBsonSerializerOptions, Type, IBsonSerializer> CreateInstance { get; set; }
-    IBsonSerializer CreateInstance<TPrimitive>() where TPrimitive : struct, IPrimitive;
+    BsonType Representation { get; internal set; }
+    Type SerializerType { get; internal set; }
+    Func<Type, IBsonSerializer> CreateInstance { get; }
 }

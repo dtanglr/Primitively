@@ -8,8 +8,10 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents a serializer for Primitively types that encapsulate a UShort value.
 /// </summary>
-public class BsonIUShortSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<BsonIUShortSerializer<TPrimitive>>, IRepresentationConverterConfigurable<BsonIUShortSerializer<TPrimitive>>
-    where TPrimitive : struct, IUShort
+public class BsonIUShortSerializer<TPrimitive> :
+    StructSerializerBase<TPrimitive>,
+    IRepresentationConfigurable<BsonIUShortSerializer<TPrimitive>>,
+    IRepresentationConverterConfigurable<BsonIUShortSerializer<TPrimitive>> where TPrimitive : struct, IUShort
 {
     private readonly UInt16Serializer _serializer;
 

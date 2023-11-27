@@ -4,20 +4,21 @@ using Primitively.MongoDB.Bson.Serialization.Serializers;
 
 namespace Primitively.MongoDB.Bson.Serialization.Options;
 
-public record BsonIStringSerializerOptions : IBsonSerializerOptions
+public record BsonIStringSerializerOptions : IBsonSerializerOptions<BsonIStringSerializerOptions>
 {
     public DataType DataType { get; } = DataType.String;
     public BsonType Representation { get; set; } = BsonType.String;
     public Type SerializerType { get; set; } = typeof(BsonIStringSerializer<>);
-
-    public virtual IBsonSerializer CreateInstance<TPrimitive>() where TPrimitive : struct, IPrimitive
+    public Func<BsonIStringSerializerOptions, Type, IBsonSerializer> CreateInstance { get; set; } = (options, primitiveType) =>
     {
-        // Construct a Primitively serializer of the Primitively type
-        var serializerType = BsonOptions.GetSerializerType<TPrimitive>(SerializerType);
+        // Construct a Bson serializer for the given Primitively type using the options
+        var serializerType = BsonOptions.GetSerializerType(primitiveType, options.SerializerType);
 
-        // Create a Primitively serializer instance
-        var serializerInstance = (IBsonSerializer)Activator.CreateInstance(serializerType, Representation)!;
+        // Create an instance of the serializer
+        var serializerInstance = (IBsonSerializer)Activator.CreateInstance(serializerType, options.Representation)!;
 
         return serializerInstance;
-    }
+    };
+
+    Func<Type, IBsonSerializer> IBsonSerializerOptions.CreateInstance => (primitiveType) => CreateInstance.Invoke(this, primitiveType);
 }

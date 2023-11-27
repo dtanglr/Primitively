@@ -7,8 +7,9 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents a serializer for Primitively types that encapsulate a String value.
 /// </summary>
-public class BsonIStringSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<BsonIStringSerializer<TPrimitive>>
-    where TPrimitive : struct, IString
+public class BsonIStringSerializer<TPrimitive> :
+    StructSerializerBase<TPrimitive>,
+    IRepresentationConfigurable<BsonIStringSerializer<TPrimitive>> where TPrimitive : struct, IString
 {
     private readonly StringSerializer _serializer;
 

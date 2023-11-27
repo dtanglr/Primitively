@@ -8,8 +8,10 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents a serializer for Primitively types that encapsulate a Int value.
 /// </summary>
-public class BsonIIntSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<BsonIIntSerializer<TPrimitive>>, IRepresentationConverterConfigurable<BsonIIntSerializer<TPrimitive>>
-    where TPrimitive : struct, IInt
+public class BsonIIntSerializer<TPrimitive> :
+    StructSerializerBase<TPrimitive>,
+    IRepresentationConfigurable<BsonIIntSerializer<TPrimitive>>,
+    IRepresentationConverterConfigurable<BsonIIntSerializer<TPrimitive>> where TPrimitive : struct, IInt
 {
     private readonly Int32Serializer _serializer;
 

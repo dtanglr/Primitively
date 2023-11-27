@@ -7,8 +7,9 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents a serializer for Primitively types that encapsulate a DateOnly value.
 /// </summary>
-public class BsonIDateOnlySerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<BsonIDateOnlySerializer<TPrimitive>>
-    where TPrimitive : struct, IDateOnly
+public class BsonIDateOnlySerializer<TPrimitive> :
+    StructSerializerBase<TPrimitive>,
+    IRepresentationConfigurable<BsonIDateOnlySerializer<TPrimitive>> where TPrimitive : struct, IDateOnly
 {
     private readonly DateTimeSerializer _serializer;
 

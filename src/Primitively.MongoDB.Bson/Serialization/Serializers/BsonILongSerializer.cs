@@ -8,8 +8,10 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents a serializer for Primitively types that encapsulate a Long value.
 /// </summary>
-public class BsonILongSerializer<TPrimitive> : StructSerializerBase<TPrimitive>, IRepresentationConfigurable<BsonILongSerializer<TPrimitive>>, IRepresentationConverterConfigurable<BsonILongSerializer<TPrimitive>>
-    where TPrimitive : struct, ILong
+public class BsonILongSerializer<TPrimitive> :
+    StructSerializerBase<TPrimitive>,
+    IRepresentationConfigurable<BsonILongSerializer<TPrimitive>>,
+    IRepresentationConverterConfigurable<BsonILongSerializer<TPrimitive>> where TPrimitive : struct, ILong
 {
     private readonly Int64Serializer _serializer;
 
