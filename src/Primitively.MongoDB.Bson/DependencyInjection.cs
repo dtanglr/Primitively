@@ -13,11 +13,14 @@ public static class DependencyInjection
     /// Register MongoDB nullable and non-nullable Bson serializers
     /// </summary>
     /// <param name="configurator">Configurator</param>
-    /// <param name="options">BsonOptions</param>
+    /// <param name="builder">BsonOptions</param>
     /// <returns>Configurator</returns>
-    public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator, Action<BsonOptions>? options = null)
+    public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator, Action<BsonOptions>? builder = null)
     {
-        options?.Invoke(new BsonOptions());
+        var registry = configurator.Options.Registry;
+        var options = new BsonOptions(registry);
+        builder?.Invoke(options);
+        options.Build();
 
         return configurator;
     }

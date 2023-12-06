@@ -4,7 +4,12 @@ namespace Primitively.MongoDB.Bson.Serialization.Options;
 
 internal static class BsonSerializerOptionsCache
 {
-    private static readonly ConcurrentDictionary<DataType, IBsonSerializerOptions> _items = new(GetAll().ToDictionary(o => o.DataType, o => o));
+    private static readonly ConcurrentDictionary<DataType, IBsonSerializerOptions> _items;
+
+    static BsonSerializerOptionsCache()
+    {
+        _items = new(GetAll().ToDictionary(o => o.DataType, o => o));
+    }
 
     public static IBsonSerializerOptions Get(DataType dataType) => _items[dataType];
 

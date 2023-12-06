@@ -1,11 +1,18 @@
-﻿using MongoDB.Bson.Serialization.Serializers;
-using MongoDB.Bson.Serialization;
+﻿using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using Primitively.Configuration;
 
 namespace Primitively.MongoDB.Bson.Serialization.Options;
 
 public class BsonOptions
 {
-    private static readonly List<Type> _primitiveTypes = new();
+    private readonly Dictionary<Type, DataType> _primitiveTypes = new();
+    private readonly PrimitiveRegistry _registry;
+
+    internal BsonOptions(PrimitiveRegistry registry)
+    {
+        _registry = registry;
+    }
 
     public bool RegisterSerializersForEachTypeInRegistry { get; set; } = true;
 
@@ -103,40 +110,45 @@ public class BsonOptions
         return this;
     }
 
-    private BsonOptions RegisterSerializerForType(PrimitiveInfo primitiveInfo)
+    internal void Build()
     {
-        // Generate a nullable and non-nullable Bson serializer for the Primitively struct
-        var options = BsonSerializerOptionsCache.Get(primitiveInfo.DataType);
-
-        RegisterSerializerForType(primitiveInfo.Type, options);
-
-        return this;
-    }
-
-    private static void RegisterSerializerForType(Type primitiveType, IBsonSerializerOptions options)
-    {
-        // Check that Primitive types has not been handled already
-        if (_primitiveTypes.Contains(primitiveType))
+        if (RegisterSerializersForEachTypeInRegistry && !_registry.IsEmpty)
         {
-            return;
+            foreach (var primitiveInfo in _registry.ToList())
+            {
+#if NET6_0_OR_GREATER
+                _primitiveTypes.TryAdd(primitiveInfo.Type, primitiveInfo.DataType);
+#else
+                if (!_primitiveTypes.ContainsKey(primitiveInfo.Type))
+                {
+                    _primitiveTypes.Add(primitiveInfo.Type, primitiveInfo.DataType);
+                }
+#endif
+            }
         }
 
-        // Add the type to a collection to provide a data source for the above check
-        _primitiveTypes.Add(primitiveType);
+        foreach (var primitiveType in _primitiveTypes)
+        {
+            RegisterSerializer(primitiveType.Key, primitiveType.Value);
+        }
+    }
 
+    private static void RegisterSerializer(Type primitiveType, DataType dataType)
+    {
         // Create a Primitively serializer instance
-        var primitiveSerializerInstance = options.CreateInstance(primitiveType);
+        var serializerType = BsonSerializerOptionsCache.Get(dataType); // TODO: Update Get method/call to ensure failure handled
+        var serializerInstance = serializerType.CreateInstance(primitiveType);
 
         // Register a Serializer for the Primitively type
-        BsonSerializer.TryRegisterSerializer(primitiveType, primitiveSerializerInstance);
+        BsonSerializer.TryRegisterSerializer(primitiveType, serializerInstance);
 
         // Construct a nullable version of the Primitively type
         var nullablePrimitiveType = typeof(Nullable<>).MakeGenericType(primitiveType);
 
-        // Create a Nullable Primitively serializer instance
-        var nullablePrimitiveSerializerInstance = NullableSerializer.Create(primitiveSerializerInstance);
+        // Create a nullable Primitively serializer instance
+        var nullableSerializerInstance = NullableSerializer.Create(serializerInstance);
 
         // Register a NullableSerializer for a nullable version of the Primitively type
-        BsonSerializer.TryRegisterSerializer(nullablePrimitiveType, nullablePrimitiveSerializerInstance);
+        BsonSerializer.TryRegisterSerializer(nullablePrimitiveType, nullableSerializerInstance);
     }
 }
