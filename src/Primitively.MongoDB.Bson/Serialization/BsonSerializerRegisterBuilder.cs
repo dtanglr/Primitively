@@ -29,7 +29,7 @@ public class BsonSerializerRegisterBuilder
     /// </remarks>
     public BsonSerializerRegisterBuilder ForEachTypeIn<TPrimitiveRepository>() where TPrimitiveRepository : class, IPrimitiveRepository, new()
     {
-        // Get a list of the source generated Primitively types
+        // GetSerializerOptions a list of the source generated Primitively types
         var repository = new TPrimitiveRepository();
 
         return ForEachTypeIn(repository);
@@ -37,7 +37,7 @@ public class BsonSerializerRegisterBuilder
 
     public BsonSerializerRegisterBuilder ForEachTypeIn(IPrimitiveRepository repository)
     {
-        // Get a list of the source generated Primitively types
+        // GetSerializerOptions a list of the source generated Primitively types
         var primitives = repository.GetTypes();
 
         if (primitives.Count == 0)
@@ -57,7 +57,7 @@ public class BsonSerializerRegisterBuilder
     /// <returns>BsonSerializerRegisterBuilder</returns>
     public BsonSerializerRegisterBuilder ForType<TPrimitive>() where TPrimitive : struct, IPrimitive
     {
-        // Get a default instance of the provided Primitively type to obtain the DataType enum property value
+        // GetSerializerOptions a default instance of the provided Primitively type to obtain the DataType enum property value
         var primitive = new TPrimitive();
         var dataType = primitive.DataType;
 
@@ -149,7 +149,7 @@ public class BsonSerializerRegisterBuilder
             _primitiveTypes.Add(primitiveType);
 
             // Create a Primitively serializer instance
-            var serializerType = BsonSerializerOptionsCache.Get(dataType); // TODO: Update Get method/call to ensure failure handled
+            var serializerType = BsonSerializerOptionsCache.Get(dataType); // TODO: Update GetSerializerOptions method/call to ensure failure handled
             var serializerInstance = serializerType.CreateInstance(primitiveType);
 
             // Register a Serializer for the Primitively type
@@ -166,7 +166,7 @@ public class BsonSerializerRegisterBuilder
             _primitiveTypes.Add(nullablePrimitiveType);
 
             // Create a nullable Primitively serializer instance
-            var serializerType = BsonSerializerOptionsCache.Get(dataType); // TODO: Update Get method/call to ensure failure handled
+            var serializerType = BsonSerializerOptionsCache.Get(dataType); // TODO: Update GetSerializerOptions method/call to ensure failure handled
             var serializerInstance = NullableSerializer.Create(serializerType.CreateInstance(primitiveType));
 
             // Register a NullableSerializer for a nullable version of the Primitively type

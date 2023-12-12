@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization;
+﻿using System.Collections.Concurrent;
+using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Primitively.Configuration;
 
@@ -6,25 +7,39 @@ namespace Primitively.MongoDB.Bson.Serialization.Options;
 
 public class BsonOptions
 {
-    private readonly Dictionary<Type, DataType> _primitiveTypes = new();
     private readonly PrimitiveRegistry _registry;
+    private readonly ConcurrentDictionary<DataType, IBsonSerializerOptions> _options;
+    private readonly Dictionary<Type, DataType> _primitiveTypes = new();
 
     internal BsonOptions(PrimitiveRegistry registry)
     {
         _registry = registry;
+        _options = new(GetAll().ToDictionary(o => o.DataType, o => o));
     }
 
     public bool RegisterSerializersForEachTypeInRegistry { get; set; } = true;
 
-    public static Type GetSerializerType(Type primitiveType, Type serializerType)
+    private static IEnumerable<IBsonSerializerOptions> GetAll()
     {
-        // Construct a Bson serializer for the given Primitively type using the options
-        return serializerType.IsGenericTypeDefinition ? serializerType.MakeGenericType(primitiveType) : serializerType;
+        // Initialises the default instancse for each option
+        yield return new BsonIByteSerializerOptions();
+        yield return new BsonIDateOnlySerializerOptions();
+        yield return new BsonIGuidSerializerOptions();
+        yield return new BsonIIntSerializerOptions();
+        yield return new BsonILongSerializerOptions();
+        yield return new BsonISByteSerializerOptions();
+        yield return new BsonIShortSerializerOptions();
+        yield return new BsonIStringSerializerOptions();
+        yield return new BsonIUIntSerializerOptions();
+        yield return new BsonIULongSerializerOptions();
+        yield return new BsonIUShortSerializerOptions();
     }
+
+    public IBsonSerializerOptions GetSerializerOptions(DataType dataType) => _options[dataType];
 
     public BsonOptions BsonIByteSerializer(Action<BsonIByteSerializerOptions> options)
     {
-        var option = BsonSerializerOptionsCache.Get(DataType.Byte);
+        var option = GetSerializerOptions(DataType.Byte);
         options.Invoke((BsonIByteSerializerOptions)option);
 
         return this;
@@ -32,7 +47,7 @@ public class BsonOptions
 
     public BsonOptions BsonIDateOnlySerializer(Action<BsonIDateOnlySerializerOptions> options)
     {
-        var option = BsonSerializerOptionsCache.Get(DataType.DateOnly);
+        var option = GetSerializerOptions(DataType.DateOnly);
         options.Invoke((BsonIDateOnlySerializerOptions)option);
 
         return this;
@@ -40,7 +55,7 @@ public class BsonOptions
 
     public BsonOptions BsonIGuidSerializer(Action<BsonIGuidSerializerOptions> options)
     {
-        var option = BsonSerializerOptionsCache.Get(DataType.Guid);
+        var option = GetSerializerOptions(DataType.Guid);
         options.Invoke((BsonIGuidSerializerOptions)option);
 
         return this;
@@ -48,7 +63,7 @@ public class BsonOptions
 
     public BsonOptions BsonIIntSerializer(Action<BsonIIntSerializerOptions> options)
     {
-        var option = BsonSerializerOptionsCache.Get(DataType.Int);
+        var option = GetSerializerOptions(DataType.Int);
         options.Invoke((BsonIIntSerializerOptions)option);
 
         return this;
@@ -56,7 +71,7 @@ public class BsonOptions
 
     public BsonOptions BsonILongSerializer(Action<BsonILongSerializerOptions> options)
     {
-        var option = BsonSerializerOptionsCache.Get(DataType.Long);
+        var option = GetSerializerOptions(DataType.Long);
         options.Invoke((BsonILongSerializerOptions)option);
 
         return this;
@@ -64,7 +79,7 @@ public class BsonOptions
 
     public BsonOptions BsonISByteSerializer(Action<BsonISByteSerializerOptions> options)
     {
-        var option = BsonSerializerOptionsCache.Get(DataType.SByte);
+        var option = GetSerializerOptions(DataType.SByte);
         options.Invoke((BsonISByteSerializerOptions)option);
 
         return this;
@@ -72,7 +87,7 @@ public class BsonOptions
 
     public BsonOptions BsonIShortSerializer(Action<BsonIShortSerializerOptions> options)
     {
-        var option = BsonSerializerOptionsCache.Get(DataType.Short);
+        var option = GetSerializerOptions(DataType.Short);
         options.Invoke((BsonIShortSerializerOptions)option);
 
         return this;
@@ -80,7 +95,7 @@ public class BsonOptions
 
     public BsonOptions BsonIStringSerializer(Action<BsonIStringSerializerOptions> options)
     {
-        var option = BsonSerializerOptionsCache.Get(DataType.String);
+        var option = GetSerializerOptions(DataType.String);
         options.Invoke((BsonIStringSerializerOptions)option);
 
         return this;
@@ -88,7 +103,7 @@ public class BsonOptions
 
     public BsonOptions BsonIUIntSerializer(Action<BsonIUIntSerializerOptions> options)
     {
-        var option = BsonSerializerOptionsCache.Get(DataType.UInt);
+        var option = GetSerializerOptions(DataType.UInt);
         options.Invoke((BsonIUIntSerializerOptions)option);
 
         return this;
@@ -96,7 +111,7 @@ public class BsonOptions
 
     public BsonOptions BsonIULongSerializer(Action<BsonIULongSerializerOptions> options)
     {
-        var option = BsonSerializerOptionsCache.Get(DataType.ULong);
+        var option = GetSerializerOptions(DataType.ULong);
         options.Invoke((BsonIULongSerializerOptions)option);
 
         return this;
@@ -104,7 +119,7 @@ public class BsonOptions
 
     public BsonOptions BsonIUShortSerializer(Action<BsonIUShortSerializerOptions> options)
     {
-        var option = BsonSerializerOptionsCache.Get(DataType.UShort);
+        var option = GetSerializerOptions(DataType.UShort);
         options.Invoke((BsonIUShortSerializerOptions)option);
 
         return this;
@@ -133,20 +148,22 @@ public class BsonOptions
         }
     }
 
-    private static void RegisterSerializer(Type primitiveType, DataType dataType)
+    private void RegisterSerializer(Type primitiveType, DataType dataType)
     {
-        // Create a Primitively serializer instance
-        var serializerType = BsonSerializerOptionsCache.Get(dataType); // TODO: Update Get method/call to ensure failure handled
-        var serializerInstance = serializerType.CreateInstance(primitiveType);
+        // Retrieve the serializer options for the given dataType
+        var serializerOptions = GetSerializerOptions(dataType);
 
-        // Register a Serializer for the Primitively type
-        BsonSerializer.TryRegisterSerializer(primitiveType, serializerInstance);
+        // Create a Primitively serializer instance
+        var serializerInstance = serializerOptions.CreateInstance(primitiveType);
 
         // Construct a nullable version of the Primitively type
         var nullablePrimitiveType = typeof(Nullable<>).MakeGenericType(primitiveType);
 
         // Create a nullable Primitively serializer instance
         var nullableSerializerInstance = NullableSerializer.Create(serializerInstance);
+
+        // Register a Serializer for the Primitively type
+        BsonSerializer.TryRegisterSerializer(primitiveType, serializerInstance);
 
         // Register a NullableSerializer for a nullable version of the Primitively type
         BsonSerializer.TryRegisterSerializer(nullablePrimitiveType, nullableSerializerInstance);

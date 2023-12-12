@@ -19,7 +19,9 @@ public static class DependencyInjection
     {
         var registry = configurator.Options.Registry;
         var options = new BsonOptions(registry);
+
         builder?.Invoke(options);
+
         options.Build();
 
         return configurator;

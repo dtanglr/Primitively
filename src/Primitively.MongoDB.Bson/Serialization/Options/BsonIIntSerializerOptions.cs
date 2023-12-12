@@ -15,7 +15,7 @@ public record BsonIIntSerializerOptions : IBsonConvertibleSerializerOptions<Bson
     public Func<BsonIIntSerializerOptions, Type, IBsonSerializer> CreateInstance { get; set; } = (options, primitiveType) =>
     {
         // Construct a Bson serializer for the given Primitively type using the options
-        var serializerType = BsonOptions.GetSerializerType(primitiveType, options.SerializerType);
+        var serializerType = options.GetSerializerType(primitiveType, options.SerializerType);
 
         // Create an instance of the serializer
         var serializerInstance = (IBsonSerializer)Activator.CreateInstance(
