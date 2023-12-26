@@ -1,5 +1,6 @@
-﻿using Primitively.Configuration;
-using Primitively.MongoDB.Bson.Serialization.Options;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Primitively.Configuration;
+using Primitively.MongoDB.Bson.Serialization;
 
 namespace Primitively.MongoDB.Bson;
 
@@ -13,16 +14,18 @@ public static class DependencyInjection
     /// Register MongoDB nullable and non-nullable Bson serializers
     /// </summary>
     /// <param name="configurator">Configurator</param>
-    /// <param name="builder">BsonOptions</param>
+    /// <param name="options">BsonOptions</param>
     /// <returns>Configurator</returns>
-    public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator, Action<BsonOptions>? builder = null)
+    public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator, Action<BsonOptions>? options = null)
     {
         var registry = configurator.Options.Registry;
-        var options = new BsonOptions(registry);
+        var services = configurator.Services.BuildServiceProvider();
+        var manager = services.GetService<IBsonSerializerManager>() ?? new BsonSerializerManager();
+        var builder = new BsonOptions(registry, manager);
 
-        builder?.Invoke(options);
+        options?.Invoke(builder);
 
-        options.Build();
+        builder.Build();
 
         return configurator;
     }

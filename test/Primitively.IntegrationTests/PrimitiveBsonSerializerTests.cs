@@ -1,11 +1,10 @@
-﻿using FluentAssertions;
-using FluentAssertions.Execution;
+﻿using FluentAssertions.Execution;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
+using Moq;
 using Primitively.Configuration;
 using Primitively.MongoDB.Bson;
-using Primitively.MongoDB.Bson.Serialization.Options;
+using Primitively.MongoDB.Bson.Serialization;
 using Xunit;
 
 namespace Primitively.IntegrationTests;
@@ -13,12 +12,19 @@ namespace Primitively.IntegrationTests;
 public class PrimitiveBsonSerializerTests
 {
     [Fact]
-    public void BsonSerializers_Are_Registered_Using_Types_Sourced_From_Registry()
+    public void BsonSerializers_Are_Registered_For_Types_Sourced_From_Registry()
     {
         // Arrange
         var services = new ServiceCollection();
         var repository = PrimitiveLibrary.Respository;
         var primitives = repository.GetTypes();
+        var manager = new Mock<IBsonSerializerManager>();
+        manager.Setup(m => m.TryRegisterSerializer(It.IsAny<Type>(), It.IsAny<IBsonSerializer>())).Returns(true);
+
+        // Override the default Bson manager with the mocked version to facilitate unit testing
+        // Nb. the default manager acts as a wrapper around the Bson driver static type register,
+        // the mocked version facilitates multiple unit tests against the register.
+        services.AddSingleton(typeof(IBsonSerializerManager), manager.Object);
 
         // Act
         services.AddPrimitively(options => options.Register(repository))
@@ -27,44 +33,31 @@ public class PrimitiveBsonSerializerTests
         // Assert
         using (new AssertionScope())
         {
-            foreach (var primitive in primitives)
+            foreach (var primitiveInfo in primitives)
             {
-                var serializer = BsonSerializerOptionsCache.Get(primitive.DataType);
-                AssertThatSerializerShouldBeRegistered(primitive.Type, serializer.SerializerType, true);
+                // Non-nullable serializer version
+                var primitiveType = primitiveInfo.Type;
+                manager.Verify(m => m.TryRegisterSerializer(primitiveType, It.IsAny<IBsonSerializer>()), Times.Once);
+
+                // Nullable serializer version
+                var nullablePrimitiveType = typeof(Nullable<>).MakeGenericType(primitiveType);
+                manager.Verify(m => m.TryRegisterSerializer(nullablePrimitiveType, It.IsAny<IBsonSerializer>()), Times.Once);
             }
         }
     }
 
     [Fact]
-    public void BsonSerializers_Are_Registered_Using_Types_Sourced_From_Registry_v2()
+    public void BsonSerializers_Are_Not_Registered_For_Types_Sourced_From_Registry()
     {
         // Arrange
         var services = new ServiceCollection();
         var repository = PrimitiveLibrary.Respository;
         var primitives = repository.GetTypes();
+        var manager = new Mock<IBsonSerializerManager>();
+        manager.Setup(m => m.TryRegisterSerializer(It.IsAny<Type>(), It.IsAny<IBsonSerializer>())).Returns(true);
 
-        // Act
-        services.AddPrimitively(options => options.Register(repository))
-            .AddBson(o => o.RegisterSerializersForEachTypeInRegistry = true);
-
-        // Assert
-        using (new AssertionScope())
-        {
-            foreach (var primitive in primitives)
-            {
-                var serializer = BsonSerializerOptionsCache.Get(primitive.DataType);
-                AssertThatSerializerShouldBeRegistered(primitive.Type, serializer.SerializerType, true);
-            }
-        }
-    }
-
-    [Fact]
-    public void BsonSerializers_Are_Not_Registered_Using_Types_Sourced_From_Registry()
-    {
-        // Arrange
-        var services = new ServiceCollection();
-        var repository = PrimitiveLibrary.Respository;
-        var primitives = repository.GetTypes();
+        // Override the default Bson manager with the mocked version to facilitate unit testing
+        services.AddSingleton(typeof(IBsonSerializerManager), manager.Object);
 
         // Act
         services.AddPrimitively(options => options.Register(repository))
@@ -73,57 +66,73 @@ public class PrimitiveBsonSerializerTests
         // Assert
         using (new AssertionScope())
         {
-            foreach (var primitive in primitives)
+            foreach (var primitiveInfo in primitives)
             {
-                var serializer = BsonSerializerOptionsCache.Get(primitive.DataType);
-                AssertThatSerializerShouldBeRegistered(primitive.Type, serializer.SerializerType, false);
+                // Non-nullable serializer version
+                var primitiveType = primitiveInfo.Type;
+                manager.Verify(m => m.TryRegisterSerializer(primitiveType, It.IsAny<IBsonSerializer>()), Times.Never);
+
+                // Nullable serializer version
+                var nullablePrimitiveType = typeof(Nullable<>).MakeGenericType(primitiveType);
+                manager.Verify(m => m.TryRegisterSerializer(nullablePrimitiveType, It.IsAny<IBsonSerializer>()), Times.Never);
             }
         }
     }
 
     [Fact]
-    public void BsonSerializers_Are_Not_Registered_When_No_Types_In_Registry()
+    public void BsonSerializers_Are_Registered_For_Repository_Types_Sourced_From_Registry()
     {
         // Arrange
         var services = new ServiceCollection();
         var repository = PrimitiveLibrary.Respository;
         var primitives = repository.GetTypes();
+        var manager = new Mock<IBsonSerializerManager>();
+        manager.Setup(m => m.TryRegisterSerializer(It.IsAny<Type>(), It.IsAny<IBsonSerializer>())).Returns(true);
+
+        // Override the default Bson manager with the mocked version to facilitate unit testing
+        services.AddSingleton(typeof(IBsonSerializerManager), manager.Object);
 
         // Act
         services.AddPrimitively()
-            .AddBson();
+            .AddBson(options => options.Register(repository));
 
         // Assert
         using (new AssertionScope())
         {
-            foreach (var primitive in primitives)
+            foreach (var primitiveInfo in primitives)
             {
-                var serializer = BsonSerializerOptionsCache.Get(primitive.DataType);
-                AssertThatSerializerShouldBeRegistered(primitive.Type, serializer.SerializerType, false);
+                // Non-nullable serializer version
+                var primitiveType = primitiveInfo.Type;
+                manager.Verify(m => m.TryRegisterSerializer(primitiveType, It.IsAny<IBsonSerializer>()), Times.Once);
+
+                // Nullable serializer version
+                var nullablePrimitiveType = typeof(Nullable<>).MakeGenericType(primitiveType);
+                manager.Verify(m => m.TryRegisterSerializer(nullablePrimitiveType, It.IsAny<IBsonSerializer>()), Times.Once);
             }
         }
     }
 
-    private static void AssertThatSerializerShouldBeRegistered(Type primitiveType, Type serializerType, bool shouldBeRegistered)
+    [Fact]
+    public void BsonSerializer_Is_Registered_For_Type_Sourced_From_Register_Method()
     {
-        // Assert non-nullable serializer created
-        var serializer = BsonSerializer.LookupSerializer(primitiveType);
+        // Arrange
+        var services = new ServiceCollection();
+        var manager = new Mock<IBsonSerializerManager>();
+        manager.Setup(m => m.TryRegisterSerializer(It.IsAny<Type>(), It.IsAny<IBsonSerializer>())).Returns(true);
 
-        // Assert nullable serializer created
-        var nullablePrimitiveType = typeof(Nullable<>).MakeGenericType(primitiveType);
-        var nullableSerializer = BsonSerializer.LookupSerializer(nullablePrimitiveType) as INullableSerializer;
-        nullableSerializer.Should().NotBeNull();
+        // Override the default Bson manager with the mocked version to facilitate unit testing
+        services.AddSingleton(typeof(IBsonSerializerManager), manager.Object);
+
+        // Act
+        services.AddPrimitively()
+            .AddBson(options => options.Register<BirthDate>());
 
         // Assert
-        if (shouldBeRegistered)
-        {
-            serializer.Should().BeOfType(serializerType);
-            nullableSerializer!.ValueSerializer.Should().BeOfType(serializerType);
-        }
-        else
-        {
-            serializer.Should().NotBeOfType(serializerType);
-            nullableSerializer!.ValueSerializer.Should().NotBeOfType(serializerType);
-        }
+        // Non-nullable serializer version
+        manager.Verify(m => m.TryRegisterSerializer(typeof(BirthDate), It.IsAny<IBsonSerializer>()), Times.Once);
+
+        // Nullable serializer version
+        var nullablePrimitiveType = typeof(Nullable<>).MakeGenericType(typeof(BirthDate));
+        manager.Verify(m => m.TryRegisterSerializer(nullablePrimitiveType, It.IsAny<IBsonSerializer>()), Times.Once);
     }
 }

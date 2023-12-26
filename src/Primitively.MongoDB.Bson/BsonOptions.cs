@@ -1,20 +1,21 @@
-﻿using System.Collections.Concurrent;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
+﻿using MongoDB.Bson.Serialization.Serializers;
 using Primitively.Configuration;
+using Primitively.MongoDB.Bson.Serialization;
+using Primitively.MongoDB.Bson.Serialization.Options;
 
-namespace Primitively.MongoDB.Bson.Serialization.Options;
+namespace Primitively.MongoDB.Bson;
 
 public class BsonOptions
 {
     private readonly PrimitiveRegistry _registry;
-    private readonly ConcurrentDictionary<DataType, IBsonSerializerOptions> _options;
+    private readonly IBsonSerializerManager _manager;
+    private readonly Dictionary<DataType, IBsonSerializerOptions> _options = new(GetAll().ToDictionary(o => o.DataType, o => o));
     private readonly Dictionary<Type, DataType> _primitiveTypes = new();
 
-    internal BsonOptions(PrimitiveRegistry registry)
+    internal BsonOptions(PrimitiveRegistry registry, IBsonSerializerManager manager)
     {
         _registry = registry;
-        _options = new(GetAll().ToDictionary(o => o.DataType, o => o));
+        _manager = manager;
     }
 
     public bool RegisterSerializersForEachTypeInRegistry { get; set; } = true;
@@ -34,8 +35,6 @@ public class BsonOptions
         yield return new BsonIULongSerializerOptions();
         yield return new BsonIUShortSerializerOptions();
     }
-
-    public IBsonSerializerOptions GetSerializerOptions(DataType dataType) => _options[dataType];
 
     public BsonOptions BsonIByteSerializer(Action<BsonIByteSerializerOptions> options)
     {
@@ -125,27 +124,63 @@ public class BsonOptions
         return this;
     }
 
+    public BsonOptions Register<TPrimitive>() where TPrimitive : struct, IPrimitive
+    {
+        var primitive = new TPrimitive();
+        var _ = TryAddPrimitiveType(typeof(TPrimitive), primitive.DataType);
+
+        return this;
+    }
+
+    public BsonOptions Register(IPrimitiveRepository repository)
+    {
+        if (repository is null)
+        {
+            throw new ArgumentNullException(nameof(repository));
+        }
+
+        foreach (var primitiveInfo in repository.GetTypes())
+        {
+            var _ = TryAddPrimitiveType(primitiveInfo.Type, primitiveInfo.DataType);
+        }
+
+        return this;
+    }
+
     internal void Build()
     {
+        // If configured, add all the primitive types from the registry
         if (RegisterSerializersForEachTypeInRegistry && !_registry.IsEmpty)
         {
             foreach (var primitiveInfo in _registry.ToList())
             {
-#if NET6_0_OR_GREATER
-                _primitiveTypes.TryAdd(primitiveInfo.Type, primitiveInfo.DataType);
-#else
-                if (!_primitiveTypes.ContainsKey(primitiveInfo.Type))
-                {
-                    _primitiveTypes.Add(primitiveInfo.Type, primitiveInfo.DataType);
-                }
-#endif
+                var _ = TryAddPrimitiveType(primitiveInfo.Type, primitiveInfo.DataType);
             }
         }
 
+        // Now generate and register a Bson serializer for each type in the collection
         foreach (var primitiveType in _primitiveTypes)
         {
             RegisterSerializer(primitiveType.Key, primitiveType.Value);
         }
+    }
+
+    private IBsonSerializerOptions GetSerializerOptions(DataType dataType) => _options[dataType];
+
+    private bool TryAddPrimitiveType(Type type, DataType dataType)
+    {
+#if NET6_0_OR_GREATER
+        return _primitiveTypes.TryAdd(type, dataType);
+#else
+        if (_primitiveTypes.ContainsKey(type))
+        {
+            return false;
+        }
+
+        _primitiveTypes.Add(type, dataType);
+
+        return true;
+#endif
     }
 
     private void RegisterSerializer(Type primitiveType, DataType dataType)
@@ -163,9 +198,9 @@ public class BsonOptions
         var nullableSerializerInstance = NullableSerializer.Create(serializerInstance);
 
         // Register a Serializer for the Primitively type
-        BsonSerializer.TryRegisterSerializer(primitiveType, serializerInstance);
+        _manager.TryRegisterSerializer(primitiveType, serializerInstance);
 
         // Register a NullableSerializer for a nullable version of the Primitively type
-        BsonSerializer.TryRegisterSerializer(nullablePrimitiveType, nullableSerializerInstance);
+        _manager.TryRegisterSerializer(nullablePrimitiveType, nullableSerializerInstance);
     }
 }

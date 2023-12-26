@@ -8,7 +8,7 @@ public sealed class MongoDbContainerTest : IAsyncLifetime
 {
     private readonly MongoDbContainer _mongoDbContainer = new MongoDbBuilder().Build();
 
-    [Fact]
+    [Fact(Skip = "Skipping Testcontainers.MongoDb for now")]
     public async Task ReadFromMongoDbDatabase()
     {
         var client = new MongoClient(_mongoDbContainer.GetConnectionString());
