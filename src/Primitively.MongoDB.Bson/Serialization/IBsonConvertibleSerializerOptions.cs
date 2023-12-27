@@ -1,4 +1,4 @@
-﻿namespace Primitively.MongoDB.Bson.Serialization.Options;
+﻿namespace Primitively.MongoDB.Bson.Serialization;
 
 public interface IBsonConvertibleSerializerOptions<TOptions> : IBsonSerializerOptions<TOptions>
     where TOptions : IBsonSerializerOptions
