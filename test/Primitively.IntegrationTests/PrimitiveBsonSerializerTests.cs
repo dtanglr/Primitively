@@ -80,7 +80,7 @@ public class PrimitiveBsonSerializerTests
     }
 
     [Fact]
-    public void BsonSerializers_Are_Registered_For_Repository_Types_Sourced_From_Registry()
+    public void BsonSerializers_Are_Registered_For_Repository_Types_From_Register_Method()
     {
         // Arrange
         var services = new ServiceCollection();
