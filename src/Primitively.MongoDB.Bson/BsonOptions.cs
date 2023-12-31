@@ -36,90 +36,11 @@ public class BsonOptions
         yield return new BsonIUShortSerializerOptions();
     }
 
-    public BsonOptions BsonIByteSerializer(Action<BsonIByteSerializerOptions> options)
+    public BsonOptions Configure<TBsonSerializerOptions>(Action<TBsonSerializerOptions> options)
+        where TBsonSerializerOptions : class, IBsonSerializerOptions
     {
-        var option = GetSerializerOptions(DataType.Byte);
-        options.Invoke((BsonIByteSerializerOptions)option);
-
-        return this;
-    }
-
-    public BsonOptions BsonIDateOnlySerializer(Action<BsonIDateOnlySerializerOptions> options)
-    {
-        var option = GetSerializerOptions(DataType.DateOnly);
-        options.Invoke((BsonIDateOnlySerializerOptions)option);
-
-        return this;
-    }
-
-    public BsonOptions BsonIGuidSerializer(Action<BsonIGuidSerializerOptions> options)
-    {
-        var option = GetSerializerOptions(DataType.Guid);
-        options.Invoke((BsonIGuidSerializerOptions)option);
-
-        return this;
-    }
-
-    public BsonOptions BsonIIntSerializer(Action<BsonIIntSerializerOptions> options)
-    {
-        var option = GetSerializerOptions(DataType.Int);
-        options.Invoke((BsonIIntSerializerOptions)option);
-
-        return this;
-    }
-
-    public BsonOptions BsonILongSerializer(Action<BsonILongSerializerOptions> options)
-    {
-        var option = GetSerializerOptions(DataType.Long);
-        options.Invoke((BsonILongSerializerOptions)option);
-
-        return this;
-    }
-
-    public BsonOptions BsonISByteSerializer(Action<BsonISByteSerializerOptions> options)
-    {
-        var option = GetSerializerOptions(DataType.SByte);
-        options.Invoke((BsonISByteSerializerOptions)option);
-
-        return this;
-    }
-
-    public BsonOptions BsonIShortSerializer(Action<BsonIShortSerializerOptions> options)
-    {
-        var option = GetSerializerOptions(DataType.Short);
-        options.Invoke((BsonIShortSerializerOptions)option);
-
-        return this;
-    }
-
-    public BsonOptions BsonIStringSerializer(Action<BsonIStringSerializerOptions> options)
-    {
-        var option = GetSerializerOptions(DataType.String);
-        options.Invoke((BsonIStringSerializerOptions)option);
-
-        return this;
-    }
-
-    public BsonOptions BsonIUIntSerializer(Action<BsonIUIntSerializerOptions> options)
-    {
-        var option = GetSerializerOptions(DataType.UInt);
-        options.Invoke((BsonIUIntSerializerOptions)option);
-
-        return this;
-    }
-
-    public BsonOptions BsonIULongSerializer(Action<BsonIULongSerializerOptions> options)
-    {
-        var option = GetSerializerOptions(DataType.ULong);
-        options.Invoke((BsonIULongSerializerOptions)option);
-
-        return this;
-    }
-
-    public BsonOptions BsonIUShortSerializer(Action<BsonIUShortSerializerOptions> options)
-    {
-        var option = GetSerializerOptions(DataType.UShort);
-        options.Invoke((BsonIUShortSerializerOptions)option);
+        var option = GetSerializerOptions<TBsonSerializerOptions>()!;
+        options.Invoke(option);
 
         return this;
     }
@@ -165,7 +86,10 @@ public class BsonOptions
         }
     }
 
-    private IBsonSerializerOptions GetSerializerOptions(DataType dataType) => _options[dataType];
+    internal IBsonSerializerOptions GetSerializerOptions(DataType dataType) => _options[dataType];
+
+    internal TOptions GetSerializerOptions<TOptions>() where TOptions : class, IBsonSerializerOptions =>
+        (TOptions)_options.Single(o => o.Value is TOptions).Value;
 
     private bool TryAddPrimitiveType(Type type, DataType dataType)
     {

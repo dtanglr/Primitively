@@ -18,13 +18,18 @@ public static class DependencyInjection
     /// <returns>Configurator</returns>
     public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator, Action<BsonOptions>? options = null)
     {
-        var registry = configurator.Options.Registry;
         var services = configurator.Services.BuildServiceProvider();
-        var manager = services.GetService<IBsonSerializerManager>() ?? new BsonSerializerManager();
-        var builder = new BsonOptions(registry, manager);
+        var builder = services.GetService<BsonOptions>();
+
+        if (builder == null)
+        {
+            var registry = configurator.Options.Registry;
+            var manager = services.GetService<IBsonSerializerManager>() ?? new BsonSerializerManager();
+            builder = new BsonOptions(registry, manager);
+            configurator.Services.AddSingleton(typeof(BsonOptions), builder);
+        }
 
         options?.Invoke(builder);
-
         builder.Build();
 
         return configurator;
