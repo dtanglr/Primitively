@@ -2,9 +2,11 @@
 
 public static class BsonSerializerOptionsExtensions
 {
-    public static Type GetSerializerType(this IBsonSerializerOptions _, Type primitiveType, Type serializerType)
+    public static Type GetSerializerType(this IBsonSerializerOptions options, Type primitiveType)
     {
-        // Construct a Bson serializer for the given Primitively type using the options
+        // Construct a Bson serializer for the given Primitively type using the configured serializer
+        var serializerType = options.SerializerType;
+
         return serializerType.IsGenericTypeDefinition ? serializerType.MakeGenericType(primitiveType) : serializerType;
     }
 }

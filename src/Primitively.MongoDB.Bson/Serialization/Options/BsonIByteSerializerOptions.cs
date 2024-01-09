@@ -12,7 +12,7 @@ public record BsonIByteSerializerOptions : IBsonSerializerOptions<BsonIByteSeria
     public Func<BsonIByteSerializerOptions, Type, IBsonSerializer> CreateInstance { get; set; } = (options, primitiveType) =>
     {
         // Construct a Bson serializer for the given Primitively type using the options
-        var serializerType = options.GetSerializerType(primitiveType, options.SerializerType);
+        var serializerType = options.GetSerializerType(primitiveType);
 
         // Create an instance of the serializer
         var serializerInstance = (IBsonSerializer)Activator.CreateInstance(serializerType, options.Representation)!;
