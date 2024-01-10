@@ -31,6 +31,13 @@ public class BsonIGuidRepresentationAttribute : Attribute, IBsonMemberMapAttribu
             throw new InvalidOperationException("[BsonIGuidRepresentationAttribute] can only be used when the serializer implements IGuidRepresentationConfigurable.");
         }
 
+        // Check that the application is using the correct GuidRepresentationMode
+        if (BsonDefaults.GuidRepresentationMode == GuidRepresentationMode.V2 && GuidRepresentation != BsonDefaults.GuidRepresentation)
+        {
+            // V3 mode permits a mixture of searchable GUID representations to exist side by side
+            BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
+        }
+
         var reconfiguredGuidSerializer = guidSerializer.WithGuidRepresentation(GuidRepresentation);
         memberMap.SetSerializer(reconfiguredGuidSerializer);
     }

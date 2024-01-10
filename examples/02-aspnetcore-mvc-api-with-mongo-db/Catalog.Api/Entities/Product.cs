@@ -10,17 +10,15 @@ public class Product
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
-    [BsonRepresentation(BsonType.String)]
+    // .net Guid: Requires configuration of either GuidSerializer (via DI), BsonType or GuidRepresentation (via attribute) or property map to work correctly
+    [BsonGuidRepresentation(GuidRepresentation.CSharpLegacy)]
     public Guid Guid { get; set; } = Guid.NewGuid();
 
-    // This property is a Primitively IGuid type. It will use the Primitively GuidBsonSerializer for Bson compatibility.
-    // By default, this property value will be stored as: BsonType.Binary + GuidRepresentation.CSharpLegacy (Base64)
-    // In this example, the default has been overidden at collection level to use GuidRepresentation.Standard (UUID)
-    // Override options: [BsonRepresentation(BsonType.String)] to store as a string
-    //[BsonIGuidRepresentation(GuidRepresentation.Standard)]
+    // Primitively IGuid: Will use the default GuidRepresentation of CSharpLegacy unless configured differently
     public Sku Sku { get; set; } = Sku.New();
 
-    [BsonIGuidRepresentation(GuidRepresentation.PythonLegacy)]
+    // Primitively IGuid: Will use Standard (UUID) format
+    [BsonIGuidRepresentation(GuidRepresentation.Standard)]
     public ProductId ProductId { get; set; } = ProductId.New();
 
     public string? Name { get; set; }

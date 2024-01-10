@@ -13,10 +13,9 @@ public record BsonIGuidSerializerOptions : IBsonIGuidSerializerOptions<BsonIGuid
     public Func<BsonIGuidSerializerOptions, Type, IBsonSerializer> CreateInstance { get; set; } = (options, primitiveType) =>
     {
         // Check that the application is using the correct GuidRepresentationMode
-        if (options.GuidRepresentation != BsonDefaults.GuidRepresentation && BsonDefaults.GuidRepresentationMode == GuidRepresentationMode.V2)
+        if (BsonDefaults.GuidRepresentationMode == GuidRepresentationMode.V2 && options.GuidRepresentation != BsonDefaults.GuidRepresentation)
         {
             // V3 mode permits a mixture of searchable GUID representations to exist side by side
-            // TODO: Consider throwing an exception instead rather than forcing the mode to V3
             BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
         }
 
