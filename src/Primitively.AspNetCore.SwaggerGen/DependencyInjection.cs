@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Primitively.AspNetCore.SwaggerGen;
 using Primitively.Configuration;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Primitively.AspNetCore.SwaggerGen;
+namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
 /// Primitively Configurator extensions to register a swagger schema filter for Primitively source generated types

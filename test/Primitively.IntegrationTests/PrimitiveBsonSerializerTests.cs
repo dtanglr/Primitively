@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using Moq;
-using Primitively.Configuration;
 using Primitively.MongoDB.Bson;
 using Primitively.MongoDB.Bson.Serialization;
 using Primitively.MongoDB.Bson.Serialization.Options;

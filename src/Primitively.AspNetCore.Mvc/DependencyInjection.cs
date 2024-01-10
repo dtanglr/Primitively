@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Primitively.Configuration;
 using Primitively.AspNetCore.Mvc.ModelBinding;
+using Primitively.Configuration;
 
-namespace Primitively.AspNetCore.Mvc;
+namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
 /// Primitively Configurator extensions to register MVC model binders for Primitively source generated types

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Api", "Catalog.Api\
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E9565EC8-70DA-4EB2-9546-93F98BBA241D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Abstractions", "Catalog.Abstractions\Catalog.Abstractions.csproj", "{E7DFB147-183E-4591-A64A-BFBA1E772EF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Abstractions", "Catalog.Abstractions\Catalog.Abstractions.csproj", "{E7DFB147-183E-4591-A64A-BFBA1E772EF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

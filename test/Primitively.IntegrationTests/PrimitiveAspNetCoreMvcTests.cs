@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Primitively.AspNetCore.Mvc;
 using Primitively.AspNetCore.Mvc.ModelBinding;
-using Primitively.Configuration;
 using Xunit;
 
 namespace Primitively.IntegrationTests;

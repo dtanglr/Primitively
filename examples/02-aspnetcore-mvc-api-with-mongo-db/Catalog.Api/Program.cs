@@ -2,10 +2,6 @@
 using Catalog.Api.Data;
 using Catalog.Api.Repositories;
 using Microsoft.AspNetCore.Mvc.Formatters;
-using Primitively.AspNetCore.Mvc;
-using Primitively.AspNetCore.SwaggerGen;
-using Primitively.Configuration;
-using Primitively.MongoDB.Bson;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<ICatalogContext, CatalogContext>();

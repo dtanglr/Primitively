@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Primitively.Configuration;
 
-namespace Primitively.Configuration;
+namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {

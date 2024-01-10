@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Primitively.Configuration;
+﻿using Primitively.Configuration;
+using Primitively.MongoDB.Bson;
 using Primitively.MongoDB.Bson.Serialization;
 
-namespace Primitively.MongoDB.Bson;
+namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
 /// Primitively Configurator extensions to register MongoDB Bson serializers 
