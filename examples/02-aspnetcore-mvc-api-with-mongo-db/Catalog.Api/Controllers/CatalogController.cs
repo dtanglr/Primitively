@@ -26,10 +26,10 @@ public class CatalogController : ControllerBase
         return Ok(products);
     }
 
-    [HttpGet("id/{id:length(24)}", Name = "GetProductById")]
+    [HttpGet("id/{id}", Name = "GetProductById")]
     [ProducesResponseType((int)HttpStatusCode.NotFound)]
     [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<Product>> GetProductById(string id)
+    public async Task<ActionResult<Product>> GetProductById(ProductId id)
     {
         var product = await _repository.GetProductById(id);
 

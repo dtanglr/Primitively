@@ -2,6 +2,7 @@
 using Catalog.Api.Data;
 using Catalog.Api.Repositories;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Primitively.MongoDB.Bson.Serialization.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<ICatalogContext, CatalogContext>();
@@ -32,9 +33,13 @@ builder.Services.AddPrimitively(options =>
 .AddSwaggerGen()
 // Add MongoDB BsonSerializer configuration. This method also supports registering types individually. By default
 // it will register a BSON serializer for each Primitively type in the PrimitivelyOptions registry.
-// Any Primitively types that are IGuid primitives will be by default stored in Mongo as the default CSharpLegacy Base64 strings.
-// Each IGuid will have it's own GuidSerializer instance.
+// Any Primitively types that are IGuid primitives will be by default stored in Mongo as the default CSharpLegacy Base64
+// strings unless overridden using the Bson serializer options (see below)
 .AddBson();
+// Alternatively, override the IGuid GuidRepresentation to use Standard (UUID) format instead of the default CSharpLegacy (Base64 string)
+//.AddBson(builder =>
+//    builder.Configure<BsonIGuidSerializerOptions>(options =>
+//        options.GuidRepresentation = MongoDB.Bson.GuidRepresentation.Standard));
 
 var app = builder.Build();
 

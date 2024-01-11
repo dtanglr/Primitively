@@ -2,5 +2,5 @@
 
 namespace Catalog;
 
-[Guid(Specifier.X)] // e.g {0x2c48c152,0x7cb7,0x4f51,{0x8f,0x01,0x70,0x44,0x54,0xf3,0x6e,0x60}}
+[Guid(Specifier.N)] // e.g 2c48c1527cb74f518f01704454f36e60
 public partial record struct ProductId;

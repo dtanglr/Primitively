@@ -21,7 +21,7 @@ public class ProductRepository : IProductRepository
             .ToListAsync();
     }
 
-    public async Task<Product> GetProductById(string id)
+    public async Task<Product> GetProductById(ProductId id)
     {
         return await _context
             .Products

@@ -7,14 +7,13 @@ namespace Catalog.Api.Entities;
 public class Product
 {
     [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; }
+    public ProductId Id { get; set; } = ProductId.New();
 
     // .net Guid: Requires configuration of either GuidSerializer (via DI), BsonType or GuidRepresentation (via attribute) or property map to work correctly
     [BsonGuidRepresentation(GuidRepresentation.CSharpLegacy)]
     public Guid Guid { get; set; } = Guid.NewGuid();
 
-    // Primitively IGuid: Will use the default GuidRepresentation of CSharpLegacy unless configured differently
+    // Primitively IGuid: Will use the default GuidRepresentation of CSharpLegacy unless configured differently in the DI
     public Sku Sku { get; set; } = Sku.New();
 
     // Primitively IGuid: Will use Standard (UUID) format
