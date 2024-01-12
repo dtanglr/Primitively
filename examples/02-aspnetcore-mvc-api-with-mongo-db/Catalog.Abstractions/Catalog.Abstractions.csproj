@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Primitively" Version="1.4.15-beta.15" PrivateAssets="all" />
+    <PackageReference Include="Primitively" Version="1.4.15-rc.1" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
