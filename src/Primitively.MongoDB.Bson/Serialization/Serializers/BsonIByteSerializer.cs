@@ -7,6 +7,7 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents a serializer for Primitively types that encapsulate a Byte value.
 /// </summary>
+/// <typeparam name="TPrimitive">The Primitively <see cref="IByte"/> type.</typeparam>
 public class BsonIByteSerializer<TPrimitive> :
     StructSerializerBase<TPrimitive>,
     IRepresentationConfigurable<BsonIByteSerializer<TPrimitive>> where TPrimitive : struct, IByte

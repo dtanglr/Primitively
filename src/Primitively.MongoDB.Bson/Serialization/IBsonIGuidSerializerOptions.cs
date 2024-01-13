@@ -3,7 +3,7 @@
 namespace Primitively.MongoDB.Bson.Serialization;
 
 public interface IBsonIGuidSerializerOptions<TOptions> : IBsonSerializerOptions<TOptions>
-    where TOptions : IBsonSerializerOptions
+    where TOptions : class, IBsonSerializerOptions
 {
-    GuidRepresentation GuidRepresentation { get; internal set; }
+    GuidRepresentation GuidRepresentation { get; set; }
 }
