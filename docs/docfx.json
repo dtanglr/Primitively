@@ -1,0 +1,61 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../src",
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [
+            "**/Primitively.csproj",
+            "**/Primitively.AspNetCore.csproj",
+            "**/bin/**",
+            "**/obj/**",
+            "**/[Tt]ests/**"
+          ]
+        }
+      ],
+      "dest": "api",
+      "includePrivateMembers": false,
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "noRestore": false,
+      "namespaceLayout": "flattened"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**",
+          "icon.png"
+        ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+      "default",
+      "modern"
+    ],
+    "globalMetadata": {
+      "_appName": "Primitively",
+      "_appTitle": "Primitively",
+      "_appLogoPath": "icon.png",
+      "_appFaviconPath": "icon.png",
+      "_enableSearch": true,
+      "_lang": "en",
+      "pdf": false
+    }
+  }
+}
