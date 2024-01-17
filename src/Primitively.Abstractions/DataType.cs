@@ -1,62 +1,63 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// Data types supported by Primitively types
+/// The enum representation of each .net type supported by Primitively
 /// </summary>
 public enum DataType
 {
     /// <summary>
-    /// Represents a Primitively type that encapsulates a <see cref="Byte"/> value
+    /// Represents a Primitively type that encapsulates a <see cref="byte"/> value
     /// </summary>
     Byte,
 
     /// <summary>
-    /// Represents a Primitively type that encapsulates a <see cref="DateOnly"/> value
+    /// Represents a Primitively type that encapsulates a <see cref="DateTime"/> value
+    /// in default Iso8601 format of yyyy-MM-dd
     /// </summary>
     DateOnly,
 
     /// <summary>
-    /// Represents a Primitively type that encapsulates a <see cref="Guid"/> value
+    /// Represents a Primitively type that encapsulates a <see cref="System.Guid"/> value
     /// </summary>
     Guid,
 
     /// <summary>
-    /// Represents a Primitively type that encapsulates a <see cref="Int"/> value
+    /// Represents a Primitively type that encapsulates an <see cref="int"/> value
     /// </summary>
     Int,
 
     /// <summary>
-    /// Represents a Primitively type that encapsulates a <see cref="Long"/> value
+    /// Represents a Primitively type that encapsulates a <see cref="long"/> value
     /// </summary>
     Long,
 
     /// <summary>
-    /// Represents a Primitively type that encapsulates a <see cref="SByte"/> value
+    /// Represents a Primitively type that encapsulates an <see cref="sbyte"/> value
     /// </summary>
     SByte,
 
     /// <summary>
-    /// Represents a Primitively type that encapsulates a <see cref="Short"/> value
+    /// Represents a Primitively type that encapsulates a <see cref="short"/> value
     /// </summary>
     Short,
 
     /// <summary>
-    /// Represents a Primitively type that encapsulates a <see cref="String"/> value
+    /// Represents a Primitively type that encapsulates a <see cref="string"/> value
     /// </summary>
     String,
 
     /// <summary>
-    /// Represents a Primitively type that encapsulates a <see cref="UInt"/> value
+    /// Represents a Primitively type that encapsulates a <see cref="uint"/> value
     /// </summary>
     UInt,
 
     /// <summary>
-    /// Represents a Primitively type that encapsulates a <see cref="ULong"/> value
+    /// Represents a Primitively type that encapsulates a <see cref="ulong"/> value
     /// </summary>
     ULong,
 
     /// <summary>
-    /// Represents a Primitively type that encapsulates a <see cref="UShort"/> value
+    /// Represents a Primitively type that encapsulates a <see cref="ushort"/> value
     /// </summary>
     UShort
 }
