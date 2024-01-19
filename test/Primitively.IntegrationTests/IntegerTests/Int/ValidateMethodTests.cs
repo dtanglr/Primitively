@@ -14,12 +14,12 @@ public class ValidateMethodTests
     [InlineData("0")]
     [InlineData("00")]
     [InlineData("001", true)]
-    [InlineData(IntId.Example, true)]
+    [InlineData(ValidatableInteger.Example, true)]
     public void ConvertFromThisToThatWithExpectedResults(string? value, bool isValid = false)
     {
         // Arrange
         var validationContext = new ValidationContext(this);
-        var sut = IntId.Parse(value);
+        var sut = ValidatableInteger.Parse(value);
 
         // Act
         var result = sut.Validate(validationContext);

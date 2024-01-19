@@ -11,15 +11,16 @@ public class ValidateMethodTests
     [InlineData("")]
     [InlineData(" ")]
     [InlineData("    ")]
-    [InlineData("G7123456")]
-    [InlineData("123456")]
-    [InlineData("1234567", true)]
-    [InlineData("0123456", true)]
+    [InlineData("G12345679")]
+    [InlineData("123456789")]
+    [InlineData("1234567890", true)]
+    [InlineData("0123456789", true)]
+    [InlineData("ABCDEFGHIJ", true)]
     public void ConvertFromThisToThatWithExpectedResults(string? value, bool isValid = false)
     {
         // Arrange
         var validationContext = new ValidationContext(this);
-        var sut = SevenDigits.Parse(value);
+        var sut = ValidatableString.Parse(value);
 
         // Act
         var result = sut.Validate(validationContext);
