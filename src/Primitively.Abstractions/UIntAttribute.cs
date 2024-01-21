@@ -8,11 +8,18 @@ namespace Primitively;
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 [Conditional(Constants.ConditionalCompilationSymbol)]
-public sealed class UIntAttribute : Attribute
+public sealed class UIntAttribute : Attribute, IIntegerAttribute<uint>
 {
+    /// <inheritdoc/>
     public bool ImplementIValidatableObject { get; set; }
 
-    public uint Minimum { get; set; }
+    /// <inheritdoc/>
+    public uint Minimum { get; set; } = uint.MinValue;
 
-    public uint Maximum { get; set; }
+    /// <inheritdoc/>
+    public uint Maximum { get; set; } = uint.MaxValue;
+
+    object IIntegerAttribute.Minimum { get => Minimum; }
+
+    object IIntegerAttribute.Maximum { get => Maximum; }
 }

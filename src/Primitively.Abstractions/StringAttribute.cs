@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 
+#nullable enable
+
 namespace Primitively;
 
 /// <summary>
@@ -7,7 +9,7 @@ namespace Primitively;
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 [Conditional(Constants.ConditionalCompilationSymbol)]
-public sealed class StringAttribute : Attribute
+public sealed class StringAttribute : Attribute, IPimitivelyAttribute
 {
     /// <summary>
     /// Make a readonly record struct that encapsulates a
@@ -41,12 +43,13 @@ public sealed class StringAttribute : Attribute
         MaxLength = maxLength;
     }
 
+    /// <inheritdoc/>
+    public bool ImplementIValidatableObject { get; set; }
     public int MinLength { get; }
     public int MaxLength { get; }
-#nullable enable
     public string? Pattern { get; set; }
     public string? Example { get; set; }
     public string? Format { get; set; }
-#nullable disable
-    public bool ImplementIValidatableObject { get; set; }
 }
+
+#nullable disable

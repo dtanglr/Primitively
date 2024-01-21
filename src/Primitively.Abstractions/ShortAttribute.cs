@@ -8,11 +8,18 @@ namespace Primitively;
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 [Conditional(Constants.ConditionalCompilationSymbol)]
-public sealed class ShortAttribute : Attribute
+public sealed class ShortAttribute : Attribute, IIntegerAttribute<short>
 {
+    /// <inheritdoc/>
     public bool ImplementIValidatableObject { get; set; }
 
-    public short Minimum { get; set; }
+    /// <inheritdoc/>
+    public short Minimum { get; set; } = short.MinValue;
 
-    public short Maximum { get; set; }
+    /// <inheritdoc/>
+    public short Maximum { get; set; } = short.MaxValue;
+
+    object IIntegerAttribute.Minimum { get => Minimum; }
+
+    object IIntegerAttribute.Maximum { get => Maximum; }
 }

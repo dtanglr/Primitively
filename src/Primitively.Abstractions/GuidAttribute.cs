@@ -7,7 +7,7 @@ namespace Primitively;
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 [Conditional(Constants.ConditionalCompilationSymbol)]
-public sealed class GuidAttribute : Attribute
+public sealed class GuidAttribute : Attribute, IPimitivelyAttribute
 {
     public GuidAttribute()
     {
@@ -19,7 +19,8 @@ public sealed class GuidAttribute : Attribute
         Specifier = specifier;
     }
 
-    public Specifier Specifier { get; }
-
+    /// <inheritdoc/>
     public bool ImplementIValidatableObject { get; set; }
+
+    public Specifier Specifier { get; }
 }

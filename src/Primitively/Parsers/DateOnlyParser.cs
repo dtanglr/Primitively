@@ -57,6 +57,8 @@ internal static class DateOnlyParser
                 case nameof(DateOnlyAttribute.ImplementIValidatableObject):
                     recordStructData.ImplementIValidatableObject = (bool?)value ?? false;
                     break;
+                default:
+                    break;
             }
         }
 

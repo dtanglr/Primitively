@@ -8,11 +8,18 @@ namespace Primitively;
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 [Conditional(Constants.ConditionalCompilationSymbol)]
-public sealed class ByteAttribute : Attribute
+public sealed class ByteAttribute : Attribute, IIntegerAttribute<byte>
 {
+    /// <inheritdoc/>
     public bool ImplementIValidatableObject { get; set; }
 
-    public byte Minimum { get; set; }
+    /// <inheritdoc/>
+    public byte Minimum { get; set; } = byte.MinValue;
 
-    public byte Maximum { get; set; }
+    /// <inheritdoc/>
+    public byte Maximum { get; set; } = byte.MaxValue;
+
+    object IIntegerAttribute.Minimum { get => Minimum; }
+
+    object IIntegerAttribute.Maximum { get => Maximum; }
 }

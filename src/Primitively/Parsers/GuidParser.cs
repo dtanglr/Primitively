@@ -115,6 +115,8 @@ internal static class GuidParser
                 case nameof(GuidAttribute.ImplementIValidatableObject):
                     recordStructData.ImplementIValidatableObject = (bool?)value ?? false;
                     break;
+                default:
+                    break;
             }
         }
 

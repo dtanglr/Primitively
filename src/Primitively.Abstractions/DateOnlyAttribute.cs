@@ -8,7 +8,8 @@ namespace Primitively;
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 [Conditional(Constants.ConditionalCompilationSymbol)]
-public sealed class DateOnlyAttribute : Attribute
+public sealed class DateOnlyAttribute : Attribute, IPimitivelyAttribute
 {
+    /// <inheritdoc/>
     public bool ImplementIValidatableObject { get; set; }
 }
