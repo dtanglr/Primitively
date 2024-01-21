@@ -3,16 +3,23 @@
 namespace Primitively;
 
 /// <summary>
-///     Make a readonly record struct that encapsulates an Unsigned 64-bit integer primitive value
-///     with a default range of: 0 to 18,446,744,073,709,551,615
+/// Make a readonly record struct that encapsulates an Unsigned 64-bit integer primitive value
+/// with a default range of: 0 to 18,446,744,073,709,551,615
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 [Conditional(Constants.ConditionalCompilationSymbol)]
-public sealed class ULongAttribute : Attribute
+public sealed class ULongAttribute : Attribute, IIntegerAttribute<ulong>
 {
+    /// <inheritdoc/>
     public bool ImplementIValidatableObject { get; set; }
 
-    public ulong Minimum { get; set; }
+    /// <inheritdoc/>
+    public ulong Minimum { get; set; } = ulong.MinValue;
 
-    public ulong Maximum { get; set; }
+    /// <inheritdoc/>
+    public ulong Maximum { get; set; } = ulong.MaxValue;
+
+    object IIntegerAttribute.Minimum { get => Minimum; }
+
+    object IIntegerAttribute.Maximum { get => Maximum; }
 }

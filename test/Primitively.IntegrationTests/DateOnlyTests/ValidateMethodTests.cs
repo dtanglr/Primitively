@@ -19,12 +19,12 @@ public class ValidateMethodTests
     [InlineData("01/01/2022")]
     [InlineData("31/01/2022")]
     [InlineData("01/31/2022")]
-    [InlineData("2022-01-01", true)]
+    [InlineData(ValidatableDate.Example, true)]
     public void ConvertFromThisToThatWithExpectedResults(string? value, bool isValid = false)
     {
         // Arrange
         var validationContext = new ValidationContext(this);
-        var sut = BirthDate.Parse(value);
+        var sut = ValidatableDate.Parse(value);
 
         // Act
         var result = sut.Validate(validationContext);

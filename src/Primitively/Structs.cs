@@ -107,7 +107,10 @@ public class Structs : IIncrementalGenerator
             }
 
             // Add Validate Method
-            sb.Append(EmbeddedResources.ValidateMethod);
+            if (recordStruct.ImplementIValidatableObject)
+            {
+                sb.Append(EmbeddedResources.ValidateMethod);
+            }
 
             // Add closing brace
             sb.AppendLine("}");

@@ -18,7 +18,7 @@ public class ValidateMethodTests
     {
         // Arrange
         var validationContext = new ValidationContext(this);
-        var sut = DefaultThirtySixDigitsWithHyphens.Parse(value);
+        var sut = ValidatableGuid.Parse(value);
 
         // Act
         var result = sut.Validate(validationContext);

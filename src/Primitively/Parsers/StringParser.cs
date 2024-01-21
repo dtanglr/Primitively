@@ -85,6 +85,9 @@ internal static class StringParser
 
             switch (key)
             {
+                case nameof(StringAttribute.ImplementIValidatableObject):
+                    recordStructData.ImplementIValidatableObject = (bool?)value ?? false;
+                    break;
                 case nameof(StringAttribute.Example):
                     recordStructData.Example = (string?)value;
                     break;
@@ -94,8 +97,7 @@ internal static class StringParser
                 case nameof(StringAttribute.Pattern):
                     recordStructData.Pattern = (string?)value;
                     break;
-                case nameof(StringAttribute.ImplementIValidatableObject):
-                    recordStructData.ImplementIValidatableObject = (bool?)value ?? false;
+                default:
                     break;
             }
         }

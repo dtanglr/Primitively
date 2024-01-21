@@ -3,11 +3,11 @@
 namespace Primitively;
 
 /// <summary>
-///     Make a readonly record struct that encapsulates a GUID primitive value
+/// Make a readonly record struct that encapsulates a GUID primitive value
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 [Conditional(Constants.ConditionalCompilationSymbol)]
-public sealed class GuidAttribute : Attribute
+public sealed class GuidAttribute : Attribute, IPimitivelyAttribute
 {
     public GuidAttribute()
     {
@@ -19,6 +19,8 @@ public sealed class GuidAttribute : Attribute
         Specifier = specifier;
     }
 
-    public Specifier Specifier { get; }
+    /// <inheritdoc/>
     public bool ImplementIValidatableObject { get; set; }
+
+    public Specifier Specifier { get; }
 }
