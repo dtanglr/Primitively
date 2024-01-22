@@ -8,10 +8,12 @@ public interface IIntegerAttribute : IPimitivelyAttribute
     /// <summary>
     /// The minimum value of the Primitively integer type
     /// </summary>
+    /// <value>The minimum value</value>
     object Minimum { get; }
 
     /// <summary>
     /// The maximum value of the Primitively integer type
     /// </summary>
+    /// <value>The maximum value</value>
     object Maximum { get; }
 }

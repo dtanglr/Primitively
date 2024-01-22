@@ -9,10 +9,12 @@ public interface IIntegerAttribute<T> : IIntegerAttribute where T : struct, ICom
     /// <summary>
     /// The minimum value of the Primitively type
     /// </summary>
+    /// <value>The minimum value</value>
     new T Minimum { get; set; }
 
     /// <summary>
     /// The maximum value of the Primitively type
     /// </summary>
+    /// <value>The maximum value</value>
     new T Maximum { get; set; }
 }
