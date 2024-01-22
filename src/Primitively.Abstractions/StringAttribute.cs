@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-#nullable enable
+﻿#nullable enable
 
 namespace Primitively;
 
@@ -8,7 +6,6 @@ namespace Primitively;
 /// Make a readonly record struct that encapsulates a String primitive value
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-[Conditional(Constants.ConditionalCompilationSymbol)]
 public sealed class StringAttribute : Attribute, IPimitivelyAttribute
 {
     /// <summary>

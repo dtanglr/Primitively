@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using Primitively;
+﻿namespace PRIMITIVE_NAMESPACE;
 
-namespace PRIMITIVE_NAMESPACE;
-
-public partial class PrimitiveRepository : IPrimitiveRepository
+public partial class PrimitiveRepository : Primitively.IPrimitiveRepository
 {
-    private static readonly Lazy<IEnumerable<PrimitiveInfo>> _types = new(GetAll, LazyThreadSafetyMode.ExecutionAndPublication);
+    private static readonly System.Lazy<System.Collections.Generic.IEnumerable<Primitively.PrimitiveInfo>> _types = new(GetAll, System.Threading.LazyThreadSafetyMode.ExecutionAndPublication);
 
-    public PrimitiveInfo GetType(Type type) => _types.Value.Single(t => t.Type.Equals(type));
+    public Primitively.PrimitiveInfo GetType(System.Type type) => _types.Value.Single(t => t.Type.Equals(type));
 #nullable enable
-    public bool TryGetType(Type type, out PrimitiveInfo? result)
+    public bool TryGetType(System.Type type, out Primitively.PrimitiveInfo? result)
 #nullable disable
     {
         result = _types.Value.SingleOrDefault(t => t.Type.Equals(type));
@@ -20,11 +14,11 @@ public partial class PrimitiveRepository : IPrimitiveRepository
         return result is not null;
     }
 
-    public IReadOnlyCollection<PrimitiveInfo> GetTypes() => _types.Value.ToList();
+    public System.Collections.Generic.IReadOnlyCollection<Primitively.PrimitiveInfo> GetTypes() => _types.Value.ToList();
 
-    public IReadOnlyCollection<T> GetTypes<T>() where T : PrimitiveInfo => _types.Value.OfType<T>().ToList();
+    public System.Collections.Generic.IReadOnlyCollection<T> GetTypes<T>() where T : Primitively.PrimitiveInfo => _types.Value.OfType<T>().ToList();
 
-    private static IEnumerable<PrimitiveInfo> GetAll()
+    private static System.Collections.Generic.IEnumerable<Primitively.PrimitiveInfo> GetAll()
     {
 PRIMITIVE_REPOSITORY_YIELD_STATEMENTS
     }

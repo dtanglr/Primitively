@@ -2,8 +2,6 @@
 
 internal readonly struct MetaData
 {
-    public const string ConditionalCompilationSymbol = "PRIMITIVELY_USAGES";
-
     public readonly struct DateOnly
     {
         public static readonly string Interface = typeof(IDateOnly).FullName;
