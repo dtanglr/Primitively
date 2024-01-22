@@ -1,12 +1,9 @@
-﻿using System.Diagnostics;
-
-namespace Primitively;
+﻿namespace Primitively;
 
 /// <summary>
 /// Make a readonly record struct that encapsulates a GUID primitive value
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-[Conditional(Constants.ConditionalCompilationSymbol)]
 public sealed class GuidAttribute : Attribute, IPimitivelyAttribute
 {
     public GuidAttribute()

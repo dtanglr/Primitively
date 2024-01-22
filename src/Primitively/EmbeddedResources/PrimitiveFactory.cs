@@ -1,4 +1,6 @@
-﻿public partial class PrimitiveFactory : Primitively.IPrimitiveFactory
+﻿namespace PRIMITIVE_NAMESPACE;
+
+public partial class PrimitiveFactory : Primitively.IPrimitiveFactory
 {
 #nullable enable
     public Primitively.IPrimitive? Create(System.Type type, string? value)
