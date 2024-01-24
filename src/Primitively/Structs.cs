@@ -190,7 +190,7 @@ public class Structs : IIncrementalGenerator
                     .OrderBy(rs => rs.Name)
                     .Select(rs => rs.DataType switch
                     {
-                        DataType.DateOnly => $"{Padding}yield return new Primitively.DateOnlyInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(System.DateOnly), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, \"{rs.Format}\", {rs.Length});",
+                        DataType.DateOnly => $"{Padding}yield return new Primitively.DateOnlyInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(System.DateTime), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, \"{rs.Format}\", {rs.Length});",
                         DataType.Guid => $"{Padding}yield return new Primitively.GuidInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(System.Guid), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {nameof(rs.Specifier)}.{rs.Specifier}, {rs.Length});",
                         DataType.Byte => $"{Padding}yield return new Primitively.IntegerInfo({nameof(DataType)}.{nameof(DataType.Byte)}, typeof({rs.NameSpace}.{rs.Name}), typeof(byte), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
                         DataType.SByte => $"{Padding}yield return new Primitively.IntegerInfo({nameof(DataType)}.{nameof(DataType.SByte)}, typeof({rs.NameSpace}.{rs.Name}), typeof(sbyte), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",

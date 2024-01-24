@@ -8,18 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Primitively" Version="1.4.15-rc.1" PrivateAssets="All" />
+    <PackageReference Include="Primitively" Version="1.4.15-rc.6" PrivateAssets="All" />
   </ItemGroup>
   
   <!--
   To target netstandard2.0, the below props are required to support some features introduced after netstandard2.0 and 
-  the c# 7.3 lang version release dates, such as 'record structs'.
-  
-  Nb. Primitively IDateOnly types are not 'currently' supported in netstandard2.0 because System.DateOnly is net6.0 or greater.
+  the c# 7.3 lang version release dates, such as 'record structs' which came with c# 10.
   -->
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>10</LangVersion>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

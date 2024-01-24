@@ -28,6 +28,7 @@ public abstract class PrimitiveTypeConverterTests<TTypeConverter, TPrimitive>
 
         if (typeof(TPrimitive) is IDateOnly)
         {
+#if NET6_0_OR_GREATER
             // Should convert from DateOnly
             converter.CanConvertFrom(new Mock<ITypeDescriptorContext>().Object, typeof(DateOnly)).Should().BeTrue();
             converter.ConvertFrom(default(DateOnly)).Should().BeAssignableTo(typeof(TPrimitive));
@@ -36,6 +37,7 @@ public abstract class PrimitiveTypeConverterTests<TTypeConverter, TPrimitive>
             // Should convert from DateOnly?
             converter.CanConvertFrom(new Mock<ITypeDescriptorContext>().Object, typeof(DateOnly?)).Should().BeTrue();
             converter.ConvertFrom((DateOnly?)DateOnly.FromDateTime(DateTime.Now)).Should().BeAssignableTo(typeof(TPrimitive));
+#endif
 
             // Should convert from DateTime
             converter.CanConvertFrom(new Mock<ITypeDescriptorContext>().Object, typeof(DateTime)).Should().BeTrue();
