@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Reflection;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -10,11 +9,11 @@ public abstract class PrimitiveTypeConverterTests<TTypeConverter, TPrimitive>
    where TTypeConverter : TypeConverter, new()
    where TPrimitive : struct, IPrimitive
 {
-    private readonly List<Type> _types = Assembly
-       .GetExecutingAssembly()
-       .GetTypes()
-       .Where(type => type.GetConstructor(Type.EmptyTypes) != null && !type.IsValueType)
-       .ToList();
+    private readonly List<Type> _types = typeof(PrimitiveLibrary)
+        .Assembly
+        .GetTypes()
+        .Where(type => type.GetConstructor(Type.EmptyTypes) != null && !type.IsValueType)
+        .ToList();
 
     [Fact]
     public void TypeConverter_CanConvertFrom()

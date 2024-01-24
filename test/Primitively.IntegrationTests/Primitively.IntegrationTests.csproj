@@ -1,12 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
-    <EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
-    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>$(NoWarn);CA1825;CS0618</NoWarn>
   </PropertyGroup>
@@ -18,7 +16,7 @@
     <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
     <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="Testcontainers.MongoDb" Version="3.7.0" />
-    <PackageReference Include="xunit" Version="2.6.5" />
+    <PackageReference Include="xunit" Version="2.6.6" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -27,16 +25,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Primitively\Primitively.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\..\src\Primitively.Abstractions\Primitively.Abstractions.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" Visible="false" />
     <ProjectReference Include="..\..\src\Primitively.AspNetCore\Primitively.AspNetCore.csproj" />
     <ProjectReference Include="..\..\src\Primitively.AspNetCore.Mvc\Primitively.AspNetCore.Mvc.csproj" />
     <ProjectReference Include="..\..\src\Primitively.AspNetCore.SwaggerGen\Primitively.AspNetCore.SwaggerGen.csproj" />
     <ProjectReference Include="..\..\src\Primitively.FluentValidation\Primitively.FluentValidation.csproj" />
     <ProjectReference Include="..\..\src\Primitively.MongoDB.Bson\Primitively.MongoDB.Bson.csproj" />
+    <ProjectReference Include="..\Primitively.TestLib\Primitively.TestLib.csproj" />
   </ItemGroup>
 
 </Project>

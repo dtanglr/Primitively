@@ -1,13 +1,12 @@
-﻿using System.Reflection;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
 
 namespace Primitively.IntegrationTests;
 
 public class PrimitiveFactoryTests
 {
-    private static readonly IEnumerable<Type> _types = Assembly
-        .GetExecutingAssembly()
+    private static readonly IEnumerable<Type> _types = typeof(PrimitiveLibrary)
+        .Assembly
         .GetTypes()
         .Where(t => t.IsValueType && t.IsAssignableTo(typeof(IPrimitive)));
 

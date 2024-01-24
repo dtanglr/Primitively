@@ -1,4 +1,4 @@
-﻿namespace Primitively.IntegrationTests;
+﻿namespace Primitively.TestLib;
 
 [String(7, Pattern = "^[0-9]{7}$", Example = "1234567")]
 public partial record struct SevenDigits;

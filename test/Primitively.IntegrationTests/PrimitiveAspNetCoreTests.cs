@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Primitives;
 using Moq;
@@ -10,8 +9,8 @@ namespace Primitively.IntegrationTests;
 
 public class PrimitiveAspNetCoreTests
 {
-    private static readonly IEnumerable<Type> _types = Assembly
-        .GetExecutingAssembly()
+    private static readonly IEnumerable<Type> _types = typeof(PrimitiveLibrary)
+        .Assembly
         .GetTypes()
         .Where(t => t.IsValueType && t.IsAssignableTo(typeof(IPrimitive)));
 

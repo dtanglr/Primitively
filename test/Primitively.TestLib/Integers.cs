@@ -1,4 +1,4 @@
-﻿namespace Primitively.IntegrationTests;
+﻿namespace Primitively.TestLib;
 
 [Byte]
 public partial record struct ByteId;

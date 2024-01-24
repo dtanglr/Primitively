@@ -1,4 +1,4 @@
-﻿namespace Primitively.IntegrationTests;
+﻿namespace Primitively.TestLib;
 
 [Guid] // Default: Specifier.D
 public partial record struct DefaultThirtySixDigitsWithHyphens;
