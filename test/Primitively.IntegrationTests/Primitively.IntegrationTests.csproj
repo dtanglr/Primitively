@@ -39,7 +39,7 @@
     <ProjectReference Include="..\..\src\Primitively.AspNetCore.SwaggerGen\Primitively.AspNetCore.SwaggerGen.csproj" />
     <ProjectReference Include="..\..\src\Primitively.FluentValidation\Primitively.FluentValidation.csproj" />
     <ProjectReference Include="..\..\src\Primitively.MongoDB.Bson\Primitively.MongoDB.Bson.csproj" />
-    <ProjectReference Include="..\Primitively.TestLib\Primitively.TestLib.csproj" />
+    <ProjectReference Include="..\Acme.TestLib\Acme.TestLib.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,1 +1,1 @@
-﻿global using Primitively.TestLib;
+﻿global using Acme.TestLib;
