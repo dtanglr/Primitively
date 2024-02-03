@@ -3,14 +3,9 @@ using Primitively.Configuration;
 
 namespace Primitively.AspNetCore.Mvc.ModelBinding;
 
-public class PrimitiveModelBinder : IModelBinder
+public class PrimitiveModelBinder(PrimitiveRegistry registry) : IModelBinder
 {
-    private readonly PrimitiveRegistry _registry;
-
-    public PrimitiveModelBinder(PrimitiveRegistry registry)
-    {
-        _registry = registry;
-    }
+    private readonly PrimitiveRegistry _registry = registry;
 
     public Task BindModelAsync(ModelBindingContext bindingContext)
     {

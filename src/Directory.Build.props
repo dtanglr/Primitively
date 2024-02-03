@@ -7,7 +7,7 @@
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/dtanglr/Primitively</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <LangVersion>12.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>

@@ -5,14 +5,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Primitively.AspNetCore.SwaggerGen;
 
-public class PrimitiveSchemaFilter : ISchemaFilter
+public class PrimitiveSchemaFilter(PrimitiveRegistry registry) : ISchemaFilter
 {
-    private readonly PrimitiveRegistry _registry;
-
-    public PrimitiveSchemaFilter(PrimitiveRegistry registry)
-    {
-        _registry = registry;
-    }
+    private readonly PrimitiveRegistry _registry = registry;
 
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
