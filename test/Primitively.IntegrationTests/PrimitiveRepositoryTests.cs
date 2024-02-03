@@ -3,15 +3,19 @@ using Xunit;
 
 namespace Primitively.IntegrationTests;
 
-public class PrimitiveRepositoryTests
+public class PrimitiveRepositoryTests : PrimitiveTests
 {
-    private static readonly IEnumerable<Type> _types = typeof(PrimitiveLibrary)
-        .Assembly
-        .GetTypes()
-        .Where(t => t.IsValueType && t.IsAssignableTo(typeof(IPrimitive)));
-
-    public static IEnumerable<object[]> PrimitiveTypes()
+    public static TheoryData<Type, Type> PrimitiveTypes()
     {
+        var testData = new TheoryData<Type, Type>();
+
+        foreach (var type in Types)
+        {
+            testData.Add(type, GetInfoType(type));
+        }
+
+        return testData;
+
         static Type GetInfoType(Type type) => type switch
         {
             _ when type.IsAssignableTo(typeof(IDateOnly)) => typeof(DateOnlyInfo),
@@ -20,11 +24,6 @@ public class PrimitiveRepositoryTests
             _ when type.IsAssignableTo(typeof(IString)) => typeof(StringInfo),
             _ => throw new NotImplementedException(),
         };
-
-        foreach (var type in _types)
-        {
-            yield return new object[] { type, GetInfoType(type) };
-        }
     }
 
     [Theory]
@@ -93,7 +92,7 @@ public class PrimitiveRepositoryTests
         var result = repo.GetTypes();
 
         // Assert
-        result.Should().HaveCount(_types.Count());
+        result.Should().HaveCount(Types.Count());
     }
 
     [Theory]
@@ -115,6 +114,6 @@ public class PrimitiveRepositoryTests
         };
 
         // Assert
-        result.Should().HaveCount(_types.Count(t => t.IsAssignableTo(type)));
+        result.Should().HaveCount(Types.Count(t => t.IsAssignableTo(type)));
     }
 }

@@ -3,24 +3,18 @@ using Xunit;
 
 namespace Primitively.IntegrationTests;
 
-public class PrimitiveFactoryTests
+public class PrimitiveFactoryTests : PrimitiveTests
 {
-    private static readonly IEnumerable<Type> _types = typeof(PrimitiveLibrary)
-        .Assembly
-        .GetTypes()
-        .Where(t => t.IsValueType && t.IsAssignableTo(typeof(IPrimitive)));
-
-    public static IEnumerable<object[]> PrimitiveTypes()
+    public static TheoryData<Type, string> PrimitiveTypes()
     {
-        if (!_types.Any())
+        var testData = new TheoryData<Type, string>();
+
+        foreach (var type in Types)
         {
-            yield return Array.Empty<object[]>();
+            testData.Add(type, GetExample(type));
         }
 
-        foreach (var type in _types)
-        {
-            yield return new object[] { type, GetExample(type) };
-        }
+        return testData;
 
         static string GetExample(Type type)
         {
