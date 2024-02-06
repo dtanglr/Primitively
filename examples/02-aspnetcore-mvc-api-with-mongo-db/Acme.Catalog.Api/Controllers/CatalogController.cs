@@ -18,7 +18,7 @@ public class CatalogController : ControllerBase
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    [HttpGet]
+    [HttpGet("products", Name = $"{nameof(GetProducts)}")]
     [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
     {
@@ -26,80 +26,48 @@ public class CatalogController : ControllerBase
         return Ok(products);
     }
 
-    [HttpGet("id/{id}", Name = "GetProductById")]
+    [HttpGet("products/{productId}", Name = $"{nameof(GetProductById)}")]
     [ProducesResponseType((int)HttpStatusCode.NotFound)]
     [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<Product>> GetProductById(ProductId id)
+    public async Task<ActionResult<Product>> GetProductById(ProductId productId)
     {
-        var product = await _repository.GetProductById(id);
+        var product = await _repository.GetProduct(productId);
 
         if (product == null)
         {
-            _logger.LogError("Product with id: {id}, not found.", id);
+            _logger.LogError("Product with ProductId: {ProductId}, not found.", productId);
             return NotFound();
         }
 
         return Ok(product);
     }
 
-    [HttpGet("guid/{guid}", Name = "GetProductByGuid")]
-    [ProducesResponseType((int)HttpStatusCode.NotFound)]
-    [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<Product>> GetProductByGuid(Guid guid)
-    {
-        var product = await _repository.GetProductByGuid(guid);
-
-        if (product == null)
-        {
-            _logger.LogError("Product with Guid: {guid}, not found.", guid);
-            return NotFound();
-        }
-
-        return Ok(product);
-    }
-
-    [HttpGet("sku/{sku}", Name = "GetProductBySku")]
+    [HttpGet("products/sku/{sku}", Name = $"{nameof(GetProductBySku)}")]
     [ProducesResponseType((int)HttpStatusCode.NotFound)]
     [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<Product>> GetProductBySku(Sku sku)
     {
-        var product = await _repository.GetProductBySku(sku);
+        var product = await _repository.GetProduct(sku);
 
         if (product == null)
         {
-            _logger.LogError("Product with Sku: {sku}, not found.", sku);
+            _logger.LogError("Product with Sku: {Sku}, not found.", sku);
             return NotFound();
         }
 
         return Ok(product);
     }
 
-    [HttpGet("productId/{productId}", Name = "GetProductByProductId")]
+    [HttpGet("products/category/{categoryId}", Name = $"{nameof(GetProductsByCategoryId)}")]
     [ProducesResponseType((int)HttpStatusCode.NotFound)]
-    [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<Product>> GetProductByProductId(ProductId productId)
-    {
-        var product = await _repository.GetProductByProductId(productId);
-
-        if (product == null)
-        {
-            _logger.LogError("Product with ProductId: {productId}, not found.", productId);
-            return NotFound();
-        }
-
-        return Ok(product);
-    }
-
-    [HttpGet("category/{categoryId}", Name = "GetProductByCategoryId")]
-    [ProducesResponseType((int)HttpStatusCode.NotFound)]
-    [ProducesResponseType(typeof(List<Product>), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<List<Product>>> GetProductByCategoryId(CategoryId categoryId)
+    [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategoryId(CategoryId categoryId)
     {
         var products = await _repository.GetProducts(categoryId);
 
         if (products == null)
         {
-            _logger.LogError("Products with CategoryId: {categoryId}, not found.", categoryId);
+            _logger.LogError("Products with CategoryId: {CategoryId}, not found.", categoryId);
             return NotFound();
         }
 

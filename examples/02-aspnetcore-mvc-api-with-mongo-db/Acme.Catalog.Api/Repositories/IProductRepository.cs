@@ -4,10 +4,8 @@ namespace Acme.Catalog.Api.Repositories;
 
 public interface IProductRepository
 {
+    Task<Product> GetProduct(ProductId id);
+    Task<Product> GetProduct(Sku sku);
     Task<IEnumerable<Product>> GetProducts();
-    Task<Product> GetProductById(ProductId id);
-    Task<Product> GetProductByGuid(Guid guid);
-    Task<Product> GetProductBySku(Sku sku);
-    Task<Product> GetProductByProductId(ProductId productId);
-    Task<List<Product>> GetProducts(CategoryId categoryId);
+    Task<IEnumerable<Product>> GetProducts(CategoryId categoryId);
 }

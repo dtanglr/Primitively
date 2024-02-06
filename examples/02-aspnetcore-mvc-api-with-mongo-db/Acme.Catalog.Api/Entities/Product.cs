@@ -7,11 +7,8 @@ namespace Acme.Catalog.Api.Entities;
 public class Product
 {
     [BsonId]
+    // Primitively IGuid: Will use the default GuidRepresentation of CSharpLegacy unless configured differently in the DI
     public ProductId Id { get; set; } = ProductId.New();
-
-    // .net Guid: Requires configuration of either GuidSerializer (via DI), BsonType or GuidRepresentation (via attribute) or property map to work correctly
-    [BsonGuidRepresentation(GuidRepresentation.CSharpLegacy)]
-    public Guid Guid { get; set; } = Guid.NewGuid();
 
     // Primitively IGuid: Will use the default GuidRepresentation of CSharpLegacy unless configured differently in the DI
     public Sku Sku { get; set; } = Sku.New();
@@ -19,6 +16,10 @@ public class Product
     // Primitively IGuid: Will use Standard (UUID) format
     [BsonIGuidRepresentation(GuidRepresentation.Standard)]
     public ProductId ProductId { get; set; } = ProductId.New();
+
+    // .NET Guid: Requires configuration of either GuidSerializer (via DI), BsonType or GuidRepresentation (via attribute) or property map to work correctly
+    [BsonGuidRepresentation(GuidRepresentation.CSharpLegacy)]
+    public Guid Guid { get; set; } = Guid.NewGuid();
 
     public string? Name { get; set; }
 

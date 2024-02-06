@@ -13,6 +13,22 @@ public class ProductRepository : IProductRepository
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
+    public async Task<Product> GetProduct(ProductId id)
+    {
+        return await _context
+            .Products
+            .Find(p => p.Id == id)
+            .SingleOrDefaultAsync();
+    }
+
+    public async Task<Product> GetProduct(Sku sku)
+    {
+        return await _context
+            .Products
+            .Find(Builders<Product>.Filter.Eq(p => p.Sku, sku))
+            .SingleOrDefaultAsync();
+    }
+
     public async Task<IEnumerable<Product>> GetProducts()
     {
         return await _context
@@ -21,39 +37,7 @@ public class ProductRepository : IProductRepository
             .ToListAsync();
     }
 
-    public async Task<Product> GetProductById(ProductId id)
-    {
-        return await _context
-            .Products
-            .Find(p => p.Id == id)
-            .SingleOrDefaultAsync();
-    }
-
-    public async Task<Product> GetProductByGuid(Guid guid)
-    {
-        return await _context
-            .Products
-            .Find(p => p.Guid == guid)
-            .SingleOrDefaultAsync();
-    }
-
-    public async Task<Product> GetProductBySku(Sku sku)
-    {
-        return await _context
-            .Products
-            .Find(Builders<Product>.Filter.Eq(p => p.Sku, sku))
-            .SingleOrDefaultAsync();
-    }
-
-    public async Task<Product> GetProductByProductId(ProductId productId)
-    {
-        return await _context
-            .Products
-            .Find(p => p.ProductId == productId)
-            .SingleOrDefaultAsync();
-    }
-
-    public async Task<List<Product>> GetProducts(CategoryId categoryId)
+    public async Task<IEnumerable<Product>> GetProducts(CategoryId categoryId)
     {
         return await _context
             .Products
