@@ -10,7 +10,7 @@ public class BsonOptions
     private readonly PrimitiveRegistry _registry;
     private readonly IBsonSerializerManager _manager;
     private readonly Dictionary<DataType, IBsonSerializerOptions> _options = new(GetAll().ToDictionary(o => o.DataType, o => o));
-    private readonly Dictionary<Type, DataType> _primitiveTypes = new();
+    private readonly Dictionary<Type, DataType> _primitiveTypes = [];
 
     internal BsonOptions(PrimitiveRegistry registry, IBsonSerializerManager manager)
     {

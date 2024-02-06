@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Primitively\Primitively.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\src\Primitively.Abstractions\Primitively.Abstractions.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" Visible="false" />
+  </ItemGroup>
+  
+  <!--
+  To target netstandard2.0, the below props are required to support some features introduced after netstandard2.0 and 
+  the c# 7.3 lang version release dates, such as 'record structs' which came with c# 10.
+  -->
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <LangVersion>10.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="IsExternalInit" Version="1.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Text.Json" Version="8.0.1" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>

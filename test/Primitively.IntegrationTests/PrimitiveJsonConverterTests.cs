@@ -70,6 +70,7 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
         result.Should().BeEquivalentTo(default(TPrimitive));
     }
 
+#if NET6_0_OR_GREATER
     [Fact]
     public void JsonConverter_CanWriteValue()
     {
@@ -113,4 +114,5 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
 
         json.Should().Be($"\"{primitive}\"");
     }
+#endif
 }

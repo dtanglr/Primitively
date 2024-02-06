@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Primitives;
 using Moq;
@@ -8,20 +7,9 @@ using Xunit;
 
 namespace Primitively.IntegrationTests;
 
-public class PrimitiveAspNetCoreTests
+public class PrimitiveAspNetCoreTests : PrimitiveTests
 {
-    private static readonly IEnumerable<Type> _types = Assembly
-        .GetExecutingAssembly()
-        .GetTypes()
-        .Where(t => t.IsValueType && t.IsAssignableTo(typeof(IPrimitive)));
-
-    public static IEnumerable<object[]> PrimitiveTypes()
-    {
-        foreach (var type in _types)
-        {
-            yield return new object[] { type };
-        }
-    }
+    public static TheoryData<Type> PrimitiveTypes() => new(Types);
 
     [Fact]
     public void BindModelAsync_TerminatesBeforeSettingModelValue_WhenValueProviderResultIsNone()

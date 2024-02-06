@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Api", "Catalog.Api\Catalog.Api.csproj", "{9B433EA1-1EB9-4C42-9081-EBD4BC264D26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acme.Catalog.Api", "Acme.Catalog.Api\Acme.Catalog.Api.csproj", "{9B433EA1-1EB9-4C42-9081-EBD4BC264D26}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E9565EC8-70DA-4EB2-9546-93F98BBA241D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Abstractions", "Catalog.Abstractions\Catalog.Abstractions.csproj", "{E7DFB147-183E-4591-A64A-BFBA1E772EF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acme.Catalog.Abstractions", "Acme.Catalog.Abstractions\Acme.Catalog.Abstractions.csproj", "{E7DFB147-183E-4591-A64A-BFBA1E772EF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

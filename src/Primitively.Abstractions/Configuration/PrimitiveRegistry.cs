@@ -5,7 +5,7 @@ namespace Primitively.Configuration;
 public sealed class PrimitiveRegistry
 {
     private readonly ConcurrentDictionary<Type, PrimitiveInfo> _cache = new();
-    private readonly ConcurrentBag<Type> _register = new();
+    private readonly ConcurrentBag<Type> _register = [];
 
     internal PrimitiveRegistry() { }
 

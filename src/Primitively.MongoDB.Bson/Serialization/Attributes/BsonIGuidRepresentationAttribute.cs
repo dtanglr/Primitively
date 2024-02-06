@@ -6,22 +6,17 @@ namespace Primitively.MongoDB.Bson.Serialization.Attributes;
 /// <summary>
 /// Specifies the Guid representation to use with the GuidSerializer for this member.
 /// </summary>
+/// <remarks>
+/// Initializes a new instance of the BsonGuidRepresentationAttribute class.
+/// </remarks>
+/// <param name="guidRepresentation">The Guid representation.</param>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-public class BsonIGuidRepresentationAttribute : Attribute, IBsonMemberMapAttribute
+public class BsonIGuidRepresentationAttribute(GuidRepresentation guidRepresentation) : Attribute, IBsonMemberMapAttribute
 {
-    /// <summary>
-    /// Initializes a new instance of the BsonGuidRepresentationAttribute class.
-    /// </summary>
-    /// <param name="guidRepresentation">The Guid representation.</param>
-    public BsonIGuidRepresentationAttribute(GuidRepresentation guidRepresentation)
-    {
-        GuidRepresentation = guidRepresentation;
-    }
-
     /// <summary>
     /// Gets the Guid representation.
     /// </summary>
-    public GuidRepresentation GuidRepresentation { get; }
+    public GuidRepresentation GuidRepresentation { get; } = guidRepresentation;
 
     /// <inheritdoc/>
     public void Apply(BsonMemberMap memberMap)

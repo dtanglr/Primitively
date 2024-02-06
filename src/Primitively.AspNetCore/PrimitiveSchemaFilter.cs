@@ -4,14 +4,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Primitively.AspNetCore;
 
-public class PrimitiveSchemaFilter : ISchemaFilter
+public class PrimitiveSchemaFilter(Func<IEnumerable<PrimitiveInfo>> primitiveInfo) : ISchemaFilter
 {
-    private readonly Func<IEnumerable<PrimitiveInfo>> _primitiveInfo;
-
-    public PrimitiveSchemaFilter(Func<IEnumerable<PrimitiveInfo>> primitiveInfo)
-    {
-        _primitiveInfo = primitiveInfo ?? throw new ArgumentNullException(nameof(primitiveInfo));
-    }
+    private readonly Func<IEnumerable<PrimitiveInfo>> _primitiveInfo = primitiveInfo ?? throw new ArgumentNullException(nameof(primitiveInfo));
 
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {

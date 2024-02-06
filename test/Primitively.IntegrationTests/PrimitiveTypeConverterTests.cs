@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Reflection;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -10,11 +9,11 @@ public abstract class PrimitiveTypeConverterTests<TTypeConverter, TPrimitive>
    where TTypeConverter : TypeConverter, new()
    where TPrimitive : struct, IPrimitive
 {
-    private readonly List<Type> _types = Assembly
-       .GetExecutingAssembly()
-       .GetTypes()
-       .Where(type => type.GetConstructor(Type.EmptyTypes) != null && !type.IsValueType)
-       .ToList();
+    private readonly List<Type> _types = typeof(PrimitiveLibrary)
+        .Assembly
+        .GetTypes()
+        .Where(type => type.GetConstructor(Type.EmptyTypes) != null && !type.IsValueType)
+        .ToList();
 
     [Fact]
     public void TypeConverter_CanConvertFrom()
@@ -28,6 +27,7 @@ public abstract class PrimitiveTypeConverterTests<TTypeConverter, TPrimitive>
 
         if (typeof(TPrimitive) is IDateOnly)
         {
+#if NET6_0_OR_GREATER
             // Should convert from DateOnly
             converter.CanConvertFrom(new Mock<ITypeDescriptorContext>().Object, typeof(DateOnly)).Should().BeTrue();
             converter.ConvertFrom(default(DateOnly)).Should().BeAssignableTo(typeof(TPrimitive));
@@ -36,6 +36,7 @@ public abstract class PrimitiveTypeConverterTests<TTypeConverter, TPrimitive>
             // Should convert from DateOnly?
             converter.CanConvertFrom(new Mock<ITypeDescriptorContext>().Object, typeof(DateOnly?)).Should().BeTrue();
             converter.ConvertFrom((DateOnly?)DateOnly.FromDateTime(DateTime.Now)).Should().BeAssignableTo(typeof(TPrimitive));
+#endif
 
             // Should convert from DateTime
             converter.CanConvertFrom(new Mock<ITypeDescriptorContext>().Object, typeof(DateTime)).Should().BeTrue();

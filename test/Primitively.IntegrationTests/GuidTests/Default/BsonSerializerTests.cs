@@ -10,13 +10,13 @@ namespace Primitively.IntegrationTests.GuidTests.Default;
 
 public class BsonSerializerTests
 {
-    public static IEnumerable<object[]> GuidRepresentations()
+    public static TheoryData<GuidRepresentation> GuidRepresentations => new()
     {
-        yield return new object[] { GuidRepresentation.CSharpLegacy };
-        yield return new object[] { GuidRepresentation.JavaLegacy };
-        yield return new object[] { GuidRepresentation.PythonLegacy };
-        yield return new object[] { GuidRepresentation.Standard };
-    }
+        GuidRepresentation.CSharpLegacy,
+        GuidRepresentation.JavaLegacy,
+        GuidRepresentation.PythonLegacy,
+        GuidRepresentation.Standard,
+    };
 
     [Theory]
     [MemberData(nameof(GuidRepresentations))]

@@ -13,8 +13,8 @@ namespace Primitively;
 
 internal static class Parser
 {
-    private static readonly List<string> _attributeFullNames = new()
-    {
+    private static readonly List<string> _attributeFullNames =
+    [
         typeof(DateOnlyAttribute).FullName,
         typeof(GuidAttribute).FullName,
         typeof(ByteAttribute).FullName,
@@ -26,7 +26,7 @@ internal static class Parser
         typeof(LongAttribute).FullName,
         typeof(ULongAttribute).FullName,
         typeof(StringAttribute).FullName,
-    };
+    ];
 
     public static bool IsRecordStructTargetForGeneration(SyntaxNode node) =>
         node is RecordDeclarationSyntax record &&
