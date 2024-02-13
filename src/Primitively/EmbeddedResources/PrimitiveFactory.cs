@@ -1,9 +1,9 @@
 ﻿namespace PRIMITIVE_NAMESPACE;
 
-public partial class PrimitiveFactory : Primitively.IPrimitiveFactory
+public partial class PrimitiveFactory : global::Primitively.IPrimitiveFactory
 {
 #nullable enable
-    public Primitively.IPrimitive? Create(global::System.Type type, string? value)
+    public global::Primitively.IPrimitive? Create(global::System.Type type, string? value)
     {
         var created = TryCreate(type, value, out var result);
 
@@ -15,7 +15,7 @@ public partial class PrimitiveFactory : Primitively.IPrimitiveFactory
         return result;
     }
 
-    public bool TryCreate(global::System.Type type, string? value, out Primitively.IPrimitive? result)
+    public bool TryCreate(global::System.Type type, string? value, out global::Primitively.IPrimitive? result)
     {
         result = type.FullName switch
         {

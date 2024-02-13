@@ -1,4 +1,4 @@
-﻿readonly partial record struct PRIMITIVE_TYPE : PRIMITIVE_INTERFACE, global::System.IEquatable<PRIMITIVE_TYPE>, global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
+﻿readonly partial record struct PRIMITIVE_TYPE : global::PRIMITIVE_INTERFACE, global::System.IEquatable<PRIMITIVE_TYPE>, global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
 {
     private readonly global::PRIMITIVE_VALUE_TYPE _value = default;
 
@@ -22,9 +22,9 @@
         }
     }
 
-    object Primitively.IPrimitive.Value => _value;
+    object global::Primitively.IPrimitive.Value => _value;
 
-    global::PRIMITIVE_VALUE_TYPE Primitively.IPrimitive<global::PRIMITIVE_VALUE_TYPE>.Value => _value;
+    global::PRIMITIVE_VALUE_TYPE global::Primitively.IPrimitive<global::PRIMITIVE_VALUE_TYPE>.Value => _value;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
     public bool HasValue => _value != default;
@@ -33,7 +33,7 @@
     public global::System.Type ValueType => typeof(global::PRIMITIVE_VALUE_TYPE);
 
     [global::System.Text.Json.Serialization.JsonIgnore]
-    public Primitively.DataType DataType => Primitively.DataType.PRIMITIVE_DATA_TYPE;
+    public global::Primitively.DataType DataType => global::Primitively.DataType.PRIMITIVE_DATA_TYPE;
 
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
     public int CompareTo(PRIMITIVE_TYPE other) => _value.CompareTo(other._value);
