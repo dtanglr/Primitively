@@ -120,7 +120,7 @@ public class Structs : IIncrementalGenerator
             sb.Replace("PRIMITIVE_INTERFACE", recordStruct.Interface);
             sb.Replace("PRIMITIVE_VALUE_TYPE", recordStruct.Type);
             sb.Replace("PRIMITIVE_DATA_TYPE", recordStruct.DataType.ToString());
-            sb.Replace("PRIMITIVE_IVALIDATABLEOBJECT", recordStruct.ImplementIValidatableObject ? $", System.ComponentModel.DataAnnotations.IValidatableObject" : string.Empty);
+            sb.Replace("PRIMITIVE_IVALIDATABLEOBJECT", recordStruct.ImplementIValidatableObject ? $", global::System.ComponentModel.DataAnnotations.IValidatableObject" : string.Empty);
             sb.Replace("PRIMITIVE_PATTERN", recordStruct.Pattern);
             sb.Replace("PRIMITIVE_EXAMPLE", recordStruct.Example);
             sb.Replace("PRIMITIVE_FORMAT", recordStruct.Format);
@@ -178,7 +178,7 @@ public class Structs : IIncrementalGenerator
 
         if (!dataTypes.Any())
         {
-            yieldStatements.Add($"{Padding}return System.Linq.Enumerable.Empty<Primitively.IPrimitiveInfo>();");
+            yieldStatements.Add($"{Padding}return global::System.Linq.Enumerable.Empty<Primitively.IPrimitiveInfo>();");
         }
         else
         {
@@ -190,8 +190,8 @@ public class Structs : IIncrementalGenerator
                     .OrderBy(rs => rs.Name)
                     .Select(rs => rs.DataType switch
                     {
-                        DataType.DateOnly => $"{Padding}yield return new Primitively.DateOnlyInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(System.DateTime), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, \"{rs.Format}\", {rs.Length});",
-                        DataType.Guid => $"{Padding}yield return new Primitively.GuidInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(System.Guid), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, Primitively.Specifier.{rs.Specifier}, {rs.Length});",
+                        DataType.DateOnly => $"{Padding}yield return new Primitively.DateOnlyInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(global::System.DateTime), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, \"{rs.Format}\", {rs.Length});",
+                        DataType.Guid => $"{Padding}yield return new Primitively.GuidInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(global::System.Guid), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, Primitively.Specifier.{rs.Specifier}, {rs.Length});",
                         DataType.Byte => $"{Padding}yield return new Primitively.IntegerInfo(Primitively.DataType.Byte, typeof({rs.NameSpace}.{rs.Name}), typeof(byte), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
                         DataType.SByte => $"{Padding}yield return new Primitively.IntegerInfo(Primitively.DataType.SByte, typeof({rs.NameSpace}.{rs.Name}), typeof(sbyte), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
                         DataType.Short => $"{Padding}yield return new Primitively.IntegerInfo(Primitively.DataType.Short, typeof({rs.NameSpace}.{rs.Name}), typeof(short), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",

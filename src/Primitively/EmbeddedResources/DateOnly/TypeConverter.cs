@@ -1,43 +1,43 @@
 ﻿
 #if NET6_0_OR_GREATER
-    public class TypeConverter : System.ComponentModel.TypeConverter
+    public class TypeConverter : global::System.ComponentModel.TypeConverter
     {
-        public override bool CanConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Type sourceType) =>
+        public override bool CanConvertFrom(global::System.ComponentModel.ITypeDescriptorContext context, global::System.Type sourceType) =>
             sourceType == typeof(string) ||
-            sourceType == typeof(System.DateOnly?) ||
-            sourceType == typeof(System.DateOnly) ||
-            sourceType == typeof(System.DateTime?) ||
-            sourceType == typeof(System.DateTime) ||
+            sourceType == typeof(global::System.DateOnly?) ||
+            sourceType == typeof(global::System.DateOnly) ||
+            sourceType == typeof(global::System.DateTime?) ||
+            sourceType == typeof(global::System.DateTime) ||
             base.CanConvertFrom(context, sourceType);
 
-        public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(global::System.ComponentModel.ITypeDescriptorContext context, global::System.Globalization.CultureInfo culture, object value)
         {
             return value switch
             {
                 string @string => new PRIMITIVE_TYPE(@string),
-                System.DateOnly dateOnly => new PRIMITIVE_TYPE(dateOnly),
-                System.DateTime dateTime => new PRIMITIVE_TYPE(dateTime),
+                global::System.DateOnly dateOnly => new PRIMITIVE_TYPE(dateOnly),
+                global::System.DateTime dateTime => new PRIMITIVE_TYPE(dateTime),
                 _ => base.ConvertFrom(context, culture, value),
             };
         }
 
-        public override bool CanConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Type sourceType)
+        public override bool CanConvertTo(global::System.ComponentModel.ITypeDescriptorContext context, global::System.Type sourceType)
         {
-            return sourceType == typeof(string) || sourceType == typeof(System.DateOnly) || sourceType == typeof(System.DateTime) || base.CanConvertFrom(context, sourceType);
+            return sourceType == typeof(string) || sourceType == typeof(global::System.DateOnly) || sourceType == typeof(global::System.DateTime) || base.CanConvertFrom(context, sourceType);
         }
 
-        public override object ConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, System.Type destinationType)
+        public override object ConvertTo(global::System.ComponentModel.ITypeDescriptorContext context, global::System.Globalization.CultureInfo culture, object value, global::System.Type destinationType)
         {
             if (value is PRIMITIVE_TYPE primitive)
             {
-                if (destinationType == typeof(System.DateOnly))
+                if (destinationType == typeof(global::System.DateOnly))
                 {
-                    return (System.DateOnly)primitive;
+                    return (global::System.DateOnly)primitive;
                 }
 
-                if (destinationType == typeof(System.DateTime))
+                if (destinationType == typeof(global::System.DateTime))
                 {
-                    return (System.DateTime)primitive;
+                    return (global::System.DateTime)primitive;
                 }
 
                 if (destinationType == typeof(string))
@@ -50,36 +50,36 @@
         }
     }
 #else
-    public class TypeConverter : System.ComponentModel.TypeConverter
+    public class TypeConverter : global::System.ComponentModel.TypeConverter
     {
-        public override bool CanConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Type sourceType) =>
+        public override bool CanConvertFrom(global::System.ComponentModel.ITypeDescriptorContext context, global::System.Type sourceType) =>
             sourceType == typeof(string) ||
-            sourceType == typeof(System.DateTime?) ||
-            sourceType == typeof(System.DateTime) ||
+            sourceType == typeof(global::System.DateTime?) ||
+            sourceType == typeof(global::System.DateTime) ||
             base.CanConvertFrom(context, sourceType);
 
-        public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(global::System.ComponentModel.ITypeDescriptorContext context, global::System.Globalization.CultureInfo culture, object value)
         {
             return value switch
             {
                 string @string => new PRIMITIVE_TYPE(@string),
-                System.DateTime dateTime => new PRIMITIVE_TYPE(dateTime),
+                global::System.DateTime dateTime => new PRIMITIVE_TYPE(dateTime),
                 _ => base.ConvertFrom(context, culture, value),
             };
         }
 
-        public override bool CanConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Type sourceType)
+        public override bool CanConvertTo(global::System.ComponentModel.ITypeDescriptorContext context, global::System.Type sourceType)
         {
-            return sourceType == typeof(string) || sourceType == typeof(System.DateTime) || base.CanConvertFrom(context, sourceType);
+            return sourceType == typeof(string) || sourceType == typeof(global::System.DateTime) || base.CanConvertFrom(context, sourceType);
         }
 
-        public override object ConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, System.Type destinationType)
+        public override object ConvertTo(global::System.ComponentModel.ITypeDescriptorContext context, global::System.Globalization.CultureInfo culture, object value, global::System.Type destinationType)
         {
             if (value is PRIMITIVE_TYPE primitive)
             {
-                if (destinationType == typeof(System.DateTime))
+                if (destinationType == typeof(global::System.DateTime))
                 {
-                    return (System.DateTime)primitive;
+                    return (global::System.DateTime)primitive;
                 }
 
                 if (destinationType == typeof(string))

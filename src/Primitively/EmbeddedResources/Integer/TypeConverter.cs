@@ -1,34 +1,34 @@
 ﻿
-    public class TypeConverter : System.ComponentModel.TypeConverter
+    public class TypeConverter : global::System.ComponentModel.TypeConverter
     {
-        public override bool CanConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Type sourceType) =>
+        public override bool CanConvertFrom(global::System.ComponentModel.ITypeDescriptorContext context, global::System.Type sourceType) =>
             sourceType == typeof(string) ||
-            sourceType == typeof(PRIMITIVE_VALUE_TYPE?) ||
-            sourceType == typeof(PRIMITIVE_VALUE_TYPE) ||
+            sourceType == typeof(global::PRIMITIVE_VALUE_TYPE?) ||
+            sourceType == typeof(global::PRIMITIVE_VALUE_TYPE) ||
             base.CanConvertFrom(context, sourceType);
 
-        public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(global::System.ComponentModel.ITypeDescriptorContext context, global::System.Globalization.CultureInfo culture, object value)
         {
             return value switch
             {
                 string @string => new PRIMITIVE_TYPE(@string),
-                PRIMITIVE_VALUE_TYPE integer => new PRIMITIVE_TYPE(integer),
+                global::PRIMITIVE_VALUE_TYPE integer => new PRIMITIVE_TYPE(integer),
                 _ => base.ConvertFrom(context, culture, value),
             };
         }
 
-        public override bool CanConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Type sourceType)
+        public override bool CanConvertTo(global::System.ComponentModel.ITypeDescriptorContext context, global::System.Type sourceType)
         {
-            return sourceType == typeof(string) || sourceType == typeof(PRIMITIVE_VALUE_TYPE) || base.CanConvertFrom(context, sourceType);
+            return sourceType == typeof(string) || sourceType == typeof(global::PRIMITIVE_VALUE_TYPE) || base.CanConvertFrom(context, sourceType);
         }
 
-        public override object ConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, System.Type destinationType)
+        public override object ConvertTo(global::System.ComponentModel.ITypeDescriptorContext context, global::System.Globalization.CultureInfo culture, object value, global::System.Type destinationType)
         {
             if (value is PRIMITIVE_TYPE primitive)
             {
-                if (destinationType == typeof(PRIMITIVE_VALUE_TYPE))
+                if (destinationType == typeof(global::PRIMITIVE_VALUE_TYPE))
                 {
-                    return (PRIMITIVE_VALUE_TYPE)primitive;
+                    return (global::PRIMITIVE_VALUE_TYPE)primitive;
                 }
 
                 if (destinationType == typeof(string))

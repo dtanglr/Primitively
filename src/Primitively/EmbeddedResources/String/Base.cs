@@ -1,4 +1,4 @@
-﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IString, System.IEquatable<PRIMITIVE_TYPE>, System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
+﻿readonly partial record struct PRIMITIVE_TYPE : Primitively.IString, global::System.IEquatable<PRIMITIVE_TYPE>, global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
 {
     private readonly string _value;
 
@@ -28,17 +28,17 @@
 
     string Primitively.IPrimitive<string>.Value => _value;
 
-    [System.Text.Json.Serialization.JsonIgnore]
+    [global::System.Text.Json.Serialization.JsonIgnore]
     public bool HasValue => _value != default;
 
-    [System.Text.Json.Serialization.JsonIgnore]
-    public System.Type ValueType => typeof(string);
+    [global::System.Text.Json.Serialization.JsonIgnore]
+    public global::System.Type ValueType => typeof(string);
 
-    [System.Text.Json.Serialization.JsonIgnore]
+    [global::System.Text.Json.Serialization.JsonIgnore]
     public Primitively.DataType DataType => Primitively.DataType.PRIMITIVE_DATA_TYPE;
 
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
-    public int CompareTo(PRIMITIVE_TYPE other) => System.String.Compare(_value, other._value, comparisonType: System.StringComparison.OrdinalIgnoreCase);
+    public int CompareTo(PRIMITIVE_TYPE other) => global::System.String.Compare(_value, other._value, comparisonType: global::System.StringComparison.OrdinalIgnoreCase);
     public override int GetHashCode() => _value?.GetHashCode() ?? 0;
     public override string ToString() => _value;
 
@@ -52,4 +52,4 @@
         !string.IsNullOrWhiteSpace(value) &&
         !(value.Length < MinLength) &&
         !(value.Length > MaxLength) &&
-        (Pattern.Length == 0 || System.Text.RegularExpressions.Regex.IsMatch(value, Pattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase, System.TimeSpan.FromSeconds(1)));
+        (Pattern.Length == 0 || global::System.Text.RegularExpressions.Regex.IsMatch(value, Pattern, global::System.Text.RegularExpressions.RegexOptions.IgnoreCase, global::System.TimeSpan.FromSeconds(1)));
