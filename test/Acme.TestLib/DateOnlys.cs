@@ -10,3 +10,6 @@ public partial record struct DeathDate;
 
 [DateOnly(ImplementIValidatableObject = true)]
 public partial record struct ValidatableDate;
+
+[DateOnly]
+internal partial record struct StartDate;
