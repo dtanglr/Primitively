@@ -5,6 +5,8 @@ using Primitively.AspNetCore.SwaggerGen;
 using Primitively.Configuration;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Xunit;
+using PrimitiveLibrary1 = Acme.TestLib.PrimitiveLibrary;
+using PrimitiveLibrary2 = Acme.TestLib2.PrimitiveLibrary;
 
 namespace Primitively.IntegrationTests;
 
@@ -14,11 +16,15 @@ public class PrimitiveAspNetCoreSwaggerGenTests
     public void PrimitiveSchemaFilter_IsRegistered()
     {
         // Arrange
-        var repository = PrimitiveLibrary.Respository;
-        var services = new ServiceCollection();
+        var types = new List<PrimitiveInfo>();
+        types.AddRange(PrimitiveLibrary1.Respository.GetTypes());
+        types.AddRange(PrimitiveLibrary2.Respository.GetTypes());
 
-        services.AddPrimitively(options => options.Register(repository))
-            .AddSwaggerGen();
+        var services = new ServiceCollection();
+        services.AddPrimitively(options => options
+            .Register(PrimitiveLibrary1.Respository)
+            .Register(PrimitiveLibrary2.Respository))
+                .AddSwaggerGen();
 
         // Act
         var serviceProvider = services.BuildServiceProvider();
@@ -32,12 +38,15 @@ public class PrimitiveAspNetCoreSwaggerGenTests
         filter.Should().NotBeNull();
         filter!.Arguments.Length.Should().Be(1);
 
-        var arg = filter.Arguments[0] as PrimitiveRegistry;
-        arg.Should().NotBeNull();
+        var registry = filter.Arguments[0] as PrimitiveRegistry;
+        registry.Should().NotBeNull();
 
-        foreach (var type in repository.GetTypes())
+        var registryTypes = registry!.ToList();
+        registryTypes.Should().NotBeNullOrEmpty();
+
+        foreach (var type in types)
         {
-            type.Should().NotBeNull();
+            registryTypes.Should().ContainSingle(r => r.Equals(type));
         }
 
         var schemaFilter = Activator.CreateInstance(filter.Type, filter.Arguments) as PrimitiveSchemaFilter;
