@@ -3,8 +3,8 @@
 **Primitive Obsession** is a code smell or anti-pattern where developers rely heavily on primitive data types (such as integers, strings, or booleans) instead of encapsulating related data into well-defined domain objects³. Here are some key points:
 
 1. **Definition**: Primitive fields are basic built-in building blocks of a language. They're usually typed as int, string or constants etc¹.
-2. **Problem**: Primitive Obsession is when the code relies too much on primitives. It means that a primitive value controls the logic in a class and this value is not type safe¹.
-3. **Example**: For instance, consider representing a website’s URL. You normally store it as a String. But a URL has more information and specific properties compared to a String (e.g. the scheme, query parameters, protocol). By storing it as a String you can no longer access these URL-specific items without additional code¹.
+1. **Problem**: Primitive Obsession is when the code relies too much on primitives. It means that a primitive value controls the logic in a class and this value is not type safe¹.
+1. **Example**: For instance, consider representing a website’s URL. You normally store it as a String. But a URL has more information and specific properties compared to a String (e.g. the scheme, query parameters, protocol). By storing it as a String you can no longer access these URL-specific items without additional code¹.
 
 This practice can lead to several drawbacks, such as increased complexity and decreased readability, which is why it's considered a bad practice³. It's recommended to use well-defined domain objects instead².
 

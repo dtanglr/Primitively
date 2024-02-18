@@ -3,11 +3,11 @@
 Creating strongly-typed IDs in C# has several benefits:
 
 1. **Avoid Primitive Obsession**: Using strongly-typed IDs helps avoid bugs introduced by using primitive types for entity identifiers¹².
-2. **Catch Errors Early**: The C# type system can catch errors for us, such as requesting an entity using the wrong ID¹.
-3. **Self-Documented Code**: The code becomes self-documented, making it easier to understand³.
-4. **Compiler Assistance**: It leverages the compiler to avoid sneaky errors³.
-5. **Location for Related Elements**: It provides a location to add validation, constants, methods, properties related to the type³.
-6. **Avoid Helper Classes**: No more need for helper classes³.
+1. **Catch Errors Early**: The C# type system can catch errors for us, such as requesting an entity using the wrong ID¹.
+1. **Self-Documented Code**: The code becomes self-documented, making it easier to understand³.
+1. **Compiler Assistance**: It leverages the compiler to avoid sneaky errors³.
+1. **Location for Related Elements**: It provides a location to add validation, constants, methods, properties related to the type³.
+1. **Avoid Helper Classes**: No more need for helper classes³.
 
 These benefits make your code more robust and maintainable. It's a good practice to use strongly-typed IDs when you're dealing with multiple entities that have IDs of the same primitive type².
 
