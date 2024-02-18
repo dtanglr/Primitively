@@ -3,13 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{53DB2221-007B-44EC-8CA5-06E340E20DFA}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+		src\Publish.props = src\Publish.props
+		README.md = README.md
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{85259CD9-4D3F-4D53-BDF4-B598410B676B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively", "src\Primitively\Primitively.csproj", "{A43A3D33-EC8E-4DF3-90B8-01ECAC293ABB}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{65B53329-4C22-4004-81AE-36F9FE861175}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.IntegrationTests", "test\Primitively.IntegrationTests\Primitively.IntegrationTests.csproj", "{7418C4B1-9DD7-4979-AC51-62BADE6F3170}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.Abstractions", "src\Primitively.Abstractions\Primitively.Abstractions.csproj", "{DBB27B83-64B3-4FCD-A57F-BCE56AD7E0AA}"
 EndProject
@@ -23,12 +26,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.AspNetCore.Swag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.MongoDB.Bson", "src\Primitively.MongoDB.Bson\Primitively.MongoDB.Bson.csproj", "{7B98BCBA-B006-4C04-B2B6-17C8820736C1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{65B53329-4C22-4004-81AE-36F9FE861175}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitively.IntegrationTests", "test\Primitively.IntegrationTests\Primitively.IntegrationTests.csproj", "{7418C4B1-9DD7-4979-AC51-62BADE6F3170}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acme.TestLib", "test\Acme.TestLib\Acme.TestLib.csproj", "{F159F852-EC63-4AB9-A68F-C1F10E2B6CD9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{53DB2221-007B-44EC-8CA5-06E340E20DFA}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acme.TestLib2", "test\Acme.TestLib2\Acme.TestLib2.csproj", "{BCFCC6F3-A32F-4431-A962-8B3B22EBBD88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +76,10 @@ Global
 		{F159F852-EC63-4AB9-A68F-C1F10E2B6CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F159F852-EC63-4AB9-A68F-C1F10E2B6CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F159F852-EC63-4AB9-A68F-C1F10E2B6CD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCFCC6F3-A32F-4431-A962-8B3B22EBBD88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCFCC6F3-A32F-4431-A962-8B3B22EBBD88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCFCC6F3-A32F-4431-A962-8B3B22EBBD88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCFCC6F3-A32F-4431-A962-8B3B22EBBD88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +94,7 @@ Global
 		{507D94C8-CB04-42C5-A300-5A7764E14338} = {85259CD9-4D3F-4D53-BDF4-B598410B676B}
 		{7B98BCBA-B006-4C04-B2B6-17C8820736C1} = {85259CD9-4D3F-4D53-BDF4-B598410B676B}
 		{F159F852-EC63-4AB9-A68F-C1F10E2B6CD9} = {65B53329-4C22-4004-81AE-36F9FE861175}
+		{BCFCC6F3-A32F-4431-A962-8B3B22EBBD88} = {65B53329-4C22-4004-81AE-36F9FE861175}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F8C44A9-087B-42DD-A219-45CBA101A5D0}

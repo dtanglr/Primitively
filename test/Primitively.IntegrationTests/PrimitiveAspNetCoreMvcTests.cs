@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Primitively.AspNetCore.Mvc.ModelBinding;
 using Xunit;
+using PrimitiveLibrary1 = Acme.TestLib.PrimitiveLibrary;
+using PrimitiveLibrary2 = Acme.TestLib2.PrimitiveLibrary;
 
 namespace Primitively.IntegrationTests;
 
@@ -15,7 +17,9 @@ public class PrimitiveAspNetCoreMvcTests
         // Arrange
         var services = new ServiceCollection();
 
-        services.AddPrimitively(options => options.Register(PrimitiveLibrary.Respository))
+        services.AddPrimitively(options => options
+            .Register(PrimitiveLibrary1.Respository)
+            .Register(PrimitiveLibrary2.Respository))
             .AddMvc();
 
         // Act

@@ -40,6 +40,7 @@
     <ProjectReference Include="..\..\src\Primitively.FluentValidation\Primitively.FluentValidation.csproj" />
     <ProjectReference Include="..\..\src\Primitively.MongoDB.Bson\Primitively.MongoDB.Bson.csproj" />
     <ProjectReference Include="..\Acme.TestLib\Acme.TestLib.csproj" />
+    <ProjectReference Include="..\Acme.TestLib2\Acme.TestLib2.csproj" />
   </ItemGroup>
 
 </Project>

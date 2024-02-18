@@ -5,7 +5,7 @@ internal readonly struct MetaData
     public readonly struct DateOnly
     {
         public static readonly string Interface = typeof(IDateOnly).FullName;
-        public static readonly string Type = typeof(Guid).FullName;
+        public static readonly string Type = typeof(System.DateTime).FullName;
 
         public readonly struct Iso8601
         {
@@ -101,7 +101,7 @@ internal readonly struct MetaData
     public readonly struct Guid
     {
         public static readonly string Interface = typeof(IGuid).FullName;
-        public static readonly string Type = typeof(Guid).FullName;
+        public static readonly string Type = typeof(System.Guid).FullName;
 
         public readonly struct N
         {
