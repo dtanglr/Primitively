@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Serializers;
 using Primitively.Configuration;
 using Primitively.MongoDB.Bson.Serialization;
-using Primitively.MongoDB.Bson.Serialization.Options;
+using Primitively.MongoDB.Bson.Serialization.Serializers;
 
 namespace Primitively.MongoDB.Bson;
 

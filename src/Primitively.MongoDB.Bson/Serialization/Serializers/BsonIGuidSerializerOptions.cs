@@ -1,8 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
-using Primitively.MongoDB.Bson.Serialization.Serializers;
 
-namespace Primitively.MongoDB.Bson.Serialization.Options;
+namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 public record BsonIGuidSerializerOptions : IBsonIGuidSerializerOptions<BsonIGuidSerializerOptions>
 {

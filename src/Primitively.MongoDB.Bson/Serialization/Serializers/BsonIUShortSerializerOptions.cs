@@ -1,18 +1,17 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Options;
-using Primitively.MongoDB.Bson.Serialization.Serializers;
 
-namespace Primitively.MongoDB.Bson.Serialization.Options;
+namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
-public record BsonIULongSerializerOptions : IBsonConvertibleSerializerOptions<BsonIULongSerializerOptions>
+public record BsonIUShortSerializerOptions : IBsonConvertibleSerializerOptions<BsonIUShortSerializerOptions>
 {
-    public DataType DataType { get; } = DataType.ULong;
-    public BsonType Representation { get; set; } = BsonType.Int64;
-    public Type SerializerType { get; set; } = typeof(BsonIULongSerializer<>);
+    public DataType DataType { get; } = DataType.UShort;
+    public BsonType Representation { get; set; } = BsonType.Int32;
+    public Type SerializerType { get; set; } = typeof(BsonIUShortSerializer<>);
     public bool AllowOverflow { get; set; }
     public bool AllowTruncation { get; set; }
-    public Func<BsonIULongSerializerOptions, Type, IBsonSerializer> CreateInstance { get; set; } = (options, primitiveType) =>
+    public Func<BsonIUShortSerializerOptions, Type, IBsonSerializer> CreateInstance { get; set; } = (options, primitiveType) =>
     {
         // Construct a Bson serializer for the given Primitively type using the options
         var serializerType = options.GetSerializerType(primitiveType);

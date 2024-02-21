@@ -1,9 +1,8 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Options;
-using Primitively.MongoDB.Bson.Serialization.Serializers;
 
-namespace Primitively.MongoDB.Bson.Serialization.Options;
+namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 public record BsonIShortSerializerOptions : IBsonConvertibleSerializerOptions<BsonIShortSerializerOptions>
 {
