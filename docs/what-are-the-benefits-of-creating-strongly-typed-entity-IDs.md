@@ -1,20 +1,19 @@
-# What are the benefits of creating strongly-typed IDs?
+# What are the benefits of using Primitively?
 
-Creating strongly-typed IDs in C# has several benefits:
+Codebases that adopt the ***Primitively** approach of encapsulating single value .NET native types, offer the following benefits: -
 
-1. **Avoid Primitive Obsession**: Using strongly-typed IDs helps avoid bugs introduced by using primitive types for entity identifiers¹².
-1. **Catch Errors Early**: The C# type system can catch errors for us, such as requesting an entity using the wrong ID¹.
-1. **Self-Documented Code**: The code becomes self-documented, making it easier to understand³.
-1. **Compiler Assistance**: It leverages the compiler to avoid sneaky errors³.
-1. **Location for Related Elements**: It provides a location to add validation, constants, methods, properties related to the type³.
-1. **Avoid Helper Classes**: No more need for helper classes³.
+1. **Avoid Primitive Obsession**: Using Primitively source generated types helps avoid bugs introduced by using primitive types¹².
+2. **Catch Errors Early**: The C# type system can catch errors for us, such as requesting an entity using the wrong ID¹. Primitively provides type safety and ensures that apples can only ever be compared with apples, and pears can only ever be compared to pears. 
+3. **Self-Documented Code**: The code becomes self-documented, making it easier to understand³. Primitively source generated types contain metadata compiled ahead of time (AOT). This negates the need to use reflection to discover o
+4. **Compiler Assistance**: It leverages the compiler to avoid sneaky errors³.
+5. **Location for Related Elements**: It provides a location to add validation, constants, methods, properties related to the type³.
+6. **Avoid Helper Classes**: No more need for helper classes³.
 
-These benefits make your code more robust and maintainable. It's a good practice to use strongly-typed IDs when you're dealing with multiple entities that have IDs of the same primitive type².
+## Source: Conversation with Bing, 06/02/2024
 
-Source: Conversation with Bing, 06/02/2024
-(1) An introduction to strongly-typed entity IDs - Andrew Lock. https://andrewlock.net/using-strongly-typed-entity-ids-to-avoid-primitive-obsession-part-1/.
-(2) Using C# 9 records as strongly-typed ids - Thomas Levesque. https://thomaslevesque.com/2020/10/30/using-csharp-9-records-as-strongly-typed-ids/.
-(3) Strongly-typed Ids using C# Source Generators - Meziantou's blog. https://bing.com/search?q=benefits+of+strongly-typed+Ids+in+C%23.
-(4) Strongly-typed Ids using C# Source Generators - Meziantou's blog. https://www.meziantou.net/strongly-typed-ids-with-csharp-source-generators.htm.
-(5) GitHub - andrewlock/StronglyTypedId: A Rosyln-powered generator for .... https://github.com/andrewlock/StronglyTypedId.
-(6) Strongly-typed ID update 0.2.1 - Andrew Lock. https://andrewlock.net/strongly-typed-id-updates/.
+1. [An introduction to strongly-typed entity IDs](https://andrewlock.net/using-strongly-typed-entity-ids-to-avoid-primitive-obsession-part-1/) - Andrew Lock.
+2. [Using C# 9 records as strongly-typed ids](https://thomaslevesque.com/2020/10/30/using-csharp-9-records-as-strongly-typed-ids/) - Thomas Levesque.
+3. [Strongly-typed Ids using C# Source Generators](https://bing.com/search?q=benefits+of+strongly-typed+Ids+in+C%23) - Meziantou's blog.
+4. [Strongly-typed Ids using C# Source Generators](https://www.meziantou.net/strongly-typed-ids-with-csharp-source-generators.htm) - Meziantou's blog.
+5. [GitHub - andrewlock/StronglyTypedId: A Rosyln-powered generator](https://github.com/andrewlock/StronglyTypedId) - Andrew Lock.
+6. [Strongly-typed ID update 0.2.1](https://andrewlock.net/strongly-typed-id-updates/) - Andrew Lock.
