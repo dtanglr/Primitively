@@ -100,16 +100,16 @@ public class BsonIGuidSerializer<TPrimitive> :
     /// <summary>
     /// Returns a serializer that has been reconfigured with the specified Guid representation.
     /// </summary>
-    /// <param name="guidRepresentation">The GuidRepresentation.</param>
+    /// <param name="representation">The GuidRepresentation.</param>
     /// <returns>The reconfigured serializer.</returns>
-    public BsonIGuidSerializer<TPrimitive> WithGuidRepresentation(GuidRepresentation guidRepresentation)
+    public BsonIGuidSerializer<TPrimitive> WithGuidRepresentation(GuidRepresentation representation)
     {
-        if (guidRepresentation == _serializer.GuidRepresentation)
+        if (representation == _serializer.GuidRepresentation)
         {
             return this;
         }
 
-        return new BsonIGuidSerializer<TPrimitive>(guidRepresentation);
+        return new BsonIGuidSerializer<TPrimitive>(representation);
     }
 
     /// <summary>
