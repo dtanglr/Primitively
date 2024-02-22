@@ -126,7 +126,7 @@ public class BsonIUIntSerializer<TPrimitive> :
         return new BsonIUIntSerializer<TPrimitive>(representation, _serializer.Converter);
     }
 
-    // explicit UInterface implementations
+    // Explicit interface implementations
     IBsonSerializer IRepresentationConverterConfigurable.WithConverter(RepresentationConverter converter)
     {
         return WithConverter(converter);

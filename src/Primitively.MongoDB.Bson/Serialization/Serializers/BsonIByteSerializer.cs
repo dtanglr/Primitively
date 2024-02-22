@@ -94,7 +94,7 @@ public class BsonIByteSerializer<TPrimitive> :
         return new BsonIByteSerializer<TPrimitive>(representation);
     }
 
-    // explicit Byteerface implementations
+    // Explicit interface implementations
     IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
     {
         return WithRepresentation(representation);

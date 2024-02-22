@@ -126,7 +126,7 @@ public class BsonIUShortSerializer<TPrimitive> :
         return new BsonIUShortSerializer<TPrimitive>(representation, _serializer.Converter);
     }
 
-    // explicit UShorterface implementations
+    // Explicit interface implementations
     IBsonSerializer IRepresentationConverterConfigurable.WithConverter(RepresentationConverter converter)
     {
         return WithConverter(converter);

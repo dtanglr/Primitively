@@ -94,7 +94,7 @@ public class BsonIStringSerializer<TPrimitive> :
         return new BsonIStringSerializer<TPrimitive>(representation);
     }
 
-    // explicit Stringerface implementations
+    // Explicit interface implementations
     IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
     {
         return WithRepresentation(representation);

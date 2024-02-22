@@ -127,7 +127,7 @@ public class BsonIGuidSerializer<TPrimitive> :
         return new BsonIGuidSerializer<TPrimitive>(representation);
     }
 
-    // explicit interface implementations
+    // Explicit interface implementations
     IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
     {
         return WithRepresentation(representation);

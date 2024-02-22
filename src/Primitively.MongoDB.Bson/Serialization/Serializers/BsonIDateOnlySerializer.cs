@@ -94,7 +94,7 @@ public class BsonIDateOnlySerializer<TPrimitive> :
         return new BsonIDateOnlySerializer<TPrimitive>(representation);
     }
 
-    // explicit DateOnlyerface implementations
+    // Explicit interface implementations
     IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
     {
         return WithRepresentation(representation);

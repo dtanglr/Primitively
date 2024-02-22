@@ -126,7 +126,7 @@ public class BsonILongSerializer<TPrimitive> :
         return new BsonILongSerializer<TPrimitive>(representation, _serializer.Converter);
     }
 
-    // explicit Longerface implementations
+    // Explicit interface implementations
     IBsonSerializer IRepresentationConverterConfigurable.WithConverter(RepresentationConverter converter)
     {
         return WithConverter(converter);
