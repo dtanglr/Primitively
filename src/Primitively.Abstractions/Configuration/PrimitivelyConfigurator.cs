@@ -2,7 +2,7 @@
 
 namespace Primitively.Configuration;
 
-public class PrimitivelyConfigurator
+public sealed class PrimitivelyConfigurator
 {
     public PrimitivelyConfigurator(IServiceCollection services, PrimitivelyOptions options) =>
         (Services, Options) = (services, options);

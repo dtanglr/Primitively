@@ -35,11 +35,6 @@ public sealed class PrimitiveRegistry
 
     public List<PrimitiveInfo> ToList() => _cache.Values.ToList();
 
-    public bool TryGet(Type type, out PrimitiveInfo? primitiveInfo)
-    {
-        return _cache.TryGetValue(type, out primitiveInfo);
-    }
-
     public bool TryCreate(Type type, string? value, out IPrimitive? primitive)
     {
         if (!_cache.TryGetValue(type, out var primitiveInfo))
@@ -50,5 +45,10 @@ public sealed class PrimitiveRegistry
 
         primitive = primitiveInfo.CreateFrom(value);
         return true;
+    }
+
+    public bool TryGet(Type type, out PrimitiveInfo? primitiveInfo)
+    {
+        return _cache.TryGetValue(type, out primitiveInfo);
     }
 }
