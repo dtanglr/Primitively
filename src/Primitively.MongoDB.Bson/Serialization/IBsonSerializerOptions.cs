@@ -9,6 +9,11 @@ namespace Primitively.MongoDB.Bson.Serialization;
 public interface IBsonSerializerOptions
 {
     /// <summary>
+    /// Gets the function used to create an instance of the serializer
+    /// </summary>
+    Func<Type, IBsonSerializer> CreateInstance { get; }
+
+    /// <summary>
     /// Gets the <see cref="Primitively.DataType"/> of the Primitively type that the serializer targets
     /// </summary>
     DataType DataType { get; }
@@ -22,9 +27,4 @@ public interface IBsonSerializerOptions
     /// Gets or sets the serializer type used to serialize/deserialize Primitively types that match the given <see cref="Primitively.DataType"/>
     /// </summary>
     Type SerializerType { get; set; }
-
-    /// <summary>
-    /// Gets the function used to create an instance of the serializer
-    /// </summary>
-    Func<Type, IBsonSerializer> CreateInstance { get; }
 }

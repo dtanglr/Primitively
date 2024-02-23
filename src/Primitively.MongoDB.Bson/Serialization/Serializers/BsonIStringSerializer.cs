@@ -16,15 +16,6 @@ public class BsonIStringSerializer<TPrimitive> :
     /// <summary>
     /// Initializes a new instance of the <see cref="BsonIStringSerializer{TPrimitive}"/> class.
     /// </summary>
-    /// <param name="serializer">The serializer.</param>
-    private BsonIStringSerializer(StringSerializer serializer)
-    {
-        _serializer = serializer;
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BsonIStringSerializer{TPrimitive}"/> class.
-    /// </summary>
     public BsonIStringSerializer()
     {
         _serializer = StringSerializer.Instance;
@@ -39,6 +30,14 @@ public class BsonIStringSerializer<TPrimitive> :
         _serializer = new StringSerializer(representation);
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BsonIStringSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    private BsonIStringSerializer(StringSerializer serializer)
+    {
+        _serializer = serializer;
+    }
     /// <summary>
     /// Gets a cached instance of the <see cref="BsonIStringSerializer{TPrimitive}"/> class.
     /// </summary>

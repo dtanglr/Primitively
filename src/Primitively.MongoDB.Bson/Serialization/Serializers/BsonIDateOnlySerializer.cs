@@ -16,15 +16,6 @@ public class BsonIDateOnlySerializer<TPrimitive> :
     /// <summary>
     /// Initializes a new instance of the <see cref="BsonIDateOnlySerializer{TPrimitive}"/> class.
     /// </summary>
-    /// <param name="serializer">The serializer.</param>
-    private BsonIDateOnlySerializer(DateTimeSerializer serializer)
-    {
-        _serializer = serializer;
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BsonIDateOnlySerializer{TPrimitive}"/> class.
-    /// </summary>
     public BsonIDateOnlySerializer()
     {
         _serializer = DateTimeSerializer.DateOnlyInstance;
@@ -39,6 +30,14 @@ public class BsonIDateOnlySerializer<TPrimitive> :
         _serializer = new DateTimeSerializer(true, representation);
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BsonIDateOnlySerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    private BsonIDateOnlySerializer(DateTimeSerializer serializer)
+    {
+        _serializer = serializer;
+    }
     /// <summary>
     /// Gets a cached instance of the <see cref="BsonIDateOnlySerializer{TPrimitive}"/> class.
     /// </summary>

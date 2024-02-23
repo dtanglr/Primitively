@@ -17,15 +17,6 @@ public class BsonIByteSerializer<TPrimitive> :
     /// <summary>
     /// Initializes a new instance of the <see cref="BsonIByteSerializer{TPrimitive}"/> class.
     /// </summary>
-    /// <param name="serializer">The serializer.</param>
-    private BsonIByteSerializer(ByteSerializer serializer)
-    {
-        _serializer = serializer;
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BsonIByteSerializer{TPrimitive}"/> class.
-    /// </summary>
     public BsonIByteSerializer()
     {
         _serializer = new ByteSerializer();
@@ -40,6 +31,14 @@ public class BsonIByteSerializer<TPrimitive> :
         _serializer = new ByteSerializer(representation);
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BsonIByteSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    private BsonIByteSerializer(ByteSerializer serializer)
+    {
+        _serializer = serializer;
+    }
     /// <summary>
     /// Gets a cached instance of the <see cref="BsonIByteSerializer{TPrimitive}"/> class.
     /// </summary>

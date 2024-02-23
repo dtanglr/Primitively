@@ -17,15 +17,6 @@ public class BsonIGuidSerializer<TPrimitive> :
     /// <summary>
     /// Initializes a new instance of the <see cref="BsonIGuidSerializer{TPrimitive}"/> class.
     /// </summary>
-    /// <param name="serializer">The serializer.</param>
-    private BsonIGuidSerializer(GuidSerializer serializer)
-    {
-        _serializer = serializer;
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BsonIGuidSerializer{TPrimitive}"/> class.
-    /// </summary>
     /// <remarks>
     /// This defaults to BsonType.Binary and GuidRepresentation.Standard.
     /// </remarks>
@@ -52,6 +43,14 @@ public class BsonIGuidSerializer<TPrimitive> :
         _serializer = new GuidSerializer(guidRepresentation);
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BsonIGuidSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    private BsonIGuidSerializer(GuidSerializer serializer)
+    {
+        _serializer = serializer;
+    }
     /// <summary>
     /// Gets a cached instance of the <see cref="BsonIGuidSerializer{TPrimitive}"/> class with standard representation.
     /// </summary>
@@ -112,6 +111,11 @@ public class BsonIGuidSerializer<TPrimitive> :
         return new BsonIGuidSerializer<TPrimitive>(representation);
     }
 
+    IBsonSerializer IGuidRepresentationConfigurable.WithGuidRepresentation(GuidRepresentation representation)
+    {
+        return WithGuidRepresentation(representation);
+    }
+
     /// <summary>
     /// Returns a serializer that has been reconfigured with the specified representation.
     /// </summary>
@@ -131,10 +135,5 @@ public class BsonIGuidSerializer<TPrimitive> :
     IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
     {
         return WithRepresentation(representation);
-    }
-
-    IBsonSerializer IGuidRepresentationConfigurable.WithGuidRepresentation(GuidRepresentation representation)
-    {
-        return WithGuidRepresentation(representation);
     }
 }

@@ -28,56 +28,6 @@ internal static class Parser
         typeof(StringAttribute).FullName,
     ];
 
-    public static bool IsRecordStructTargetForGeneration(SyntaxNode node) =>
-        node is RecordDeclarationSyntax record &&
-        record.IsKind(SyntaxKind.RecordStructDeclaration) &&
-        record.AttributeLists.Count > 0;
-
-    public static RecordDeclarationSyntax? GetRecordStructSemanticTargetForGeneration(GeneratorSyntaxContext context, CancellationToken cancellationToken)
-    {
-        // We know the node is a RecordDeclarationSyntax thanks to IsRecordStructTargetForGeneration
-        if (context.Node is not RecordDeclarationSyntax syntaxDeclaration)
-        {
-            return null;
-        }
-
-        // Loop through all the attributes on the Record Struct
-        foreach (var attributeListSyntax in syntaxDeclaration.AttributeLists)
-        {
-            if (attributeListSyntax is null)
-            {
-                continue;
-            }
-
-            foreach (var attributeSyntax in attributeListSyntax.Attributes)
-            {
-                if (attributeSyntax is null)
-                {
-                    continue;
-                }
-
-                var symbolInfo = context.SemanticModel.GetSymbolInfo(attributeSyntax, cancellationToken);
-
-                if (symbolInfo.Symbol is not IMethodSymbol attributeSymbol)
-                {
-                    continue;
-                }
-
-                // Get the containing type name
-                var fullName = attributeSymbol.ContainingType.ToDisplayString();
-
-                // Is the Record Struct decorated with a matching Primitively attribute
-                if (_attributeFullNames.Exists(a => a.Equals(fullName, StringComparison.Ordinal)))
-                {
-                    return syntaxDeclaration;
-                }
-            }
-        }
-
-        // We didn't find the attribute we were looking for
-        return null;
-    }
-
     public static List<RecordStructData> GetRecordStructDataToGenerate(SourceProductionContext context, Compilation compilation, ImmutableArray<RecordDeclarationSyntax?> recordStructs)
     {
         var recordStructDataToGenerate = new List<RecordStructData>();
@@ -173,26 +123,55 @@ internal static class Parser
         return recordStructDataToGenerate;
     }
 
-    private static IEnumerable<INamedTypeSymbol> GetPrimitiveAttributeSymbols(Compilation compilation)
+    public static RecordDeclarationSyntax? GetRecordStructSemanticTargetForGeneration(GeneratorSyntaxContext context, CancellationToken cancellationToken)
     {
-        foreach (var attributeFullName in _attributeFullNames)
+        // We know the node is a RecordDeclarationSyntax thanks to IsRecordStructTargetForGeneration
+        if (context.Node is not RecordDeclarationSyntax syntaxDeclaration)
         {
-            var attributeSymbol = compilation.GetTypeByMetadataName(attributeFullName);
+            return null;
+        }
 
-            if (attributeSymbol is not null)
+        // Loop through all the attributes on the Record Struct
+        foreach (var attributeListSyntax in syntaxDeclaration.AttributeLists)
+        {
+            if (attributeListSyntax is null)
             {
-                yield return attributeSymbol;
+                continue;
+            }
+
+            foreach (var attributeSyntax in attributeListSyntax.Attributes)
+            {
+                if (attributeSyntax is null)
+                {
+                    continue;
+                }
+
+                var symbolInfo = context.SemanticModel.GetSymbolInfo(attributeSyntax, cancellationToken);
+
+                if (symbolInfo.Symbol is not IMethodSymbol attributeSymbol)
+                {
+                    continue;
+                }
+
+                // Get the containing type name
+                var fullName = attributeSymbol.ContainingType.ToDisplayString();
+
+                // Is the Record Struct decorated with a matching Primitively attribute
+                if (_attributeFullNames.Exists(a => a.Equals(fullName, StringComparison.Ordinal)))
+                {
+                    return syntaxDeclaration;
+                }
             }
         }
+
+        // We didn't find the attribute we were looking for
+        return null;
     }
 
-    private static INamedTypeSymbol? GetPrimitiveRecordStructSymbol(Compilation compilation, RecordDeclarationSyntax recordDeclarationSyntax)
-    {
-        var semanticModel = compilation.GetSemanticModel(recordDeclarationSyntax.SyntaxTree);
-
-        return semanticModel.GetDeclaredSymbol(recordDeclarationSyntax);
-    }
-
+    public static bool IsRecordStructTargetForGeneration(SyntaxNode node) =>
+                node is RecordDeclarationSyntax record &&
+        record.IsKind(SyntaxKind.RecordStructDeclaration) &&
+        record.AttributeLists.Count > 0;
     private static string GetNameSpace(RecordDeclarationSyntax recordStructSymbol)
     {
         // Determine the namespace the struct is declared in, if any
@@ -248,5 +227,25 @@ internal static class Parser
         }
 
         return parentData;
+    }
+
+    private static IEnumerable<INamedTypeSymbol> GetPrimitiveAttributeSymbols(Compilation compilation)
+    {
+        foreach (var attributeFullName in _attributeFullNames)
+        {
+            var attributeSymbol = compilation.GetTypeByMetadataName(attributeFullName);
+
+            if (attributeSymbol is not null)
+            {
+                yield return attributeSymbol;
+            }
+        }
+    }
+
+    private static INamedTypeSymbol? GetPrimitiveRecordStructSymbol(Compilation compilation, RecordDeclarationSyntax recordDeclarationSyntax)
+    {
+        var semanticModel = compilation.GetSemanticModel(recordDeclarationSyntax.SyntaxTree);
+
+        return semanticModel.GetDeclaredSymbol(recordDeclarationSyntax);
     }
 }

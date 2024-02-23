@@ -18,15 +18,6 @@ public class BsonIShortSerializer<TPrimitive> :
     /// <summary>
     /// Initializes a new instance of the <see cref="BsonIShortSerializer{TPrimitive}"/> class.
     /// </summary>
-    /// <param name="serializer">The serializer.</param>
-    private BsonIShortSerializer(Int16Serializer serializer)
-    {
-        _serializer = serializer;
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BsonIShortSerializer{TPrimitive}"/> class.
-    /// </summary>
     public BsonIShortSerializer()
     {
         _serializer = new Int16Serializer();
@@ -52,20 +43,27 @@ public class BsonIShortSerializer<TPrimitive> :
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="BsonIShortSerializer{TPrimitive}"/> class.
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    private BsonIShortSerializer(Int16Serializer serializer)
+    {
+        _serializer = serializer;
+    }
+    /// <summary>
     /// Gets a cached instance of the <see cref="BsonIShortSerializer{TPrimitive}"/> class.
     /// </summary>
     public static BsonIShortSerializer<TPrimitive> Instance { get; } = new();
-
-    /// <summary>
-    /// Gets the representation.
-    /// </summary>
-    public BsonType Representation => _serializer.Representation;
 
     /// <summary>
     /// Gets the converter.
     /// </summary>
     public RepresentationConverter Converter => _serializer.Converter;
 
+    /// <summary>
+    /// Gets the representation.
+    /// </summary>
+    public BsonType Representation => _serializer.Representation;
     /// <summary>
     /// Initializes a new instance of the <see cref="BsonIShortSerializer{TPrimitive}"/> class.
     /// </summary>
@@ -111,6 +109,12 @@ public class BsonIShortSerializer<TPrimitive> :
         return new BsonIShortSerializer<TPrimitive>(_serializer.Representation, converter);
     }
 
+    // Explicit interface implementations
+    IBsonSerializer IRepresentationConverterConfigurable.WithConverter(RepresentationConverter converter)
+    {
+        return WithConverter(converter);
+    }
+
     /// <summary>
     /// Returns a serializer that has been reconfigured with the specified representation.
     /// </summary>
@@ -125,13 +129,6 @@ public class BsonIShortSerializer<TPrimitive> :
 
         return new BsonIShortSerializer<TPrimitive>(representation, _serializer.Converter);
     }
-
-    // Explicit interface implementations
-    IBsonSerializer IRepresentationConverterConfigurable.WithConverter(RepresentationConverter converter)
-    {
-        return WithConverter(converter);
-    }
-
     IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
     {
         return WithRepresentation(representation);
