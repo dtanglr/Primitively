@@ -38,8 +38,7 @@
     "resource": [
       {
         "files": [
-          "images/**",
-          "icon.png"
+          "images/**"
         ]
       }
     ],
@@ -51,8 +50,8 @@
     "globalMetadata": {
       "_appName": "Primitively",
       "_appTitle": "Primitively",
-      "_appLogoPath": "icon.png",
-      "_appFaviconPath": "icon.png",
+      "_appLogoPath": "images/icon.png",
+      "_appFaviconPath": "images/icon.png",
       "_enableSearch": true,
       "_lang": "en",
       "pdf": false
