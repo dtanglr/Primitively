@@ -1,27 +1,34 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
-using Primitively.MongoDB.Bson.Serialization.Serializers;
 
-namespace Primitively.MongoDB.Bson.Serialization.Options;
+namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a class that facilitates the configuration of a serializer for Primitively types that encapsulate a Byte value.
+/// Represents the options used to configure the BSON serialization of Primitively <see cref="IByte"/> types.
 /// </summary>
 public record BsonIByteSerializerOptions : IBsonSerializerOptions<BsonIByteSerializerOptions>
 {
-    /// <inheritdoc/>
-    /// <remarks>Returns: <see cref="DataType.Byte"/></remarks>
+    /// <summary>
+    /// Gets the <see cref="Primitively.DataType"/> of the Primitively <see cref="IByte"/> type.
+    /// </summary>
+    /// <value><see cref="DataType.Byte"/></value>
     public DataType DataType { get; } = DataType.Byte;
 
-    /// <inheritdoc/>
-    /// <remarks>Default: <see cref="BsonType.Int32"/></remarks>
+    /// <summary>
+    /// Gets or sets the <see cref="BsonType"/> used to represent the Primitively <see cref="IByte"/> type.
+    /// </summary>
+    /// <value><see cref="BsonType.Int32"/></value>
     public BsonType Representation { get; set; } = BsonType.Int32;
 
-    /// <inheritdoc/>
-    /// <remarks>Default: typeof(BsonIByteSerializer&lt;&gt;)</remarks>
+    /// <summary>
+    /// Gets or sets the type used to serialize Primitively <see cref="IByte"/> types.
+    /// </summary>
+    /// <value><![CDATA[typeof(BsonIByteSerializer<>)]]></value>
     public Type SerializerType { get; set; } = typeof(BsonIByteSerializer<>);
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Gets or sets the function used to create an instance of the type used to serialize Primitively <see cref="IByte"/> types.
+    /// </summary>
     public Func<BsonIByteSerializerOptions, Type, IBsonSerializer> CreateInstance { get; set; } = (options, primitiveType) =>
     {
         // Construct a Bson serializer for the given Primitively type using the options
@@ -33,6 +40,5 @@ public record BsonIByteSerializerOptions : IBsonSerializerOptions<BsonIByteSeria
         return serializerInstance;
     };
 
-    /// <inheritdoc/>
     Func<Type, IBsonSerializer> IBsonSerializerOptions.CreateInstance => (primitiveType) => CreateInstance.Invoke(this, primitiveType);
 }

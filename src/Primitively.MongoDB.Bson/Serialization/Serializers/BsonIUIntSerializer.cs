@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a UInt value.
+/// Represents a BSON serializer for Primitively <see cref="IUInt"/> types that encapsulate <see cref="uint"/> values.
 /// </summary>
 public class BsonIUIntSerializer<TPrimitive> :
     StructSerializerBase<TPrimitive>,
@@ -126,7 +126,7 @@ public class BsonIUIntSerializer<TPrimitive> :
         return new BsonIUIntSerializer<TPrimitive>(representation, _serializer.Converter);
     }
 
-    // explicit UInterface implementations
+    // Explicit interface implementations
     IBsonSerializer IRepresentationConverterConfigurable.WithConverter(RepresentationConverter converter)
     {
         return WithConverter(converter);

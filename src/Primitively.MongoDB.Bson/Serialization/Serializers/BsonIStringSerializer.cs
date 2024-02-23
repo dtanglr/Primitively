@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a String value.
+/// Represents a BSON serializer for Primitively <see cref="IString"/> types that encapsulate <see cref="string"/> values.
 /// </summary>
 public class BsonIStringSerializer<TPrimitive> :
     StructSerializerBase<TPrimitive>,
@@ -94,7 +94,7 @@ public class BsonIStringSerializer<TPrimitive> :
         return new BsonIStringSerializer<TPrimitive>(representation);
     }
 
-    // explicit Stringerface implementations
+    // Explicit interface implementations
     IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
     {
         return WithRepresentation(representation);

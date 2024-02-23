@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a Guid value.
+/// Represents a BSON serializer for Primitively <see cref="IGuid"/> types that encapsulate <see cref="Guid"/> values.
 /// </summary>
 public class BsonIGuidSerializer<TPrimitive> :
     StructSerializerBase<TPrimitive>,
@@ -100,16 +100,16 @@ public class BsonIGuidSerializer<TPrimitive> :
     /// <summary>
     /// Returns a serializer that has been reconfigured with the specified Guid representation.
     /// </summary>
-    /// <param name="guidRepresentation">The GuidRepresentation.</param>
+    /// <param name="representation">The GuidRepresentation.</param>
     /// <returns>The reconfigured serializer.</returns>
-    public BsonIGuidSerializer<TPrimitive> WithGuidRepresentation(GuidRepresentation guidRepresentation)
+    public BsonIGuidSerializer<TPrimitive> WithGuidRepresentation(GuidRepresentation representation)
     {
-        if (guidRepresentation == _serializer.GuidRepresentation)
+        if (representation == _serializer.GuidRepresentation)
         {
             return this;
         }
 
-        return new BsonIGuidSerializer<TPrimitive>(guidRepresentation);
+        return new BsonIGuidSerializer<TPrimitive>(representation);
     }
 
     /// <summary>
@@ -127,7 +127,7 @@ public class BsonIGuidSerializer<TPrimitive> :
         return new BsonIGuidSerializer<TPrimitive>(representation);
     }
 
-    // explicit interface implementations
+    // Explicit interface implementations
     IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
     {
         return WithRepresentation(representation);

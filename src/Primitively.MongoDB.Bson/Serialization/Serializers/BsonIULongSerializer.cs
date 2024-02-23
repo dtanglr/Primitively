@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a ULong value.
+/// Represents a BSON serializer for Primitively <see cref="IULong"/> types that encapsulate <see cref="ulong"/> values.
 /// </summary>
 public class BsonIULongSerializer<TPrimitive> :
     StructSerializerBase<TPrimitive>,
@@ -126,7 +126,7 @@ public class BsonIULongSerializer<TPrimitive> :
         return new BsonIULongSerializer<TPrimitive>(representation, _serializer.Converter);
     }
 
-    // explicit ULongerface implementations
+    // Explicit interface implementations
     IBsonSerializer IRepresentationConverterConfigurable.WithConverter(RepresentationConverter converter)
     {
         return WithConverter(converter);

@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a UShort value.
+/// Represents a BSON serializer for Primitively <see cref="IUShort"/> types that encapsulate <see cref="ushort"/> values.
 /// </summary>
 public class BsonIUShortSerializer<TPrimitive> :
     StructSerializerBase<TPrimitive>,
@@ -126,7 +126,7 @@ public class BsonIUShortSerializer<TPrimitive> :
         return new BsonIUShortSerializer<TPrimitive>(representation, _serializer.Converter);
     }
 
-    // explicit UShorterface implementations
+    // Explicit interface implementations
     IBsonSerializer IRepresentationConverterConfigurable.WithConverter(RepresentationConverter converter)
     {
         return WithConverter(converter);
