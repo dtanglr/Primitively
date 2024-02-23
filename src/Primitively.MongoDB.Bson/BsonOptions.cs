@@ -7,10 +7,10 @@ namespace Primitively.MongoDB.Bson;
 
 public class BsonOptions
 {
-    private readonly PrimitiveRegistry _registry;
     private readonly IBsonSerializerManager _manager;
     private readonly Dictionary<DataType, IBsonSerializerOptions> _options = new(GetAll().ToDictionary(o => o.DataType, o => o));
     private readonly Dictionary<Type, DataType> _primitiveTypes = [];
+    private readonly PrimitiveRegistry _registry;
 
     internal BsonOptions(PrimitiveRegistry registry, IBsonSerializerManager manager)
     {
@@ -18,7 +18,65 @@ public class BsonOptions
         _manager = manager;
     }
 
+    /// <summary>
+    /// Set to false to prevent Bson serializers being registered for each type in the Primitively registry.
+    /// </summary>
     public bool RegisterSerializersForEachTypeInRegistry { get; set; } = true;
+
+    public BsonOptions Configure<TBsonSerializerOptions>(Action<TBsonSerializerOptions> options)
+        where TBsonSerializerOptions : class, IBsonSerializerOptions
+    {
+        var option = GetSerializerOptions<TBsonSerializerOptions>()!;
+        options.Invoke(option);
+
+        return this;
+    }
+
+    public BsonOptions Register<TPrimitive>() where TPrimitive : struct, IPrimitive
+    {
+        var primitive = new TPrimitive();
+        AddPrimitiveType(typeof(TPrimitive), primitive.DataType);
+
+        return this;
+    }
+
+    public BsonOptions Register(IPrimitiveRepository repository)
+    {
+        if (repository is null)
+        {
+            throw new ArgumentNullException(nameof(repository));
+        }
+
+        foreach (var primitiveInfo in repository.GetTypes())
+        {
+            AddPrimitiveType(primitiveInfo.Type, primitiveInfo.DataType);
+        }
+
+        return this;
+    }
+
+    internal void Build()
+    {
+        // If configured, add all the primitive types from the registry
+        if (RegisterSerializersForEachTypeInRegistry && !_registry.IsEmpty)
+        {
+            foreach (var primitiveInfo in _registry.ToList())
+            {
+                AddPrimitiveType(primitiveInfo.Type, primitiveInfo.DataType);
+            }
+        }
+
+        // Now generate and register a Bson serializer for each type in the collection
+        foreach (var primitiveType in _primitiveTypes)
+        {
+            RegisterSerializer(primitiveType.Key, primitiveType.Value);
+        }
+    }
+
+    internal IBsonSerializerOptions GetSerializerOptions(DataType dataType) => _options[dataType];
+
+    internal TOptions GetSerializerOptions<TOptions>() where TOptions : class, IBsonSerializerOptions =>
+        (TOptions)_options.Single(o => o.Value is TOptions).Value;
 
     private static IEnumerable<IBsonSerializerOptions> GetAll()
     {
@@ -36,74 +94,15 @@ public class BsonOptions
         yield return new BsonIUShortSerializerOptions();
     }
 
-    public BsonOptions Configure<TBsonSerializerOptions>(Action<TBsonSerializerOptions> options)
-        where TBsonSerializerOptions : class, IBsonSerializerOptions
-    {
-        var option = GetSerializerOptions<TBsonSerializerOptions>()!;
-        options.Invoke(option);
-
-        return this;
-    }
-
-    public BsonOptions Register<TPrimitive>() where TPrimitive : struct, IPrimitive
-    {
-        var primitive = new TPrimitive();
-        var _ = TryAddPrimitiveType(typeof(TPrimitive), primitive.DataType);
-
-        return this;
-    }
-
-    public BsonOptions Register(IPrimitiveRepository repository)
-    {
-        if (repository is null)
-        {
-            throw new ArgumentNullException(nameof(repository));
-        }
-
-        foreach (var primitiveInfo in repository.GetTypes())
-        {
-            var _ = TryAddPrimitiveType(primitiveInfo.Type, primitiveInfo.DataType);
-        }
-
-        return this;
-    }
-
-    internal void Build()
-    {
-        // If configured, add all the primitive types from the registry
-        if (RegisterSerializersForEachTypeInRegistry && !_registry.IsEmpty)
-        {
-            foreach (var primitiveInfo in _registry.ToList())
-            {
-                var _ = TryAddPrimitiveType(primitiveInfo.Type, primitiveInfo.DataType);
-            }
-        }
-
-        // Now generate and register a Bson serializer for each type in the collection
-        foreach (var primitiveType in _primitiveTypes)
-        {
-            RegisterSerializer(primitiveType.Key, primitiveType.Value);
-        }
-    }
-
-    internal IBsonSerializerOptions GetSerializerOptions(DataType dataType) => _options[dataType];
-
-    internal TOptions GetSerializerOptions<TOptions>() where TOptions : class, IBsonSerializerOptions =>
-        (TOptions)_options.Single(o => o.Value is TOptions).Value;
-
-    private bool TryAddPrimitiveType(Type type, DataType dataType)
+    private void AddPrimitiveType(Type type, DataType dataType)
     {
 #if NET6_0_OR_GREATER
-        return _primitiveTypes.TryAdd(type, dataType);
+        _primitiveTypes.TryAdd(type, dataType);
 #else
-        if (_primitiveTypes.ContainsKey(type))
+        if (!_primitiveTypes.ContainsKey(type))
         {
-            return false;
+            _primitiveTypes.Add(type, dataType);
         }
-
-        _primitiveTypes.Add(type, dataType);
-
-        return true;
 #endif
     }
 

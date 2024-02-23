@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a Short value.
+/// Represents a BSON serializer for Primitively <see cref="IShort"/> types that encapsulate <see cref="short"/> values.
 /// </summary>
 public class BsonIShortSerializer<TPrimitive> :
     StructSerializerBase<TPrimitive>,

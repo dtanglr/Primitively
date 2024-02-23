@@ -3,12 +3,37 @@ using MongoDB.Bson.Serialization;
 
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
+/// <summary>
+/// Represents the options used to configure the BSON serialization of Primitively <see cref="IGuid"/> types.
+/// </summary>
 public record BsonIGuidSerializerOptions : IBsonIGuidSerializerOptions<BsonIGuidSerializerOptions>
 {
+    /// <summary>
+    /// Gets the <see cref="Primitively.DataType"/> of the Primitively <see cref="IGuid"/> type.
+    /// </summary>
+    /// <value><see cref="DataType.Guid"/></value>
     public DataType DataType { get; } = DataType.Guid;
+
+    /// <summary>
+    /// Gets or sets the <see cref="BsonType"/> used to represent the Primitively <see cref="IGuid"/> type.
+    /// </summary>
+    /// <value><see cref="BsonType.Binary"/></value>
     public BsonType Representation { get; set; } = BsonType.Binary;
+
+    /// <summary>
+    /// Gets or sets the <see cref="global::MongoDB.Bson.GuidRepresentation"/> used to represent the Primitively <see cref="IGuid"/> type.
+    /// </summary>
     public GuidRepresentation GuidRepresentation { get; set; } = BsonDefaults.GuidRepresentation;
+
+    /// <summary>
+    /// Gets or sets the type used to serialize Primitively <see cref="IGuid"/> types.
+    /// </summary>
+    /// <value><![CDATA[typeof(BsonIGuidSerializer<>)]]></value>
     public Type SerializerType { get; set; } = typeof(BsonIGuidSerializer<>);
+
+    /// <summary>
+    /// Gets or sets the function used to create an instance of the type used to serialize Primitively <see cref="IGuid"/> types.
+    /// </summary>
     public Func<BsonIGuidSerializerOptions, Type, IBsonSerializer> CreateInstance { get; set; } = (options, primitiveType) =>
     {
         // Check that the application is using the correct GuidRepresentationMode

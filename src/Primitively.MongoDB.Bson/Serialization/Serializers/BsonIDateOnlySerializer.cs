@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a DateOnly value.
+/// Represents a BSON serializer for Primitively <see cref="IDateOnly"/> types that encapsulate <see cref="DateTime"/> values.
 /// </summary>
 public class BsonIDateOnlySerializer<TPrimitive> :
     StructSerializerBase<TPrimitive>,

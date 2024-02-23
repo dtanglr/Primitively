@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a Long value.
+/// Represents a BSON serializer for Primitively <see cref="ILong"/> types that encapsulate <see cref="long"/> values.
 /// </summary>
 public class BsonILongSerializer<TPrimitive> :
     StructSerializerBase<TPrimitive>,

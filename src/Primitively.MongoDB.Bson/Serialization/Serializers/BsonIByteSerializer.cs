@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a Byte value.
+/// Represents a BSON serializer for Primitively <see cref="IByte"/> types that encapsulate <see cref="byte"/> values.
 /// </summary>
 public class BsonIByteSerializer<TPrimitive> :
     StructSerializerBase<TPrimitive>,

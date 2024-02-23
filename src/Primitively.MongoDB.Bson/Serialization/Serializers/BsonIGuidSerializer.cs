@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 
 /// <summary>
-/// Represents a serializer for Primitively types that encapsulate a Guid value.
+/// Represents a BSON serializer for Primitively <see cref="IGuid"/> types that encapsulate <see cref="Guid"/> values.
 /// </summary>
 public class BsonIGuidSerializer<TPrimitive> :
     StructSerializerBase<TPrimitive>,
