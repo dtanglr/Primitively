@@ -17,14 +17,29 @@
         }
       ],
       "dest": "api",
-      "includePrivateMembers": false,
-      "disableGitFeatures": false,
+      "memberLayout": "separatePages",
+      "includeExplicitInterfaceImplementations": true,
+      "disableGitFeatures": true,
       "disableDefaultFilter": false,
+      "includePrivateMembers": false,
       "noRestore": false,
       "namespaceLayout": "flattened"
     }
   ],
   "build": {
+    "globalMetadata": {
+      "_appName": "Primitively",
+      "_appTitle": "Primitively",
+      "_appLogoPath": "images/icon.png",
+      "_appFaviconPath": "images/icon.png",
+      "_enableSearch": true,
+      "_enableNewTab": true,
+      "_copyrightFooter": "© Electronic Hands. All rights reserved.",
+      "_lang": "en",
+      "pdf": false
+    },
+    "template": ["default", "templates/singulinkfx"],
+    "xrefService": ["https://xref.docs.microsoft.com/query?uid={uid}"],
     "content": [
       {
         "files": [
@@ -42,19 +57,13 @@
         ]
       }
     ],
-    "output": "_site",
-    "template": [
-      "default",
-      "modern"
-    ],
-    "globalMetadata": {
-      "_appName": "Primitively",
-      "_appTitle": "Primitively",
-      "_appLogoPath": "images/icon.png",
-      "_appFaviconPath": "images/icon.png",
-      "_enableSearch": true,
-      "_lang": "en",
-      "pdf": false
-    }
+    "dest": "_site",
+    "disableGitFeatures": true,
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "postProcessors": [],
+    "markdownEngineName": "markdig",
+    "noLangKeyword": false,
+    "keepFileLink": false
   }
 }
