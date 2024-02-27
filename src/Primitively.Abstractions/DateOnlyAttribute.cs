@@ -5,8 +5,6 @@
 /// with default Iso8601 format of yyyy-MM-dd
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-public sealed class DateOnlyAttribute : Attribute, IPimitivelyAttribute
+public sealed class DateOnlyAttribute : PrimitiveAttribute
 {
-    /// <inheritdoc/>
-    public bool ImplementIValidatableObject { get; set; }
 }

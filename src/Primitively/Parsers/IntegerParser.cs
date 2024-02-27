@@ -127,14 +127,14 @@ internal static class IntegerParser
 
             switch (key)
             {
-                case nameof(IIntegerAttribute.ImplementIValidatableObject):
+                case nameof(IntegerAttribute.ImplementIValidatableObject):
                     recordStructData.ImplementIValidatableObject = (bool?)value ?? false;
                     break;
-                case nameof(IIntegerAttribute.Minimum):
+                case nameof(IntegerAttribute.Minimum):
                     recordStructData.Minimum = decimal.TryParse(value?.ToString(), out var minimum) ? minimum : recordStructData.Minimum;
                     rangeHasChanged = true;
                     break;
-                case nameof(IIntegerAttribute.Maximum):
+                case nameof(IntegerAttribute.Maximum):
                     recordStructData.Maximum = decimal.TryParse(value?.ToString(), out var maximum) ? maximum : recordStructData.Maximum;
                     rangeHasChanged = true;
                     break;

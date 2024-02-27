@@ -5,18 +5,17 @@
 /// with a default range of: -128 to 127
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-public sealed class SByteAttribute : Attribute, IIntegerAttribute<sbyte>
+public sealed class SByteAttribute : IntegerAttribute
 {
-    /// <inheritdoc/>
-    public bool ImplementIValidatableObject { get; set; }
+    /// <summary>
+    /// The minimum value that can be assigned to the Primitively type
+    /// </summary>
+    /// <value>The minimum value</value>
+    public new sbyte Minimum { get; set; }
 
-    /// <inheritdoc/>
-    public sbyte Minimum { get; set; } = sbyte.MinValue;
-
-    /// <inheritdoc/>
-    public sbyte Maximum { get; set; } = sbyte.MaxValue;
-
-    object IIntegerAttribute.Minimum { get => Minimum; }
-
-    object IIntegerAttribute.Maximum { get => Maximum; }
+    /// <summary>
+    /// The maximum value that can be assigned to the Primitively type
+    /// </summary>
+    /// <value>The maximum value</value>
+    public new sbyte Maximum { get; set; }
 }

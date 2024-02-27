@@ -5,18 +5,17 @@
 /// with a default range of: 0 to 18,446,744,073,709,551,615
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-public sealed class ULongAttribute : Attribute, IIntegerAttribute<ulong>
+public sealed class ULongAttribute : IntegerAttribute
 {
-    /// <inheritdoc/>
-    public bool ImplementIValidatableObject { get; set; }
+    /// <summary>
+    /// The minimum value that can be assigned to the Primitively type
+    /// </summary>
+    /// <value>The minimum value</value>
+    public new ulong Minimum { get; set; }
 
-    /// <inheritdoc/>
-    public ulong Minimum { get; set; } = ulong.MinValue;
-
-    /// <inheritdoc/>
-    public ulong Maximum { get; set; } = ulong.MaxValue;
-
-    object IIntegerAttribute.Minimum { get => Minimum; }
-
-    object IIntegerAttribute.Maximum { get => Maximum; }
+    /// <summary>
+    /// The maximum value that can be assigned to the Primitively type
+    /// </summary>
+    /// <value>The maximum value</value>
+    public new ulong Maximum { get; set; }
 }

@@ -5,18 +5,17 @@
 /// with a default range of: -32,768 to 32,767
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-public sealed class ShortAttribute : Attribute, IIntegerAttribute<short>
+public sealed class ShortAttribute : IntegerAttribute
 {
-    /// <inheritdoc/>
-    public bool ImplementIValidatableObject { get; set; }
+    /// <summary>
+    /// The minimum value that can be assigned to the Primitively type
+    /// </summary>
+    /// <value>The minimum value</value>
+    public new short Minimum { get; set; }
 
-    /// <inheritdoc/>
-    public short Minimum { get; set; } = short.MinValue;
-
-    /// <inheritdoc/>
-    public short Maximum { get; set; } = short.MaxValue;
-
-    object IIntegerAttribute.Minimum { get => Minimum; }
-
-    object IIntegerAttribute.Maximum { get => Maximum; }
+    /// <summary>
+    /// The maximum value that can be assigned to the Primitively type
+    /// </summary>
+    /// <value>The maximum value</value>
+    public new short Maximum { get; set; }
 }

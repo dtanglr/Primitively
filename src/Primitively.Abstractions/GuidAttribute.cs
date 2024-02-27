@@ -4,7 +4,7 @@
 /// Make a readonly record struct that encapsulates a GUID primitive value
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-public sealed class GuidAttribute : Attribute, IPimitivelyAttribute
+public sealed class GuidAttribute : PrimitiveAttribute
 {
     public GuidAttribute()
     {
@@ -15,9 +15,6 @@ public sealed class GuidAttribute : Attribute, IPimitivelyAttribute
     {
         Specifier = specifier;
     }
-
-    /// <inheritdoc/>
-    public bool ImplementIValidatableObject { get; set; }
 
     public Specifier Specifier { get; }
 }

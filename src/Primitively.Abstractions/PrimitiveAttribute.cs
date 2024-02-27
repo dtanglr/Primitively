@@ -2,10 +2,8 @@
 
 namespace Primitively;
 
-/// <summary>
-/// The interface that is implemented by all the Primitively attributes that invoke source code generation
-/// </summary>
-public interface IPimitivelyAttribute
+[AttributeUsage(AttributeTargets.Struct, Inherited = true, AllowMultiple = false)]
+public abstract class PrimitiveAttribute : Attribute
 {
     /// <summary>
     /// A flag to indicate whether to source generate a <see cref="IValidatableObject.Validate(ValidationContext)"/> method.
@@ -16,5 +14,5 @@ public interface IPimitivelyAttribute
     /// <value>
     /// When set to true; will output a Primitively type that implements the <see cref="IValidatableObject"/> interface
     /// </value>
-    bool ImplementIValidatableObject { get; set; }
+    public bool ImplementIValidatableObject { get; set; } = true;
 }

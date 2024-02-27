@@ -1,5 +1,8 @@
 ﻿namespace Primitively;
 
+/// <summary>
+/// The enum representation of each <see cref="Guid"/> type format variation supported by Primitively
+/// </summary>
 public enum Specifier
 {
     /// <summary>

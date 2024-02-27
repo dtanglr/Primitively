@@ -1,12 +1,10 @@
-﻿#nullable enable
-
-namespace Primitively;
+﻿namespace Primitively;
 
 /// <summary>
 /// Make a readonly record struct that encapsulates a String primitive value
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-public sealed class StringAttribute : Attribute, IPimitivelyAttribute
+public sealed class StringAttribute : PrimitiveAttribute
 {
     /// <summary>
     /// Make a readonly record struct that encapsulates a
@@ -40,13 +38,30 @@ public sealed class StringAttribute : Attribute, IPimitivelyAttribute
         MaxLength = maxLength;
     }
 
-    /// <inheritdoc/>
-    public bool ImplementIValidatableObject { get; set; }
+    /// <summary>
+    /// The minimum length of the string
+    /// </summary>
     public int MinLength { get; }
-    public int MaxLength { get; }
-    public string? Pattern { get; set; }
-    public string? Example { get; set; }
-    public string? Format { get; set; }
-}
 
+    /// <summary>
+    /// The maximum length of the string
+    /// </summary>
+    public int MaxLength { get; }
+
+#nullable enable
+    /// <summary>
+    /// The optional regular expression pattern used to ensure that only valid values are encapsulated 
+    /// </summary>
+    public string? Pattern { get; set; }
+
+    /// <summary>
+    /// An optional example of the string
+    /// </summary>
+    public string? Example { get; set; }
+
+    /// <summary>
+    /// An optional format of the string
+    /// </summary>
+    public string? Format { get; set; }
 #nullable disable
+}
