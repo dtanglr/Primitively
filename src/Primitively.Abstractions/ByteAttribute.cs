@@ -1,21 +1,35 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// Make a readonly record struct that encapsulates a Unsigned 8-bit integer primitive value
-/// with a default range of: 0 to 255
+/// The <c>ByteAttribute</c> class can be used on a <see langword="partial record struct"/>
+/// to source generate a Primitively <see cref="IByte"/> type that encapsulates a <see cref="byte"/> value.
 /// </summary>
+/// <example>
+/// <code>
+/// [Byte]
+/// public partial record struct Example;
+/// </code>
+/// <code>
+/// [Byte(Minimum = 1)]
+/// public partial record struct Example;
+/// </code>
+/// <code>
+/// [Byte(Minimum = 1, Maximum = 100)]
+/// public partial record struct Example;
+/// </code>
+/// </example>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 public sealed class ByteAttribute : IntegerAttribute
 {
     /// <summary>
-    /// The minimum value that can be assigned to the Primitively type
+    /// Gets or sets the minimum value supported by the source generated Primitively <see cref="IByte"/> type.
+    /// The default value is 0.
     /// </summary>
-    /// <value>The minimum value</value>
-    public new byte Minimum { get; set; }
+    public new int Minimum { get; set; }
 
     /// <summary>
-    /// The maximum value that can be assigned to the Primitively type
+    /// Gets or sets the maximum value supported by the source generated Primitively <see cref="IByte"/> type.
+    /// The default value is 255.
     /// </summary>
-    /// <value>The maximum value</value>
-    public new byte Maximum { get; set; }
+    public new int Maximum { get; set; }
 }

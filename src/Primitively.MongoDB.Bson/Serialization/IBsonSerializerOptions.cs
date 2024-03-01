@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization;
 namespace Primitively.MongoDB.Bson.Serialization;
 
 /// <summary>
-/// An interface which defines all the commmon properties to be implemented on Primitively Bson serializer options classes.
+/// An interface which defines all the common properties to be implemented on Primitively Bson serializer options classes.
 /// </summary>
 public interface IBsonSerializerOptions
 {

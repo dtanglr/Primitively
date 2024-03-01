@@ -1,21 +1,35 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// Make a readonly record struct that encapsulates a Signed 32-bit integer primitive value
-/// with a default range of: -2,147,483,648 to 2,147,483,647
+/// The <c>IntAttribute</c> class can be used on a <see langword="partial record struct"/>
+/// to source generate a Primitively <see cref="IInt"/> type that encapsulates an <see cref="int"/> value.
 /// </summary>
+/// <example>
+/// <code>
+/// [Int]
+/// public partial record struct Example;
+/// </code>
+/// <code>
+/// [Int(Minimum = 0)]
+/// public partial record struct Example;
+/// </code>
+/// <code>
+/// [Int(Minimum = 1000, Maximum = 2000)]
+/// public partial record struct Example;
+/// </code>
+/// </example>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 public sealed class IntAttribute : IntegerAttribute
 {
     /// <summary>
-    /// The minimum value that can be assigned to the Primitively type
+    /// Gets or sets the minimum value supported by the source generated Primitively <see cref="IInt"/> type.
+    /// The default value is -2,147,483,648.
     /// </summary>
-    /// <value>The minimum value</value>
     public new int Minimum { get; set; }
 
     /// <summary>
-    /// The maximum value that can be assigned to the Primitively type
+    /// Gets or sets the maximum value supported by the source generated Primitively <see cref="IInt"/> type.
+    /// The default value is 2,147,483,647.
     /// </summary>
-    /// <value>The maximum value</value>
     public new int Maximum { get; set; }
 }

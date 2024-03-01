@@ -4,8 +4,20 @@ using Microsoft.CodeAnalysis;
 
 namespace Primitively.Parsers;
 
+/// <summary>
+/// Provides methods for parsing Guid attribute data.
+/// </summary>
 internal static class GuidParser
 {
+    /// <summary>
+    /// Attempts to parse the specified attribute data into a record struct data.
+    /// </summary>
+    /// <param name="attributeData">The attribute data to parse.</param>
+    /// <param name="name">The name of the record struct.</param>
+    /// <param name="nameSpace">The namespace of the record struct.</param>
+    /// <param name="parentData">The parent data of the record struct.</param>
+    /// <param name="recordStructData">When this method returns, contains the parsed record struct data, if the conversion succeeded, or null if the conversion failed.</param>
+    /// <returns>true if the attribute data was parsed successfully; otherwise, false.</returns>
     internal static bool TryParse(AttributeData attributeData, string name, string nameSpace, ParentData? parentData, out RecordStructData? recordStructData)
     {
         if (attributeData is null)
@@ -33,6 +45,12 @@ internal static class GuidParser
         return TryParseNamedArguments(attributeData, recordStructData);
     }
 
+    /// <summary>
+    /// Attempts to parse the constructor arguments of the specified attribute data into a record struct data.
+    /// </summary>
+    /// <param name="attributeData">The attribute data whose constructor arguments to parse.</param>
+    /// <param name="recordStructData">The record struct data to populate with the parsed constructor arguments.</param>
+    /// <returns>true if the constructor arguments were parsed successfully; otherwise, false.</returns>
     private static bool TryParseConstructorArguments(AttributeData attributeData, RecordStructData recordStructData)
     {
         if (attributeData.ConstructorArguments.IsEmpty)
@@ -91,6 +109,12 @@ internal static class GuidParser
         return true;
     }
 
+    /// <summary>
+    /// Attempts to parse the named arguments of the specified attribute data into a record struct data.
+    /// </summary>
+    /// <param name="attributeData">The attribute data whose named arguments to parse.</param>
+    /// <param name="recordStructData">The record struct data to populate with the parsed named arguments.</param>
+    /// <returns>true if the named arguments were parsed successfully; otherwise, false.</returns>
     private static bool TryParseNamedArguments(AttributeData attributeData, RecordStructData recordStructData)
     {
         if (attributeData.NamedArguments.IsEmpty)

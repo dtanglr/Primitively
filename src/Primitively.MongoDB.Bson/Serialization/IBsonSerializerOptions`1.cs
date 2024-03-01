@@ -3,7 +3,7 @@
 namespace Primitively.MongoDB.Bson.Serialization;
 
 /// <summary>
-/// An interface which defines all the commmon properties to be implemented on Primitively Bson serializer options classes.
+/// An interface which defines all the common properties to be implemented on Primitively Bson serializer options classes.
 /// </summary>
 /// <typeparam name="TOptions">The type of Primitively Bson serializer options class.</typeparam>
 public interface IBsonSerializerOptions<TOptions> : IBsonSerializerOptions

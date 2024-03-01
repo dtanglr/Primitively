@@ -1,21 +1,35 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// Make a readonly record struct that encapsulates a Signed 16-bit integer primitive value
-/// with a default range of: -32,768 to 32,767
+/// The <c>ShortAttribute</c> class can be used on a <see langword="partial record struct"/>
+/// to source generate a Primitively <see cref="IShort"/> type that encapsulates an <see cref="short"/> value.
 /// </summary>
+/// <example>
+/// <code>
+/// [Short]
+/// public partial record struct Example;
+/// </code>
+/// <code>
+/// [Short(Minimum = 0)]
+/// public partial record struct Example;
+/// </code>
+/// <code>
+/// [Short(Minimum = -10, Maximum = 10)]
+/// public partial record struct Example;
+/// </code>
+/// </example>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 public sealed class ShortAttribute : IntegerAttribute
 {
     /// <summary>
-    /// The minimum value that can be assigned to the Primitively type
+    /// Gets or sets the minimum value supported by the source generated Primitively <see cref="IShort"/> type.
+    /// The default value is -32,768.
     /// </summary>
-    /// <value>The minimum value</value>
     public new short Minimum { get; set; }
 
     /// <summary>
-    /// The maximum value that can be assigned to the Primitively type
+    /// Gets or sets the maximum value supported by the source generated Primitively <see cref="IShort"/> type.
+    /// The default value is 32,767.
     /// </summary>
-    /// <value>The maximum value</value>
     public new short Maximum { get; set; }
 }

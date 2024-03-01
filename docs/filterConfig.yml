@@ -1,0 +1,8 @@
+### YamlMime:ManagedReference
+apiRules:
+- exclude:
+    uidRegex: ^System\.Attribute
+    type: Type
+- exclude:
+    uidRegex: ^System\.Object
+    type: Type

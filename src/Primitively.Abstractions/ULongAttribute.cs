@@ -1,21 +1,35 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// Make a readonly record struct that encapsulates an Unsigned 64-bit integer primitive value
-/// with a default range of: 0 to 18,446,744,073,709,551,615
+/// The <c>ULongAttribute</c> class can be used on a <see langword="partial record struct"/>
+/// to source generate a Primitively <see cref="IULong"/> type that encapsulates an <see cref="ulong"/> value.
 /// </summary>
+/// <example>
+/// <code>
+/// [ULong]
+/// public partial record struct Example;
+/// </code>
+/// <code>
+/// [ULong(Minimum = 100000000)]
+/// public partial record struct Example;
+/// </code>
+/// <code>
+/// [ULong(Minimum = 100000000, Maximum = 200000000)]
+/// public partial record struct Example;
+/// </code>
+/// </example>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 public sealed class ULongAttribute : IntegerAttribute
 {
     /// <summary>
-    /// The minimum value that can be assigned to the Primitively type
+    /// Gets or sets the minimum value supported by the source generated Primitively <see cref="IULong"/> type.
+    /// The default value is 0.
     /// </summary>
-    /// <value>The minimum value</value>
     public new ulong Minimum { get; set; }
 
     /// <summary>
-    /// The maximum value that can be assigned to the Primitively type
+    /// Gets or sets the maximum value supported by the source generated Primitively <see cref="IULong"/> type.
+    /// The default value is 18,446,744,073,709,551,615.
     /// </summary>
-    /// <value>The maximum value</value>
     public new ulong Maximum { get; set; }
 }

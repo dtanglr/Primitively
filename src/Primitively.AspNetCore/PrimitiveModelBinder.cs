@@ -2,20 +2,36 @@
 
 namespace Primitively.AspNetCore;
 
+/// <summary>
+/// The PrimitiveModelBinder class is a custom model binder for Primitively types.
+/// </summary>
 public class PrimitiveModelBinder : IModelBinder
 {
     private readonly IEnumerable<IPrimitiveFactory> _factories;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PrimitiveModelBinder"/> class with a single factory.
+    /// </summary>
+    /// <param name="factory">The factory to use for creating Primitively types.</param>
     public PrimitiveModelBinder(IPrimitiveFactory factory)
     {
         _factories = new List<IPrimitiveFactory> { factory };
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PrimitiveModelBinder"/> class with multiple factories.
+    /// </summary>
+    /// <param name="factories">The factories to use for creating Primitively types.</param>
     public PrimitiveModelBinder(IEnumerable<IPrimitiveFactory> factories)
     {
         _factories = factories;
     }
 
+    /// <summary>
+    /// Asynchronously attempts to bind a model.
+    /// </summary>
+    /// <param name="bindingContext">The model binding context.</param>
+    /// <returns>A task representing the model binding operation.</returns>
     public Task BindModelAsync(ModelBindingContext bindingContext)
     {
         // Try to fetch the value of the argument by name
@@ -39,6 +55,13 @@ public class PrimitiveModelBinder : IModelBinder
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Attempts to create an instance of a specific Primitively type.
+    /// </summary>
+    /// <param name="type">The .NET type of the Primitively type.</param>
+    /// <param name="value">The value to encapsulate in the Primitively type.</param>
+    /// <param name="result">When this method returns, contains the created Primitively type, if the operation succeeded, or null if it did not.</param>
+    /// <returns>true if the operation succeeded; otherwise, false.</returns>
     private bool TryCreate(Type type, string? value, out IPrimitive? result)
     {
         result = null;

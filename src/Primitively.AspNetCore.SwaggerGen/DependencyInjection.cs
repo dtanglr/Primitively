@@ -5,10 +5,15 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// Primitively Configurator extensions to register a swagger schema filter for Primitively source generated types
+/// Provides extension methods to the <see cref="PrimitivelyConfigurator"/> for adding SwaggerGen services.
 /// </summary>
 public static class DependencyInjection
 {
+    /// <summary>
+    /// Adds SwaggerGen services to the specified <see cref="PrimitivelyConfigurator"/>.
+    /// </summary>
+    /// <param name="configurator">The <see cref="PrimitivelyConfigurator"/> to add services to.</param>
+    /// <returns>The same instance of the <see cref="PrimitivelyConfigurator"/> for chaining calls.</returns>
     public static PrimitivelyConfigurator AddSwaggerGen(this PrimitivelyConfigurator configurator)
     {
         if (!configurator.Options.Registry.IsEmpty)

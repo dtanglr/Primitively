@@ -1,18 +1,20 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// Make a readonly record struct that encapsulates a String primitive value
+/// The <c>StringAttribute</c> class can be used on a partial record struct
+/// to source generate a Primitively <see cref="IString"/> type that encapsulates a <see cref="string"/> value.
 /// </summary>
+/// <remarks>
+/// The generated Primitively type will enforce the specified minimum and maximum length constraints.
+/// </remarks>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 public sealed class StringAttribute : PrimitiveAttribute
 {
     /// <summary>
-    /// Make a readonly record struct that encapsulates a
-    /// string primitive value with a specified length
+    /// Initializes a new instance of the <see cref="StringAttribute"/> class with a fixed length.
     /// </summary>
     /// <param name="length">
-    /// The fixed length of the string representation 
-    /// of the encapsulated primitive value
+    /// The fixed length of the string representation of the encapsulated primitive value.
     /// </param>
     public StringAttribute(int length)
     {
@@ -21,16 +23,15 @@ public sealed class StringAttribute : PrimitiveAttribute
     }
 
     /// <summary>
-    /// Make a readonly record struct that encapsulates a
-    /// string primitive value with a specified length
+    /// Initializes a new instance of the <see cref="StringAttribute"/> class with a specified minimum and maximum length.
     /// </summary>
     /// <param name="minLength">
     /// The minimum length of the string representation 
-    /// of the encapsulated primitive value
+    /// of the encapsulated primitive value.
     /// </param>
     /// <param name="maxLength">
     /// The maximum length of the string representation 
-    /// of the encapsulated primitive value
+    /// of the encapsulated primitive value.
     /// </param>
     public StringAttribute(int minLength, int maxLength)
     {
@@ -39,28 +40,28 @@ public sealed class StringAttribute : PrimitiveAttribute
     }
 
     /// <summary>
-    /// The minimum length of the string
+    /// Gets the minimum length of the string.
     /// </summary>
     public int MinLength { get; }
 
     /// <summary>
-    /// The maximum length of the string
+    /// Gets the maximum length of the string.
     /// </summary>
     public int MaxLength { get; }
 
 #nullable enable
     /// <summary>
-    /// The optional regular expression pattern used to ensure that only valid values are encapsulated 
+    /// Gets or sets the optional regular expression pattern used to ensure that only valid values are encapsulated.
     /// </summary>
     public string? Pattern { get; set; }
 
     /// <summary>
-    /// An optional example of the string
+    /// Gets or sets an optional example of the string.
     /// </summary>
     public string? Example { get; set; }
 
     /// <summary>
-    /// An optional format of the string
+    /// Gets or sets an optional format of the string.
     /// </summary>
     public string? Format { get; set; }
 #nullable disable

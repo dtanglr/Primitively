@@ -3,12 +3,12 @@
 namespace Primitively.MongoDB.Bson.Serialization;
 
 /// <summary>
-/// Represents a serializer that has a GuidRepresentation property.
+/// Provides an interface for accessing the Guid representation in BSON serializers.
 /// </summary>
 public interface IHasGuidRepresentationSerializer
 {
     /// <summary>
-    /// Gets the GUID representation.
+    /// Gets the representation used for Guid values.
     /// </summary>
     GuidRepresentation GuidRepresentation { get; }
 }

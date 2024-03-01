@@ -17,13 +17,9 @@
         }
       ],
       "dest": "api",
-      "memberLayout": "separatePages",
-      "includeExplicitInterfaceImplementations": true,
       "disableGitFeatures": true,
       "disableDefaultFilter": false,
-      "includePrivateMembers": false,
-      "noRestore": false,
-      "namespaceLayout": "flattened"
+      "filter": "filterConfig.yml"
     }
   ],
   "build": {
@@ -39,7 +35,6 @@
       "pdf": false
     },
     "template": ["default", "templates/singulinkfx"],
-    "xrefService": ["https://xref.docs.microsoft.com/query?uid={uid}"],
     "content": [
       {
         "files": [

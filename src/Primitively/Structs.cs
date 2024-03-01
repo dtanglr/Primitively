@@ -9,10 +9,16 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Primitively;
 
-/// <inheritdoc />
+/// <summary>
+/// A source generator for creating Primitively struct types.
+/// </summary>
 [Generator]
 public class Structs : IIncrementalGenerator
 {
+    /// <summary>
+    /// Initializes the generator.
+    /// </summary>
+    /// <param name="context">The initialization context.</param>
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
 #if DEBUGGERENABLED
@@ -44,6 +50,12 @@ public class Structs : IIncrementalGenerator
         });
     }
 
+    /// <summary>
+    /// Generates a factory file.
+    /// </summary>
+    /// <param name="context">The source production context.</param>
+    /// <param name="recordStructs">The record structs.</param>
+    /// <param name="compilation">The compilation.</param>
     private static void GenerateFactoryFile(SourceProductionContext context, List<RecordStructData> recordStructs, Compilation compilation)
     {
         const string Padding = "            ";
@@ -77,6 +89,12 @@ public class Structs : IIncrementalGenerator
         context.AddSource("PrimitiveFactory.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
     }
 
+    /// <summary>
+    /// Generates a library file.
+    /// </summary>
+    /// <param name="context">The source production context.</param>
+    /// <param name="recordStructs">The record structs.</param>
+    /// <param name="compilation">The compilation.</param>
     private static void GenerateLibraryFile(SourceProductionContext context, List<RecordStructData> recordStructs, Compilation compilation)
     {
         // Create a c# file for the library class
@@ -93,6 +111,11 @@ public class Structs : IIncrementalGenerator
         context.AddSource("PrimitiveLibrary.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
     }
 
+    /// <summary>
+    /// Generates record struct files.
+    /// </summary>
+    /// <param name="context">The source production context.</param>
+    /// <param name="recordStructs">The record structs.</param>
     private static void GenerateRecordStructFiles(SourceProductionContext context, List<RecordStructData> recordStructs)
     {
         var sb = new StringBuilder();
@@ -171,6 +194,12 @@ public class Structs : IIncrementalGenerator
         }
     }
 
+    /// <summary>
+    /// Generates a repository file.
+    /// </summary>
+    /// <param name="context">The source production context.</param>
+    /// <param name="recordStructs">The record structs.</param>
+    /// <param name="compilation">The compilation.</param>
     private static void GenerateRepositoryFile(SourceProductionContext context, List<RecordStructData> recordStructs, Compilation compilation)
     {
         const string Padding = "        ";
@@ -225,6 +254,11 @@ public class Structs : IIncrementalGenerator
         context.AddSource("PrimitiveRepository.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
     }
 
+    /// <summary>
+    /// Gets the target syntax.
+    /// </summary>
+    /// <param name="context">The initialization context.</param>
+    /// <returns>The target syntax.</returns>
     private static IncrementalValueProvider<(Compilation Compilation, ImmutableArray<RecordDeclarationSyntax?> RecordStructs)> GetTargetSyntax(IncrementalGeneratorInitializationContext context)
     {
         // Create SyntaxProvider which sniffs out Record Structs decorated with a Primitively attribute

@@ -1,12 +1,21 @@
 ﻿namespace Primitively;
 
+/// <summary>
+/// Contains metadata about various Primitively types.
+/// </summary>
 internal readonly struct MetaData
 {
+    /// <summary>
+    /// Contains metadata about the DateOnly Primitively type.
+    /// </summary>
     public readonly struct DateOnly
     {
         public static readonly string Interface = typeof(IDateOnly).FullName;
         public static readonly string Type = typeof(System.DateTime).FullName;
 
+        /// <summary>
+        /// Contains metadata about the ISO 8601 format for the DateOnly Primitively type.
+        /// </summary>
         public readonly struct Iso8601
         {
             public const string Example = "2022-12-31";
@@ -15,11 +24,17 @@ internal readonly struct MetaData
         }
     }
 
+    /// <summary>
+    /// Contains metadata about the Guid Primitively type.
+    /// </summary>
     public readonly struct Guid
     {
         public static readonly string Interface = typeof(IGuid).FullName;
         public static readonly string Type = typeof(System.Guid).FullName;
 
+        /// <summary>
+        /// Contains metadata about the 'B' format for the Guid Primitively type.
+        /// </summary>
         public readonly struct B
         {
             public const string Example = "{2c48c152-7cb7-4f51-8f01-704454f36e60}";
@@ -27,6 +42,9 @@ internal readonly struct MetaData
             public const int Length = 38;
         }
 
+        /// <summary>
+        /// Contains metadata about the 'D' format for the Guid Primitively type.
+        /// </summary>
         public readonly struct D
         {
             public const string Example = "2c48c152-7cb7-4f51-8f01-704454f36e60";
@@ -34,12 +52,19 @@ internal readonly struct MetaData
             public const int Length = 36;
         }
 
+        /// <summary>
+        /// Contains metadata about the 'N' format for the Guid Primitively type.
+        /// </summary>
         public readonly struct N
         {
             public const string Example = "2c48c1527cb74f518f01704454f36e60";
             public const string Format = "N";
             public const int Length = 32;
         }
+
+        /// <summary>
+        /// Contains metadata about the 'P' format for the Guid Primitively type.
+        /// </summary>
         public readonly struct P
         {
             public const string Example = "(2c48c152-7cb7-4f51-8f01-704454f36e60)";
@@ -47,6 +72,9 @@ internal readonly struct MetaData
             public const int Length = 38;
         }
 
+        /// <summary>
+        /// Contains metadata about the 'X' format for the Guid Primitively type.
+        /// </summary>
         public readonly struct X
         {
             public const string Example = "{0x2c48c152,0x7cb7,0x4f51,{0x8f,0x01,0x70,0x44,0x54,0xf3,0x6e,0x60}}";
@@ -55,8 +83,14 @@ internal readonly struct MetaData
         }
     }
 
+    /// <summary>
+    /// Contains metadata about various integer Primitively types.
+    /// </summary>
     public readonly struct Integer
     {
+        /// <summary>
+        /// Contains metadata about the Byte Primitively type.
+        /// </summary>
         public readonly struct Byte
         {
             public static readonly string Example = $"{byte.MaxValue / 2}";
@@ -67,6 +101,9 @@ internal readonly struct MetaData
             public static readonly string Type = typeof(byte).FullName;
         }
 
+        /// <summary>
+        /// Contains metadata about the Int Primitively type.
+        /// </summary>
         public readonly struct Int
         {
             public static readonly string Example = $"{int.MaxValue / 2}";
@@ -77,6 +114,9 @@ internal readonly struct MetaData
             public static readonly string Type = typeof(int).FullName;
         }
 
+        /// <summary>
+        /// Contains metadata about the Long Primitively type.
+        /// </summary>
         public readonly struct Long
         {
             public static readonly string Example = $"{long.MaxValue / 2}";
@@ -87,6 +127,9 @@ internal readonly struct MetaData
             public static readonly string Type = typeof(long).FullName;
         }
 
+        /// <summary>
+        /// Contains metadata about the SByte Primitively type.
+        /// </summary>
         public readonly struct SByte
         {
             public static readonly string Example = $"{sbyte.MaxValue / 2}";
@@ -97,6 +140,9 @@ internal readonly struct MetaData
             public static readonly string Type = typeof(sbyte).FullName;
         }
 
+        /// <summary>
+        /// Contains metadata about the Short Primitively type.
+        /// </summary>
         public readonly struct Short
         {
             public static readonly string Example = $"{short.MaxValue / 2}";
@@ -107,6 +153,9 @@ internal readonly struct MetaData
             public static readonly string Type = typeof(short).FullName;
         }
 
+        /// <summary>
+        /// Contains metadata about the UInt Primitively type.
+        /// </summary>
         public readonly struct UInt
         {
             public static readonly string Example = $"{uint.MaxValue / 2}";
@@ -117,6 +166,9 @@ internal readonly struct MetaData
             public static readonly string Type = typeof(uint).FullName;
         }
 
+        /// <summary>
+        /// Contains metadata about the ULong Primitively type.
+        /// </summary>
         public readonly struct ULong
         {
             public static readonly string Example = $"{ulong.MaxValue / 2}";
@@ -127,6 +179,9 @@ internal readonly struct MetaData
             public static readonly string Type = typeof(ulong).FullName;
         }
 
+        /// <summary>
+        /// Contains metadata about the UShort Primitively type.
+        /// </summary>
         public readonly struct UShort
         {
             public static readonly string Example = $"{ushort.MaxValue / 2}";

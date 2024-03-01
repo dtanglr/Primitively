@@ -5,17 +5,16 @@ using Primitively.MongoDB.Bson.Serialization;
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// Primitively Configurator extensions to register MongoDB Bson serializers 
-/// for Primitively source generated types
+/// Provides extension methods to the <see cref="PrimitivelyConfigurator"/> for adding BSON services.
 /// </summary>
 public static class DependencyInjection
 {
     /// <summary>
-    /// Register MongoDB nullable and non-nullable Bson serializers
+    /// Adds BSON services to the specified <see cref="PrimitivelyConfigurator"/>.
     /// </summary>
-    /// <param name="configurator">Configurator</param>
-    /// <param name="options">BsonOptions</param>
-    /// <returns>Configurator</returns>
+    /// <param name="configurator">The <see cref="PrimitivelyConfigurator"/> to add services to.</param>
+    /// <param name="options">A delegate to configure the <see cref="BsonOptions"/>.</param>
+    /// <returns>The same instance of the <see cref="PrimitivelyConfigurator"/> for chaining calls.</returns>
     public static PrimitivelyConfigurator AddBson(this PrimitivelyConfigurator configurator, Action<BsonOptions>? options = null)
     {
         var services = configurator.Services.BuildServiceProvider();

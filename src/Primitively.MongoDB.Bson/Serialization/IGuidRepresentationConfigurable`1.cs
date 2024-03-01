@@ -4,15 +4,15 @@ using MongoDB.Bson.Serialization;
 namespace Primitively.MongoDB.Bson.Serialization;
 
 /// <summary>
-/// Represents a serializer that has a GuidRepresentation property.
+/// Provides an interface for configuring the Guid representation in BSON serializers of a specific type.
 /// </summary>
-/// <typeparam name="TSerializer">The type of the serializer.</typeparam>
+/// <typeparam name="TSerializer">The type of the BSON serializer.</typeparam>
 public interface IGuidRepresentationConfigurable<out TSerializer> : IGuidRepresentationConfigurable where TSerializer : IBsonSerializer
 {
     /// <summary>
-    /// Returns a serializer that has been reconfigured with the specified GUID representation.
+    /// Configures the BSON serializer with the specified Guid representation.
     /// </summary>
-    /// <param name="representation">The GUID representation.</param>
-    /// <returns>The reconfigured serializer.</returns>
+    /// <param name="representation">The Guid representation to use.</param>
+    /// <returns>A BSON serializer of the specified type, configured with the specified Guid representation.</returns>
     new TSerializer WithGuidRepresentation(GuidRepresentation representation);
 }

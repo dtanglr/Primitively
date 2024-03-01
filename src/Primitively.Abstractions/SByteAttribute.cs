@@ -1,21 +1,35 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// Make a readonly record struct that encapsulates a Signed 8-bit integer primitive value
-/// with a default range of: -128 to 127
+/// The <c>SByteAttribute</c> class can be used on a <see langword="partial record struct"/>
+/// to source generate a Primitively <see cref="ISByte"/> type that encapsulates an <see cref="sbyte"/> value.
 /// </summary>
+/// <example>
+/// <code>
+/// [SByte]
+/// public partial record struct Example;
+/// </code>
+/// <code>
+/// [SByte(Minimum = 0)]
+/// public partial record struct Example;
+/// </code>
+/// <code>
+/// [SByte(Minimum = -10, Maximum = 10)]
+/// public partial record struct Example;
+/// </code>
+/// </example>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
 public sealed class SByteAttribute : IntegerAttribute
 {
     /// <summary>
-    /// The minimum value that can be assigned to the Primitively type
+    /// Gets or sets the minimum value supported by the source generated Primitively <see cref="ISByte"/> type.
+    /// The default value is -128.
     /// </summary>
-    /// <value>The minimum value</value>
     public new sbyte Minimum { get; set; }
 
     /// <summary>
-    /// The maximum value that can be assigned to the Primitively type
+    /// Gets or sets the maximum value supported by the source generated Primitively <see cref="ISByte"/> type.
+    /// The default value is 127.
     /// </summary>
-    /// <value>The maximum value</value>
     public new sbyte Maximum { get; set; }
 }

@@ -11,6 +11,9 @@ using static Primitively.Diagnostics;
 
 namespace Primitively;
 
+/// <summary>
+/// Provides methods for parsing record struct data.
+/// </summary>
 internal static class Parser
 {
     private static readonly List<string> _attributeFullNames =
@@ -28,6 +31,13 @@ internal static class Parser
         typeof(StringAttribute).FullName,
     ];
 
+    /// <summary>
+    /// Gets the record struct data to generate.
+    /// </summary>
+    /// <param name="context">The source production context.</param>
+    /// <param name="compilation">The compilation.</param>
+    /// <param name="recordStructs">The record structs.</param>
+    /// <returns>A list of record struct data to generate.</returns>
     public static List<RecordStructData> GetRecordStructDataToGenerate(SourceProductionContext context, Compilation compilation, ImmutableArray<RecordDeclarationSyntax?> recordStructs)
     {
         var recordStructDataToGenerate = new List<RecordStructData>();
@@ -123,6 +133,12 @@ internal static class Parser
         return recordStructDataToGenerate;
     }
 
+    /// <summary>
+    /// Gets the record struct semantic target for generation.
+    /// </summary>
+    /// <param name="context">The generator syntax context.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>The record struct semantic target for generation, if any; otherwise, null.</returns>
     public static RecordDeclarationSyntax? GetRecordStructSemanticTargetForGeneration(GeneratorSyntaxContext context, CancellationToken cancellationToken)
     {
         // We know the node is a RecordDeclarationSyntax thanks to IsRecordStructTargetForGeneration
@@ -168,10 +184,16 @@ internal static class Parser
         return null;
     }
 
+    /// <summary>
+    /// Determines whether the specified node is a record struct target for generation.
+    /// </summary>
+    /// <param name="node">The syntax node to check.</param>
+    /// <returns>true if the specified node is a record struct target for generation; otherwise, false.</returns>
     public static bool IsRecordStructTargetForGeneration(SyntaxNode node) =>
-                node is RecordDeclarationSyntax record &&
+        node is RecordDeclarationSyntax record &&
         record.IsKind(SyntaxKind.RecordStructDeclaration) &&
         record.AttributeLists.Count > 0;
+
     private static string GetNameSpace(RecordDeclarationSyntax recordStructSymbol)
     {
         // Determine the namespace the struct is declared in, if any
