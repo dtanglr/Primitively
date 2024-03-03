@@ -8,7 +8,9 @@
 
 This practice can lead to several drawbacks, such as increased complexity and decreased readability, which is why it's considered a bad practice³. It's recommended to use well-defined domain objects instead².
 
-## Source: Conversation with Bing, 06/02/2024
+## Appendix
+
+*Source: Conversation with Bing, 06/02/2024*
 
 1. [The Pitfalls of Primitive Obsession: An Insight into Code Quality](https://medium.com/@edin.sahbaz/the-pitfalls-of-primitive-obsession-an-insight-into-code-quality-using-net-c-b1898bcffb4d) - Medium.
 2. [Primitive Obsession — A Code Smell that Hurts People the Most](https://medium.com/the-sixt-india-blog/primitive-obsession-code-smell-that-hurt-people-the-most-5cbdd70496e9).
