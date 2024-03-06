@@ -5,7 +5,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// Provides extension methods to the <see cref="PrimitivelyConfigurator"/> for adding SwaggerGen services.
+/// The <see cref="DependencyInjection"/> static class provides extension methods to the <see cref="PrimitivelyConfigurator"/> for adding SwaggerGen services.
 /// </summary>
 public static class DependencyInjection
 {

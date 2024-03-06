@@ -4,7 +4,7 @@ using Primitively.Configuration;
 namespace Primitively.AspNetCore.Mvc.ModelBinding;
 
 /// <summary>
-/// The PrimitiveModelBinder class is a custom model binder for Primitively types.
+/// The <see cref="PrimitiveModelBinder"/> class is a custom model binder for Primitively types.
 /// </summary>
 public class PrimitiveModelBinder : IModelBinder
 {
@@ -23,7 +23,7 @@ public class PrimitiveModelBinder : IModelBinder
     /// Asynchronously attempts to bind a model.
     /// </summary>
     /// <param name="bindingContext">The model binding context.</param>
-    /// <returns>A task representing the model binding operation.</returns>
+    /// <returns>A <see cref="Task"/> representing the model binding operation. The task result contains the <see cref="ModelBindingResult"/>.</returns>
     public Task BindModelAsync(ModelBindingContext bindingContext)
     {
         // Try to fetch the value of the argument by name

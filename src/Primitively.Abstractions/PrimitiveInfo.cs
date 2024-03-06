@@ -1,13 +1,13 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// This represents a class that contains metadata properties common to all source generated Primitively types.
+/// The <see cref="PrimitiveInfo"/> abstract class represents metadata properties common to all source generated Primitively types.
 /// </summary>
-/// <param name="DataType">The Primitively type's data type enum value</param>
-/// <param name="Type">The Primitively type</param>
-/// <param name="ValueType">The Primitively type's value type</param>
-/// <param name="Example">An example value of this Primitively type</param>
-/// <param name="CreateFrom">A factory method to instantiate an instance of this Primitively type</param>
+/// <param name="DataType">The <see cref="Primitively.DataType"/> enum representation of the Primitively type.</param>
+/// <param name="Type">The .NET type of the Primitively type.</param>
+/// <param name="ValueType">The .NET type of the encapsulated value.</param>
+/// <param name="Example">An optional example of the Primitively type in string format.</param>
+/// <param name="CreateFrom">A function that creates an instance of the Primitively type from a string.</param>
 public abstract record PrimitiveInfo(
     DataType DataType,
     Type Type,

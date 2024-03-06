@@ -6,7 +6,7 @@ using Primitively.MongoDB.Bson.Serialization.Serializers;
 namespace Primitively.MongoDB.Bson;
 
 /// <summary>
-/// The BsonOptions class provides options for configuring BSON serialization for Primitively types.
+/// The <see cref="BsonOptions"/> class provides options for configuring BSON serialization for Primitively types.
 /// </summary>
 public class BsonOptions
 {

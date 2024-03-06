@@ -1,10 +1,11 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <c>GuidAttribute</c> class can be used on a <see langword="partial record struct"/>
-/// to source generate a Primitively <see cref="IGuid"/> type that encapsulates a <see cref="Guid"/> value.
+/// The <see cref="GuidAttribute"/> should be used on a <c>partial record struct</c> to source generate
+/// a Primitively <see cref="IGuid"/> type that encapsulates a <see cref="Guid"/> value.
 /// </summary>
 /// <example>
+/// These examples show how to use the Guid attribute to source generate a Primitively <see cref="IGuid"/> type.
 /// <code>
 /// [Guid] // e.g. 2c48c152-7cb7-4f51-8f01-704454f36e60
 /// public partial record struct Example;
@@ -43,14 +44,17 @@ public sealed class GuidAttribute : PrimitiveAttribute
     /// <summary>
     /// Initializes a new instance of the <see cref="GuidAttribute"/> class with the provided specifier.
     /// </summary>
-    /// <param name="specifier">The specifier to use when generating the GUID.</param>
+    /// <param name="specifier">The specifier to use when generating the <see cref="IGuid"/>.</param>
     public GuidAttribute(Specifier specifier)
     {
         Specifier = specifier;
     }
 
     /// <summary>
-    /// Gets the specifier used to generate the GUID.
+    /// Gets the specifier used to generate the <see cref="IGuid"/>.
     /// </summary>
+    /// <value>
+    /// The default value is <see cref="Specifier.D"/>. An assigned value should be one of the <see cref="Specifier"/> values.
+    /// </value>
     public Specifier Specifier { get; } = Specifier.D;
 }

@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The IPrimitiveRepository interface provides methods for retrieving metadata about Primitively types.
+/// The <see cref="IPrimitiveRepository"/> interface provides methods for retrieving metadata about Primitively types.
 /// </summary>
 public interface IPrimitiveRepository
 {
@@ -9,7 +9,7 @@ public interface IPrimitiveRepository
     /// Retrieves the metadata for a specific Primitively type.
     /// </summary>
     /// <param name="type">The .NET type of the Primitively type.</param>
-    /// <returns>The metadata for the Primitively type.</returns>
+    /// <returns>The metadata for the Primitively type, or null if the type is not a Primitively type.</returns>
     PrimitiveInfo GetType(Type type);
 
     /// <summary>
@@ -17,7 +17,7 @@ public interface IPrimitiveRepository
     /// </summary>
     /// <param name="type">The .NET type of the Primitively type.</param>
     /// <param name="result">When this method returns, contains the metadata for the Primitively type, if the operation succeeded, or null if it did not.</param>
-    /// <returns>true if the operation succeeded; otherwise, false.</returns>
+    /// <returns><c>true</c> if the operation succeeded and the type is a Primitively type; otherwise, <c>false</c>.</returns>
     bool TryGetType(Type type, out PrimitiveInfo? result);
 
     /// <summary>
@@ -29,7 +29,7 @@ public interface IPrimitiveRepository
     /// <summary>
     /// Retrieves the metadata for all Primitively types of a specific kind.
     /// </summary>
-    /// <typeparam name="T">The type of the metadata to retrieve.</typeparam>
+    /// <typeparam name="T">The type of the metadata to retrieve. This must be a subclass of <see cref="PrimitiveInfo"/>.</typeparam>
     /// <returns>A collection of the metadata for all Primitively types of the specified kind.</returns>
     IReadOnlyCollection<T> GetTypes<T>() where T : PrimitiveInfo;
 }

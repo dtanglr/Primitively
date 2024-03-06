@@ -1,9 +1,9 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The IntegerInfo record contains metadata about a Primitively integer type.
+/// The <see cref="IntegerInfo"/> abstract class represents metadata properties common to all source generated Primitively integer types.
 /// </summary>
-/// <param name="DataType">The <see cref="Primitively.DataType"/> enum representation of the Primitively type.</param>
+/// <param name="DataType">The <see cref="DataType"/> enum representation of the Primitively type.</param>
 /// <param name="Type">The .NET type of the Primitively type.</param>
 /// <param name="ValueType">The .NET type of the encapsulated value.</param>
 /// <param name="Example">An optional example of the integer.</param>

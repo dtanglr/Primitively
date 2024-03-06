@@ -5,6 +5,10 @@ namespace Primitively.MongoDB.Bson.Serialization;
 /// <summary>
 /// Provides a concrete implementation of <see cref="IBsonSerializerManager"/> for managing BSON serializers.
 /// </summary>
+/// <remarks>
+/// This class is a wrapper around the <see cref="BsonSerializer"/> class and provides a concrete implementation 
+/// of <see cref="IBsonSerializerManager"/> for managing BSON serializers.
+/// </remarks>
 public class BsonSerializerManager : IBsonSerializerManager
 {
     /// <summary>

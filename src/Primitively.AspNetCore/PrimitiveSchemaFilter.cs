@@ -5,7 +5,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 namespace Primitively.AspNetCore;
 
 /// <summary>
-/// The PrimitiveSchemaFilter class is a custom schema filter for Primitively types.
+/// The <see cref="PrimitiveSchemaFilter"/> class is a custom schema filter for Primitively types.
 /// </summary>
 public class PrimitiveSchemaFilter : ISchemaFilter
 {
@@ -15,6 +15,7 @@ public class PrimitiveSchemaFilter : ISchemaFilter
     /// Initializes a new instance of the <see cref="PrimitiveSchemaFilter"/> class.
     /// </summary>
     /// <param name="primitiveInfo">A function that retrieves a collection of Primitively types.</param>
+    /// <exception cref="ArgumentNullException">Thrown when the primitiveInfo parameter is null.</exception>
     public PrimitiveSchemaFilter(Func<IEnumerable<PrimitiveInfo>> primitiveInfo)
     {
         _primitiveInfo = primitiveInfo ?? throw new ArgumentNullException(nameof(primitiveInfo));
@@ -25,6 +26,9 @@ public class PrimitiveSchemaFilter : ISchemaFilter
     /// </summary>
     /// <param name="schema">The schema to apply the filter to.</param>
     /// <param name="context">The schema filter context.</param>
+    /// <remarks>
+    /// This method modifies the schema based on the type of the Primitively type. It sets the type, properties, example, format, and other properties of the schema.
+    /// </remarks>
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
         var type = context.Type;

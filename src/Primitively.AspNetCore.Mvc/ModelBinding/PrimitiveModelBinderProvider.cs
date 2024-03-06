@@ -4,7 +4,7 @@ using Primitively.Configuration;
 namespace Primitively.AspNetCore.Mvc.ModelBinding;
 
 /// <summary>
-/// The PrimitiveModelBinderProvider class is a custom model binder provider for Primitively types.
+/// The <see cref="PrimitiveModelBinderProvider"/> class is a custom model binder provider for Primitively types.
 /// </summary>
 public class PrimitiveModelBinderProvider : IModelBinderProvider
 {
@@ -23,7 +23,7 @@ public class PrimitiveModelBinderProvider : IModelBinderProvider
     /// Gets the model binder for the specified context.
     /// </summary>
     /// <param name="context">The model binder provider context.</param>
-    /// <returns>A model binder for the specified context, or null if the provider cannot supply a binder.</returns>
+    /// <returns>A model binder for the specified context, or null if the provider cannot supply a binder. The returned binder is a <see cref="PrimitiveModelBinder"/> instance.</returns>
     public IModelBinder? GetBinder(ModelBinderProviderContext context)
     {
         var type = context.Metadata.ModelType;

@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <c>IPrimitive</c> <see langword="interface"/> is implemented by all source generated Primitively types.
+/// The <see cref="IPrimitive{T}"/> interface is implemented by all source generated Primitively types.
 /// It provides a generic interface for encapsulating a value of a specific .NET primitive type.
 /// </summary>
 /// <typeparam name="T">The .NET primitive type of the encapsulated value</typeparam>

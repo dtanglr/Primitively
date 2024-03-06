@@ -3,7 +3,7 @@
 namespace Primitively.AspNetCore;
 
 /// <summary>
-/// Provides extension methods to the <see cref="IServiceCollection"/> for adding SwaggerGen for Primitively types.
+/// The <see cref="PrimitiveSwaggerGenExtensions"/> static class provides extension methods to the <see cref="IServiceCollection"/> for adding SwaggerGen for Primitively types.
 /// </summary>
 public static class PrimitiveSwaggerGenExtensions
 {
@@ -12,6 +12,9 @@ public static class PrimitiveSwaggerGenExtensions
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
     /// <returns>The same instance of the <see cref="IServiceCollection"/> for chaining calls.</returns>
+    /// <remarks>
+    /// This method configures SwaggerGen to use the <see cref="PrimitiveSchemaFilter"/> for Primitively types.
+    /// </remarks>
     public static IServiceCollection AddSwaggerGenForPrimitiveTypes(this IServiceCollection services)
     {
         var repos = services
@@ -33,6 +36,9 @@ public static class PrimitiveSwaggerGenExtensions
     /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
     /// <param name="repository">The repository to use for retrieving Primitively types.</param>
     /// <returns>The same instance of the <see cref="IServiceCollection"/> for chaining calls.</returns>
+    /// <remarks>
+    /// This method configures SwaggerGen to use the <see cref="PrimitiveSchemaFilter"/> for Primitively types from the specified repository.
+    /// </remarks>
     public static IServiceCollection AddSwaggerGenForPrimitiveTypes(this IServiceCollection services, IPrimitiveRepository? repository)
     {
         if (repository is null)
@@ -50,6 +56,9 @@ public static class PrimitiveSwaggerGenExtensions
     /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
     /// <param name="repositories">The repositories to use for retrieving Primitively types.</param>
     /// <returns>The same instance of the <see cref="IServiceCollection"/> for chaining calls.</returns>
+    /// <remarks>
+    /// This method configures SwaggerGen to use the <see cref="PrimitiveSchemaFilter"/> for Primitively types from the specified repositories.
+    /// </remarks>
     public static IServiceCollection AddSwaggerGenForPrimitiveTypes(this IServiceCollection services, IEnumerable<IPrimitiveRepository> repositories)
     {
         if (!repositories.Any())

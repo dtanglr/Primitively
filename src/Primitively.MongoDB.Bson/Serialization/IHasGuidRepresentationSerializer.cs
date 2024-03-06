@@ -3,7 +3,7 @@
 namespace Primitively.MongoDB.Bson.Serialization;
 
 /// <summary>
-/// Provides an interface for accessing the Guid representation in BSON serializers.
+/// Defines an interface for a serializer that has a Guid representation.
 /// </summary>
 public interface IHasGuidRepresentationSerializer
 {

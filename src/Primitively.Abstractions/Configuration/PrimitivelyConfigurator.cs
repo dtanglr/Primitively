@@ -3,25 +3,31 @@
 namespace Primitively.Configuration;
 
 /// <summary>
-/// The PrimitivelyConfigurator class is used to configure the services and options for Primitively.
+/// The <see cref="PrimitivelyConfigurator"/> class is used to configure the services and options for Primitively.
 /// </summary>
 public sealed class PrimitivelyConfigurator
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PrimitivelyConfigurator"/> class.
     /// </summary>
-    /// <param name="services">The collection of services to add Primitively to.</param>
-    /// <param name="options">The options to configure Primitively with.</param>
+    /// <param name="services">The collection of services to which Primitively will be added.</param>
+    /// <param name="options">The options with which Primitively will be configured.</param>
     public PrimitivelyConfigurator(IServiceCollection services, PrimitivelyOptions options) =>
         (Services, Options) = (services, options);
 
     /// <summary>
-    /// Gets the collection of services that Primitively has been added to.
+    /// Gets the collection of services to which Primitively has been added.
     /// </summary>
+    /// <value>
+    /// The collection of services to which Primitively has been added.
+    /// </value>
     public IServiceCollection Services { get; }
 
     /// <summary>
-    /// Gets the options that Primitively has been configured with.
+    /// Gets the options with which Primitively has been configured.
     /// </summary>
+    /// <value>
+    /// The options with which Primitively has been configured.
+    /// </value>
     public PrimitivelyOptions Options { get; }
 }
