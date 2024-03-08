@@ -34,11 +34,11 @@ public partial record struct Sku;
 
 This README is designed get you started generating your own strongly-typed identifiers with just a few lines of code.
 
-For more detailed information about Primitively, check out [primitively.net](https://primitively.net){:target="_blank"}.
+For more detailed information about Primitively, check out [primitively.net](https://primitively.net).
 
 ## Quick start
 
-To get started, first add the [Primitively](https://www.nuget.org/packages/Primitively/){:target="_blank"} nuget package to your project by running the following command:
+To get started, first add the [Primitively](https://www.nuget.org/packages/Primitively/) nuget package to your project by running the following command:
 
 ```sh
 dotnet add package Primitively --prerelease
