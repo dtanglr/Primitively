@@ -38,13 +38,13 @@ For more detailed information about Primitively, check out [primitively.net](htt
 
 ## Quick start
 
-To get started, first add the [Primitively](https://www.nuget.org/packages/Primitively/) nuget package to your project by running the following command:
+To get started, first add the [Primitively](https://www.nuget.org/packages/Primitively/) NuGet package to your project by running the following command:
 
 ```sh
 dotnet add package Primitively --prerelease
 ```
 
-Open the csproj file and edit the package reference, setting ```PrivateAssets="All"```. The file will look something like this afterwards:
+Open your csproj file and edit the package reference, setting `PrivateAssets="All"`. The file will look something like this afterwards:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -64,6 +64,37 @@ Open the csproj file and edit the package reference, setting ```PrivateAssets="A
 
 You are now ready to create your first Primitively source generated type!
 
-Create a new class file and add a reference to Primitively and decorate your ```partial record struct``` with one of the Primitively attributes.  Here's some examples of what you can do: -
+Create a new class file and add a reference to Primitively and decorate your `partial record struct` with one of the Primitively attributes such as `[Guid]`.
+
+For example: -
+
+```cs
+using Primitively;
+
+namespace Acme.Examples;
+
+[Guid]
+public partial record struct ProductId;
+```
+
+Here's a list of all the Primitively attributes currently available: -
+
+- Date and time
+  - `[DateOnly]`
+- Globally unique identifiers
+  - `[Guid]`
+- Integers
+  - `[Byte]`
+  - `[Int]`
+  - `[Long]`
+  - `[SByte]`
+  - `[Short]`
+  - `[UInt]`
+  - `[ULong]`
+  - `[UShort]`
+- Strings
+  - `[String]`
+
+Here's some source generation in action using each of the above attributes: -
 
 ![Primitively examples](docs/images/source-gen-anim-01.gif)
