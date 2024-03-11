@@ -28,6 +28,7 @@ public partial record struct Sku;
 | `Primitively.Abstractions` | [![NuGet](https://buildstats.info/nuget/Primitively.Abstractions?includePreReleases=true)](https://www.nuget.org/packages/Primitively.Abstractions/ "Download Primitively.Abstractions from NuGet.org") | Primitively interfaces, metadata, attributes and configuration classes. |
 | `Primitively.AspNetCore.Mvc` | [![NuGet](https://buildstats.info/nuget/Primitively.AspNetCore.Mvc?includePreReleases=true)](https://www.nuget.org/packages/Primitively.AspNetCore.Mvc/ "Download Primitively.AspNetCore.Mvc from NuGet.org") | ASP.NET MVC model binding support for Primitively types used in route and querystring parameters. |
 | `Primitively.AspNetCore.SwaggerGen` | [![NuGet](https://buildstats.info/nuget/Primitively.AspNetCore.SwaggerGen?includePreReleases=true)](https://www.nuget.org/packages/Primitively.AspNetCore.SwaggerGen/ "Download Primitively.AspNetCore.SwaggerGen from NuGet.org") | Swagger Open API schema support for Primitively types using Swashbuckle. |
+| `Primitively.FluentValidation` | [![NuGet](https://buildstats.info/nuget/Primitively.FluentValidation?includePreReleases=true)](https://www.nuget.org/packages/Primitively.FluentValidation/ "Download Primitively.FluentValidation from NuGet.org") | FluentValidation support for Primitively types. |
 | `Primitively.MongoDB.Bson` | [![NuGet](https://buildstats.info/nuget/Primitively.MongoDB.Bson?includePreReleases=true)](https://www.nuget.org/packages/Primitively.MongoDB.Bson/ "Download Primitively.MongoDB.Bson from NuGet.org") | BSON serialization for Primitively types stored in MongoDB. |
 
 ## Documentation
@@ -111,6 +112,12 @@ If you are also generating **swagger** documentation for a web API. Add the [Pri
 
 ```sh
 dotnet add package Primitively.AspNetCore.SwaggerGen --prerelease
+```
+
+When using `FluentValidation` to validate your web requests. Add the [Primitively.FluentValidation](https://www.nuget.org/packages/Primitively.FluentValidation/) NuGet package to your project by running the following command. It contains two extension methods which validate any Primitively type with zero DI configuration.
+
+```sh
+dotnet add package Primitively.FluentValidation --prerelease
 ```
 
 ### Dependency injection
