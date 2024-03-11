@@ -34,7 +34,7 @@ public partial record struct Sku;
 
 This README is designed get you started generating your own strongly-typed identifiers with just a few lines of code.
 
-For more detailed information about Primitively, check out [primitively.net](https://primitively.net).
+For more detailed information about Primitively, check out [primitively.net][primitively-website].
 
 ## Quick start
 
@@ -194,7 +194,7 @@ services.AddPrimitively()
 
 ## Next steps
 
-To learn more about Primitively, go to [primitively.net](https://primitively.net).
+To learn more about Primitively, go to [primitively.net][primitively-website].
 
 ## Examples
 
@@ -203,3 +203,5 @@ Sample applications that demonstrate scenarios in which Primitively is commonly 
 ## Licence
 
 Licensed under the terms of the [New BSD License](https://opensource.org/license/bsd-3-clause/)
+
+[primitively-website]: https://github.com/dtanglr/Primitively
