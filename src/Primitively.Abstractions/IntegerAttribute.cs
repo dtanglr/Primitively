@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="IntegerAttribute"/> is an abstract class for custom attributes that can be applied to integer types.
+/// This is an abstract class for custom attributes that can be applied to integer types.
 /// It inherits from the <see cref="PrimitiveAttribute"/> class and provides properties to set the minimum and maximum values.
 /// </summary>
 /// <remarks>

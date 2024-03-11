@@ -1,7 +1,7 @@
 ﻿namespace Primitively.Configuration;
 
 /// <summary>
-/// The <see cref="PrimitivelyOptions"/> class provides options for configuring Primitively.
+/// This class provides options for configuring Primitively.
 /// </summary>
 public sealed class PrimitivelyOptions
 {

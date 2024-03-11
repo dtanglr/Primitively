@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="ULongAttribute"/> class can be used on a <c>partial record struct</c> to source generate
+/// This class can be used on a <c>partial record struct</c> to source generate
 /// a Primitively <see cref="IULong"/> type that encapsulates an <see cref="ulong"/> value.
 /// </summary>
 /// <example>

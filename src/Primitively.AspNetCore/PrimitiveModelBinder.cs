@@ -3,7 +3,7 @@
 namespace Primitively.AspNetCore;
 
 /// <summary>
-/// The <see cref="PrimitiveModelBinder"/> class is a custom model binder for Primitively types.
+/// This class is a custom model binder for Primitively types.
 /// </summary>
 public class PrimitiveModelBinder : IModelBinder
 {

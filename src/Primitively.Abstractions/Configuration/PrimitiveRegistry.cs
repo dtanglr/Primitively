@@ -3,7 +3,7 @@
 namespace Primitively.Configuration;
 
 /// <summary>
-/// The <see cref="PrimitiveRegistry"/> class provides a registry for Primitively types.
+/// This class provides a registry for Primitively types.
 /// </summary>
 public sealed class PrimitiveRegistry
 {

@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="Specifier"/> enum represents each .NET <see cref="Guid"/> format variation.
+/// This enum represents each .NET <see cref="Guid"/> format variation.
 /// </summary>
 public enum Specifier
 {

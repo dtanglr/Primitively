@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="PrimitiveInfo"/> abstract class represents metadata properties common to all source generated Primitively types.
+/// This abstract class represents metadata properties common to all source generated Primitively types.
 /// </summary>
 /// <param name="DataType">The <see cref="Primitively.DataType"/> enum representation of the Primitively type.</param>
 /// <param name="Type">The .NET type of the Primitively type.</param>

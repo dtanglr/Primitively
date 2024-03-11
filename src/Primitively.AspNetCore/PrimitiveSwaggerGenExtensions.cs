@@ -3,7 +3,7 @@
 namespace Primitively.AspNetCore;
 
 /// <summary>
-/// The <see cref="PrimitiveSwaggerGenExtensions"/> static class provides extension methods to the <see cref="IServiceCollection"/> for adding SwaggerGen for Primitively types.
+/// This static class provides extension methods to the <see cref="IServiceCollection"/> for adding SwaggerGen for Primitively types.
 /// </summary>
 public static class PrimitiveSwaggerGenExtensions
 {

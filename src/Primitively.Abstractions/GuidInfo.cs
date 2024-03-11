@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="GuidInfo"/> record contains metadata about a Primitively <see cref="IGuid"/> type.
+/// This class contains metadata about a Primitively <see cref="IGuid"/> type.
 /// </summary>
 /// <param name="Type">The .NET type of the Primitively type.</param>
 /// <param name="ValueType">The .NET type of the encapsulated value.</param>

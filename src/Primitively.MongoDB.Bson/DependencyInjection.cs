@@ -5,7 +5,7 @@ using Primitively.MongoDB.Bson.Serialization;
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// The <see cref="DependencyInjection"/> static class provides extension methods to the <see cref="PrimitivelyConfigurator"/> for adding BSON services.
+/// This static class provides extension methods to the <see cref="PrimitivelyConfigurator"/> for adding BSON services.
 /// </summary>
 public static class DependencyInjection
 {

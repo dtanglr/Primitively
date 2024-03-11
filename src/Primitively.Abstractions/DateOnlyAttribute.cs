@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="DateOnlyAttribute"/> should be used on a <c>partial record struct</c> to source generate
+/// This attribute should be used on a <c>partial record struct</c> to source generate
 /// a Primitively <see cref="IDateOnly"/> type that encapsulates a date value in ISO 8601 YYYY-MM-DD format.
 /// </summary>
 /// <example>

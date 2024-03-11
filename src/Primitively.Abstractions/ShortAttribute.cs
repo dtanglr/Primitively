@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="ShortAttribute"/> class can be used on a <c>partial record struct</c> to source generate
+/// This class can be used on a <c>partial record struct</c> to source generate
 /// a Primitively <see cref="IShort"/> type that encapsulates a <see cref="short"/> value.
 /// </summary>
 /// <example>

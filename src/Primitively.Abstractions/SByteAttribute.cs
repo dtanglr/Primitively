@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="SByteAttribute"/> should be used on a <c>partial record struct</c> to source generate
+/// This attribute should be used on a <c>partial record struct</c> to source generate
 /// a Primitively <see cref="ISByte"/> type that encapsulates an <see cref="sbyte"/> value.
 /// </summary>
 /// <example>

@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="DataType"/> enum represents each Primitively type variation.
+/// This enum represents each Primitively type variation.
 /// </summary>
 public enum DataType
 {

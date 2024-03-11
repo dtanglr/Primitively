@@ -3,7 +3,7 @@
 namespace Primitively.Configuration;
 
 /// <summary>
-/// The <see cref="PrimitivelyConfigurator"/> class is used to configure the services and options for Primitively.
+/// This class is used to configure the services and options for Primitively.
 /// </summary>
 public sealed class PrimitivelyConfigurator
 {

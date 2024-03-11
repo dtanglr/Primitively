@@ -3,7 +3,7 @@
 namespace Primitively.FluentValidation;
 
 /// <summary>
-/// The <see cref="PrimitiveFluentValidationExtensions"/> static class provides extension methods to <see cref="FluentValidation"/> for Primitively types.
+/// This static class provides extension methods to <see cref="FluentValidation"/> for Primitively types.
 /// </summary>
 public static class PrimitiveFluentValidationExtensions
 {

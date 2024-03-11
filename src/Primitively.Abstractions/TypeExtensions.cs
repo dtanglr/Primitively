@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="TypeExtensions"/> static class that provides extension methods for the <see cref="Type"/> class.
+/// This static class that provides extension methods for the <see cref="Type"/> class.
 /// </summary>
 /// <remarks>
 /// This class provides the method <see cref="IsAssignableTo(Type, Type)"/> which is missing from .NET Standard.

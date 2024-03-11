@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="DateOnlyInfo"/> record contains metadata about a Primitively <see cref="IDateOnly"/> type.
+/// This class contains metadata about a Primitively <see cref="IDateOnly"/> type.
 /// </summary>
 /// <param name="Type">The .NET type of the Primitively type.</param>
 /// <param name="ValueType">The .NET type of the encapsulated value.</param>

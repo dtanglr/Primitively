@@ -4,7 +4,7 @@ using Primitively.Configuration;
 namespace Primitively.AspNetCore.Mvc.ModelBinding;
 
 /// <summary>
-/// The <see cref="PrimitiveModelBinderProvider"/> class is a custom model binder provider for Primitively types.
+/// This class is a custom model binder provider for Primitively types.
 /// </summary>
 public class PrimitiveModelBinderProvider : IModelBinderProvider
 {

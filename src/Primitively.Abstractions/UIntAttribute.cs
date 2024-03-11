@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="UIntAttribute"/> class can be used on a <c>partial record struct</c> to source generate
+/// This class can be used on a <c>partial record struct</c> to source generate
 /// a Primitively <see cref="IUInt"/> type that encapsulates an <see cref="uint"/> value.
 /// </summary>
 /// <example>

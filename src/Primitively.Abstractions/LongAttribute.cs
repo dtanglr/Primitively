@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="LongAttribute"/> should be used on a <c>partial record struct</c> to source generate
+/// This attribute should be used on a <c>partial record struct</c> to source generate
 /// a Primitively <see cref="ILong"/> type that encapsulates a <see cref="long"/> value.
 /// </summary>
 /// <example>

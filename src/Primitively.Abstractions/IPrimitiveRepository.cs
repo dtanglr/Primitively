@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="IPrimitiveRepository"/> interface provides methods for retrieving metadata about Primitively types.
+/// This interface provides methods for retrieving metadata about Primitively types.
 /// </summary>
 public interface IPrimitiveRepository
 {

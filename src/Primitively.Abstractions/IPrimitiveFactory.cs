@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="IPrimitiveFactory"/> interface provides methods for creating instances of Primitively types.
+/// This interface provides methods for creating instances of Primitively types.
 /// </summary>
 public interface IPrimitiveFactory
 {

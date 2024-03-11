@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="GuidAttribute"/> should be used on a <c>partial record struct</c> to source generate
+/// This attribute should be used on a <c>partial record struct</c> to source generate
 /// a Primitively <see cref="IGuid"/> type that encapsulates a <see cref="Guid"/> value.
 /// </summary>
 /// <example>

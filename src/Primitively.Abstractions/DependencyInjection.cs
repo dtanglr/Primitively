@@ -3,7 +3,7 @@
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// The <see cref="DependencyInjection"/> static class provides extension methods for the <see cref="IServiceCollection"/> to add Primitively services.
+/// This static class provides extension methods for the <see cref="IServiceCollection"/> to add Primitively services.
 /// </summary>
 public static class DependencyInjection
 {

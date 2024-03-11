@@ -6,7 +6,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 namespace Primitively.AspNetCore.SwaggerGen;
 
 /// <summary>
-/// The <see cref="PrimitiveSchemaFilter"/> class is a custom schema filter for Primitively types.
+/// This class is a custom schema filter for Primitively types.
 /// </summary>
 public class PrimitiveSchemaFilter : ISchemaFilter
 {

@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="StringInfo"/> record contains metadata about a Primitively <see cref="IString"/> type.
+/// This class contains metadata about a Primitively <see cref="IString"/> type.
 /// </summary>
 /// <param name="Type">The Primitively type.</param>
 /// <param name="ValueType">The .NET type of the encapsulated value.</param>

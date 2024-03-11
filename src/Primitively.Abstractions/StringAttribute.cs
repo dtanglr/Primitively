@@ -1,7 +1,7 @@
 ﻿namespace Primitively;
 
 /// <summary>
-/// The <see cref="StringAttribute"/> class can be used on a <c>partial record struct</c> to source generate
+/// This class can be used on a <c>partial record struct</c> to source generate
 /// a Primitively <see cref="IString"/> type that encapsulates a <see cref="string"/> value.
 /// </summary>
 /// <remarks>

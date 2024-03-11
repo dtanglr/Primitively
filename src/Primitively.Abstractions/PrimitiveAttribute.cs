@@ -3,7 +3,7 @@
 namespace Primitively;
 
 /// <summary>
-/// The <see cref="PrimitiveAttribute"/> is an abstract class for custom attributes that can be applied to struct types.
+/// This is an abstract class for custom attributes that can be applied to struct types.
 /// It provides a flag to control whether to generate a method that implements the <see cref="IValidatableObject"/> interface.
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct, Inherited = true, AllowMultiple = false)]
