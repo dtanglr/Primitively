@@ -101,7 +101,7 @@ Here's some source generation in action using each of the above attributes: -
 
 ## Using Primitively on an ASP.NET core web project
 
-If you want to use your Primitively types in an ASP.NET core web project. Add the [Primitively.AspNetCore.Mvc](https://www.nuget.org/packages/Primitively.AspNetCore.Mvc/) NuGet package to your project by running the following command. This package contains model binding support, which means you can use your Primitively types in request headers and query strings.
+If you want to use your Primitively types in an ASP.NET core web project. Add the [Primitively.AspNetCore.Mvc](https://www.nuget.org/packages/Primitively.AspNetCore.Mvc/) NuGet package to your project by running the following command. It contains model binding support for your Primitively types, which means you can use your Primitively types in request parameters.
 
 ```sh
 dotnet add package Primitively.AspNetCore.Mvc --prerelease
@@ -139,3 +139,67 @@ builder.Services.AddPrimitively(options =>
 // Add Swashbuckle Open Api Schema Filter so Primitively types are fully supported in the API Swagger documentation 
 .AddSwaggerGen();
 ```
+
+## Using Primitively with MongoDB
+
+If you want to store your Primitively types in MongoDB they will need a BSON serializer. Add the [Primitively.MongoDB.Bson](https://www.nuget.org/packages/Primitively.MongoDB.Bson/) NuGet package to your project by running the following command. It contains highly configurable BSON serialization support for your Primitively types.
+
+```sh
+dotnet add package Primitively.MongoDB.Bson --prerelease
+```
+
+### Dependency injection
+
+Here's an example of the DI setup for a .NET core application that uses both MongoDB and Primitively.
+
+```cs
+var services = new ServiceCollection();
+
+// Add primitively configuration
+services.AddPrimitively(options =>
+{
+    // Register the location of source generated Primitively types within the application
+    options.Register(Acme.Lib1.PrimitiveLibrary.Respository);
+})
+// Add MongoDB BsonSerializer configuration. This method also supports registering types individually. By default
+// it will register a BSON serializer for each Primitively type in the PrimitivelyOptions registry.
+// Any Primitively types that are IGuid primitives will be by default stored in Mongo as the default CSharpLegacy Base64
+// strings unless overridden using the Bson serializer options
+.AddBson();
+```
+
+Your MongoDB related Primitively types can be registered in this way as well: -
+
+```cs
+services.AddPrimitively()
+    .AddBson(builder => builder.Register(Acme.Lib1.PrimitiveLibrary.Respository));
+```
+
+Or you can just register individual types rather than an entire library: -
+
+```cs
+services.AddPrimitively()
+    .AddBson(builder => builder.Register<ProductId>());
+```
+
+Each Primitively type's BSON serializer can be configured individually. Here's an example of how to set the options for the BSON serializer used on all your Primitively `IGuid` types: -
+
+```cs
+services.AddPrimitively()
+    .AddBson(builder => builder
+        .Register(Acme.Lib1.PrimitiveLibrary.Respository)
+        .Configure<BsonIGuidSerializerOptions>(options => options
+            .GuidRepresentation = MongoDB.Bson.GuidRepresentation.Standard));
+```
+
+## Next steps
+
+To learn more about Primitively, go to [primitively.net](https://primitively.net).
+
+## Examples
+
+Sample applications that demonstrate scenarios in which Primitively is commonly used are available for learning purposes in the *examples* folder.
+
+## Licence
+
+Licensed under the terms of the [New BSD License](https://opensource.org/license/bsd-3-clause/)
