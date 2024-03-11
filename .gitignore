@@ -350,6 +350,6 @@ MigrationBackup/
 .ionide/
 
 # DocFx generated files
-/docs/**/toc.yml
-/docs/api/
-_site
+/docs/_site
+/docs/api/*.yml
+/docs/api/.manifest

@@ -59,7 +59,7 @@ Here's a list of all the Primitively attributes currently available: -
 
 Here's some source generation in action using each of the above attributes: -
 
-![Primitively examples](docs/images/source-gen-anim-01.gif)
+![Primitively examples](images/source-gen-anim-01.gif)
 
 ## Using Primitively on an ASP.NET core web project
 
