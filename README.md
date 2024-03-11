@@ -56,7 +56,7 @@ Open your csproj file and edit the package reference, setting `PrivateAssets="Al
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Primitively" Version="1.4.15-rc.1" PrivateAssets="All" />
+    <PackageReference Include="Primitively" Version="1.4.15-rc.2" PrivateAssets="All" />
   </ItemGroup>
   
 </Project>
