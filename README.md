@@ -138,7 +138,7 @@ builder.Services.AddPrimitively(options =>
     // generated Primitively types also has a 'PrimitiveLibrary' static helper class. Meta data such
     // as type name, underlying data type, example value, min / max Length etc can then be obtained
     // from the PrimitiveRepository instance within each class library
-    options.Register(Acme.Lib1.PrimitiveLibrary.Respository);
+    options.Register(Acme.Lib1.PrimitiveLibrary.Repository);
 })
 // Add AspNetCore Mvc model binding support for Primitively types used in APIs.  This means strongly typed
 // Primitively types can easily be used as querystring and route params too etc
@@ -166,7 +166,7 @@ var services = new ServiceCollection();
 services.AddPrimitively(options =>
 {
     // Register the location of source generated Primitively types within the application
-    options.Register(Acme.Lib1.PrimitiveLibrary.Respository);
+    options.Register(Acme.Lib1.PrimitiveLibrary.Repository);
 })
 // Add MongoDB BsonSerializer configuration. This method also supports registering types individually. By default
 // it will register a BSON serializer for each Primitively type in the PrimitivelyOptions registry.
@@ -179,7 +179,7 @@ Your MongoDB related Primitively types can be registered in this way as well: -
 
 ```cs
 services.AddPrimitively()
-    .AddBson(builder => builder.Register(Acme.Lib1.PrimitiveLibrary.Respository));
+    .AddBson(builder => builder.Register(Acme.Lib1.PrimitiveLibrary.Repository));
 ```
 
 Or you can just register individual types rather than an entire library: -
@@ -194,7 +194,7 @@ Each Primitively type's BSON serializer can be configured individually. Here's a
 ```cs
 services.AddPrimitively()
     .AddBson(builder => builder
-        .Register(Acme.Lib1.PrimitiveLibrary.Respository)
+        .Register(Acme.Lib1.PrimitiveLibrary.Repository)
         .Configure<BsonIGuidSerializerOptions>(options => options
             .GuidRepresentation = MongoDB.Bson.GuidRepresentation.Standard));
 ```

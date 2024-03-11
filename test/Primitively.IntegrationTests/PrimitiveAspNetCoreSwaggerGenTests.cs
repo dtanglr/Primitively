@@ -17,13 +17,13 @@ public class PrimitiveAspNetCoreSwaggerGenTests
     {
         // Arrange
         var types = new List<PrimitiveInfo>();
-        types.AddRange(PrimitiveLibrary1.Respository.GetTypes());
-        types.AddRange(PrimitiveLibrary2.Respository.GetTypes());
+        types.AddRange(PrimitiveLibrary1.Repository.GetTypes());
+        types.AddRange(PrimitiveLibrary2.Repository.GetTypes());
 
         var services = new ServiceCollection();
         services.AddPrimitively(options => options
-            .Register(PrimitiveLibrary1.Respository)
-            .Register(PrimitiveLibrary2.Respository))
+            .Register(PrimitiveLibrary1.Repository)
+            .Register(PrimitiveLibrary2.Repository))
                 .AddSwaggerGen();
 
         // Act

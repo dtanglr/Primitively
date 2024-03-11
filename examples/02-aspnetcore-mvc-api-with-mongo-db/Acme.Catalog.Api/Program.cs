@@ -23,7 +23,7 @@ builder.Services.AddPrimitively(options =>
     // generated Primitively types also has a PrimitiveLibrary static helper class. Meta data such
     // as type name, underlying data type, example value, min / max Length etc can then be obtained
     // from the PrimitiveRepository instance within each class library
-    options.Register(PrimitiveLibrary.Respository);
+    options.Register(PrimitiveLibrary.Repository);
 })
 // Add AspNetCore Mvc model binding support for Primitively types used in APIs.  This means strongly typed
 // Primitively types can easily be used as querystring and route params too etc

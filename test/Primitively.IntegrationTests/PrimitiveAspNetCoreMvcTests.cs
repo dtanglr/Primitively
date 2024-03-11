@@ -18,8 +18,8 @@ public class PrimitiveAspNetCoreMvcTests
         var services = new ServiceCollection();
 
         services.AddPrimitively(options => options
-            .Register(PrimitiveLibrary1.Respository)
-            .Register(PrimitiveLibrary2.Respository))
+            .Register(PrimitiveLibrary1.Repository)
+            .Register(PrimitiveLibrary2.Repository))
             .AddMvc();
 
         // Act

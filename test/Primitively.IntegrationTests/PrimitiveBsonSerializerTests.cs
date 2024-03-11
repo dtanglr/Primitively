@@ -18,7 +18,7 @@ public class PrimitiveBsonSerializerTests
     {
         // Arrange
         var services = new ServiceCollection();
-        var repository = PrimitiveLibrary.Respository;
+        var repository = PrimitiveLibrary.Repository;
         var primitives = repository.GetTypes();
         var manager = new Mock<IBsonSerializerManager>();
         manager.Setup(m => m.TryRegisterSerializer(It.IsAny<Type>(), It.IsAny<IBsonSerializer>())).Returns(true);
@@ -53,7 +53,7 @@ public class PrimitiveBsonSerializerTests
     {
         // Arrange
         var services = new ServiceCollection();
-        var repository = PrimitiveLibrary.Respository;
+        var repository = PrimitiveLibrary.Repository;
         var primitives = repository.GetTypes();
         var manager = new Mock<IBsonSerializerManager>();
         manager.Setup(m => m.TryRegisterSerializer(It.IsAny<Type>(), It.IsAny<IBsonSerializer>())).Returns(true);
@@ -86,7 +86,7 @@ public class PrimitiveBsonSerializerTests
     {
         // Arrange
         var services = new ServiceCollection();
-        var repository = PrimitiveLibrary.Respository;
+        var repository = PrimitiveLibrary.Repository;
         var primitives = repository.GetTypes();
         var manager = new Mock<IBsonSerializerManager>();
         manager.Setup(m => m.TryRegisterSerializer(It.IsAny<Type>(), It.IsAny<IBsonSerializer>())).Returns(true);
