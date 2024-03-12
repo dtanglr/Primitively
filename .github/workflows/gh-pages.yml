@@ -1,4 +1,6 @@
 # Your GitHub workflow file under .github/workflows/
+name: github-pages
+
 # Trigger the action on push to main
 on:
   push:
