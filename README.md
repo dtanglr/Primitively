@@ -211,4 +211,4 @@ Sample applications that demonstrate scenarios in which Primitively is commonly 
 
 Licensed under the terms of the [New BSD License](https://opensource.org/license/bsd-3-clause/)
 
-[primitively-website]: https://github.com/dtanglr/Primitively
+[primitively-website]: https://primitively.net
