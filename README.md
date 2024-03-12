@@ -4,7 +4,7 @@
 
 **Primitively** is a Rosyln-powered C# source code generator of strongly-typed IDs and DDD-style value objects that encapsulate a single GUID, integer, date or string .NET *primitively* typed value.
 
-For example: -
+For example: - 
 
 ```csharp
 // Before
