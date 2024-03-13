@@ -1,17 +1,14 @@
 - name: Introduction
   href: index.md
-
-- name: Getting Started
-  href: getting-started.md
-
-- name: API Documentation
-  href: api/Primitively.yml
-
-- name: Further Information
-  href: further-information/
   expanded: true
   items:
     - name: What are the benefits of using Primitively?
       href: further-information/what-are-the-benefits-of-using-primitively.md
     - name: What is Primitive Obsession?
       href: further-information/what-is-primitive-obsession.md
+
+- name: Getting Started
+  href: getting-started.md
+
+- name: API Documentation
+  href: api/Primitively.yml
