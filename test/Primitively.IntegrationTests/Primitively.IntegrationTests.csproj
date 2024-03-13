@@ -32,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Primitively.AspNetCore\Primitively.AspNetCore.csproj" />
     <ProjectReference Include="..\..\src\Primitively.AspNetCore.Mvc\Primitively.AspNetCore.Mvc.csproj" />
     <ProjectReference Include="..\..\src\Primitively.AspNetCore.SwaggerGen\Primitively.AspNetCore.SwaggerGen.csproj" />
     <ProjectReference Include="..\..\src\Primitively.FluentValidation\Primitively.FluentValidation.csproj" />
