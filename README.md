@@ -42,7 +42,7 @@ For more detailed information about Primitively, check out [primitively.net][pri
 To get started, first add the [Primitively](https://www.nuget.org/packages/Primitively/) NuGet package to your project by running the following command:
 
 ```sh
-dotnet add package Primitively --prerelease
+dotnet add package Primitively
 ```
 
 Open your csproj file and edit the package reference, setting `PrivateAssets="All"`. The file will look something like this afterwards:
@@ -57,7 +57,7 @@ Open your csproj file and edit the package reference, setting `PrivateAssets="Al
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Primitively" Version="1.4.15-rc.3" PrivateAssets="All" />
+    <PackageReference Include="Primitively" Version="1.4.15" PrivateAssets="All" />
   </ItemGroup>
   
 </Project>
@@ -105,19 +105,19 @@ Here's some source generation in action using each of the above attributes: -
 If you want to use your Primitively types in an ASP.NET core web project. Add the [Primitively.AspNetCore.Mvc](https://www.nuget.org/packages/Primitively.AspNetCore.Mvc/) NuGet package to your project by running the following command. It contains model binding support for your Primitively types, which means you can use your Primitively types in request parameters.
 
 ```sh
-dotnet add package Primitively.AspNetCore.Mvc --prerelease
+dotnet add package Primitively.AspNetCore.Mvc
 ```
 
 If you are also generating **swagger** documentation for a web API. Add the [Primitively.AspNetCore.SwaggerGen](https://www.nuget.org/packages/Primitively.AspNetCore.SwaggerGen/) NuGet package to your project by running the following command. 
 
 ```sh
-dotnet add package Primitively.AspNetCore.SwaggerGen --prerelease
+dotnet add package Primitively.AspNetCore.SwaggerGen
 ```
 
 When using `FluentValidation` to validate your web requests. Add the [Primitively.FluentValidation](https://www.nuget.org/packages/Primitively.FluentValidation/) NuGet package to your project by running the following command. It contains two extension methods which validate any Primitively type with zero DI configuration.
 
 ```sh
-dotnet add package Primitively.FluentValidation --prerelease
+dotnet add package Primitively.FluentValidation
 ```
 
 ### Dependency injection
@@ -152,7 +152,7 @@ builder.Services.AddPrimitively(options =>
 If you want to store your Primitively types in MongoDB they will need a BSON serializer. Add the [Primitively.MongoDB.Bson](https://www.nuget.org/packages/Primitively.MongoDB.Bson/) NuGet package to your project by running the following command. It contains highly configurable BSON serialization support for your Primitively types.
 
 ```sh
-dotnet add package Primitively.MongoDB.Bson --prerelease
+dotnet add package Primitively.MongoDB.Bson
 ```
 
 ### Dependency injection
