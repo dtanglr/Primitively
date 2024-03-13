@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Primitively" Version="1.4.15-rc.3" PrivateAssets="All" />
+    <PackageReference Include="Primitively" Version="1.4.15" PrivateAssets="All" />
     <PackageReference Include="IsExternalInit" Version="1.0.3"><!--Adds support for 'record'-->
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
