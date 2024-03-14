@@ -13,9 +13,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageReference Include="MongoDB.Driver" Version="2.24.0" />
-    <PackageReference Include="Primitively.AspNetCore.Mvc" Version="1.4.15" />
-    <PackageReference Include="Primitively.AspNetCore.SwaggerGen" Version="1.4.15" />
-    <PackageReference Include="Primitively.MongoDB.Bson" Version="1.4.15" />
+    <PackageReference Include="Primitively.AspNetCore.Mvc" Version="1.4.16" />
+    <PackageReference Include="Primitively.AspNetCore.SwaggerGen" Version="1.4.16" />
+    <PackageReference Include="Primitively.MongoDB.Bson" Version="1.4.16" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
