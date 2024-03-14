@@ -6,7 +6,7 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents the options used to configure the BSON serialization of Primitively <see cref="IString"/> types.
 /// </summary>
-public record BsonIStringSerializerOptions : IBsonSerializerOptions<BsonIStringSerializerOptions>
+public class BsonIStringSerializerOptions : IBsonSerializerOptions<BsonIStringSerializerOptions>
 {
     /// <summary>
     /// Gets the <see cref="Primitively.DataType"/> of the Primitively <see cref="IString"/> type.

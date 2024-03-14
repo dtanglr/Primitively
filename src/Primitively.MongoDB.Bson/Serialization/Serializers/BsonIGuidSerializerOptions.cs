@@ -6,7 +6,7 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents the options used to configure the BSON serialization of Primitively <see cref="IGuid"/> types.
 /// </summary>
-public record BsonIGuidSerializerOptions : IBsonIGuidSerializerOptions<BsonIGuidSerializerOptions>
+public class BsonIGuidSerializerOptions : IBsonIGuidSerializerOptions<BsonIGuidSerializerOptions>
 {
     /// <summary>
     /// Gets the <see cref="Primitively.DataType"/> of the Primitively <see cref="IGuid"/> type.

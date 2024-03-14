@@ -7,7 +7,7 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents the options used to configure the BSON serialization of Primitively <see cref="IUShort"/> types.
 /// </summary>
-public record BsonIUShortSerializerOptions : IBsonConvertibleSerializerOptions<BsonIUShortSerializerOptions>
+public class BsonIUShortSerializerOptions : IBsonConvertibleSerializerOptions<BsonIUShortSerializerOptions>
 {
     /// <summary>
     /// Gets the <see cref="Primitively.DataType"/> of the Primitively <see cref="IUShort"/> type.

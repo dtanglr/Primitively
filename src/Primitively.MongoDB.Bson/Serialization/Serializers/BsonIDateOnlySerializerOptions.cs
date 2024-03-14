@@ -6,7 +6,7 @@ namespace Primitively.MongoDB.Bson.Serialization.Serializers;
 /// <summary>
 /// Represents the options used to configure the BSON serialization of Primitively <see cref="IDateOnly"/> types.
 /// </summary>
-public record BsonIDateOnlySerializerOptions : IBsonSerializerOptions<BsonIDateOnlySerializerOptions>
+public class BsonIDateOnlySerializerOptions : IBsonSerializerOptions<BsonIDateOnlySerializerOptions>
 {
     /// <summary>
     /// Gets the <see cref="Primitively.DataType"/> of the Primitively <see cref="IDateOnly"/> type.
