@@ -15,12 +15,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="IsExternalInit" Version="1.0.3" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
-    <PackageReference Include="IsExternalInit" Version="1.0.3" PrivateAssets="all" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" PrivateAssets="all" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\Primitively.Abstractions\Primitively.Abstractions.csproj" />
   </ItemGroup>
@@ -29,7 +28,7 @@
     <Compile Remove="EmbeddedResources\**\*.cs" />
     <EmbeddedResource Include="EmbeddedResources\**\*.cs" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     <None Include="$(OutputPath)\Primitively.Abstractions.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
