@@ -84,9 +84,9 @@ internal readonly struct MetaData
     }
 
     /// <summary>
-    /// Contains metadata about various integer Primitively types.
+    /// Contains metadata about various Numeric Primitively types.
     /// </summary>
-    public readonly struct Integer
+    public readonly struct Numeric
     {
         /// <summary>
         /// Contains metadata about the Byte Primitively type.
@@ -190,6 +190,45 @@ internal readonly struct MetaData
             public static readonly decimal Maximum = ushort.MaxValue;
             public static readonly decimal Minimum = ushort.MinValue;
             public static readonly string Type = typeof(ushort).FullName;
+        }
+
+        /// <summary>
+        /// Contains metadata about the Single (float) Primitively type.
+        /// </summary>
+        public readonly struct Single
+        {
+            public static readonly string Example = $"{0.60344}";
+            public static readonly string Interface = typeof(ISingle).FullName;
+            public static readonly string JsonReaderMethod = "TryGetSingle";
+            public static readonly float Maximum = float.MaxValue;
+            public static readonly float Minimum = float.MinValue;
+            public static readonly string Type = typeof(float).FullName;
+        }
+
+        /// <summary>
+        /// Contains metadata about the Double Primitively type.
+        /// </summary>
+        public readonly struct Double
+        {
+            public static readonly string Example = $"{0.60344}";
+            public static readonly string Interface = typeof(IDouble).FullName;
+            public static readonly string JsonReaderMethod = "TryGetDouble";
+            public static readonly double Maximum = double.MaxValue;
+            public static readonly double Minimum = double.MinValue;
+            public static readonly string Type = typeof(double).FullName;
+        }
+
+        /// <summary>
+        /// Contains metadata about the Decimal Primitively type.
+        /// </summary>
+        public readonly struct Decimal
+        {
+            public static readonly string Example = $"{16325.62}";
+            public static readonly string Interface = typeof(IDecimal).FullName;
+            public static readonly string JsonReaderMethod = "TryGetDecimal";
+            public static readonly decimal Maximum = decimal.MaxValue;
+            public static readonly decimal Minimum = decimal.MinValue;
+            public static readonly string Type = typeof(decimal).FullName;
         }
     }
 }

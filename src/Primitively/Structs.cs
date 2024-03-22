@@ -150,9 +150,12 @@ public class Structs : IIncrementalGenerator
                 case DataType.UInt:
                 case DataType.Long:
                 case DataType.ULong:
-                    sb.Append(EmbeddedResources.Integer.Base);
-                    sb.Append(EmbeddedResources.Integer.JsonConverter);
-                    sb.Append(EmbeddedResources.Integer.TypeConverter);
+                case DataType.Single:
+                case DataType.Double:
+                case DataType.Decimal:
+                    sb.Append(EmbeddedResources.Numeric.Base);
+                    sb.Append(EmbeddedResources.Numeric.JsonConverter);
+                    sb.Append(EmbeddedResources.Numeric.TypeConverter);
                     break;
                 case DataType.String:
                     sb.Append(EmbeddedResources.String.Base);
@@ -185,9 +188,32 @@ public class Structs : IIncrementalGenerator
             sb.Replace("PRIMITIVE_LENGTH", recordStruct.Length.ToString());
             sb.Replace("PRIMITIVE_MINLENGTH", recordStruct.MinLength.ToString());
             sb.Replace("PRIMITIVE_MAXLENGTH", recordStruct.MaxLength.ToString());
-            sb.Replace("PRIMITIVE_MINIMUM", recordStruct.Minimum?.ToString() ?? "0");
-            sb.Replace("PRIMITIVE_MAXIMUM", recordStruct.Maximum?.ToString() ?? "0");
             sb.Replace("PRIMITIVE_JSON_READER_METHOD", recordStruct.JsonReaderMethod);
+
+            // Replace minimum and maximum
+            var minimum = recordStruct.Minimum.ToString();
+            var maximum = recordStruct.Maximum.ToString();
+
+            switch (recordStruct.DataType)
+            {
+                case DataType.Single:
+                    minimum = GetMinimum(Convert.ToSingle(recordStruct.Minimum));
+                    maximum = GetMaximum(Convert.ToSingle(recordStruct.Maximum));
+                    break;
+                case DataType.Double:
+                    minimum = GetMinimum(Convert.ToDouble(recordStruct.Minimum));
+                    maximum = GetMaximum(Convert.ToDouble(recordStruct.Maximum));
+                    break;
+                case DataType.Decimal:
+                    minimum = $"{recordStruct.Minimum}m";
+                    maximum = $"{recordStruct.Maximum}m";
+                    break;
+                default:
+                    break;
+            }
+
+            sb.Replace("PRIMITIVE_MINIMUM", minimum);
+            sb.Replace("PRIMITIVE_MAXIMUM", maximum);
 
             // Construct source file text from string
             context.AddSource($"{recordStruct.NameSpace}.{recordStruct.Name}.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
@@ -223,14 +249,17 @@ public class Structs : IIncrementalGenerator
                     {
                         DataType.DateOnly => $"{Padding}yield return new global::Primitively.DateOnlyInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(global::System.DateTime), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, \"{rs.Format}\", {rs.Length});",
                         DataType.Guid => $"{Padding}yield return new global::Primitively.GuidInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(global::System.Guid), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, global::Primitively.Specifier.{rs.Specifier}, {rs.Length});",
-                        DataType.Byte => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.Byte, typeof({rs.NameSpace}.{rs.Name}), typeof(byte), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
-                        DataType.SByte => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.SByte, typeof({rs.NameSpace}.{rs.Name}), typeof(sbyte), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
-                        DataType.Short => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.Short, typeof({rs.NameSpace}.{rs.Name}), typeof(short), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
-                        DataType.UShort => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.UShort, typeof({rs.NameSpace}.{rs.Name}), typeof(ushort), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
-                        DataType.Int => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.Int, typeof({rs.NameSpace}.{rs.Name}), typeof(int), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
-                        DataType.UInt => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.UInt, typeof({rs.NameSpace}.{rs.Name}), typeof(uint), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
-                        DataType.Long => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.Long, typeof({rs.NameSpace}.{rs.Name}), typeof(long), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
-                        DataType.ULong => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.ULong, typeof({rs.NameSpace}.{rs.Name}), typeof(ulong), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
+                        DataType.Byte => $"{Padding}yield return new global::Primitively.NumericInfo<byte>(global::Primitively.DataType.Byte, typeof({rs.NameSpace}.{rs.Name}), typeof(byte), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
+                        DataType.SByte => $"{Padding}yield return new global::Primitively.NumericInfo<sbyte>(global::Primitively.DataType.SByte, typeof({rs.NameSpace}.{rs.Name}), typeof(sbyte), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
+                        DataType.Short => $"{Padding}yield return new global::Primitively.NumericInfo<short>(global::Primitively.DataType.Short, typeof({rs.NameSpace}.{rs.Name}), typeof(short), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
+                        DataType.UShort => $"{Padding}yield return new global::Primitively.NumericInfo<ushort>(global::Primitively.DataType.UShort, typeof({rs.NameSpace}.{rs.Name}), typeof(ushort), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
+                        DataType.Int => $"{Padding}yield return new global::Primitively.NumericInfo<int>(global::Primitively.DataType.Int, typeof({rs.NameSpace}.{rs.Name}), typeof(int), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
+                        DataType.UInt => $"{Padding}yield return new global::Primitively.NumericInfo<uint>(global::Primitively.DataType.UInt, typeof({rs.NameSpace}.{rs.Name}), typeof(uint), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
+                        DataType.Long => $"{Padding}yield return new global::Primitively.NumericInfo<long>(global::Primitively.DataType.Long, typeof({rs.NameSpace}.{rs.Name}), typeof(long), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
+                        DataType.ULong => $"{Padding}yield return new global::Primitively.NumericInfo<ulong>(global::Primitively.DataType.ULong, typeof({rs.NameSpace}.{rs.Name}), typeof(ulong), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
+                        DataType.Single => $"{Padding}yield return new global::Primitively.NumericInfo<float>(global::Primitively.DataType.Single, typeof({rs.NameSpace}.{rs.Name}), typeof(float), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {GetMinimum(Convert.ToSingle(rs.Minimum))}, {GetMaximum(Convert.ToSingle(rs.Maximum))});",
+                        DataType.Double => $"{Padding}yield return new global::Primitively.NumericInfo<double>(global::Primitively.DataType.Double, typeof({rs.NameSpace}.{rs.Name}), typeof(double), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {GetMinimum(Convert.ToDouble(rs.Minimum))}, {GetMaximum(Convert.ToDouble(rs.Maximum))});",
+                        DataType.Decimal => $"{Padding}yield return new global::Primitively.NumericInfo<decimal>(global::Primitively.DataType.Decimal, typeof({rs.NameSpace}.{rs.Name}), typeof(decimal), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}m, {rs.Maximum}m);",
                         DataType.String => $"{Padding}yield return new global::Primitively.StringInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(string), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, \"{rs.Format}\", \"{rs.Pattern}\", {rs.MinLength}, {rs.MaxLength});",
                         _ => throw new NotImplementedException()
                     });
@@ -253,6 +282,14 @@ public class Structs : IIncrementalGenerator
         // Construct source file text from string
         context.AddSource("PrimitiveRepository.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
     }
+
+    private static string GetMaximum(double value) => value == double.MaxValue ? "double.MaxValue" : $"{value}d";
+
+    private static string GetMaximum(float value) => value == float.MaxValue ? "float.MaxValue" : $"{value}f";
+
+    private static string GetMinimum(double value) => value == double.MinValue ? "double.MinValue" : $"{value}d";
+
+    private static string GetMinimum(float value) => value == float.MinValue ? "float.MinValue" : $"{value}f";
 
     /// <summary>
     /// Gets the target syntax.
