@@ -20,7 +20,17 @@ public class PrimitiveRepositoryTests : PrimitiveTests
         {
             _ when type.IsAssignableTo(typeof(IDateOnly)) => typeof(DateOnlyInfo),
             _ when type.IsAssignableTo(typeof(IGuid)) => typeof(GuidInfo),
-            _ when type.IsAssignableTo(typeof(IInteger)) => typeof(IntegerInfo),
+            _ when type.IsAssignableTo(typeof(IByte)) => typeof(NumericInfo<byte>),
+            _ when type.IsAssignableTo(typeof(IDecimal)) => typeof(NumericInfo<decimal>),
+            _ when type.IsAssignableTo(typeof(IDouble)) => typeof(NumericInfo<double>),
+            _ when type.IsAssignableTo(typeof(IInt)) => typeof(NumericInfo<int>),
+            _ when type.IsAssignableTo(typeof(ILong)) => typeof(NumericInfo<long>),
+            _ when type.IsAssignableTo(typeof(ISByte)) => typeof(NumericInfo<sbyte>),
+            _ when type.IsAssignableTo(typeof(IShort)) => typeof(NumericInfo<short>),
+            _ when type.IsAssignableTo(typeof(ISingle)) => typeof(NumericInfo<float>),
+            _ when type.IsAssignableTo(typeof(IUInt)) => typeof(NumericInfo<uint>),
+            _ when type.IsAssignableTo(typeof(IULong)) => typeof(NumericInfo<ulong>),
+            _ when type.IsAssignableTo(typeof(IUShort)) => typeof(NumericInfo<ushort>),
             _ when type.IsAssignableTo(typeof(IString)) => typeof(StringInfo),
             _ => throw new NotImplementedException(),
         };

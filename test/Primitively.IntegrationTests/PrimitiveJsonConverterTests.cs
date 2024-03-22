@@ -26,7 +26,7 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
     public void JsonConverter_CanReadValue()
     {
         var converter = new TJsonConverter();
-        var json = PrimitiveWithValue is IInteger ? PrimitiveWithValue.ToString() : $"\"{PrimitiveWithValue}\"";
+        var json = PrimitiveWithValue is INumeric ? PrimitiveWithValue.ToString() : $"\"{PrimitiveWithValue}\"";
         var bytes = Encoding.UTF8.GetBytes(json!);
         var reader = new Utf8JsonReader(bytes.AsSpan());
         reader.Read();
@@ -41,7 +41,7 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
     {
         var converter = new TJsonConverter();
         var value = default(TPrimitive);
-        var json = value is IInteger ? value.ToString() : $"\"{value}\"";
+        var json = value is INumeric ? value.ToString() : $"\"{value}\"";
         var bytes = Encoding.UTF8.GetBytes(json!);
         var reader = new Utf8JsonReader(bytes.AsSpan());
         reader.Read();
@@ -54,7 +54,7 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
     [Fact]
     public void JsonConverter_CanReadNull()
     {
-        if (PrimitiveWithValue is IInteger)
+        if (PrimitiveWithValue is INumeric)
         {
             return;
         }
@@ -82,7 +82,7 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
         writer.Flush();
 
         var json = Encoding.UTF8.GetString(bytes.WrittenSpan);
-        json.Should().Be(PrimitiveWithValue is IInteger ? PrimitiveWithValue.ToString() : $"\"{PrimitiveWithValue}\"");
+        json.Should().Be(PrimitiveWithValue is INumeric ? PrimitiveWithValue.ToString() : $"\"{PrimitiveWithValue}\"");
     }
 
     [Fact]
@@ -98,7 +98,7 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
 
         var json = Encoding.UTF8.GetString(bytes.WrittenSpan);
 
-        if (primitive is IInteger)
+        if (primitive is INumeric)
         {
             json.Should().Be(primitive.ToString());
 

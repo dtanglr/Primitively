@@ -28,6 +28,9 @@ internal static class Parser
         typeof(UIntAttribute).FullName,
         typeof(LongAttribute).FullName,
         typeof(ULongAttribute).FullName,
+        typeof(SingleAttribute).FullName,
+        typeof(DoubleAttribute).FullName,
+        typeof(DecimalAttribute).FullName,
         typeof(StringAttribute).FullName,
     ];
 
@@ -94,15 +97,18 @@ internal static class Parser
                     nameof(DateOnlyAttribute) => !DateOnlyParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData),
                     // Guid
                     nameof(GuidAttribute) => !GuidParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData),
-                    // Integer
-                    nameof(ByteAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Byte, out recordStructData),
-                    nameof(SByteAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.SByte, out recordStructData),
-                    nameof(ShortAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Short, out recordStructData),
-                    nameof(UShortAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.UShort, out recordStructData),
-                    nameof(IntAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Int, out recordStructData),
-                    nameof(UIntAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.UInt, out recordStructData),
-                    nameof(LongAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Long, out recordStructData),
-                    nameof(ULongAttribute) => !IntegerParser.TryParse(attributeData, name, nameSpace, parentData, DataType.ULong, out recordStructData),
+                    // Numeric
+                    nameof(ByteAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Byte, out recordStructData),
+                    nameof(SByteAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.SByte, out recordStructData),
+                    nameof(ShortAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Short, out recordStructData),
+                    nameof(UShortAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.UShort, out recordStructData),
+                    nameof(IntAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Int, out recordStructData),
+                    nameof(UIntAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.UInt, out recordStructData),
+                    nameof(LongAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Long, out recordStructData),
+                    nameof(ULongAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.ULong, out recordStructData),
+                    nameof(SingleAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Single, out recordStructData),
+                    nameof(DoubleAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Double, out recordStructData),
+                    nameof(DecimalAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Decimal, out recordStructData),
                     // string
                     nameof(StringAttribute) => !StringParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData),
                     _ => throw new NotImplementedException(),

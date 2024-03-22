@@ -58,5 +58,20 @@ public enum DataType
     /// <summary>
     /// Represents an <see cref="IUShort"/> type that encapsulates a <see cref="ushort"/> value.
     /// </summary>
-    UShort
+    UShort,
+
+    /// <summary>
+    /// Represents an <see cref="ISingle"/> type that encapsulates a <see cref="float"/> value.
+    /// </summary>
+    Single,
+
+    /// <summary>
+    /// Represents an <see cref="IDouble"/> type that encapsulates a <see cref="double"/> value.
+    /// </summary>
+    Double,
+
+    /// <summary>
+    /// Represents an <see cref="IDecimal"/> type that encapsulates a <see cref="decimal"/> value.
+    /// </summary>
+    Decimal
 }

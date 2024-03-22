@@ -23,7 +23,7 @@
 /// The generated Primitively type will enforce the specified minimum and maximum value constraints.
 /// </remarks>
 [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-public sealed class LongAttribute : IntegerAttribute
+public sealed class LongAttribute : NumericAttribute
 {
     /// <summary>
     /// Gets or sets the minimum value supported by the source generated Primitively <see cref="ILong"/> type.

@@ -82,17 +82,53 @@ public class PrimitiveSchemaFilter : ISchemaFilter
                     break;
                 }
 
-            case IntegerInfo integerInfo:
+            case NumericInfo numericInfo:
                 {
-                    schema.Type = "integer";
+                    schema.Type = numericInfo.DataType switch
+                    {
+                        DataType.Single => "number",
+                        DataType.Double => "number",
+                        DataType.Decimal => "number",
+                        _ => "integer"
+                    };
                     schema.Properties = null;
-                    schema.Example = new OpenApiString(primitiveInfo.Example);
-                    schema.Minimum = integerInfo.Minimum;
-                    schema.Maximum = integerInfo.Maximum;
-                    schema.Format = integerInfo.DataType switch
+                    schema.Example = new OpenApiString(numericInfo.Example);
+                    schema.Minimum = numericInfo switch
+                    {
+                        NumericInfo<byte> byteInfo => byteInfo.Minimum,
+                        NumericInfo<decimal> decimalInfo => decimalInfo.Minimum,
+                        NumericInfo<double> doubleInfo => TryGetDecimal(doubleInfo.Minimum),
+                        NumericInfo<int> intInfo => intInfo.Minimum,
+                        NumericInfo<long> longInfo => longInfo.Minimum,
+                        NumericInfo<sbyte> sbyteInfo => sbyteInfo.Minimum,
+                        NumericInfo<short> shortInfo => shortInfo.Minimum,
+                        NumericInfo<float> singleInfo => TryGetDecimal(singleInfo.Minimum),
+                        NumericInfo<uint> uintInfo => uintInfo.Minimum,
+                        NumericInfo<ulong> ulongInfo => ulongInfo.Minimum,
+                        NumericInfo<ushort> ushortInfo => ushortInfo.Minimum,
+                        _ => throw new NotImplementedException($"Unable to obtain the minimum value for the Open API schema. No matching NumericInfo type.")
+                    };
+                    schema.Maximum = numericInfo switch
+                    {
+                        NumericInfo<byte> byteInfo => byteInfo.Maximum,
+                        NumericInfo<decimal> decimalInfo => decimalInfo.Maximum,
+                        NumericInfo<double> doubleInfo => TryGetDecimal(doubleInfo.Maximum),
+                        NumericInfo<int> intInfo => intInfo.Maximum,
+                        NumericInfo<long> longInfo => longInfo.Maximum,
+                        NumericInfo<sbyte> sbyteInfo => sbyteInfo.Maximum,
+                        NumericInfo<short> shortInfo => shortInfo.Maximum,
+                        NumericInfo<float> singleInfo => TryGetDecimal(singleInfo.Maximum),
+                        NumericInfo<uint> uintInfo => uintInfo.Maximum,
+                        NumericInfo<ulong> ulongInfo => ulongInfo.Maximum,
+                        NumericInfo<ushort> ushortInfo => ushortInfo.Maximum,
+                        _ => throw new NotImplementedException($"Unable to obtain the minimum value for the Open API schema. No matching NumericInfo type.")
+                    };
+                    schema.Format = numericInfo.DataType switch
                     {
                         DataType.Int => "int32",
                         DataType.Long => "int64",
+                        DataType.Single => "float",
+                        DataType.Double => "double",
                         _ => null
                     };
 
@@ -101,6 +137,30 @@ public class PrimitiveSchemaFilter : ISchemaFilter
 
             default:
                 break;
+        }
+    }
+
+    private static decimal? TryGetDecimal(double minimum)
+    {
+        try
+        {
+            return Convert.ToDecimal(minimum);
+        }
+        catch (OverflowException)
+        {
+            return null;
+        }
+    }
+
+    private static decimal? TryGetDecimal(float minimum)
+    {
+        try
+        {
+            return Convert.ToDecimal(minimum);
+        }
+        catch (OverflowException)
+        {
+            return null;
         }
     }
 }

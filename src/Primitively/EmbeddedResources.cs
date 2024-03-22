@@ -38,13 +38,13 @@ internal readonly struct EmbeddedResources
     }
 
     /// <summary>
-    /// Contains methods for retrieving Integer related embedded resources.
+    /// Contains methods for retrieving Numeric related embedded resources.
     /// </summary>
-    public readonly struct Integer
+    public readonly struct Numeric
     {
-        public static readonly string Base = GetEmbeddedResource(nameof(Integer), nameof(Base));
-        public static readonly string JsonConverter = GetEmbeddedResource(nameof(Integer), nameof(JsonConverter));
-        public static readonly string TypeConverter = GetEmbeddedResource(nameof(Integer), nameof(TypeConverter));
+        public static readonly string Base = GetEmbeddedResource(nameof(Numeric), nameof(Base));
+        public static readonly string JsonConverter = GetEmbeddedResource(nameof(Numeric), nameof(JsonConverter));
+        public static readonly string TypeConverter = GetEmbeddedResource(nameof(Numeric), nameof(TypeConverter));
     }
 
     /// <summary>

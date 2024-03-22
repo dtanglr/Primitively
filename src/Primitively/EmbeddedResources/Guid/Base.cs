@@ -2,8 +2,8 @@
 {
     private readonly global::System.Guid _value;
 
-    public const string Example = @"PRIMITIVE_EXAMPLE";
-    public const string Format = @"PRIMITIVE_FORMAT"; // "N", "D", "B", "P", or "X"
+    public const string Example = "PRIMITIVE_EXAMPLE";
+    public const string Format = "PRIMITIVE_FORMAT"; // "N", "D", "B", "P", or "X"
     public const int Length = PRIMITIVE_LENGTH;
 
     public PRIMITIVE_TYPE(global::System.Guid value)

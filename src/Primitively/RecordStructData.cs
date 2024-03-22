@@ -67,10 +67,10 @@ internal record RecordStructData(DataType DataType, string Name, string NameSpac
     /// <summary>
     /// Gets or sets the minimum value constraint of the record struct data.
     /// </summary>
-    public decimal? Minimum { get; set; }
+    public object Minimum { get; set; } = 0;
 
     /// <summary>
     /// Gets or sets the maximum value constraint of the record struct data.
     /// </summary>
-    public decimal? Maximum { get; set; }
+    public object Maximum { get; set; } = 0;
 }

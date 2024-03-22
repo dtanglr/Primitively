@@ -3,8 +3,8 @@
 #if NET6_0_OR_GREATER
     private readonly global::System.DateTime _value;
 
-    public const string Example = @"PRIMITIVE_EXAMPLE";
-    public const string Format = @"PRIMITIVE_FORMAT";
+    public const string Example = "PRIMITIVE_EXAMPLE";
+    public const string Format = "PRIMITIVE_FORMAT";
     public const int Length = PRIMITIVE_LENGTH;
 
     public PRIMITIVE_TYPE(global::System.DateOnly value)
@@ -54,8 +54,8 @@
 #else
     private readonly global::System.DateTime _value;
 
-    public const string Example = @"PRIMITIVE_EXAMPLE";
-    public const string Format = @"PRIMITIVE_FORMAT";
+    public const string Example = "PRIMITIVE_EXAMPLE";
+    public const string Format = "PRIMITIVE_FORMAT";
     public const int Length = PRIMITIVE_LENGTH;
 
     public PRIMITIVE_TYPE(global::System.DateTime value)
