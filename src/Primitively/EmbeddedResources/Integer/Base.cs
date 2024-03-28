@@ -2,23 +2,25 @@
 {
     private readonly global::PRIMITIVE_VALUE_TYPE _value = default;
 
-    public const string Example = @"PRIMITIVE_EXAMPLE";
+    public const string Example = "PRIMITIVE_EXAMPLE";
     public const global::PRIMITIVE_VALUE_TYPE Minimum = PRIMITIVE_MINIMUM;
     public const global::PRIMITIVE_VALUE_TYPE Maximum = PRIMITIVE_MAXIMUM;
 
     public PRIMITIVE_TYPE(global::PRIMITIVE_VALUE_TYPE value)
     {
-        if (value >= PRIMITIVE_MINIMUM && value <= PRIMITIVE_MAXIMUM)
+        if (value >= Minimum && value <= Maximum)
         {
             _value = value;
+            HasValue = true;
         }
     }
 
     private PRIMITIVE_TYPE(string value)
     {
-        if (global::PRIMITIVE_VALUE_TYPE.TryParse(value, out var result) && result >= PRIMITIVE_MINIMUM && result <= PRIMITIVE_MAXIMUM)
+        if (global::PRIMITIVE_VALUE_TYPE.TryParse(value, out var result) && result >= Minimum && result <= Maximum)
         {
             _value = result;
+            HasValue = true;
         }
     }
 
@@ -27,7 +29,7 @@
     global::PRIMITIVE_VALUE_TYPE global::Primitively.IPrimitive<global::PRIMITIVE_VALUE_TYPE>.Value => _value;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
-    public bool HasValue => _value != default;
+    public bool HasValue { get; } = false;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
     public global::System.Type ValueType => typeof(global::PRIMITIVE_VALUE_TYPE);
