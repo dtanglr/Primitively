@@ -1,4 +1,6 @@
-﻿namespace Primitively;
+﻿using System;
+
+namespace Primitively;
 
 /// <summary>
 /// Represents a record for storing data about a record struct.
@@ -7,6 +9,10 @@
 /// <param name="Name">The name of the record struct.</param>
 /// <param name="NameSpace">The namespace of the record struct.</param>
 /// <param name="ParentData">The parent data of the record struct, if any.</param>
+/// <remarks>
+/// TODO: Break this record into smaller polymorphic records. It's currently used as a dumping ground for all the data that 
+/// needs to be passed into the Structs class where source generation takes place.
+/// </remarks>
 internal record RecordStructData(DataType DataType, string Name, string NameSpace, ParentData? ParentData)
 {
     /// <summary>
@@ -73,4 +79,15 @@ internal record RecordStructData(DataType DataType, string Name, string NameSpac
     /// Gets or sets the maximum value constraint of the record struct data.
     /// </summary>
     public object Maximum { get; set; } = 0;
+
+    /// <summary>
+    /// Gets or sets the number of fractional digits in the value of the source generated Primitively <see cref="IDouble"/> type.
+    /// </summary>
+    public int? Digits { get; set; }
+
+    /// <summary>
+    /// Gets or sets the rounding specification for how to round value of the source generated Primitively <see cref="IDouble"/> type 
+    /// if it is midway between two other numbers.
+    /// </summary>
+    public MidpointRounding? Mode { get; set; }
 }

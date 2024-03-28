@@ -42,6 +42,16 @@ internal readonly struct EmbeddedResources
     /// </summary>
     public readonly struct Numeric
     {
+        public readonly struct FloatingPoint
+        {
+            public static readonly string Base = GetEmbeddedResource(nameof(Numeric), nameof(FloatingPoint), nameof(Base));
+        }
+
+        public readonly struct Integer
+        {
+            public static readonly string Base = GetEmbeddedResource(nameof(Numeric), nameof(Integer), nameof(Base));
+        }
+
         public static readonly string Base = GetEmbeddedResource(nameof(Numeric), nameof(Base));
         public static readonly string JsonConverter = GetEmbeddedResource(nameof(Numeric), nameof(JsonConverter));
         public static readonly string TypeConverter = GetEmbeddedResource(nameof(Numeric), nameof(TypeConverter));

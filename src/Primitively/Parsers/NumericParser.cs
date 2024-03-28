@@ -38,7 +38,12 @@ internal static class NumericParser
 
         recordStructData = InitRecordStructData(dataType, new RecordStructData(dataType, name, nameSpace, parentData));
 
-        return TryParseNamedArguments(attributeData, recordStructData);
+        if (!TryParseAttributeConstructorArguments(dataType, attributeData, recordStructData))
+        {
+            return false;
+        }
+
+        return TryParseNamedArguments(dataType, attributeData, recordStructData);
     }
 
     /// <summary>
@@ -130,14 +135,8 @@ internal static class NumericParser
                 recordStructData.JsonReaderMethod = MetaData.Numeric.Double.JsonReaderMethod;
                 recordStructData.Minimum = MetaData.Numeric.Double.Minimum;
                 recordStructData.Maximum = MetaData.Numeric.Double.Maximum;
-                break;
-            case DataType.Decimal:
-                recordStructData.Interface = MetaData.Numeric.Decimal.Interface;
-                recordStructData.Type = MetaData.Numeric.Decimal.Type;
-                recordStructData.Example = MetaData.Numeric.Decimal.Example;
-                recordStructData.JsonReaderMethod = MetaData.Numeric.Decimal.JsonReaderMethod;
-                recordStructData.Minimum = MetaData.Numeric.Decimal.Minimum;
-                recordStructData.Maximum = MetaData.Numeric.Decimal.Maximum;
+                recordStructData.Digits = MetaData.Numeric.Double.Digits;
+                recordStructData.Mode = MetaData.Numeric.Double.Mode;
                 break;
             default:
                 throw new NotSupportedException($"{dataType} is not supported");
@@ -147,12 +146,65 @@ internal static class NumericParser
     }
 
     /// <summary>
+    /// Attempts to parse the constructor arguments of the specified attribute data into a record struct data.
+    /// </summary>
+    /// <param name="dataType">The data type of the record struct.</param>
+    /// <param name="attributeData">The attribute data whose constructor arguments to parse.</param>
+    /// <param name="recordStructData">The record struct data to populate with the parsed constructor arguments.</param>
+    /// <returns>true if the constructor arguments were parsed successfully; otherwise, false.</returns>
+    private static bool TryParseAttributeConstructorArguments(DataType dataType, AttributeData attributeData, RecordStructData recordStructData)
+    {
+        // Only parse constructor arguments for Double Attribute data type
+        if (dataType != DataType.Double)
+        {
+            return true;
+        }
+
+        if (attributeData.ConstructorArguments.IsEmpty)
+        {
+            return true;
+        }
+
+        var args = attributeData.ConstructorArguments;
+
+        if (args.Length > 2 || args.Any(a => a.Kind == TypedConstantKind.Error))
+        {
+            return false;
+        }
+
+        var digits = (int)args[0].Value!;
+        digits = digits < MetaData.Numeric.Double.Digits ? MetaData.Numeric.Double.Digits : digits;
+        recordStructData.Digits = digits;
+
+        var mode = MetaData.Numeric.Double.Mode;
+
+        if (args.Length == 2)
+        {
+            mode = (MidpointRounding)args[1].Value!;
+            recordStructData.Mode = mode;
+        }
+
+        if (digits > MetaData.Numeric.Double.Digits)
+        {
+            var minimum = Math.Round(MetaData.Numeric.Double.Minimum, digits, mode);
+            var maximum = Math.Round(MetaData.Numeric.Double.Maximum, digits, mode);
+            var example = Math.Round(maximum / 2, digits, mode);
+            recordStructData.Minimum = minimum;
+            recordStructData.Maximum = maximum;
+            recordStructData.Example = example.ToString();
+        }
+
+        return true;
+    }
+
+    /// <summary>
     /// Attempts to parse the named arguments of the specified attribute data into a record struct data.
     /// </summary>
+    /// <param name="dataType">The data type of the record struct.</param>
     /// <param name="attributeData">The attribute data whose named arguments to parse.</param>
     /// <param name="recordStructData">The record struct data to populate with the parsed named arguments.</param>
     /// <returns>true if the named arguments were parsed successfully; otherwise, false.</returns>
-    private static bool TryParseNamedArguments(AttributeData attributeData, RecordStructData recordStructData)
+    private static bool TryParseNamedArguments(DataType dataType, AttributeData attributeData, RecordStructData recordStructData)
     {
         if (attributeData.NamedArguments.IsEmpty)
         {
@@ -184,10 +236,40 @@ internal static class NumericParser
                 case nameof(NumericAttribute.ImplementIValidatableObject):
                     recordStructData.ImplementIValidatableObject = Convert.ToBoolean(value!);
                     break;
+                case nameof(NumericAttribute.Minimum) when dataType == DataType.Double:
+                    {
+                        if (recordStructData.Digits.HasValue && recordStructData.Digits.Value > MetaData.Numeric.Double.Digits)
+                        {
+                            var digits = recordStructData.Digits.Value;
+                            var mode = recordStructData.Mode ?? MetaData.Numeric.Double.Mode;
+                            recordStructData.Minimum = Math.Round(Convert.ToDouble(value), digits, mode);
+                            rangeHasChanged = true;
+                            break;
+                        }
+
+                        recordStructData.Minimum = value;
+                        rangeHasChanged = true;
+                        break;
+                    }
                 case nameof(NumericAttribute.Minimum):
                     recordStructData.Minimum = value;
                     rangeHasChanged = true;
                     break;
+                case nameof(NumericAttribute.Maximum) when dataType == DataType.Double:
+                    {
+                        if (recordStructData.Digits.HasValue && recordStructData.Digits.Value > MetaData.Numeric.Double.Digits)
+                        {
+                            var digits = recordStructData.Digits.Value;
+                            var mode = recordStructData.Mode ?? MetaData.Numeric.Double.Mode;
+                            recordStructData.Maximum = Math.Round(Convert.ToDouble(value), digits, mode);
+                            rangeHasChanged = true;
+                            break;
+                        }
+
+                        recordStructData.Maximum = value;
+                        rangeHasChanged = true;
+                        break;
+                    }
                 case nameof(NumericAttribute.Maximum):
                     recordStructData.Maximum = value;
                     rangeHasChanged = true;
@@ -215,32 +297,30 @@ internal static class NumericParser
                     {
                         var minimum = Convert.ToDecimal(recordStructData.Minimum);
                         var maximum = Convert.ToDecimal(recordStructData.Maximum);
-                        var value = Math.Round(minimum + ((maximum - minimum) / 2));
-                        recordStructData.Example = value.ToString();
+                        recordStructData.Example = Math.Round(minimum + ((maximum - minimum) / 2)).ToString();
                         break;
                     }
                 case DataType.Single:
                     {
                         var minimum = Convert.ToSingle(recordStructData.Minimum);
                         var maximum = Convert.ToSingle(recordStructData.Maximum);
-                        var value = minimum + ((maximum - minimum) / 2);
-                        recordStructData.Example = value.ToString();
+                        recordStructData.Example = Math.Round(minimum + ((maximum - minimum) / 2)).ToString();
                         break;
                     }
                 case DataType.Double:
                     {
                         var minimum = Convert.ToDouble(recordStructData.Minimum);
                         var maximum = Convert.ToDouble(recordStructData.Maximum);
-                        var value = minimum + ((maximum - minimum) / 2);
-                        recordStructData.Example = value.ToString();
-                        break;
-                    }
-                case DataType.Decimal:
-                    {
-                        var minimum = Convert.ToDecimal(recordStructData.Minimum);
-                        var maximum = Convert.ToDecimal(recordStructData.Maximum);
-                        var value = minimum + ((maximum - minimum) / 2);
-                        recordStructData.Example = value.ToString();
+
+                        if (recordStructData.Digits.HasValue && recordStructData.Digits.Value > MetaData.Numeric.Double.Digits)
+                        {
+                            var digits = recordStructData.Digits.Value;
+                            var mode = recordStructData.Mode ?? MetaData.Numeric.Double.Mode;
+                            recordStructData.Example = Math.Round(minimum + ((maximum - minimum) / 2), digits, mode).ToString();
+                            break;
+                        }
+
+                        recordStructData.Example = Math.Round(minimum + ((maximum - minimum) / 2)).ToString();
                         break;
                     }
                 default:

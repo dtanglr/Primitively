@@ -1,14 +1,18 @@
 ﻿readonly partial record struct PRIMITIVE_TYPE : global::PRIMITIVE_INTERFACE, global::System.IEquatable<PRIMITIVE_TYPE>, global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
 {
-    private readonly global::PRIMITIVE_VALUE_TYPE _value;
+    private readonly global::PRIMITIVE_VALUE_TYPE _value = global::PRIMITIVE_VALUE_TYPE.NaN;
 
     public const string Example = "PRIMITIVE_EXAMPLE";
     public const global::PRIMITIVE_VALUE_TYPE Minimum = PRIMITIVE_MINIMUM;
     public const global::PRIMITIVE_VALUE_TYPE Maximum = PRIMITIVE_MAXIMUM;
+    public const int Digits = PRIMITIVE_ROUNDINGDIGITS;
+    public const global::System.MidpointRounding Mode = global::System.MidpointRounding.PRIMITIVE_MIDPOINTROUNDINGMODE;
 
     public PRIMITIVE_TYPE(global::PRIMITIVE_VALUE_TYPE value)
     {
-        if (value >= Minimum && value <= Maximum)
+        PreMatchCheck(ref value);
+
+        if (IsMatch(value))
         {
             _value = value;
             HasValue = true;
@@ -17,10 +21,15 @@
 
     private PRIMITIVE_TYPE(string value)
     {
-        if (global::PRIMITIVE_VALUE_TYPE.TryParse(value, out var result) && result >= Minimum && result <= Maximum)
+        if (global::PRIMITIVE_VALUE_TYPE.TryParse(value, out var result))
         {
-            _value = result;
-            HasValue = true;
+            PreMatchCheck(ref result);
+
+            if (IsMatch(result))
+            {
+                _value = result;
+                HasValue = true;
+            }
         }
     }
 
@@ -49,3 +58,17 @@
 
     public static PRIMITIVE_TYPE Parse(string value) => new(value);
     public static bool TryParse(string value, out PRIMITIVE_TYPE result) => (result = new(value)).HasValue;
+
+    private static bool IsMatch(global::PRIMITIVE_VALUE_TYPE value) => value >= Minimum && value <= Maximum;
+
+    private static void PreMatchCheck(ref global::PRIMITIVE_VALUE_TYPE value)
+    {
+        if (Digits > 0)
+        {
+            value = global::System.Math.Round(value, Digits, Mode);
+        }
+        else if (Digits == 0)
+        {
+            value = global::System.Math.Round(value, Mode);
+        }
+    }
