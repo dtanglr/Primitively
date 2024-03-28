@@ -25,8 +25,9 @@ public class FluentValidationTests
     [InlineData("")]
     [InlineData(" ")]
     [InlineData("    ")]
-    [InlineData("0")]
-    [InlineData("00")]
+    [InlineData("-1", true, true)]
+    [InlineData("0", true, true)]
+    [InlineData("00", true, true)]
     [InlineData("001", true, true)]
     [InlineData(SByteId.Example, true, true)]
     public void ConvertFromThisToThatWithExpectedResults(string? value, bool nonNullableIsValid = false, bool nullableIsValid = false)
