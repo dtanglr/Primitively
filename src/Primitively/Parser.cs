@@ -30,7 +30,6 @@ internal static class Parser
         typeof(ULongAttribute).FullName,
         typeof(SingleAttribute).FullName,
         typeof(DoubleAttribute).FullName,
-        typeof(DecimalAttribute).FullName,
         typeof(StringAttribute).FullName,
     ];
 
@@ -108,7 +107,6 @@ internal static class Parser
                     nameof(ULongAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.ULong, out recordStructData),
                     nameof(SingleAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Single, out recordStructData),
                     nameof(DoubleAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Double, out recordStructData),
-                    nameof(DecimalAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Decimal, out recordStructData),
                     // string
                     nameof(StringAttribute) => !StringParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData),
                     _ => throw new NotImplementedException(),

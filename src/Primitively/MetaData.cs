@@ -1,4 +1,6 @@
-﻿namespace Primitively;
+﻿using System;
+
+namespace Primitively;
 
 /// <summary>
 /// Contains metadata about various Primitively types.
@@ -216,19 +218,8 @@ internal readonly struct MetaData
             public static readonly double Maximum = double.MaxValue;
             public static readonly double Minimum = double.MinValue;
             public static readonly string Type = typeof(double).FullName;
-        }
-
-        /// <summary>
-        /// Contains metadata about the Decimal Primitively type.
-        /// </summary>
-        public readonly struct Decimal
-        {
-            public static readonly string Example = $"{16325.62}";
-            public static readonly string Interface = typeof(IDecimal).FullName;
-            public static readonly string JsonReaderMethod = "TryGetDecimal";
-            public static readonly decimal Maximum = decimal.MaxValue;
-            public static readonly decimal Minimum = decimal.MinValue;
-            public static readonly string Type = typeof(decimal).FullName;
+            public static readonly int Digits = -1;
+            public static readonly MidpointRounding Mode = MidpointRounding.ToEven;
         }
     }
 }

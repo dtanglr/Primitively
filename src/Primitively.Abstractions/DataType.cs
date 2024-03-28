@@ -68,10 +68,5 @@ public enum DataType
     /// <summary>
     /// Represents an <see cref="IDouble"/> type that encapsulates a <see cref="double"/> value.
     /// </summary>
-    Double,
-
-    /// <summary>
-    /// Represents an <see cref="IDecimal"/> type that encapsulates a <see cref="decimal"/> value.
-    /// </summary>
-    Decimal
+    Double
 }

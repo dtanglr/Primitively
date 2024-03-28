@@ -124,7 +124,6 @@ public class BsonOptions
         // Initialises the default instance for each option
         yield return new BsonIByteSerializerOptions();
         yield return new BsonIDateOnlySerializerOptions();
-        yield return new BsonIDecimalSerializerOptions();
         yield return new BsonIDoubleSerializerOptions();
         yield return new BsonIGuidSerializerOptions();
         yield return new BsonIIntSerializerOptions();

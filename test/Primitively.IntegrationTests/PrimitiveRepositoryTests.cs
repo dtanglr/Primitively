@@ -21,7 +21,6 @@ public class PrimitiveRepositoryTests : PrimitiveTests
             _ when type.IsAssignableTo(typeof(IDateOnly)) => typeof(DateOnlyInfo),
             _ when type.IsAssignableTo(typeof(IGuid)) => typeof(GuidInfo),
             _ when type.IsAssignableTo(typeof(IByte)) => typeof(NumericInfo<byte>),
-            _ when type.IsAssignableTo(typeof(IDecimal)) => typeof(NumericInfo<decimal>),
             _ when type.IsAssignableTo(typeof(IDouble)) => typeof(NumericInfo<double>),
             _ when type.IsAssignableTo(typeof(IInt)) => typeof(NumericInfo<int>),
             _ when type.IsAssignableTo(typeof(ILong)) => typeof(NumericInfo<long>),

@@ -32,9 +32,6 @@ public partial record struct SingleId;
 [Double]
 public partial record struct DoubleId;
 
-[Decimal]
-public partial record struct DecimalId;
-
 [Int(ImplementIValidatableObject = true)]
 public partial record struct ValidatableInteger;
 
