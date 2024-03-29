@@ -11,8 +11,9 @@ public class ValidateMethodTests
     [InlineData("")]
     [InlineData(" ")]
     [InlineData("    ")]
-    [InlineData("0")]
-    [InlineData("00")]
+    [InlineData("-1", true)]
+    [InlineData("0", true)]
+    [InlineData("00", true)]
     [InlineData("001", true)]
     [InlineData(ValidatableInteger.Example, true)]
     public void ConvertFromThisToThatWithExpectedResults(string? value, bool isValid = false)
