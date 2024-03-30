@@ -6,6 +6,11 @@
     public const global::PRIMITIVE_VALUE_TYPE Minimum = PRIMITIVE_MINIMUM;
     public const global::PRIMITIVE_VALUE_TYPE Maximum = PRIMITIVE_MAXIMUM;
 
+    public PRIMITIVE_TYPE()
+    {
+        HasValue = _value >= Minimum && _value <= Maximum;
+    }
+
     public PRIMITIVE_TYPE(global::PRIMITIVE_VALUE_TYPE value)
     {
         if (value >= Minimum && value <= Maximum)
