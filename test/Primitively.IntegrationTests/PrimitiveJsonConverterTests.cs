@@ -48,7 +48,7 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
 
         var result = converter.Read(ref reader, typeof(TPrimitive), new JsonSerializerOptions());
         result.Should().BeAssignableTo(typeof(TPrimitive));
-        result.Should().BeEquivalentTo(default(TPrimitive));
+        result.Should().BeEquivalentTo(new TPrimitive());
     }
 
     [Fact]
@@ -67,7 +67,7 @@ public abstract class PrimitiveJsonConverterTests<TJsonConverter, TPrimitive>
 
         var result = converter.Read(ref reader, typeof(TPrimitive), new JsonSerializerOptions());
         result.Should().BeAssignableTo(typeof(TPrimitive));
-        result.Should().BeEquivalentTo(default(TPrimitive));
+        result.Should().BeEquivalentTo(new TPrimitive());
     }
 
 #if NET6_0_OR_GREATER
