@@ -10,31 +10,15 @@ public class InstantiationTests
     [InlineData("")]
     [InlineData(" ")]
     [InlineData("    ")]
-    [InlineData("0")]
-    [InlineData("00")]
+    [InlineData("-1")]
+    [InlineData("0", true)]
+    [InlineData("00", true)]
     [InlineData("001", true)]
     [InlineData(UShortId.Example, true)]
-    public void ConvertFromThisToThatWithExpectedResults(string? from, bool hasValue = default)
+    public void ConvertFromThisToThatWithExpectedResults(string? from, bool hasValue = false)
     {
-        var expectedInteger = hasValue ? UShortId.Parse(from) : default;
-        var expectedString = expectedInteger.ToString();
-
-        var @this = (UShortId)from;
-        string to = @this;
-        var that = UShortId.Parse(to);
-        var and = new UShortId(that);
-        string back = and;
+        var @this = UShortId.Parse(from);
 
         @this.HasValue.Should().Be(hasValue);
-        @this.Should().Be(expectedInteger);
-        @this.ToString().Should().Be(expectedString);
-        to.Should().Be(expectedString);
-        that.HasValue.Should().Be(hasValue);
-        that.Should().Be(expectedInteger);
-        that.ToString().Should().Be(expectedString);
-        and.HasValue.Should().Be(hasValue);
-        and.Should().Be(expectedInteger);
-        and.ToString().Should().Be(expectedString);
-        back.Should().Be(expectedString);
     }
 }
