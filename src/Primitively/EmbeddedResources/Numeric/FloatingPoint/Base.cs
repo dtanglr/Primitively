@@ -1,6 +1,6 @@
 ﻿readonly partial record struct PRIMITIVE_TYPE : global::PRIMITIVE_INTERFACE, global::System.IEquatable<PRIMITIVE_TYPE>, global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
 {
-    private readonly global::PRIMITIVE_VALUE_TYPE _value = global::PRIMITIVE_VALUE_TYPE.NaN;
+    private readonly global::PRIMITIVE_VALUE_TYPE _value = default;
 
     public const string Example = "PRIMITIVE_EXAMPLE";
     public const global::PRIMITIVE_VALUE_TYPE Minimum = PRIMITIVE_MINIMUM;
@@ -8,15 +8,16 @@
     public const int Digits = PRIMITIVE_ROUNDINGDIGITS;
     public const global::System.MidpointRounding Mode = global::System.MidpointRounding.PRIMITIVE_MIDPOINTROUNDINGMODE;
 
+    public PRIMITIVE_TYPE()
+    {
+        HasValue = IsMatch(_value);
+    }
+
     public PRIMITIVE_TYPE(global::PRIMITIVE_VALUE_TYPE value)
     {
         PreMatchCheck(ref value);
-
-        if (IsMatch(value))
-        {
-            _value = value;
-            HasValue = true;
-        }
+        HasValue = IsMatch(value);
+        _value = HasValue ? value : default;
     }
 
     private PRIMITIVE_TYPE(string value)
@@ -24,12 +25,8 @@
         if (global::PRIMITIVE_VALUE_TYPE.TryParse(value, out var result))
         {
             PreMatchCheck(ref result);
-
-            if (IsMatch(result))
-            {
-                _value = result;
-                HasValue = true;
-            }
+            HasValue = IsMatch(result);
+            _value = HasValue ? result : default;
         }
     }
 
@@ -38,7 +35,7 @@
     global::PRIMITIVE_VALUE_TYPE global::Primitively.IPrimitive<global::PRIMITIVE_VALUE_TYPE>.Value => _value;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
-    public bool HasValue { get; }
+    public bool HasValue { get; } = false;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
     public global::System.Type ValueType => typeof(global::PRIMITIVE_VALUE_TYPE);
