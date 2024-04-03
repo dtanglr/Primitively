@@ -21,4 +21,8 @@
     <ProjectReference Include="..\..\src\Primitively.Abstractions\Primitively.Abstractions.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" Visible="false" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Double\" />
+  </ItemGroup>
+
 </Project>
