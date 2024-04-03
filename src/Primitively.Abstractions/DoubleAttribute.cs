@@ -11,11 +11,15 @@
 /// public partial record struct Example;
 /// </code>
 /// <code>
-/// [Double(Minimum = 1)]
+/// [Double(Minimum = 1.10d)]
 /// public partial record struct Example;
 /// </code>
 /// <code>
-/// [Double(Minimum = 1, Maximum = 100)]
+/// [Double(Minimum = -10.10d, Maximum = 10.10d)]
+/// public partial record struct Example;
+/// </code>
+/// <code>
+/// [Double(2, Minimum = -10.10d, Maximum = 10.10d)]
 /// public partial record struct Example;
 /// </code>
 /// </example>
@@ -55,13 +59,19 @@ public sealed class DoubleAttribute : NumericAttribute
     /// <summary>
     /// Gets the number of fractional digits in the value of the source generated Primitively <see cref="IDouble"/> type.
     /// </summary>
+    /// <remarks>
+    /// Valid values are: -1 to 15.
+    /// Values above 15 will default to: -1.
+    /// Values below 0 with default to: -1.
+    /// A value of -1 will result in: no rounding.
+    /// </remarks>
     public int Digits { get; }
 
     /// <summary>
     /// Gets or sets the maximum value supported by the source generated Primitively <see cref="IDouble"/> type.
     /// </summary>
     /// <value>
-    /// The default value is 255. An assigned value should not be less than the <see cref="Minimum"/> value.
+    /// The default value is double.MaxValue. An assigned value should not be less than the <see cref="Minimum"/> value.
     /// </value>
     public new double Maximum { get; set; }
 
@@ -69,7 +79,7 @@ public sealed class DoubleAttribute : NumericAttribute
     /// Gets or sets the minimum value supported by the source generated Primitively <see cref="IDouble"/> type.
     /// </summary>
     /// <value>
-    /// The default value is 0. An assigned value should not be greater than the <see cref="Maximum"/> value.
+    /// The default value is double.MinValue. An assigned value should not be greater than the <see cref="Maximum"/> value.
     /// </value>
     public new double Minimum { get; set; }
 
@@ -77,5 +87,8 @@ public sealed class DoubleAttribute : NumericAttribute
     /// Gets the rounding specification for how to round value of the source generated Primitively <see cref="IDouble"/> type 
     /// if it is midway between two other numbers.
     /// </summary>
+    /// <remarks>
+    /// If the value of <see cref="Digits"/> is -1, this property will have no effect.
+    /// </remarks>
     public MidpointRounding Mode { get; }
 }

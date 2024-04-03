@@ -26,7 +26,7 @@ public class PrimitiveRepositoryTests : PrimitiveTests
             _ when type.IsAssignableTo(typeof(ILong)) => typeof(NumericInfo<long>),
             _ when type.IsAssignableTo(typeof(ISByte)) => typeof(NumericInfo<sbyte>),
             _ when type.IsAssignableTo(typeof(IShort)) => typeof(NumericInfo<short>),
-            _ when type.IsAssignableTo(typeof(ISingle)) => typeof(NumericInfo<float>),
+            _ when type.IsAssignableTo(typeof(ISingle)) => typeof(SingleInfo),
             _ when type.IsAssignableTo(typeof(IUInt)) => typeof(NumericInfo<uint>),
             _ when type.IsAssignableTo(typeof(IULong)) => typeof(NumericInfo<ulong>),
             _ when type.IsAssignableTo(typeof(IUShort)) => typeof(NumericInfo<ushort>),

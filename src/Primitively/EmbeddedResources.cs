@@ -45,6 +45,8 @@ internal readonly struct EmbeddedResources
         public readonly struct FloatingPoint
         {
             public static readonly string Base = GetEmbeddedResource(nameof(Numeric), nameof(FloatingPoint), nameof(Base));
+            public static readonly string DoublePreMatchCheckMethod = GetEmbeddedResource(nameof(Numeric), nameof(FloatingPoint), nameof(DoublePreMatchCheckMethod));
+            public static readonly string SinglePreMatchCheckMethod = GetEmbeddedResource(nameof(Numeric), nameof(FloatingPoint), nameof(SinglePreMatchCheckMethod));
         }
 
         public readonly struct Integer
@@ -52,7 +54,6 @@ internal readonly struct EmbeddedResources
             public static readonly string Base = GetEmbeddedResource(nameof(Numeric), nameof(Integer), nameof(Base));
         }
 
-        public static readonly string Base = GetEmbeddedResource(nameof(Numeric), nameof(Base));
         public static readonly string JsonConverter = GetEmbeddedResource(nameof(Numeric), nameof(JsonConverter));
         public static readonly string TypeConverter = GetEmbeddedResource(nameof(Numeric), nameof(TypeConverter));
     }

@@ -43,3 +43,9 @@ public partial record struct MinimumOf100AndMaximumOf200;
 
 [Byte(Maximum = 10)]
 public partial record struct MaximumOf10;
+
+[Single(4, Minimum = -10.12345f, Maximum = 100.54321f)]
+public partial record struct MinimumOfMinus10FAndMaximumOf100F;
+
+[Double(4, Minimum = -10.12345d, Maximum = 100.54321d)]
+public partial record struct MinimumOfMinus10DAndMaximumOf100D;

@@ -57,15 +57,3 @@
     public static bool TryParse(string value, out PRIMITIVE_TYPE result) => (result = new(value)).HasValue;
 
     private static bool IsMatch(global::PRIMITIVE_VALUE_TYPE value) => value >= Minimum && value <= Maximum;
-
-    private static void PreMatchCheck(ref global::PRIMITIVE_VALUE_TYPE value)
-    {
-        if (Digits > 0)
-        {
-            value = global::System.Math.Round(value, Digits, Mode);
-        }
-        else if (Digits == 0)
-        {
-            value = global::System.Math.Round(value, Mode);
-        }
-    }

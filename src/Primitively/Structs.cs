@@ -150,13 +150,19 @@ public class Structs : IIncrementalGenerator
                 case DataType.UInt:
                 case DataType.Long:
                 case DataType.ULong:
-                case DataType.Single:
                     sb.Append(EmbeddedResources.Numeric.Integer.Base);
+                    sb.Append(EmbeddedResources.Numeric.JsonConverter);
+                    sb.Append(EmbeddedResources.Numeric.TypeConverter);
+                    break;
+                case DataType.Single:
+                    sb.Append(EmbeddedResources.Numeric.FloatingPoint.Base);
+                    sb.Append(EmbeddedResources.Numeric.FloatingPoint.SinglePreMatchCheckMethod);
                     sb.Append(EmbeddedResources.Numeric.JsonConverter);
                     sb.Append(EmbeddedResources.Numeric.TypeConverter);
                     break;
                 case DataType.Double:
                     sb.Append(EmbeddedResources.Numeric.FloatingPoint.Base);
+                    sb.Append(EmbeddedResources.Numeric.FloatingPoint.DoublePreMatchCheckMethod);
                     sb.Append(EmbeddedResources.Numeric.JsonConverter);
                     sb.Append(EmbeddedResources.Numeric.TypeConverter);
                     break;
@@ -212,6 +218,8 @@ public class Structs : IIncrementalGenerator
                     {
                         sb.Replace("PRIMITIVE_MINIMUM", GetMinimum(Convert.ToSingle(recordStruct.Minimum)));
                         sb.Replace("PRIMITIVE_MAXIMUM", GetMaximum(Convert.ToSingle(recordStruct.Maximum)));
+                        sb.Replace("PRIMITIVE_ROUNDINGDIGITS", recordStruct.Digits?.ToString() ?? MetaData.Numeric.Single.Digits.ToString());
+                        sb.Replace("PRIMITIVE_MIDPOINTROUNDINGMODE", recordStruct.Mode?.ToString() ?? MetaData.Numeric.Single.Mode.ToString());
                         break;
                     }
                 case DataType.Double:
@@ -268,7 +276,7 @@ public class Structs : IIncrementalGenerator
                         DataType.UInt => $"{Padding}yield return new global::Primitively.NumericInfo<uint>(global::Primitively.DataType.UInt, typeof({rs.NameSpace}.{rs.Name}), typeof(uint), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
                         DataType.Long => $"{Padding}yield return new global::Primitively.NumericInfo<long>(global::Primitively.DataType.Long, typeof({rs.NameSpace}.{rs.Name}), typeof(long), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
                         DataType.ULong => $"{Padding}yield return new global::Primitively.NumericInfo<ulong>(global::Primitively.DataType.ULong, typeof({rs.NameSpace}.{rs.Name}), typeof(ulong), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
-                        DataType.Single => $"{Padding}yield return new global::Primitively.NumericInfo<float>(global::Primitively.DataType.Single, typeof({rs.NameSpace}.{rs.Name}), typeof(float), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {GetMinimum(Convert.ToSingle(rs.Minimum))}, {GetMaximum(Convert.ToSingle(rs.Maximum))});",
+                        DataType.Single => $"{Padding}yield return new global::Primitively.SingleInfo(global::Primitively.DataType.Single, typeof({rs.NameSpace}.{rs.Name}), typeof(float), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {GetMinimum(Convert.ToSingle(rs.Minimum))}, {GetMaximum(Convert.ToSingle(rs.Maximum))}, {rs.Digits}, global::System.MidpointRounding.{rs.Mode});",
                         DataType.Double => $"{Padding}yield return new global::Primitively.DoubleInfo(global::Primitively.DataType.Double, typeof({rs.NameSpace}.{rs.Name}), typeof(double), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {GetMinimum(Convert.ToDouble(rs.Minimum))}, {GetMaximum(Convert.ToDouble(rs.Maximum))}, {rs.Digits}, global::System.MidpointRounding.{rs.Mode});",
                         DataType.String => $"{Padding}yield return new global::Primitively.StringInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(string), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, \"{rs.Format}\", \"{rs.Pattern}\", {rs.MinLength}, {rs.MaxLength});",
                         _ => throw new NotImplementedException()
