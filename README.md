@@ -93,7 +93,7 @@ Here's a list of all the Primitively attributes currently available: -
   - `[UInt]`
   - `[ULong]`
   - `[UShort]`
-- Floating-points (v1.5.0-alpha.x)
+- Floating-points (v1.5.x)
   - `[Double]`
   - `[Single]`
 - Strings
