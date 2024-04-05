@@ -62,7 +62,7 @@ public sealed class SingleAttribute : NumericAttribute
     /// <remarks>
     /// Valid values are: -1 to 6.
     /// Values above 6 will default to: -1.
-    /// Values below 0 with default to: -1.
+    /// Values below -1 with default to: -1.
     /// A value of -1 will result in: no rounding.
     /// </remarks>
     public int Digits { get; }
