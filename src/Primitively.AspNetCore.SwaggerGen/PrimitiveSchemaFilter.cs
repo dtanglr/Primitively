@@ -91,7 +91,7 @@ public class PrimitiveSchemaFilter : ISchemaFilter
                         _ => "integer"
                     };
                     schema.Properties = null;
-                    schema.Example = new OpenApiString(numericInfo.Example);
+                    schema.Example = !string.IsNullOrWhiteSpace(numericInfo.Example) ? new OpenApiString(numericInfo.Example) : null;
                     schema.Minimum = numericInfo switch
                     {
                         NumericInfo<byte> byteInfo => byteInfo.Minimum,
