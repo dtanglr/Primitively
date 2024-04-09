@@ -25,7 +25,7 @@
  
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <PackageOutputPath>$(MSBuildThisFileDirectory)..\artifacts</PackageOutputPath>
-    <version>1.4.17</version>
+    <version>1.4.19</version>
   </PropertyGroup>
   
   <ItemGroup>

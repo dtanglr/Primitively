@@ -209,7 +209,7 @@ public class Structs : IIncrementalGenerator
 
         if (!dataTypes.Any())
         {
-            yieldStatements.Add($"{Padding}return global::System.Linq.Enumerable.Empty<global::Primitively.IPrimitiveInfo>();");
+            yieldStatements.Add($"{Padding}return global::System.Linq.Enumerable.Empty<global::Primitively.PrimitiveInfo>();");
         }
         else
         {
