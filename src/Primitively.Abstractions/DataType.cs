@@ -16,6 +16,11 @@ public enum DataType
     DateOnly,
 
     /// <summary>
+    /// Represents an <see cref="IDouble"/> type that encapsulates a <see cref="double"/> value.
+    /// </summary>
+    Double,
+
+    /// <summary>
     /// Represents an <see cref="IGuid"/> type that encapsulates a <see cref="System.Guid"/> value.
     /// </summary>
     Guid,
@@ -41,6 +46,11 @@ public enum DataType
     Short,
 
     /// <summary>
+    /// Represents an <see cref="ISingle"/> type that encapsulates a <see cref="float"/> value.
+    /// </summary>
+    Single,
+
+    /// <summary>
     /// Represents an <see cref="IString"/> type that encapsulates a <see cref="string"/> value.
     /// </summary>
     String,
@@ -58,15 +68,5 @@ public enum DataType
     /// <summary>
     /// Represents an <see cref="IUShort"/> type that encapsulates a <see cref="ushort"/> value.
     /// </summary>
-    UShort,
-
-    /// <summary>
-    /// Represents an <see cref="ISingle"/> type that encapsulates a <see cref="float"/> value.
-    /// </summary>
-    Single,
-
-    /// <summary>
-    /// Represents an <see cref="IDouble"/> type that encapsulates a <see cref="double"/> value.
-    /// </summary>
-    Double
+    UShort
 }

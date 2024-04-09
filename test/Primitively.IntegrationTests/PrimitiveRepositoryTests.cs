@@ -18,19 +18,19 @@ public class PrimitiveRepositoryTests : PrimitiveTests
 
         static Type GetInfoType(Type type) => type switch
         {
+            _ when type.IsAssignableTo(typeof(IByte)) => typeof(ByteInfo),
             _ when type.IsAssignableTo(typeof(IDateOnly)) => typeof(DateOnlyInfo),
-            _ when type.IsAssignableTo(typeof(IGuid)) => typeof(GuidInfo),
-            _ when type.IsAssignableTo(typeof(IByte)) => typeof(NumericInfo<byte>),
             _ when type.IsAssignableTo(typeof(IDouble)) => typeof(DoubleInfo),
-            _ when type.IsAssignableTo(typeof(IInt)) => typeof(NumericInfo<int>),
-            _ when type.IsAssignableTo(typeof(ILong)) => typeof(NumericInfo<long>),
-            _ when type.IsAssignableTo(typeof(ISByte)) => typeof(NumericInfo<sbyte>),
-            _ when type.IsAssignableTo(typeof(IShort)) => typeof(NumericInfo<short>),
+            _ when type.IsAssignableTo(typeof(IGuid)) => typeof(GuidInfo),
+            _ when type.IsAssignableTo(typeof(IInt)) => typeof(IntInfo),
+            _ when type.IsAssignableTo(typeof(ILong)) => typeof(LongInfo),
+            _ when type.IsAssignableTo(typeof(ISByte)) => typeof(SByteInfo),
+            _ when type.IsAssignableTo(typeof(IShort)) => typeof(ShortInfo),
             _ when type.IsAssignableTo(typeof(ISingle)) => typeof(SingleInfo),
-            _ when type.IsAssignableTo(typeof(IUInt)) => typeof(NumericInfo<uint>),
-            _ when type.IsAssignableTo(typeof(IULong)) => typeof(NumericInfo<ulong>),
-            _ when type.IsAssignableTo(typeof(IUShort)) => typeof(NumericInfo<ushort>),
             _ when type.IsAssignableTo(typeof(IString)) => typeof(StringInfo),
+            _ when type.IsAssignableTo(typeof(IUInt)) => typeof(UIntInfo),
+            _ when type.IsAssignableTo(typeof(IULong)) => typeof(ULongInfo),
+            _ when type.IsAssignableTo(typeof(IUShort)) => typeof(UShortInfo),
             _ => throw new NotImplementedException(),
         };
     }
@@ -108,6 +108,7 @@ public class PrimitiveRepositoryTests : PrimitiveTests
     [InlineData(typeof(IDateOnly))]
     [InlineData(typeof(IGuid))]
     [InlineData(typeof(IString))]
+    [InlineData(typeof(INumeric))]
     public void GetTypesOfTMethod_ReturnsCollectionOfPrimitiveInfoType(Type type)
     {
         // Arrange
@@ -119,6 +120,7 @@ public class PrimitiveRepositoryTests : PrimitiveTests
             nameof(IDateOnly) => repo.GetTypes<DateOnlyInfo>(),
             nameof(IGuid) => repo.GetTypes<GuidInfo>(),
             nameof(IString) => repo.GetTypes<StringInfo>(),
+            nameof(INumeric) => repo.GetTypes<NumericInfo>(),
             _ => throw new NotImplementedException()
         };
 

@@ -8,15 +8,10 @@
 /// <param name="CreateFrom">A function that creates an instance of the Primitively type from a string.</param>
 /// <param name="Minimum">The minimum value that can be set on the source generated Primitively type.</param>
 /// <param name="Maximum">The maximum value that can be set on the source generated Primitively type.</param>
-/// <param name="Digits">The number of fractional digits in the value on the source generated Primitively type</param>
-/// <param name="Mode">The rounding specification for how to round value of the source generated Primitively type 
-/// if it is midway between two other numbers.</param>
-public record SingleInfo(
+public sealed record IntInfo(
     Type Type,
     string? Example,
     Func<string?, IPrimitive> CreateFrom,
-    float Minimum,
-    float Maximum,
-    int Digits,
-    MidpointRounding Mode)
-    : NumericInfo<float>(DataType.Single, Type, Example, CreateFrom, Minimum, Maximum);
+    int Minimum,
+    int Maximum)
+    : NumericInfo<int>(DataType.Int, Type, Example, CreateFrom, Minimum, Maximum);
