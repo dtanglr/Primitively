@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  
+
   <!--
-  To target netstandard2.0, the below props are required to support some features introduced after netstandard2.0 and 
-  the c# 7.3 lang version release dates, such as 'record structs' which came with c# 10.
+  To target netstandard2.0, the c# 10 lang version (available in net6.0) must be used to support 'record structs'.
+  This is not recommended for production use, but is used here to demonstrate the use of Primitively on older versions of .NET.
   -->
 
   <PropertyGroup>
@@ -13,13 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Primitively" Version="1.4.15-rc.3" PrivateAssets="All" />
-    <PackageReference Include="IsExternalInit" Version="1.0.3"><!--Adds support for 'record'-->
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="System.Text.Json" Version="8.0.1" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="Primitively" Version="1.4.20" PrivateAssets="All" />
   </ItemGroup>
-  
+
 </Project>
