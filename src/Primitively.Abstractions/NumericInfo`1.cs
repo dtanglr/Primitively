@@ -16,4 +16,4 @@ public abstract record NumericInfo<T>(
     Func<string?, IPrimitive> CreateFrom,
     T Minimum,
     T Maximum)
-    : NumericInfo(DataType, Type, typeof(T), Example, CreateFrom);
+    : PrimitiveInfo(DataType, Type, typeof(T), Example, CreateFrom), INumericInfo;

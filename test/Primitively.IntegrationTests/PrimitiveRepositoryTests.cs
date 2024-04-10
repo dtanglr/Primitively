@@ -40,7 +40,7 @@ public class PrimitiveRepositoryTests : PrimitiveTests
     public void GetTypeMethod_ReturnsCorrectType_WhenMatchFound(Type type, Type resultType)
     {
         // Arrange
-        var repo = new PrimitiveRepository();
+        var repo = PrimitiveLibrary.Repository;
 
         // Act
         var result = repo.GetType(type);
@@ -53,7 +53,7 @@ public class PrimitiveRepositoryTests : PrimitiveTests
     public void GetTypeMethod_ReturnsError_WhenNoMatchFound()
     {
         // Arrange
-        var repo = new PrimitiveRepository();
+        var repo = PrimitiveLibrary.Repository;
 
         // Act
         var result = () => repo.GetType(typeof(Guid));
@@ -67,7 +67,7 @@ public class PrimitiveRepositoryTests : PrimitiveTests
     public void TryGetTypeMethod_ReturnsCorrectType_WhenMatchFound(Type type, Type? resultType)
     {
         // Arrange
-        var repo = new PrimitiveRepository();
+        var repo = PrimitiveLibrary.Repository;
 
         // Act
         var outcome = repo.TryGetType(type, out var result);
@@ -81,7 +81,7 @@ public class PrimitiveRepositoryTests : PrimitiveTests
     public void TryGetTypeMethod_ReturnsFalse_WhenNoMatchFound()
     {
         // Arrange
-        var repo = new PrimitiveRepository();
+        var repo = PrimitiveLibrary.Repository;
 
         // Act
         var outcome = repo.TryGetType(typeof(Guid), out var result);
@@ -95,7 +95,7 @@ public class PrimitiveRepositoryTests : PrimitiveTests
     public void GetTypesMethod_ReturnsCollectionOfPrimitiveInfoType()
     {
         // Arrange
-        var repo = new PrimitiveRepository();
+        var repo = PrimitiveLibrary.Repository;
 
         // Act
         var result = repo.GetTypes();
@@ -105,22 +105,40 @@ public class PrimitiveRepositoryTests : PrimitiveTests
     }
 
     [Theory]
+    [InlineData(typeof(IByte))]
     [InlineData(typeof(IDateOnly))]
+    [InlineData(typeof(IDouble))]
     [InlineData(typeof(IGuid))]
+    [InlineData(typeof(IInt))]
+    [InlineData(typeof(ILong))]
+    [InlineData(typeof(ISByte))]
+    [InlineData(typeof(IShort))]
+    [InlineData(typeof(ISingle))]
     [InlineData(typeof(IString))]
-    [InlineData(typeof(INumeric))]
+    [InlineData(typeof(IUInt))]
+    [InlineData(typeof(IULong))]
+    [InlineData(typeof(IUShort))]
     public void GetTypesOfTMethod_ReturnsCollectionOfPrimitiveInfoType(Type type)
     {
         // Arrange
-        var repo = new PrimitiveRepository();
+        var repo = PrimitiveLibrary.Repository;
 
         // Act
         IReadOnlyCollection<PrimitiveInfo> result = type.Name switch
         {
+            nameof(IByte) => repo.GetTypes<ByteInfo>(),
             nameof(IDateOnly) => repo.GetTypes<DateOnlyInfo>(),
+            nameof(IDouble) => repo.GetTypes<DoubleInfo>(),
             nameof(IGuid) => repo.GetTypes<GuidInfo>(),
+            nameof(IInt) => repo.GetTypes<IntInfo>(),
+            nameof(ILong) => repo.GetTypes<LongInfo>(),
+            nameof(ISByte) => repo.GetTypes<SByteInfo>(),
+            nameof(IShort) => repo.GetTypes<ShortInfo>(),
+            nameof(ISingle) => repo.GetTypes<SingleInfo>(),
             nameof(IString) => repo.GetTypes<StringInfo>(),
-            nameof(INumeric) => repo.GetTypes<NumericInfo>(),
+            nameof(IUInt) => repo.GetTypes<UIntInfo>(),
+            nameof(IULong) => repo.GetTypes<ULongInfo>(),
+            nameof(IUShort) => repo.GetTypes<UShortInfo>(),
             _ => throw new NotImplementedException()
         };
 

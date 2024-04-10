@@ -266,6 +266,7 @@ public class Structs : IIncrementalGenerator
                     .OrderBy(rs => rs.Name)
                     .Select(rs => rs.DataType switch
                     {
+                        // TODO: return the static PrimitiveInfo property value of the source-generated Primitively type instead. This will reduce the number of generated classes.
                         DataType.Byte => $"{Padding}yield return new global::Primitively.ByteInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
                         DataType.DateOnly => $"{Padding}yield return new global::Primitively.DateOnlyInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, \"{rs.Format}\", {rs.Length});",
                         DataType.Double => $"{Padding}yield return new global::Primitively.DoubleInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {GetMinimum(Convert.ToDouble(rs.Minimum))}, {GetMaximum(Convert.ToDouble(rs.Maximum))}, {rs.Digits}, global::System.MidpointRounding.{rs.Mode});",

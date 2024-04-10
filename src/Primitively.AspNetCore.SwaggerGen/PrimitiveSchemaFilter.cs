@@ -82,7 +82,7 @@ public class PrimitiveSchemaFilter : ISchemaFilter
                     break;
                 }
 
-            case NumericInfo numericInfo:
+            case INumericInfo numericInfo:
                 {
                     schema.Type = numericInfo.DataType switch
                     {
