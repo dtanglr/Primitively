@@ -12,17 +12,13 @@
     <TargetFrameworks>netstandard2.0;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
+    <LangVersion Condition="'$(TargetFramework)'=='netstandard2.0' or '$(TargetFramework)'=='netcoreapp3.1' or '$(TargetFramework)'=='net5.0'">10</LangVersion>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Primitively\Primitively.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\..\src\Primitively.Abstractions\Primitively.Abstractions.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" Visible="false" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Double\" />
   </ItemGroup>
 
 </Project>
