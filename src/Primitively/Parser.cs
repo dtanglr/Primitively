@@ -18,19 +18,19 @@ internal static class Parser
 {
     private static readonly List<string> _attributeFullNames =
     [
-        typeof(DateOnlyAttribute).FullName,
-        typeof(GuidAttribute).FullName,
         typeof(ByteAttribute).FullName,
+        typeof(DateOnlyAttribute).FullName,
+        typeof(DoubleAttribute).FullName,
+        typeof(GuidAttribute).FullName,
+        typeof(IntAttribute).FullName,
+        typeof(LongAttribute).FullName,
         typeof(SByteAttribute).FullName,
         typeof(ShortAttribute).FullName,
-        typeof(UShortAttribute).FullName,
-        typeof(IntAttribute).FullName,
-        typeof(UIntAttribute).FullName,
-        typeof(LongAttribute).FullName,
-        typeof(ULongAttribute).FullName,
         typeof(SingleAttribute).FullName,
-        typeof(DoubleAttribute).FullName,
         typeof(StringAttribute).FullName,
+        typeof(UIntAttribute).FullName,
+        typeof(ULongAttribute).FullName,
+        typeof(UShortAttribute).FullName
     ];
 
     /// <summary>

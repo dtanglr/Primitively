@@ -53,7 +53,7 @@ public class InstantiationTests
         var @this = (BirthDate)from;
         string to = @this;
         var that = BirthDate.Parse(to);
-        var and = new BirthDate(that);
+        var and = new BirthDate((DateTime)that);
         string back = and;
 
         @this.HasValue.Should().Be(hasValue);

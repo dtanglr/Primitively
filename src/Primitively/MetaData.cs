@@ -13,7 +13,7 @@ internal readonly struct MetaData
     public readonly struct DateOnly
     {
         public static readonly string Interface = typeof(IDateOnly).FullName;
-        public static readonly string Type = typeof(System.DateTime).FullName;
+        public static readonly string Type = typeof(DateTime).FullName;
         public static readonly string InfoType = typeof(DateOnlyInfo).FullName;
 
         /// <summary>
@@ -107,6 +107,24 @@ internal readonly struct MetaData
         }
 
         /// <summary>
+        /// Contains metadata about the Double Primitively type.
+        /// </summary>
+        public readonly struct Double
+        {
+            public static readonly string Example = (double.MaxValue / 2).ToString("E");
+            public static readonly string Interface = typeof(IDouble).FullName;
+            public static readonly string JsonReaderMethod = "TryGetDouble";
+            public static readonly double Maximum = double.MaxValue;
+            public static readonly double Minimum = double.MinValue;
+            public static readonly string Type = typeof(double).FullName;
+            public static readonly int Digits = -1; // Value of -1 means no rounding. Minimum value is 0. Maximum value is 15.
+            public static readonly int MinDigits = 0;
+            public static readonly int MaxDigits = 15;
+            public static readonly MidpointRounding Mode = MidpointRounding.ToEven;
+            public static readonly string InfoType = typeof(DoubleInfo).FullName;
+        }
+
+        /// <summary>
         /// Contains metadata about the Int Primitively type.
         /// </summary>
         public readonly struct Int
@@ -163,6 +181,24 @@ internal readonly struct MetaData
         }
 
         /// <summary>
+        /// Contains metadata about the Single (float) Primitively type.
+        /// </summary>
+        public readonly struct Single
+        {
+            public static readonly string Example = (float.MaxValue / 2).ToString("E");
+            public static readonly string Interface = typeof(ISingle).FullName;
+            public static readonly string JsonReaderMethod = "TryGetSingle";
+            public static readonly float Maximum = float.MaxValue;
+            public static readonly float Minimum = float.MinValue;
+            public static readonly string Type = typeof(float).FullName;
+            public static readonly int Digits = -1; // Value of -1 means no rounding. Minimum value is 0. Maximum value is 6.
+            public static readonly int MinDigits = 0;
+            public static readonly int MaxDigits = 6;
+            public static readonly MidpointRounding Mode = MidpointRounding.ToEven;
+            public static readonly string InfoType = typeof(SingleInfo).FullName;
+        }
+
+        /// <summary>
         /// Contains metadata about the UInt Primitively type.
         /// </summary>
         public readonly struct UInt
@@ -202,42 +238,6 @@ internal readonly struct MetaData
             public static readonly decimal Minimum = ushort.MinValue;
             public static readonly string Type = typeof(ushort).FullName;
             public static readonly string InfoType = typeof(UShortInfo).FullName;
-        }
-
-        /// <summary>
-        /// Contains metadata about the Double Primitively type.
-        /// </summary>
-        public readonly struct Double
-        {
-            public static readonly string Example = (double.MaxValue / 2).ToString("E");
-            public static readonly string Interface = typeof(IDouble).FullName;
-            public static readonly string JsonReaderMethod = "TryGetDouble";
-            public static readonly double Maximum = double.MaxValue;
-            public static readonly double Minimum = double.MinValue;
-            public static readonly string Type = typeof(double).FullName;
-            public static readonly int Digits = -1; // Value of -1 means no rounding. Minimum value is 0. Maximum value is 15.
-            public static readonly int MinDigits = 0;
-            public static readonly int MaxDigits = 15;
-            public static readonly MidpointRounding Mode = MidpointRounding.ToEven;
-            public static readonly string InfoType = typeof(DoubleInfo).FullName;
-        }
-
-        /// <summary>
-        /// Contains metadata about the Single (float) Primitively type.
-        /// </summary>
-        public readonly struct Single
-        {
-            public static readonly string Example = (float.MaxValue / 2).ToString("E");
-            public static readonly string Interface = typeof(ISingle).FullName;
-            public static readonly string JsonReaderMethod = "TryGetSingle";
-            public static readonly float Maximum = float.MaxValue;
-            public static readonly float Minimum = float.MinValue;
-            public static readonly string Type = typeof(float).FullName;
-            public static readonly int Digits = -1; // Value of -1 means no rounding. Minimum value is 0. Maximum value is 6.
-            public static readonly int MinDigits = 0;
-            public static readonly int MaxDigits = 6;
-            public static readonly MidpointRounding Mode = MidpointRounding.ToEven;
-            public static readonly string InfoType = typeof(SingleInfo).FullName;
         }
     }
 
