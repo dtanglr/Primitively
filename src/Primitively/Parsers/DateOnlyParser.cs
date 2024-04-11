@@ -37,6 +37,9 @@ internal static class DateOnlyParser
 
         recordStructData = new RecordStructData(DataType.DateOnly, name, nameSpace, parentData)
         {
+            Interface = MetaData.DateOnly.Interface,
+            Type = MetaData.DateOnly.Type,
+            InfoType = MetaData.DateOnly.InfoType,
             Length = MetaData.DateOnly.Iso8601.Length,
             Example = MetaData.DateOnly.Iso8601.Example,
             Format = MetaData.DateOnly.Iso8601.Format

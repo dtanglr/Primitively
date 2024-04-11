@@ -145,4 +145,18 @@ public class PrimitiveRepositoryTests : PrimitiveTests
         // Assert
         result.Should().HaveCount(Types.Count(t => t.IsAssignableTo(type)));
     }
+
+    public class Test
+    {
+        private static readonly DoubleInfo _info = new
+        (
+            Type: typeof(DoubleId),
+            Example: "",
+            CreateFrom: (value) => (DoubleId)value,
+            Minimum: 0,
+            Maximum: 255,
+            Digits: -1,
+            Mode: MidpointRounding.ToEven
+        );
+    }
 }

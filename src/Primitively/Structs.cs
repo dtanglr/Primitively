@@ -189,6 +189,7 @@ public class Structs : IIncrementalGenerator
             sb.Replace("PRIMITIVE_TYPE", recordStruct.Name);
             sb.Replace("PRIMITIVE_INTERFACE", recordStruct.Interface);
             sb.Replace("PRIMITIVE_VALUE_TYPE", recordStruct.Type);
+            sb.Replace("PRIMITIVE_INFO_TYPE", recordStruct.InfoType);
             sb.Replace("PRIMITIVE_DATA_TYPE", recordStruct.DataType.ToString());
             sb.Replace("PRIMITIVE_IVALIDATABLEOBJECT", recordStruct.ImplementIValidatableObject ? $", global::System.ComponentModel.DataAnnotations.IValidatableObject" : string.Empty);
             sb.Replace("PRIMITIVE_PATTERN", recordStruct.Pattern);
@@ -264,24 +265,7 @@ public class Structs : IIncrementalGenerator
                 var items = recordStructs
                     .Where(rs => rs.DataType == dataType)
                     .OrderBy(rs => rs.Name)
-                    .Select(rs => rs.DataType switch
-                    {
-                        // TODO: return the static PrimitiveInfo property value of the source-generated Primitively type instead. This will reduce the number of generated classes.
-                        DataType.Byte => $"{Padding}yield return new global::Primitively.ByteInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
-                        DataType.DateOnly => $"{Padding}yield return new global::Primitively.DateOnlyInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, \"{rs.Format}\", {rs.Length});",
-                        DataType.Double => $"{Padding}yield return new global::Primitively.DoubleInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {GetMinimum(Convert.ToDouble(rs.Minimum))}, {GetMaximum(Convert.ToDouble(rs.Maximum))}, {rs.Digits}, global::System.MidpointRounding.{rs.Mode});",
-                        DataType.Guid => $"{Padding}yield return new global::Primitively.GuidInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, global::Primitively.Specifier.{rs.Specifier}, {rs.Length});",
-                        DataType.Int => $"{Padding}yield return new global::Primitively.IntInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
-                        DataType.Long => $"{Padding}yield return new global::Primitively.LongInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
-                        DataType.SByte => $"{Padding}yield return new global::Primitively.SByteInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
-                        DataType.Short => $"{Padding}yield return new global::Primitively.ShortInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
-                        DataType.Single => $"{Padding}yield return new global::Primitively.SingleInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {GetMinimum(Convert.ToSingle(rs.Minimum))}, {GetMaximum(Convert.ToSingle(rs.Maximum))}, {rs.Digits}, global::System.MidpointRounding.{rs.Mode});",
-                        DataType.String => $"{Padding}yield return new global::Primitively.StringInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, \"{rs.Format}\", \"{rs.Pattern}\", {rs.MinLength}, {rs.MaxLength});",
-                        DataType.UInt => $"{Padding}yield return new global::Primitively.UIntInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
-                        DataType.ULong => $"{Padding}yield return new global::Primitively.ULongInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
-                        DataType.UShort => $"{Padding}yield return new global::Primitively.UShortInfo(typeof({rs.NameSpace}.{rs.Name}), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum}, {rs.Maximum});",
-                        _ => throw new NotImplementedException()
-                    });
+                    .Select(rs => $"{Padding}yield return {rs.NameSpace}.{rs.Name}.TypeInfo;");
 
                 yieldStatements.Add($"{Padding}// {dataType}");
                 yieldStatements.AddRange(items);

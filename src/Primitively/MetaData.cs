@@ -14,6 +14,7 @@ internal readonly struct MetaData
     {
         public static readonly string Interface = typeof(IDateOnly).FullName;
         public static readonly string Type = typeof(System.DateTime).FullName;
+        public static readonly string InfoType = typeof(DateOnlyInfo).FullName;
 
         /// <summary>
         /// Contains metadata about the ISO 8601 format for the DateOnly Primitively type.
@@ -33,6 +34,7 @@ internal readonly struct MetaData
     {
         public static readonly string Interface = typeof(IGuid).FullName;
         public static readonly string Type = typeof(System.Guid).FullName;
+        public static readonly string InfoType = typeof(GuidInfo).FullName;
 
         /// <summary>
         /// Contains metadata about the 'B' format for the Guid Primitively type.
@@ -101,6 +103,7 @@ internal readonly struct MetaData
             public static readonly decimal Maximum = byte.MaxValue;
             public static readonly decimal Minimum = byte.MinValue;
             public static readonly string Type = typeof(byte).FullName;
+            public static readonly string InfoType = typeof(ByteInfo).FullName;
         }
 
         /// <summary>
@@ -114,6 +117,7 @@ internal readonly struct MetaData
             public static readonly decimal Maximum = int.MaxValue;
             public static readonly decimal Minimum = int.MinValue;
             public static readonly string Type = typeof(int).FullName;
+            public static readonly string InfoType = typeof(IntInfo).FullName;
         }
 
         /// <summary>
@@ -127,6 +131,7 @@ internal readonly struct MetaData
             public static readonly decimal Maximum = long.MaxValue;
             public static readonly decimal Minimum = long.MinValue;
             public static readonly string Type = typeof(long).FullName;
+            public static readonly string InfoType = typeof(LongInfo).FullName;
         }
 
         /// <summary>
@@ -140,6 +145,7 @@ internal readonly struct MetaData
             public static readonly decimal Maximum = sbyte.MaxValue;
             public static readonly decimal Minimum = sbyte.MinValue;
             public static readonly string Type = typeof(sbyte).FullName;
+            public static readonly string InfoType = typeof(SByteInfo).FullName;
         }
 
         /// <summary>
@@ -153,6 +159,7 @@ internal readonly struct MetaData
             public static readonly decimal Maximum = short.MaxValue;
             public static readonly decimal Minimum = short.MinValue;
             public static readonly string Type = typeof(short).FullName;
+            public static readonly string InfoType = typeof(ShortInfo).FullName;
         }
 
         /// <summary>
@@ -166,6 +173,7 @@ internal readonly struct MetaData
             public static readonly decimal Maximum = uint.MaxValue;
             public static readonly decimal Minimum = uint.MinValue;
             public static readonly string Type = typeof(uint).FullName;
+            public static readonly string InfoType = typeof(UIntInfo).FullName;
         }
 
         /// <summary>
@@ -179,6 +187,7 @@ internal readonly struct MetaData
             public static readonly decimal Maximum = ulong.MaxValue;
             public static readonly decimal Minimum = ulong.MinValue;
             public static readonly string Type = typeof(ulong).FullName;
+            public static readonly string InfoType = typeof(ULongInfo).FullName;
         }
 
         /// <summary>
@@ -192,6 +201,7 @@ internal readonly struct MetaData
             public static readonly decimal Maximum = ushort.MaxValue;
             public static readonly decimal Minimum = ushort.MinValue;
             public static readonly string Type = typeof(ushort).FullName;
+            public static readonly string InfoType = typeof(UShortInfo).FullName;
         }
 
         /// <summary>
@@ -209,6 +219,7 @@ internal readonly struct MetaData
             public static readonly int MinDigits = 0;
             public static readonly int MaxDigits = 15;
             public static readonly MidpointRounding Mode = MidpointRounding.ToEven;
+            public static readonly string InfoType = typeof(DoubleInfo).FullName;
         }
 
         /// <summary>
@@ -226,6 +237,17 @@ internal readonly struct MetaData
             public static readonly int MinDigits = 0;
             public static readonly int MaxDigits = 6;
             public static readonly MidpointRounding Mode = MidpointRounding.ToEven;
+            public static readonly string InfoType = typeof(SingleInfo).FullName;
         }
+    }
+
+    /// <summary>
+    /// Contains metadata about the String Primitively type.
+    /// </summary>
+    public readonly struct String
+    {
+        public static readonly string Interface = typeof(IString).FullName;
+        public static readonly string Type = typeof(string).FullName;
+        public static readonly string InfoType = typeof(StringInfo).FullName;
     }
 }

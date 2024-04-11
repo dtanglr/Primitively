@@ -1,11 +1,24 @@
-﻿readonly partial record struct PRIMITIVE_TYPE : global::Primitively.IDateOnly, global::System.IEquatable<PRIMITIVE_TYPE>, global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
+﻿readonly partial record struct PRIMITIVE_TYPE :
+    global::Primitively.IDateOnly,
+    global::Primitively.IPrimitiveInfo<global::PRIMITIVE_INFO_TYPE>,
+    global::System.IEquatable<PRIMITIVE_TYPE>,
+    global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
 {
 #if NET6_0_OR_GREATER
-    private readonly global::System.DateTime _value;
-
     public const string Example = "PRIMITIVE_EXAMPLE";
     public const string Format = "PRIMITIVE_FORMAT";
     public const int Length = PRIMITIVE_LENGTH;
+
+    private static readonly global::PRIMITIVE_INFO_TYPE _info = new
+    (
+        Type: typeof(PRIMITIVE_TYPE),
+        Example: Example,
+        CreateFrom: (value) => (PRIMITIVE_TYPE)value,
+        Format: Format,
+        Length: Length
+    );
+
+    private readonly global::System.DateTime _value;
 
     public PRIMITIVE_TYPE(global::System.DateOnly value)
     {
@@ -14,7 +27,7 @@
 
     public PRIMITIVE_TYPE(global::System.DateTime value)
     {
-        _value = new global::System.DateTime(value.Year, value.Month, value.Day);
+        _value = value;
     }
 
     private PRIMITIVE_TYPE(string value)
@@ -28,14 +41,19 @@
 
     global::System.DateTime global::Primitively.IPrimitive<global::System.DateTime>.Value => _value;
 
+    global::Primitively.PrimitiveInfo global::Primitively.IPrimitiveInfo.Info => _info;
+
+    [global::System.Text.Json.Serialization.JsonIgnore]
+    public global::Primitively.DataType DataType => global::Primitively.DataType.PRIMITIVE_DATA_TYPE;
+
     [global::System.Text.Json.Serialization.JsonIgnore]
     public bool HasValue => _value != default;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
-    public global::System.Type ValueType => typeof(global::System.DateTime);
+    public global::PRIMITIVE_INFO_TYPE Info => _info;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
-    public global::Primitively.DataType DataType => global::Primitively.DataType.PRIMITIVE_DATA_TYPE;
+    public global::System.Type ValueType => typeof(global::System.DateTime);
 
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
     public int CompareTo(PRIMITIVE_TYPE other) => _value.CompareTo(other._value);
@@ -49,14 +67,25 @@
     public static explicit operator PRIMITIVE_TYPE(global::System.DateTime value) => new(value);
     public static explicit operator PRIMITIVE_TYPE(string value) => new(value);
 
+    public static global::PRIMITIVE_INFO_TYPE TypeInfo => _info;
+
     public static PRIMITIVE_TYPE Parse(string value) => new(value);
     public static bool TryParse(string value, out PRIMITIVE_TYPE result) => (result = new(value)).HasValue;
 #else
-    private readonly global::System.DateTime _value;
-
     public const string Example = "PRIMITIVE_EXAMPLE";
     public const string Format = "PRIMITIVE_FORMAT";
     public const int Length = PRIMITIVE_LENGTH;
+
+    private static readonly global::PRIMITIVE_INFO_TYPE _info = new
+    (
+        Type: typeof(PRIMITIVE_TYPE),
+        Example: Example,
+        CreateFrom: (value) => (PRIMITIVE_TYPE)value,
+        Format: Format,
+        Length: Length
+    );
+
+    private readonly global::System.DateTime _value;
 
     public PRIMITIVE_TYPE(global::System.DateTime value)
     {
@@ -74,14 +103,19 @@
 
     global::System.DateTime global::Primitively.IPrimitive<global::System.DateTime>.Value => _value;
 
+    global::Primitively.PrimitiveInfo global::Primitively.IPrimitiveInfo.Info => _info;
+
+    [global::System.Text.Json.Serialization.JsonIgnore]
+    public global::Primitively.DataType DataType => global::Primitively.DataType.PRIMITIVE_DATA_TYPE;
+
     [global::System.Text.Json.Serialization.JsonIgnore]
     public bool HasValue => _value != default;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
-    public global::System.Type ValueType => typeof(global::System.DateTime);
+    public global::PRIMITIVE_INFO_TYPE Info => _info;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
-    public global::Primitively.DataType DataType => global::Primitively.DataType.PRIMITIVE_DATA_TYPE;
+    public global::System.Type ValueType => typeof(global::System.DateTime);
 
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
     public int CompareTo(PRIMITIVE_TYPE other) => _value.CompareTo(other._value);
@@ -92,6 +126,8 @@
     public static implicit operator global::System.DateTime(PRIMITIVE_TYPE value) => value._value;
     public static explicit operator PRIMITIVE_TYPE(global::System.DateTime value) => new(value);
     public static explicit operator PRIMITIVE_TYPE(string value) => new(value);
+
+    public static global::PRIMITIVE_INFO_TYPE TypeInfo => _info;
 
     public static PRIMITIVE_TYPE Parse(string value) => new(value);
     public static bool TryParse(string value, out PRIMITIVE_TYPE result) => (result = new(value)).HasValue;

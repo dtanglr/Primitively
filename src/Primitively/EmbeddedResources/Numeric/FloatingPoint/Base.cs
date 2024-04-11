@@ -1,12 +1,27 @@
-﻿readonly partial record struct PRIMITIVE_TYPE : global::PRIMITIVE_INTERFACE, global::System.IEquatable<PRIMITIVE_TYPE>, global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
+﻿readonly partial record struct PRIMITIVE_TYPE :
+    global::PRIMITIVE_INTERFACE,
+    global::Primitively.IPrimitiveInfo<global::PRIMITIVE_INFO_TYPE>,
+    global::System.IEquatable<PRIMITIVE_TYPE>,
+    global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
 {
-    private readonly global::PRIMITIVE_VALUE_TYPE _value = default;
-
     public const string Example = "PRIMITIVE_EXAMPLE";
-    public const global::PRIMITIVE_VALUE_TYPE Minimum = PRIMITIVE_MINIMUM;
-    public const global::PRIMITIVE_VALUE_TYPE Maximum = PRIMITIVE_MAXIMUM;
     public const int Digits = PRIMITIVE_ROUNDINGDIGITS;
+    public const global::PRIMITIVE_VALUE_TYPE Maximum = PRIMITIVE_MAXIMUM;
+    public const global::PRIMITIVE_VALUE_TYPE Minimum = PRIMITIVE_MINIMUM;
     public const global::System.MidpointRounding Mode = global::System.MidpointRounding.PRIMITIVE_MIDPOINTROUNDINGMODE;
+
+    private static readonly global::PRIMITIVE_INFO_TYPE _info = new
+    (
+        Type: typeof(PRIMITIVE_TYPE),
+        Example: Example,
+        CreateFrom: (value) => (PRIMITIVE_TYPE)value,
+        Minimum: Minimum,
+        Maximum: Maximum,
+        Digits: Digits,
+        Mode: Mode
+    );
+
+    private readonly global::PRIMITIVE_VALUE_TYPE _value = default;
 
     public PRIMITIVE_TYPE()
     {
@@ -34,19 +49,26 @@
 
     global::PRIMITIVE_VALUE_TYPE global::Primitively.IPrimitive<global::PRIMITIVE_VALUE_TYPE>.Value => _value;
 
+    global::Primitively.PrimitiveInfo global::Primitively.IPrimitiveInfo.Info => _info;
+
+    [global::System.Text.Json.Serialization.JsonIgnore]
+    public global::Primitively.DataType DataType => global::Primitively.DataType.PRIMITIVE_DATA_TYPE;
+
     [global::System.Text.Json.Serialization.JsonIgnore]
     public bool HasValue { get; } = false;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
-    public global::System.Type ValueType => typeof(global::PRIMITIVE_VALUE_TYPE);
+    public global::PRIMITIVE_INFO_TYPE Info => _info;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
-    public global::Primitively.DataType DataType => global::Primitively.DataType.PRIMITIVE_DATA_TYPE;
+    public global::System.Type ValueType => typeof(global::PRIMITIVE_VALUE_TYPE);
 
     public bool Equals(PRIMITIVE_TYPE other) => _value == other._value;
     public int CompareTo(PRIMITIVE_TYPE other) => _value.CompareTo(other._value);
     public override int GetHashCode() => _value.GetHashCode();
     public override string ToString() => _value.ToString();
+
+    public static global::PRIMITIVE_INFO_TYPE TypeInfo => _info;
 
     public static implicit operator string(PRIMITIVE_TYPE value) => value.ToString();
     public static implicit operator global::PRIMITIVE_VALUE_TYPE(PRIMITIVE_TYPE value) => value._value;

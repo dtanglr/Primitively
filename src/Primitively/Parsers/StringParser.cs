@@ -35,7 +35,12 @@ internal static class StringParser
             throw new ArgumentException($"'{nameof(nameSpace)}' cannot be null or empty.", nameof(nameSpace));
         }
 
-        recordStructData = new RecordStructData(DataType.String, name, nameSpace, parentData);
+        recordStructData = new RecordStructData(DataType.String, name, nameSpace, parentData)
+        {
+            Interface = MetaData.String.Interface,
+            Type = MetaData.String.Type,
+            InfoType = MetaData.String.InfoType
+        };
 
         if (!TryParseConstructorArguments(attributeData, recordStructData))
         {

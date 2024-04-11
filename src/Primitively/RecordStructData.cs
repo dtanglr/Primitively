@@ -56,6 +56,11 @@ internal record RecordStructData(DataType DataType, string Name, string NameSpac
     public string? Type { get; set; }
 
     /// <summary>
+    /// Gets or sets the PrimitiveInfo type of the record struct data.
+    /// </summary>
+    public string? InfoType { get; set; }
+
+    /// <summary>
     /// Gets or sets the JSON reader method of the record struct data.
     /// </summary>
     public string? JsonReaderMethod { get; set; }

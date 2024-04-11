@@ -35,7 +35,12 @@ internal static class GuidParser
             throw new ArgumentException($"'{nameof(nameSpace)}' cannot be null or empty.", nameof(nameSpace));
         }
 
-        recordStructData = new RecordStructData(DataType.Guid, name, nameSpace, parentData);
+        recordStructData = new RecordStructData(DataType.Guid, name, nameSpace, parentData)
+        {
+            Interface = MetaData.Guid.Interface,
+            Type = MetaData.Guid.Type,
+            InfoType = MetaData.Guid.InfoType
+        };
 
         if (!TryParseConstructorArguments(attributeData, recordStructData))
         {

@@ -63,72 +63,7 @@ internal static class NumericParser
                 recordStructData.JsonReaderMethod = MetaData.Numeric.Byte.JsonReaderMethod;
                 recordStructData.Minimum = MetaData.Numeric.Byte.Minimum;
                 recordStructData.Maximum = MetaData.Numeric.Byte.Maximum;
-                break;
-            case DataType.SByte:
-                recordStructData.Interface = MetaData.Numeric.SByte.Interface;
-                recordStructData.Type = MetaData.Numeric.SByte.Type;
-                recordStructData.Example = MetaData.Numeric.SByte.Example;
-                recordStructData.JsonReaderMethod = MetaData.Numeric.SByte.JsonReaderMethod;
-                recordStructData.Minimum = MetaData.Numeric.SByte.Minimum;
-                recordStructData.Maximum = MetaData.Numeric.SByte.Maximum;
-                break;
-            case DataType.Short:
-                recordStructData.Interface = MetaData.Numeric.Short.Interface;
-                recordStructData.Type = MetaData.Numeric.Short.Type;
-                recordStructData.Example = MetaData.Numeric.Short.Example;
-                recordStructData.JsonReaderMethod = MetaData.Numeric.Short.JsonReaderMethod;
-                recordStructData.Minimum = MetaData.Numeric.Short.Minimum;
-                recordStructData.Maximum = MetaData.Numeric.Short.Maximum;
-                break;
-            case DataType.UShort:
-                recordStructData.Interface = MetaData.Numeric.UShort.Interface;
-                recordStructData.Type = MetaData.Numeric.UShort.Type;
-                recordStructData.Example = MetaData.Numeric.UShort.Example;
-                recordStructData.JsonReaderMethod = MetaData.Numeric.UShort.JsonReaderMethod;
-                recordStructData.Minimum = MetaData.Numeric.UShort.Minimum;
-                recordStructData.Maximum = MetaData.Numeric.UShort.Maximum;
-                break;
-            case DataType.Int:
-                recordStructData.Interface = MetaData.Numeric.Int.Interface;
-                recordStructData.Type = MetaData.Numeric.Int.Type;
-                recordStructData.Example = MetaData.Numeric.Int.Example;
-                recordStructData.JsonReaderMethod = MetaData.Numeric.Int.JsonReaderMethod;
-                recordStructData.Minimum = MetaData.Numeric.Int.Minimum;
-                recordStructData.Maximum = MetaData.Numeric.Int.Maximum;
-                break;
-            case DataType.UInt:
-                recordStructData.Interface = MetaData.Numeric.UInt.Interface;
-                recordStructData.Type = MetaData.Numeric.UInt.Type;
-                recordStructData.Example = MetaData.Numeric.UInt.Example;
-                recordStructData.JsonReaderMethod = MetaData.Numeric.UInt.JsonReaderMethod;
-                recordStructData.Minimum = MetaData.Numeric.UInt.Minimum;
-                recordStructData.Maximum = MetaData.Numeric.UInt.Maximum;
-                break;
-            case DataType.Long:
-                recordStructData.Interface = MetaData.Numeric.Long.Interface;
-                recordStructData.Type = MetaData.Numeric.Long.Type;
-                recordStructData.Example = MetaData.Numeric.Long.Example;
-                recordStructData.JsonReaderMethod = MetaData.Numeric.Long.JsonReaderMethod;
-                recordStructData.Minimum = MetaData.Numeric.Long.Minimum;
-                recordStructData.Maximum = MetaData.Numeric.Long.Maximum;
-                break;
-            case DataType.ULong:
-                recordStructData.Interface = MetaData.Numeric.ULong.Interface;
-                recordStructData.Type = MetaData.Numeric.ULong.Type;
-                recordStructData.Example = MetaData.Numeric.ULong.Example;
-                recordStructData.JsonReaderMethod = MetaData.Numeric.ULong.JsonReaderMethod;
-                recordStructData.Minimum = MetaData.Numeric.ULong.Minimum;
-                recordStructData.Maximum = MetaData.Numeric.ULong.Maximum;
-                break;
-            case DataType.Single:
-                recordStructData.Interface = MetaData.Numeric.Single.Interface;
-                recordStructData.Type = MetaData.Numeric.Single.Type;
-                recordStructData.Example = MetaData.Numeric.Single.Example;
-                recordStructData.JsonReaderMethod = MetaData.Numeric.Single.JsonReaderMethod;
-                recordStructData.Minimum = MetaData.Numeric.Single.Minimum;
-                recordStructData.Maximum = MetaData.Numeric.Single.Maximum;
-                recordStructData.Digits = MetaData.Numeric.Single.Digits;
-                recordStructData.Mode = MetaData.Numeric.Single.Mode;
+                recordStructData.InfoType = MetaData.Numeric.Byte.InfoType;
                 break;
             case DataType.Double:
                 recordStructData.Interface = MetaData.Numeric.Double.Interface;
@@ -139,6 +74,81 @@ internal static class NumericParser
                 recordStructData.Maximum = MetaData.Numeric.Double.Maximum;
                 recordStructData.Digits = MetaData.Numeric.Double.Digits;
                 recordStructData.Mode = MetaData.Numeric.Double.Mode;
+                recordStructData.InfoType = MetaData.Numeric.Double.InfoType;
+                break;
+            case DataType.Int:
+                recordStructData.Interface = MetaData.Numeric.Int.Interface;
+                recordStructData.Type = MetaData.Numeric.Int.Type;
+                recordStructData.Example = MetaData.Numeric.Int.Example;
+                recordStructData.JsonReaderMethod = MetaData.Numeric.Int.JsonReaderMethod;
+                recordStructData.Minimum = MetaData.Numeric.Int.Minimum;
+                recordStructData.Maximum = MetaData.Numeric.Int.Maximum;
+                recordStructData.InfoType = MetaData.Numeric.Int.InfoType;
+                break;
+            case DataType.Long:
+                recordStructData.Interface = MetaData.Numeric.Long.Interface;
+                recordStructData.Type = MetaData.Numeric.Long.Type;
+                recordStructData.Example = MetaData.Numeric.Long.Example;
+                recordStructData.JsonReaderMethod = MetaData.Numeric.Long.JsonReaderMethod;
+                recordStructData.Minimum = MetaData.Numeric.Long.Minimum;
+                recordStructData.Maximum = MetaData.Numeric.Long.Maximum;
+                recordStructData.InfoType = MetaData.Numeric.Long.InfoType;
+                break;
+            case DataType.SByte:
+                recordStructData.Interface = MetaData.Numeric.SByte.Interface;
+                recordStructData.Type = MetaData.Numeric.SByte.Type;
+                recordStructData.Example = MetaData.Numeric.SByte.Example;
+                recordStructData.JsonReaderMethod = MetaData.Numeric.SByte.JsonReaderMethod;
+                recordStructData.Minimum = MetaData.Numeric.SByte.Minimum;
+                recordStructData.Maximum = MetaData.Numeric.SByte.Maximum;
+                recordStructData.InfoType = MetaData.Numeric.SByte.InfoType;
+                break;
+            case DataType.Short:
+                recordStructData.Interface = MetaData.Numeric.Short.Interface;
+                recordStructData.Type = MetaData.Numeric.Short.Type;
+                recordStructData.Example = MetaData.Numeric.Short.Example;
+                recordStructData.JsonReaderMethod = MetaData.Numeric.Short.JsonReaderMethod;
+                recordStructData.Minimum = MetaData.Numeric.Short.Minimum;
+                recordStructData.Maximum = MetaData.Numeric.Short.Maximum;
+                recordStructData.InfoType = MetaData.Numeric.Short.InfoType;
+                break;
+            case DataType.Single:
+                recordStructData.Interface = MetaData.Numeric.Single.Interface;
+                recordStructData.Type = MetaData.Numeric.Single.Type;
+                recordStructData.Example = MetaData.Numeric.Single.Example;
+                recordStructData.JsonReaderMethod = MetaData.Numeric.Single.JsonReaderMethod;
+                recordStructData.Minimum = MetaData.Numeric.Single.Minimum;
+                recordStructData.Maximum = MetaData.Numeric.Single.Maximum;
+                recordStructData.Digits = MetaData.Numeric.Single.Digits;
+                recordStructData.Mode = MetaData.Numeric.Single.Mode;
+                recordStructData.InfoType = MetaData.Numeric.Single.InfoType;
+                break;
+            case DataType.UInt:
+                recordStructData.Interface = MetaData.Numeric.UInt.Interface;
+                recordStructData.Type = MetaData.Numeric.UInt.Type;
+                recordStructData.Example = MetaData.Numeric.UInt.Example;
+                recordStructData.JsonReaderMethod = MetaData.Numeric.UInt.JsonReaderMethod;
+                recordStructData.Minimum = MetaData.Numeric.UInt.Minimum;
+                recordStructData.Maximum = MetaData.Numeric.UInt.Maximum;
+                recordStructData.InfoType = MetaData.Numeric.UInt.InfoType;
+                break;
+            case DataType.ULong:
+                recordStructData.Interface = MetaData.Numeric.ULong.Interface;
+                recordStructData.Type = MetaData.Numeric.ULong.Type;
+                recordStructData.Example = MetaData.Numeric.ULong.Example;
+                recordStructData.JsonReaderMethod = MetaData.Numeric.ULong.JsonReaderMethod;
+                recordStructData.Minimum = MetaData.Numeric.ULong.Minimum;
+                recordStructData.Maximum = MetaData.Numeric.ULong.Maximum;
+                recordStructData.InfoType = MetaData.Numeric.ULong.InfoType;
+                break;
+            case DataType.UShort:
+                recordStructData.Interface = MetaData.Numeric.UShort.Interface;
+                recordStructData.Type = MetaData.Numeric.UShort.Type;
+                recordStructData.Example = MetaData.Numeric.UShort.Example;
+                recordStructData.JsonReaderMethod = MetaData.Numeric.UShort.JsonReaderMethod;
+                recordStructData.Minimum = MetaData.Numeric.UShort.Minimum;
+                recordStructData.Maximum = MetaData.Numeric.UShort.Maximum;
+                recordStructData.InfoType = MetaData.Numeric.UShort.InfoType;
                 break;
             default:
                 throw new NotSupportedException($"{dataType} is not supported");
