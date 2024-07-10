@@ -209,6 +209,6 @@ Sample applications that demonstrate scenarios in which Primitively is commonly 
 
 ## Licence
 
-Licensed under the terms of the [New BSD License](https://opensource.org/license/bsd-3-clause/)
+Licensed under the terms of the [MIT License](https://opensource.org/license/mit/)
 
 [primitively-website]: https://primitively.net
