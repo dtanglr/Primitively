@@ -1,6 +1,5 @@
 ﻿readonly partial record struct PRIMITIVE_TYPE :
     global::PRIMITIVE_INTERFACE,
-    global::Primitively.IPrimitiveInfo<global::PRIMITIVE_INFO_TYPE>,
     global::System.IEquatable<PRIMITIVE_TYPE>,
     global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
 {
@@ -8,7 +7,7 @@
     public const global::PRIMITIVE_VALUE_TYPE Maximum = PRIMITIVE_MAXIMUM;
     public const global::PRIMITIVE_VALUE_TYPE Minimum = PRIMITIVE_MINIMUM;
 
-    private static readonly global::PRIMITIVE_INFO_TYPE _info = new
+    public static readonly global::PRIMITIVE_INFO_TYPE Info = new
     (
         Type: typeof(PRIMITIVE_TYPE),
         Example: Example,
@@ -40,16 +39,11 @@
 
     global::PRIMITIVE_VALUE_TYPE global::Primitively.IPrimitive<global::PRIMITIVE_VALUE_TYPE>.Value => _value;
 
-    global::Primitively.PrimitiveInfo global::Primitively.IPrimitiveInfo.Info => _info;
-
     [global::System.Text.Json.Serialization.JsonIgnore]
     public global::Primitively.DataType DataType => global::Primitively.DataType.PRIMITIVE_DATA_TYPE;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
     public bool HasValue { get; } = false;
-
-    [global::System.Text.Json.Serialization.JsonIgnore]
-    public global::PRIMITIVE_INFO_TYPE Info => _info;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
     public global::System.Type ValueType => typeof(global::PRIMITIVE_VALUE_TYPE);
@@ -58,8 +52,6 @@
     public int CompareTo(PRIMITIVE_TYPE other) => _value.CompareTo(other._value);
     public override int GetHashCode() => _value.GetHashCode();
     public override string ToString() => _value.ToString();
-
-    public static global::PRIMITIVE_INFO_TYPE TypeInfo => _info;
 
     public static implicit operator string(PRIMITIVE_TYPE value) => value.ToString();
     public static implicit operator global::PRIMITIVE_VALUE_TYPE(PRIMITIVE_TYPE value) => value._value;

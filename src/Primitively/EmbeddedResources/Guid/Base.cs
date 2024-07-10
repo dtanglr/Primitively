@@ -1,6 +1,5 @@
 ﻿readonly partial record struct PRIMITIVE_TYPE :
     global::Primitively.IGuid,
-    global::Primitively.IPrimitiveInfo<global::PRIMITIVE_INFO_TYPE>,
     global::System.IEquatable<PRIMITIVE_TYPE>,
     global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
 {
@@ -8,7 +7,8 @@
     public const string Format = "PRIMITIVE_FORMAT"; // "N", "D", "B", "P", or "X"
     public const int Length = PRIMITIVE_LENGTH;
 
-    private static readonly global::PRIMITIVE_INFO_TYPE _info = new
+    public static readonly PRIMITIVE_TYPE Empty = new PRIMITIVE_TYPE(global::System.Guid.Empty);
+    public static readonly global::PRIMITIVE_INFO_TYPE Info = new
     (
         Type: typeof(PRIMITIVE_TYPE),
         Example: Example,
@@ -35,16 +35,11 @@
 
     global::System.Guid global::Primitively.IPrimitive<global::System.Guid>.Value => _value;
 
-    global::Primitively.PrimitiveInfo global::Primitively.IPrimitiveInfo.Info => _info;
-
     [global::System.Text.Json.Serialization.JsonIgnore]
     public global::Primitively.DataType DataType => global::Primitively.DataType.PRIMITIVE_DATA_TYPE;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
     public bool HasValue => _value != default;
-
-    [global::System.Text.Json.Serialization.JsonIgnore]
-    public global::PRIMITIVE_INFO_TYPE Info => _info;
 
     [global::System.Text.Json.Serialization.JsonIgnore]
     public global::System.Type ValueType => typeof(global::System.Guid);
@@ -59,10 +54,6 @@
     public static explicit operator PRIMITIVE_TYPE(global::System.Guid value) => new(value);
     public static explicit operator PRIMITIVE_TYPE(string value) => new(value);
 
-    public static global::PRIMITIVE_INFO_TYPE TypeInfo => _info;
-
     public static PRIMITIVE_TYPE New() => new PRIMITIVE_TYPE(global::System.Guid.NewGuid());
-    public static readonly PRIMITIVE_TYPE Empty = new PRIMITIVE_TYPE(global::System.Guid.Empty);
-
     public static PRIMITIVE_TYPE Parse(string value) => new(value);
     public static bool TryParse(string value, out PRIMITIVE_TYPE result) => (result = new(value)).HasValue;

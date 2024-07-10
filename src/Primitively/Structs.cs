@@ -265,7 +265,7 @@ public class Structs : IIncrementalGenerator
                 var items = recordStructs
                     .Where(rs => rs.DataType == dataType)
                     .OrderBy(rs => rs.Name)
-                    .Select(rs => $"{Padding}yield return {rs.NameSpace}.{rs.Name}.TypeInfo;");
+                    .Select(rs => $"{Padding}yield return {rs.NameSpace}.{rs.Name}.Info;");
 
                 yieldStatements.Add($"{Padding}// {dataType}");
                 yieldStatements.AddRange(items);
