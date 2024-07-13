@@ -20,6 +20,7 @@ public class PrimitiveRepositoryTests : PrimitiveTests
         {
             _ when type.IsAssignableTo(typeof(IByte)) => typeof(ByteInfo),
             _ when type.IsAssignableTo(typeof(IDateOnly)) => typeof(DateOnlyInfo),
+            _ when type.IsAssignableTo(typeof(IDecimal)) => typeof(DecimalInfo),
             _ when type.IsAssignableTo(typeof(IDouble)) => typeof(DoubleInfo),
             _ when type.IsAssignableTo(typeof(IGuid)) => typeof(GuidInfo),
             _ when type.IsAssignableTo(typeof(IInt)) => typeof(IntInfo),
@@ -107,6 +108,7 @@ public class PrimitiveRepositoryTests : PrimitiveTests
     [Theory]
     [InlineData(typeof(IByte))]
     [InlineData(typeof(IDateOnly))]
+    [InlineData(typeof(IDecimal))]
     [InlineData(typeof(IDouble))]
     [InlineData(typeof(IGuid))]
     [InlineData(typeof(IInt))]
@@ -128,6 +130,7 @@ public class PrimitiveRepositoryTests : PrimitiveTests
         {
             nameof(IByte) => repo.GetTypes<ByteInfo>(),
             nameof(IDateOnly) => repo.GetTypes<DateOnlyInfo>(),
+            nameof(IDecimal) => repo.GetTypes<DecimalInfo>(),
             nameof(IDouble) => repo.GetTypes<DoubleInfo>(),
             nameof(IGuid) => repo.GetTypes<GuidInfo>(),
             nameof(IInt) => repo.GetTypes<IntInfo>(),

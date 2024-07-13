@@ -13,10 +13,10 @@ public abstract class NumericAttribute : PrimitiveAttribute
     /// <summary>
     /// Gets or sets the maximum value that can be set on the source generated Primitively type.
     /// </summary>
-    public object? Maximum { get; set; }
+    public object? Maximum { get; }
 
     /// <summary>
     /// Gets or sets the minimum value that can be set on the source generated Primitively type.
     /// </summary>
-    public object? Minimum { get; set; }
+    public object? Minimum { get; }
 }

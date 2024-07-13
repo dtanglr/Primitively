@@ -86,8 +86,9 @@ public class PrimitiveSchemaFilter : ISchemaFilter
                 {
                     schema.Type = numericInfo.DataType switch
                     {
-                        DataType.Single => "number",
+                        DataType.Decimal => "number",
                         DataType.Double => "number",
+                        DataType.Single => "number",
                         _ => "integer"
                     };
                     schema.Properties = null;
@@ -95,6 +96,7 @@ public class PrimitiveSchemaFilter : ISchemaFilter
                     schema.Minimum = numericInfo switch
                     {
                         NumericInfo<byte> byteInfo => byteInfo.Minimum,
+                        NumericInfo<decimal> decimalInfo => decimalInfo.Minimum,
                         NumericInfo<double> doubleInfo => TryGetDecimal(doubleInfo.Minimum),
                         NumericInfo<int> intInfo => intInfo.Minimum,
                         NumericInfo<long> longInfo => longInfo.Minimum,
@@ -109,6 +111,7 @@ public class PrimitiveSchemaFilter : ISchemaFilter
                     schema.Maximum = numericInfo switch
                     {
                         NumericInfo<byte> byteInfo => byteInfo.Maximum,
+                        NumericInfo<decimal> decimalInfo => decimalInfo.Maximum,
                         NumericInfo<double> doubleInfo => TryGetDecimal(doubleInfo.Maximum),
                         NumericInfo<int> intInfo => intInfo.Maximum,
                         NumericInfo<long> longInfo => longInfo.Maximum,

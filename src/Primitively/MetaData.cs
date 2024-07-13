@@ -92,152 +92,171 @@ internal readonly struct MetaData
     /// </summary>
     public readonly struct Numeric
     {
-        /// <summary>
-        /// Contains metadata about the Byte Primitively type.
-        /// </summary>
-        public readonly struct Byte
+        public readonly struct FloatingPoint
         {
-            public static readonly string Example = $"{byte.MaxValue / 2}";
-            public static readonly string Interface = typeof(IByte).FullName;
-            public static readonly string JsonReaderMethod = "TryGetByte";
-            public static readonly decimal Maximum = byte.MaxValue;
-            public static readonly decimal Minimum = byte.MinValue;
-            public static readonly string Type = typeof(byte).FullName;
-            public static readonly string InfoType = typeof(ByteInfo).FullName;
+            public const int Digits = -1;
+            public const int MinDigits = 0;
+            public const MidpointRounding Mode = MidpointRounding.ToEven;
+
+            /// <summary>
+            /// Contains metadata about the Decimal Primitively type.
+            /// </summary>
+            public readonly struct Decimal
+            {
+                public static readonly string Example = (decimal.MaxValue / 2).ToString();
+                public static readonly string Interface = typeof(IDecimal).FullName;
+                public static readonly string JsonReaderMethod = "TryGetDecimal";
+                public static readonly decimal Maximum = decimal.MaxValue;
+                public static readonly decimal Minimum = decimal.MinValue;
+                public static readonly string Type = typeof(decimal).FullName;
+                public static readonly int MaxDigits = 28;
+                public static readonly string InfoType = typeof(DecimalInfo).FullName;
+            }
+
+            /// <summary>
+            /// Contains metadata about the Double Primitively type.
+            /// </summary>
+            public readonly struct Double
+            {
+                public static readonly string Example = (double.MaxValue / 2).ToString("E");
+                public static readonly string Interface = typeof(IDouble).FullName;
+                public static readonly string JsonReaderMethod = "TryGetDouble";
+                public static readonly double Maximum = double.MaxValue;
+                public static readonly double Minimum = double.MinValue;
+                public static readonly string Type = typeof(double).FullName;
+                public static readonly int MaxDigits = 15;
+                public static readonly string InfoType = typeof(DoubleInfo).FullName;
+            }
+
+            /// <summary>
+            /// Contains metadata about the Single (float) Primitively type.
+            /// </summary>
+            public readonly struct Single
+            {
+                public static readonly string Example = (float.MaxValue / 2).ToString("E");
+                public static readonly string Interface = typeof(ISingle).FullName;
+                public static readonly string JsonReaderMethod = "TryGetSingle";
+                public static readonly float Maximum = float.MaxValue;
+                public static readonly float Minimum = float.MinValue;
+                public static readonly string Type = typeof(float).FullName;
+                public static readonly int MaxDigits = 6;
+                public static readonly string InfoType = typeof(SingleInfo).FullName;
+            }
         }
 
-        /// <summary>
-        /// Contains metadata about the Double Primitively type.
-        /// </summary>
-        public readonly struct Double
+        public readonly struct Integer
         {
-            public static readonly string Example = (double.MaxValue / 2).ToString("E");
-            public static readonly string Interface = typeof(IDouble).FullName;
-            public static readonly string JsonReaderMethod = "TryGetDouble";
-            public static readonly double Maximum = double.MaxValue;
-            public static readonly double Minimum = double.MinValue;
-            public static readonly string Type = typeof(double).FullName;
-            public static readonly int Digits = -1; // Value of -1 means no rounding. Minimum value is 0. Maximum value is 15.
-            public static readonly int MinDigits = 0;
-            public static readonly int MaxDigits = 15;
-            public static readonly MidpointRounding Mode = MidpointRounding.ToEven;
-            public static readonly string InfoType = typeof(DoubleInfo).FullName;
-        }
+            /// <summary>
+            /// Contains metadata about the Byte Primitively type.
+            /// </summary>
+            public readonly struct Byte
+            {
+                public static readonly string Example = $"{byte.MaxValue / 2}";
+                public static readonly string Interface = typeof(IByte).FullName;
+                public static readonly string JsonReaderMethod = "TryGetByte";
+                public static readonly decimal Maximum = byte.MaxValue;
+                public static readonly decimal Minimum = byte.MinValue;
+                public static readonly string Type = typeof(byte).FullName;
+                public static readonly string InfoType = typeof(ByteInfo).FullName;
+            }
 
-        /// <summary>
-        /// Contains metadata about the Int Primitively type.
-        /// </summary>
-        public readonly struct Int
-        {
-            public static readonly string Example = $"{int.MaxValue / 2}";
-            public static readonly string Interface = typeof(IInt).FullName;
-            public static readonly string JsonReaderMethod = "TryGetInt32";
-            public static readonly decimal Maximum = int.MaxValue;
-            public static readonly decimal Minimum = int.MinValue;
-            public static readonly string Type = typeof(int).FullName;
-            public static readonly string InfoType = typeof(IntInfo).FullName;
-        }
+            /// <summary>
+            /// Contains metadata about the Int Primitively type.
+            /// </summary>
+            public readonly struct Int
+            {
+                public static readonly string Example = $"{int.MaxValue / 2}";
+                public static readonly string Interface = typeof(IInt).FullName;
+                public static readonly string JsonReaderMethod = "TryGetInt32";
+                public static readonly decimal Maximum = int.MaxValue;
+                public static readonly decimal Minimum = int.MinValue;
+                public static readonly string Type = typeof(int).FullName;
+                public static readonly string InfoType = typeof(IntInfo).FullName;
+            }
 
-        /// <summary>
-        /// Contains metadata about the Long Primitively type.
-        /// </summary>
-        public readonly struct Long
-        {
-            public static readonly string Example = $"{long.MaxValue / 2}";
-            public static readonly string Interface = typeof(ILong).FullName;
-            public static readonly string JsonReaderMethod = "TryGetInt64";
-            public static readonly decimal Maximum = long.MaxValue;
-            public static readonly decimal Minimum = long.MinValue;
-            public static readonly string Type = typeof(long).FullName;
-            public static readonly string InfoType = typeof(LongInfo).FullName;
-        }
+            /// <summary>
+            /// Contains metadata about the Long Primitively type.
+            /// </summary>
+            public readonly struct Long
+            {
+                public static readonly string Example = $"{long.MaxValue / 2}";
+                public static readonly string Interface = typeof(ILong).FullName;
+                public static readonly string JsonReaderMethod = "TryGetInt64";
+                public static readonly decimal Maximum = long.MaxValue;
+                public static readonly decimal Minimum = long.MinValue;
+                public static readonly string Type = typeof(long).FullName;
+                public static readonly string InfoType = typeof(LongInfo).FullName;
+            }
 
-        /// <summary>
-        /// Contains metadata about the SByte Primitively type.
-        /// </summary>
-        public readonly struct SByte
-        {
-            public static readonly string Example = $"{sbyte.MaxValue / 2}";
-            public static readonly string Interface = typeof(ISByte).FullName;
-            public static readonly string JsonReaderMethod = "TryGetSByte";
-            public static readonly decimal Maximum = sbyte.MaxValue;
-            public static readonly decimal Minimum = sbyte.MinValue;
-            public static readonly string Type = typeof(sbyte).FullName;
-            public static readonly string InfoType = typeof(SByteInfo).FullName;
-        }
+            /// <summary>
+            /// Contains metadata about the SByte Primitively type.
+            /// </summary>
+            public readonly struct SByte
+            {
+                public static readonly string Example = $"{sbyte.MaxValue / 2}";
+                public static readonly string Interface = typeof(ISByte).FullName;
+                public static readonly string JsonReaderMethod = "TryGetSByte";
+                public static readonly decimal Maximum = sbyte.MaxValue;
+                public static readonly decimal Minimum = sbyte.MinValue;
+                public static readonly string Type = typeof(sbyte).FullName;
+                public static readonly string InfoType = typeof(SByteInfo).FullName;
+            }
 
-        /// <summary>
-        /// Contains metadata about the Short Primitively type.
-        /// </summary>
-        public readonly struct Short
-        {
-            public static readonly string Example = $"{short.MaxValue / 2}";
-            public static readonly string Interface = typeof(IShort).FullName;
-            public static readonly string JsonReaderMethod = "TryGetInt16";
-            public static readonly decimal Maximum = short.MaxValue;
-            public static readonly decimal Minimum = short.MinValue;
-            public static readonly string Type = typeof(short).FullName;
-            public static readonly string InfoType = typeof(ShortInfo).FullName;
-        }
+            /// <summary>
+            /// Contains metadata about the Short Primitively type.
+            /// </summary>
+            public readonly struct Short
+            {
+                public static readonly string Example = $"{short.MaxValue / 2}";
+                public static readonly string Interface = typeof(IShort).FullName;
+                public static readonly string JsonReaderMethod = "TryGetInt16";
+                public static readonly decimal Maximum = short.MaxValue;
+                public static readonly decimal Minimum = short.MinValue;
+                public static readonly string Type = typeof(short).FullName;
+                public static readonly string InfoType = typeof(ShortInfo).FullName;
+            }
 
-        /// <summary>
-        /// Contains metadata about the Single (float) Primitively type.
-        /// </summary>
-        public readonly struct Single
-        {
-            public static readonly string Example = (float.MaxValue / 2).ToString("E");
-            public static readonly string Interface = typeof(ISingle).FullName;
-            public static readonly string JsonReaderMethod = "TryGetSingle";
-            public static readonly float Maximum = float.MaxValue;
-            public static readonly float Minimum = float.MinValue;
-            public static readonly string Type = typeof(float).FullName;
-            public static readonly int Digits = -1; // Value of -1 means no rounding. Minimum value is 0. Maximum value is 6.
-            public static readonly int MinDigits = 0;
-            public static readonly int MaxDigits = 6;
-            public static readonly MidpointRounding Mode = MidpointRounding.ToEven;
-            public static readonly string InfoType = typeof(SingleInfo).FullName;
-        }
+            /// <summary>
+            /// Contains metadata about the UInt Primitively type.
+            /// </summary>
+            public readonly struct UInt
+            {
+                public static readonly string Example = $"{uint.MaxValue / 2}";
+                public static readonly string Interface = typeof(IUInt).FullName;
+                public static readonly string JsonReaderMethod = "TryGetUInt32";
+                public static readonly decimal Maximum = uint.MaxValue;
+                public static readonly decimal Minimum = uint.MinValue;
+                public static readonly string Type = typeof(uint).FullName;
+                public static readonly string InfoType = typeof(UIntInfo).FullName;
+            }
 
-        /// <summary>
-        /// Contains metadata about the UInt Primitively type.
-        /// </summary>
-        public readonly struct UInt
-        {
-            public static readonly string Example = $"{uint.MaxValue / 2}";
-            public static readonly string Interface = typeof(IUInt).FullName;
-            public static readonly string JsonReaderMethod = "TryGetUInt32";
-            public static readonly decimal Maximum = uint.MaxValue;
-            public static readonly decimal Minimum = uint.MinValue;
-            public static readonly string Type = typeof(uint).FullName;
-            public static readonly string InfoType = typeof(UIntInfo).FullName;
-        }
+            /// <summary>
+            /// Contains metadata about the ULong Primitively type.
+            /// </summary>
+            public readonly struct ULong
+            {
+                public static readonly string Example = $"{ulong.MaxValue / 2}";
+                public static readonly string Interface = typeof(IULong).FullName;
+                public static readonly string JsonReaderMethod = "TryGetUInt64";
+                public static readonly decimal Maximum = ulong.MaxValue;
+                public static readonly decimal Minimum = ulong.MinValue;
+                public static readonly string Type = typeof(ulong).FullName;
+                public static readonly string InfoType = typeof(ULongInfo).FullName;
+            }
 
-        /// <summary>
-        /// Contains metadata about the ULong Primitively type.
-        /// </summary>
-        public readonly struct ULong
-        {
-            public static readonly string Example = $"{ulong.MaxValue / 2}";
-            public static readonly string Interface = typeof(IULong).FullName;
-            public static readonly string JsonReaderMethod = "TryGetUInt64";
-            public static readonly decimal Maximum = ulong.MaxValue;
-            public static readonly decimal Minimum = ulong.MinValue;
-            public static readonly string Type = typeof(ulong).FullName;
-            public static readonly string InfoType = typeof(ULongInfo).FullName;
-        }
-
-        /// <summary>
-        /// Contains metadata about the UShort Primitively type.
-        /// </summary>
-        public readonly struct UShort
-        {
-            public static readonly string Example = $"{ushort.MaxValue / 2}";
-            public static readonly string Interface = typeof(IUShort).FullName;
-            public static readonly string JsonReaderMethod = "TryGetUInt16";
-            public static readonly decimal Maximum = ushort.MaxValue;
-            public static readonly decimal Minimum = ushort.MinValue;
-            public static readonly string Type = typeof(ushort).FullName;
-            public static readonly string InfoType = typeof(UShortInfo).FullName;
+            /// <summary>
+            /// Contains metadata about the UShort Primitively type.
+            /// </summary>
+            public readonly struct UShort
+            {
+                public static readonly string Example = $"{ushort.MaxValue / 2}";
+                public static readonly string Interface = typeof(IUShort).FullName;
+                public static readonly string JsonReaderMethod = "TryGetUInt16";
+                public static readonly decimal Maximum = ushort.MaxValue;
+                public static readonly decimal Minimum = ushort.MinValue;
+                public static readonly string Type = typeof(ushort).FullName;
+                public static readonly string InfoType = typeof(UShortInfo).FullName;
+            }
         }
     }
 

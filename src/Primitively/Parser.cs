@@ -20,6 +20,7 @@ internal static class Parser
     [
         typeof(ByteAttribute).FullName,
         typeof(DateOnlyAttribute).FullName,
+        typeof(DecimalAttribute).FullName,
         typeof(DoubleAttribute).FullName,
         typeof(GuidAttribute).FullName,
         typeof(IntAttribute).FullName,
@@ -98,6 +99,7 @@ internal static class Parser
                     nameof(GuidAttribute) => !GuidParser.TryParse(attributeData, name, nameSpace, parentData, out recordStructData),
                     // Numeric
                     nameof(ByteAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Byte, out recordStructData),
+                    nameof(DecimalAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Decimal, out recordStructData),
                     nameof(DoubleAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Double, out recordStructData),
                     nameof(IntAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Int, out recordStructData),
                     nameof(LongAttribute) => !NumericParser.TryParse(attributeData, name, nameSpace, parentData, DataType.Long, out recordStructData),

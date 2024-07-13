@@ -45,6 +45,7 @@ internal readonly struct EmbeddedResources
         public readonly struct FloatingPoint
         {
             public static readonly string Base = GetEmbeddedResource(nameof(Numeric), nameof(FloatingPoint), nameof(Base));
+            public static readonly string DecimalPreMatchCheckMethod = GetEmbeddedResource(nameof(Numeric), nameof(FloatingPoint), nameof(DecimalPreMatchCheckMethod));
             public static readonly string DoublePreMatchCheckMethod = GetEmbeddedResource(nameof(Numeric), nameof(FloatingPoint), nameof(DoublePreMatchCheckMethod));
             public static readonly string SinglePreMatchCheckMethod = GetEmbeddedResource(nameof(Numeric), nameof(FloatingPoint), nameof(SinglePreMatchCheckMethod));
         }

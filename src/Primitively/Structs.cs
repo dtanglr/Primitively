@@ -142,15 +142,15 @@ public class Structs : IIncrementalGenerator
                     sb.Append(EmbeddedResources.Guid.JsonConverter);
                     sb.Append(EmbeddedResources.Guid.TypeConverter);
                     break;
-                case DataType.Byte:
-                case DataType.SByte:
-                case DataType.Short:
-                case DataType.UShort:
-                case DataType.Int:
-                case DataType.UInt:
-                case DataType.Long:
-                case DataType.ULong:
-                    sb.Append(EmbeddedResources.Numeric.Integer.Base);
+                case DataType.Decimal:
+                    sb.Append(EmbeddedResources.Numeric.FloatingPoint.Base);
+                    sb.Append(EmbeddedResources.Numeric.FloatingPoint.DecimalPreMatchCheckMethod);
+                    sb.Append(EmbeddedResources.Numeric.JsonConverter);
+                    sb.Append(EmbeddedResources.Numeric.TypeConverter);
+                    break;
+                case DataType.Double:
+                    sb.Append(EmbeddedResources.Numeric.FloatingPoint.Base);
+                    sb.Append(EmbeddedResources.Numeric.FloatingPoint.DoublePreMatchCheckMethod);
                     sb.Append(EmbeddedResources.Numeric.JsonConverter);
                     sb.Append(EmbeddedResources.Numeric.TypeConverter);
                     break;
@@ -160,9 +160,15 @@ public class Structs : IIncrementalGenerator
                     sb.Append(EmbeddedResources.Numeric.JsonConverter);
                     sb.Append(EmbeddedResources.Numeric.TypeConverter);
                     break;
-                case DataType.Double:
-                    sb.Append(EmbeddedResources.Numeric.FloatingPoint.Base);
-                    sb.Append(EmbeddedResources.Numeric.FloatingPoint.DoublePreMatchCheckMethod);
+                case DataType.Byte:
+                case DataType.SByte:
+                case DataType.Short:
+                case DataType.UShort:
+                case DataType.Int:
+                case DataType.UInt:
+                case DataType.Long:
+                case DataType.ULong:
+                    sb.Append(EmbeddedResources.Numeric.Integer.Base);
                     sb.Append(EmbeddedResources.Numeric.JsonConverter);
                     sb.Append(EmbeddedResources.Numeric.TypeConverter);
                     break;
@@ -215,20 +221,28 @@ public class Structs : IIncrementalGenerator
                         sb.Replace("PRIMITIVE_MAXIMUM", recordStruct.Maximum.ToString());
                         break;
                     }
-                case DataType.Single:
+                case DataType.Decimal:
                     {
-                        sb.Replace("PRIMITIVE_MINIMUM", GetMinimum(Convert.ToSingle(recordStruct.Minimum)));
-                        sb.Replace("PRIMITIVE_MAXIMUM", GetMaximum(Convert.ToSingle(recordStruct.Maximum)));
-                        sb.Replace("PRIMITIVE_ROUNDINGDIGITS", recordStruct.Digits?.ToString() ?? MetaData.Numeric.Single.Digits.ToString());
-                        sb.Replace("PRIMITIVE_MIDPOINTROUNDINGMODE", recordStruct.Mode?.ToString() ?? MetaData.Numeric.Single.Mode.ToString());
+                        sb.Replace("PRIMITIVE_MINIMUM", "decimal.MinValue");
+                        sb.Replace("PRIMITIVE_MAXIMUM", "decimal.MaxValue");
+                        sb.Replace("PRIMITIVE_ROUNDINGDIGITS", recordStruct.Digits?.ToString() ?? MetaData.Numeric.FloatingPoint.Digits.ToString());
+                        sb.Replace("PRIMITIVE_MIDPOINTROUNDINGMODE", recordStruct.Mode?.ToString() ?? MetaData.Numeric.FloatingPoint.Mode.ToString());
                         break;
                     }
                 case DataType.Double:
                     {
                         sb.Replace("PRIMITIVE_MINIMUM", GetMinimum(Convert.ToDouble(recordStruct.Minimum)));
                         sb.Replace("PRIMITIVE_MAXIMUM", GetMaximum(Convert.ToDouble(recordStruct.Maximum)));
-                        sb.Replace("PRIMITIVE_ROUNDINGDIGITS", recordStruct.Digits?.ToString() ?? MetaData.Numeric.Double.Digits.ToString());
-                        sb.Replace("PRIMITIVE_MIDPOINTROUNDINGMODE", recordStruct.Mode?.ToString() ?? MetaData.Numeric.Double.Mode.ToString());
+                        sb.Replace("PRIMITIVE_ROUNDINGDIGITS", recordStruct.Digits?.ToString() ?? MetaData.Numeric.FloatingPoint.Digits.ToString());
+                        sb.Replace("PRIMITIVE_MIDPOINTROUNDINGMODE", recordStruct.Mode?.ToString() ?? MetaData.Numeric.FloatingPoint.Mode.ToString());
+                        break;
+                    }
+                case DataType.Single:
+                    {
+                        sb.Replace("PRIMITIVE_MINIMUM", GetMinimum(Convert.ToSingle(recordStruct.Minimum)));
+                        sb.Replace("PRIMITIVE_MAXIMUM", GetMaximum(Convert.ToSingle(recordStruct.Maximum)));
+                        sb.Replace("PRIMITIVE_ROUNDINGDIGITS", recordStruct.Digits?.ToString() ?? MetaData.Numeric.FloatingPoint.Digits.ToString());
+                        sb.Replace("PRIMITIVE_MIDPOINTROUNDINGMODE", recordStruct.Mode?.ToString() ?? MetaData.Numeric.FloatingPoint.Mode.ToString());
                         break;
                     }
                 default:
