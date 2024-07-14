@@ -1,6 +1,6 @@
 ﻿namespace Primitively.IntegrationTests.NumericTests.Decimal;
 
-public class JsonConverterTests : PrimitiveJsonConverterTests<DecimalId.JsonConverter, DecimalId>
+public class JsonConverterTests : PrimitiveJsonConverterTests<DecimalWith2Digits.JsonConverter, DecimalWith2Digits>
 {
-    protected override DecimalId PrimitiveWithValue => (DecimalId)DecimalId.Example;
+    protected override DecimalWith2Digits PrimitiveWithValue => (DecimalWith2Digits)DecimalWith2Digits.Example;
 }

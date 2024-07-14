@@ -14,11 +14,11 @@ public class BsonSerializerTests
     public void Non_Nullable_Primitive_Serialises_To_Default_Bson_String_Correctly()
     {
         // Assign
-        var example = DecimalId.Example;
-        var expected = (DecimalId)example;
+        var example = DecimalWith2Digits.Example;
+        var expected = (DecimalWith2Digits)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = new BsonIDecimalSerializer<DecimalId>();
+        var serializer = new BsonIDecimalSerializer<DecimalWith2Digits>();
         bsonWriter.Setup(r => r.WriteString(It.IsAny<string>()));
 
         // Act
@@ -32,12 +32,12 @@ public class BsonSerializerTests
     public void Non_Nullable_Primitive_Serialises_To_Bson_Decimal128_Correctly()
     {
         // Assign
-        var example = DecimalId.Example;
-        var expected = (DecimalId)example;
+        var example = DecimalWith2Digits.Example;
+        var expected = (DecimalWith2Digits)example;
         var expectedAsDecimal128 = new Decimal128(expected);
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = new BsonIDecimalSerializer<DecimalId>(BsonType.Decimal128);
+        var serializer = new BsonIDecimalSerializer<DecimalWith2Digits>(BsonType.Decimal128);
         bsonWriter.Setup(r => r.WriteDecimal128(It.IsAny<Decimal128>()));
 
         // Act
@@ -51,11 +51,11 @@ public class BsonSerializerTests
     public void Nullable_Primitive_Serialises_To_Default_Bson_String_Correctly()
     {
         // Assign
-        var example = DecimalId.Example;
-        var expected = (DecimalId)example;
+        var example = DecimalWith2Digits.Example;
+        var expected = (DecimalWith2Digits)example;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new BsonIDecimalSerializer<DecimalId>());
+        var serializer = NullableSerializer.Create(new BsonIDecimalSerializer<DecimalWith2Digits>());
         bsonWriter.Setup(r => r.WriteString(It.IsAny<string>()));
 
         // Act
@@ -69,12 +69,12 @@ public class BsonSerializerTests
     public void Nullable_Primitive_Serialises_To_Bson_Decimal128_Correctly()
     {
         // Assign
-        var example = DecimalId.Example;
-        var expected = (DecimalId)example;
+        var example = DecimalWith2Digits.Example;
+        var expected = (DecimalWith2Digits)example;
         var expectedAsDecimal128 = new Decimal128(expected);
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new BsonIDecimalSerializer<DecimalId>(BsonType.Decimal128));
+        var serializer = NullableSerializer.Create(new BsonIDecimalSerializer<DecimalWith2Digits>(BsonType.Decimal128));
         bsonWriter.Setup(r => r.WriteDecimal128(It.IsAny<Decimal128>()));
 
         // Act
@@ -88,10 +88,10 @@ public class BsonSerializerTests
     public void Nullable_Primitive_Serialises_To_Bson_Correctly_When_Null()
     {
         // Assign
-        var expected = (DecimalId?)null;
+        var expected = (DecimalWith2Digits?)null;
         var bsonWriter = new Mock<IBsonWriter>();
         var context = BsonSerializationContext.CreateRoot(bsonWriter.Object);
-        var serializer = NullableSerializer.Create(new BsonIDecimalSerializer<DecimalId>());
+        var serializer = NullableSerializer.Create(new BsonIDecimalSerializer<DecimalWith2Digits>());
         bsonWriter.Setup(r => r.WriteNull());
 
         // Act

@@ -15,11 +15,11 @@ public class BsonDeserializerTests
     public void Non_Nullable_Primitive_Deserialises_From_Default_Bson_String_Correctly()
     {
         // Assign
-        var example = DecimalId.Example;
-        var expected = (DecimalId)example;
+        var example = DecimalWith2Digits.Example;
+        var expected = (DecimalWith2Digits)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new BsonIDecimalSerializer<DecimalId>();
+        var serializer = new BsonIDecimalSerializer<DecimalWith2Digits>();
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.String);
         bsonReader.Setup(r => r.ReadString()).Returns(expected);
 
@@ -35,12 +35,12 @@ public class BsonDeserializerTests
     public void Non_Nullable_Primitive_Deserialises_From_Bson_Decimal128_Correctly()
     {
         // Assign
-        var example = DecimalId.Example;
-        var expected = (DecimalId)example;
+        var example = DecimalWith2Digits.Example;
+        var expected = (DecimalWith2Digits)example;
         var expectedAsDecimal128 = new Decimal128(expected);
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = new BsonIDecimalSerializer<DecimalId>(BsonType.Decimal128);
+        var serializer = new BsonIDecimalSerializer<DecimalWith2Digits>(BsonType.Decimal128);
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Decimal128);
         bsonReader.Setup(r => r.ReadDecimal128()).Returns(expectedAsDecimal128);
 
@@ -56,11 +56,11 @@ public class BsonDeserializerTests
     public void Nullable_Primitive_Deserialises_From_Default_Bson_String_Correctly()
     {
         // Assign
-        var example = DecimalId.Example;
-        var expected = (DecimalId)example;
+        var example = DecimalWith2Digits.Example;
+        var expected = (DecimalWith2Digits)example;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new BsonIDecimalSerializer<DecimalId>());
+        var serializer = NullableSerializer.Create(new BsonIDecimalSerializer<DecimalWith2Digits>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.String);
         bsonReader.Setup(r => r.ReadString()).Returns(expected);
 
@@ -76,12 +76,12 @@ public class BsonDeserializerTests
     public void Nullable_Primitive_Deserialises_From_Bson_Decimal128_Correctly()
     {
         // Assign
-        var example = DecimalId.Example;
-        var expected = (DecimalId)example;
+        var example = DecimalWith2Digits.Example;
+        var expected = (DecimalWith2Digits)example;
         var expectedAsDecimal128 = new Decimal128(expected);
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new BsonIDecimalSerializer<DecimalId>(BsonType.Decimal128));
+        var serializer = NullableSerializer.Create(new BsonIDecimalSerializer<DecimalWith2Digits>(BsonType.Decimal128));
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Decimal128);
         bsonReader.Setup(r => r.ReadDecimal128()).Returns(expectedAsDecimal128);
 
@@ -97,10 +97,10 @@ public class BsonDeserializerTests
     public void Nullable_Primitive_Deserialises_From_Bson_Correctly_When_Bson_Null()
     {
         // Assign
-        var expected = (DecimalId?)null;
+        var expected = (DecimalWith2Digits?)null;
         var bsonReader = new Mock<IBsonReader>();
         var context = BsonDeserializationContext.CreateRoot(bsonReader.Object);
-        var serializer = NullableSerializer.Create(new BsonIDecimalSerializer<DecimalId>());
+        var serializer = NullableSerializer.Create(new BsonIDecimalSerializer<DecimalWith2Digits>());
         bsonReader.Setup(r => r.GetCurrentBsonType()).Returns(BsonType.Null);
 
         // Act

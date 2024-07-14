@@ -52,3 +52,6 @@ public partial record struct MinimumOfMinus10FAndMaximumOf100F;
 
 [Double(4, Minimum = -10.12345d, Maximum = 100.54321d)]
 public partial record struct MinimumOfMinus10DAndMaximumOf100D;
+
+[Decimal(2)]
+public partial record struct DecimalWith2Digits;

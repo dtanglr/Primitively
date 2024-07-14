@@ -15,6 +15,7 @@ public class InstantiationTests
     [InlineData("00", true)]
     [InlineData("001", true)]
     [InlineData(DecimalId.Example, true)]
+    [InlineData(DecimalWith2Digits.Example, true)]
     public void ConvertFromThisToThatWithExpectedResults(string? from, bool hasValue = false)
     {
         var @this = DecimalId.Parse(from);

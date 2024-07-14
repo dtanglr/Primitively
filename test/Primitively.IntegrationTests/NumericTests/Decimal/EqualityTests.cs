@@ -15,8 +15,8 @@ public class EqualityTests
     [InlineData(Value)]
     public void WhenTheSameType_ThisEqualsThat(string? value)
     {
-        var @this = DecimalId.Parse(value);
-        var that = DecimalId.Parse(value);
+        var @this = DecimalWith2Digits.Parse(value);
+        var that = DecimalWith2Digits.Parse(value);
 
         // This == That
         @this.Equals(that).Should().BeTrue();
@@ -34,8 +34,8 @@ public class EqualityTests
     [Fact]
     public void WhenTheSameType_ThisDoesNotEqualThat()
     {
-        var @this = DecimalId.Parse(Value);
-        var that = DecimalId.Parse(OtherValue);
+        var @this = DecimalWith2Digits.Parse(Value);
+        var that = DecimalWith2Digits.Parse(OtherValue);
 
         // This == That
         @this.Equals(that).Should().BeFalse();
@@ -53,7 +53,7 @@ public class EqualityTests
     [Fact]
     public void WhenTheOtherTypeWithSameValueType_ThisNotEqualsThat()
     {
-        var @this = DecimalId.Parse(Value);
+        var @this = DecimalWith2Digits.Parse(Value);
         var that = SByteId.Parse(Value);
 
         // This != That
