@@ -57,7 +57,7 @@ Open your csproj file and edit the package reference, setting `PrivateAssets="Al
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Primitively" Version="1.4.20" PrivateAssets="All" />
+    <PackageReference Include="Primitively" Version="1.4.21" PrivateAssets="All" />
   </ItemGroup>
   
 </Project>
@@ -94,6 +94,7 @@ Here's a list of all the Primitively attributes currently available: -
   - `[ULong]`
   - `[UShort]`
 - Floating-points (v1.5.x)
+  - `[Decimal]`
   - `[Double]`
   - `[Single]`
 - Strings

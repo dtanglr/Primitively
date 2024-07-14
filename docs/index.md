@@ -17,4 +17,10 @@ The 1.4.x release supports the following platforms:
 - .NET Core 3.1¹
 - .NET Standard 2.0¹
 
-¹ It is possible (but not recommended) to use Primitively on class libraries that target platforms that preceed .NET 6. Extra configuration is required for this to work because C# 10 is a minimum requirement. To learn more, clone the Primitively git repo and open the example projects. 
+¹ It is possible (but not recommended) to use Primitively on class libraries that target platforms that preceed .NET 6. C# 10 is a minimum requirement so make sure your project file's `LangVersion` is set to `latest` or `10 or higher` (see below). To learn more, clone the Primitively git repo and open the example projects.
+
+```vs
+<PropertyGroup>
+   <LangVersion>latest</LangVersion>
+</PropertyGroup>
+```
