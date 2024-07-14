@@ -9,8 +9,7 @@
 /// <code>
 /// [Decimal]
 /// public partial record struct Example;
-/// </code>
-/// <code>
+///
 /// [Decimal(3)]
 /// public partial record struct Example;
 /// </code>
