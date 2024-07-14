@@ -9,12 +9,10 @@
 /// <code>
 /// [UInt]
 /// public partial record struct Example;
-/// </code>
-/// <code>
+/// 
 /// [UInt(Minimum = 1000000)]
 /// public partial record struct Example;
-/// </code>
-/// <code>
+/// 
 /// [UInt(Minimum = 2000000, Maximum = 4000000)]
 /// public partial record struct Example;
 /// </code>

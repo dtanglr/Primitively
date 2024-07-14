@@ -9,12 +9,10 @@
 /// <code>
 /// [Byte]
 /// public partial record struct Example;
-/// </code>
-/// <code>
+/// 
 /// [Byte(Minimum = 1)]
 /// public partial record struct Example;
-/// </code>
-/// <code>
+/// 
 /// [Byte(Minimum = 1, Maximum = 100)]
 /// public partial record struct Example;
 /// </code>

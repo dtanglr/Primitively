@@ -9,22 +9,13 @@
 /// <code>
 /// [Double]
 /// public partial record struct Example;
-/// </code>
-/// </example>
-/// <example>
-/// <code>
+/// 
 /// [Double(Minimum = 1.10d)]
 /// public partial record struct Example;
-/// </code>
-/// </example>
-/// <example>
-/// <code>
+/// 
 /// [Double(Minimum = -10.10d, Maximum = 10.10d)]
 /// public partial record struct Example;
-/// </code>
-/// </example>
-/// <example>
-/// <code>
+/// 
 /// [Double(2, Minimum = -10.10d, Maximum = 10.10d)]
 /// public partial record struct Example;
 /// </code>

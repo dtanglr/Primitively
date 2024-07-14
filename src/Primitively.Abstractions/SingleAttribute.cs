@@ -9,16 +9,13 @@
 /// <code>
 /// [Single]
 /// public partial record struct Example;
-/// </code>
-/// <code>
+/// 
 /// [Single(Minimum = 1.10f)]
 /// public partial record struct Example;
-/// </code>
-/// <code>
+/// 
 /// [Single(Minimum = -10.10f, Maximum = 10.10f)]
 /// public partial record struct Example;
-/// </code>
-/// <code>
+/// 
 /// [Single(2, Minimum = -10.10f, Maximum = 10.10f)]
 /// public partial record struct Example;
 /// </code>

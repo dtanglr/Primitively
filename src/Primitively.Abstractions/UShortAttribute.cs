@@ -9,12 +9,10 @@
 /// <code>
 /// [UShort]
 /// public partial record struct Example;
-/// </code>
-/// <code>
+/// 
 /// [UShort(Minimum = 10000)]
 /// public partial record struct Example;
-/// </code>
-/// <code>
+/// 
 /// [UShort(Minimum = 10000, Maximum = 60000)]
 /// public partial record struct Example;
 /// </code>

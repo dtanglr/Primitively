@@ -9,12 +9,10 @@
 /// <code>
 /// [Short]
 /// public partial record struct Example;
-/// </code>
-/// <code>
+/// 
 /// [Short(Minimum = 0)]
 /// public partial record struct Example;
-/// </code>
-/// <code>
+/// 
 /// [Short(Minimum = -10, Maximum = 10)]
 /// public partial record struct Example;
 /// </code>
