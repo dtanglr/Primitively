@@ -7,8 +7,5 @@
     - name: What is Primitive Obsession?
       href: further-information/what-is-primitive-obsession.md
 
-- name: Getting Started
-  href: getting-started.md
-
 - name: API Documentation
   href: api/Primitively.yml
