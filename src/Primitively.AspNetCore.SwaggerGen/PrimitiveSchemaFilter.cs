@@ -8,18 +8,13 @@ namespace Primitively.AspNetCore.SwaggerGen;
 /// <summary>
 /// This class is a custom schema filter for Primitively types.
 /// </summary>
-public class PrimitiveSchemaFilter : ISchemaFilter
+/// <remarks>
+/// Initializes a new instance of the <see cref="PrimitiveSchemaFilter"/> class.
+/// </remarks>
+/// <param name="registry">The registry of Primitively types.</param>
+public class PrimitiveSchemaFilter(PrimitiveRegistry registry) : ISchemaFilter
 {
-    private readonly PrimitiveRegistry _registry;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PrimitiveSchemaFilter"/> class.
-    /// </summary>
-    /// <param name="registry">The registry of Primitively types.</param>
-    public PrimitiveSchemaFilter(PrimitiveRegistry registry)
-    {
-        _registry = registry;
-    }
+    private readonly PrimitiveRegistry _registry = registry;
 
     /// <summary>
     /// Applies the schema filter to a specific schema.

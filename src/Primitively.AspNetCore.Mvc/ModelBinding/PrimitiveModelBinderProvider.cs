@@ -6,18 +6,13 @@ namespace Primitively.AspNetCore.Mvc.ModelBinding;
 /// <summary>
 /// This class is a custom model binder provider for Primitively types.
 /// </summary>
-public class PrimitiveModelBinderProvider : IModelBinderProvider
+/// <remarks>
+/// Initializes a new instance of the <see cref="PrimitiveModelBinderProvider"/> class.
+/// </remarks>
+/// <param name="registry">The registry of Primitively types.</param>
+public class PrimitiveModelBinderProvider(PrimitiveRegistry registry) : IModelBinderProvider
 {
-    private readonly PrimitiveRegistry _registry;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PrimitiveModelBinderProvider"/> class.
-    /// </summary>
-    /// <param name="registry">The registry of Primitively types.</param>
-    public PrimitiveModelBinderProvider(PrimitiveRegistry registry)
-    {
-        _registry = registry;
-    }
+    private readonly PrimitiveRegistry _registry = registry;
 
     /// <summary>
     /// Gets the model binder for the specified context.
