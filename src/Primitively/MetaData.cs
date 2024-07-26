@@ -5,12 +5,12 @@ namespace Primitively;
 /// <summary>
 /// Contains metadata about various Primitively types.
 /// </summary>
-internal readonly struct MetaData
+internal static class MetaData
 {
     /// <summary>
     /// Contains metadata about the DateOnly Primitively type.
     /// </summary>
-    public readonly struct DateOnly
+    public static class DateOnly
     {
         public static readonly string Interface = typeof(IDateOnly).FullName;
         public static readonly string Type = typeof(DateTime).FullName;
@@ -19,7 +19,7 @@ internal readonly struct MetaData
         /// <summary>
         /// Contains metadata about the ISO 8601 format for the DateOnly Primitively type.
         /// </summary>
-        public readonly struct Iso8601
+        public static class Iso8601
         {
             public const string Example = "2022-12-31";
             public const string Format = "yyyy-MM-dd";
@@ -30,7 +30,7 @@ internal readonly struct MetaData
     /// <summary>
     /// Contains metadata about the Guid Primitively type.
     /// </summary>
-    public readonly struct Guid
+    public static class Guid
     {
         public static readonly string Interface = typeof(IGuid).FullName;
         public static readonly string Type = typeof(System.Guid).FullName;
@@ -39,7 +39,7 @@ internal readonly struct MetaData
         /// <summary>
         /// Contains metadata about the 'B' format for the Guid Primitively type.
         /// </summary>
-        public readonly struct B
+        public static class B
         {
             public const string Example = "{2c48c152-7cb7-4f51-8f01-704454f36e60}";
             public const string Format = "B";
@@ -49,7 +49,7 @@ internal readonly struct MetaData
         /// <summary>
         /// Contains metadata about the 'D' format for the Guid Primitively type.
         /// </summary>
-        public readonly struct D
+        public static class D
         {
             public const string Example = "2c48c152-7cb7-4f51-8f01-704454f36e60";
             public const string Format = "D";
@@ -59,7 +59,7 @@ internal readonly struct MetaData
         /// <summary>
         /// Contains metadata about the 'N' format for the Guid Primitively type.
         /// </summary>
-        public readonly struct N
+        public static class N
         {
             public const string Example = "2c48c1527cb74f518f01704454f36e60";
             public const string Format = "N";
@@ -69,7 +69,7 @@ internal readonly struct MetaData
         /// <summary>
         /// Contains metadata about the 'P' format for the Guid Primitively type.
         /// </summary>
-        public readonly struct P
+        public static class P
         {
             public const string Example = "(2c48c152-7cb7-4f51-8f01-704454f36e60)";
             public const string Format = "P";
@@ -79,7 +79,7 @@ internal readonly struct MetaData
         /// <summary>
         /// Contains metadata about the 'X' format for the Guid Primitively type.
         /// </summary>
-        public readonly struct X
+        public static class X
         {
             public const string Example = "{0x2c48c152,0x7cb7,0x4f51,{0x8f,0x01,0x70,0x44,0x54,0xf3,0x6e,0x60}}";
             public const string Format = "X";
@@ -90,9 +90,9 @@ internal readonly struct MetaData
     /// <summary>
     /// Contains metadata about various Numeric Primitively types.
     /// </summary>
-    public readonly struct Numeric
+    public static class Numeric
     {
-        public readonly struct FloatingPoint
+        public static class FloatingPoint
         {
             public const int Digits = -1;
             public const int MinDigits = 0;
@@ -101,7 +101,7 @@ internal readonly struct MetaData
             /// <summary>
             /// Contains metadata about the Decimal Primitively type.
             /// </summary>
-            public readonly struct Decimal
+            public static class Decimal
             {
                 public static readonly string Example = (decimal.MaxValue / 2).ToString();
                 public static readonly string Interface = typeof(IDecimal).FullName;
@@ -116,7 +116,7 @@ internal readonly struct MetaData
             /// <summary>
             /// Contains metadata about the Double Primitively type.
             /// </summary>
-            public readonly struct Double
+            public static class Double
             {
                 public static readonly string Example = (double.MaxValue / 2).ToString("E");
                 public static readonly string Interface = typeof(IDouble).FullName;
@@ -131,7 +131,7 @@ internal readonly struct MetaData
             /// <summary>
             /// Contains metadata about the Single (float) Primitively type.
             /// </summary>
-            public readonly struct Single
+            public static class Single
             {
                 public static readonly string Example = (float.MaxValue / 2).ToString("E");
                 public static readonly string Interface = typeof(ISingle).FullName;
@@ -144,12 +144,12 @@ internal readonly struct MetaData
             }
         }
 
-        public readonly struct Integer
+        public static class Integer
         {
             /// <summary>
             /// Contains metadata about the Byte Primitively type.
             /// </summary>
-            public readonly struct Byte
+            public static class Byte
             {
                 public static readonly string Example = $"{byte.MaxValue / 2}";
                 public static readonly string Interface = typeof(IByte).FullName;
@@ -163,7 +163,7 @@ internal readonly struct MetaData
             /// <summary>
             /// Contains metadata about the Int Primitively type.
             /// </summary>
-            public readonly struct Int
+            public static class Int
             {
                 public static readonly string Example = $"{int.MaxValue / 2}";
                 public static readonly string Interface = typeof(IInt).FullName;
@@ -177,7 +177,7 @@ internal readonly struct MetaData
             /// <summary>
             /// Contains metadata about the Long Primitively type.
             /// </summary>
-            public readonly struct Long
+            public static class Long
             {
                 public static readonly string Example = $"{long.MaxValue / 2}";
                 public static readonly string Interface = typeof(ILong).FullName;
@@ -191,7 +191,7 @@ internal readonly struct MetaData
             /// <summary>
             /// Contains metadata about the SByte Primitively type.
             /// </summary>
-            public readonly struct SByte
+            public static class SByte
             {
                 public static readonly string Example = $"{sbyte.MaxValue / 2}";
                 public static readonly string Interface = typeof(ISByte).FullName;
@@ -205,7 +205,7 @@ internal readonly struct MetaData
             /// <summary>
             /// Contains metadata about the Short Primitively type.
             /// </summary>
-            public readonly struct Short
+            public static class Short
             {
                 public static readonly string Example = $"{short.MaxValue / 2}";
                 public static readonly string Interface = typeof(IShort).FullName;
@@ -219,7 +219,7 @@ internal readonly struct MetaData
             /// <summary>
             /// Contains metadata about the UInt Primitively type.
             /// </summary>
-            public readonly struct UInt
+            public static class UInt
             {
                 public static readonly string Example = $"{uint.MaxValue / 2}";
                 public static readonly string Interface = typeof(IUInt).FullName;
@@ -233,7 +233,7 @@ internal readonly struct MetaData
             /// <summary>
             /// Contains metadata about the ULong Primitively type.
             /// </summary>
-            public readonly struct ULong
+            public static class ULong
             {
                 public static readonly string Example = $"{ulong.MaxValue / 2}";
                 public static readonly string Interface = typeof(IULong).FullName;
@@ -247,7 +247,7 @@ internal readonly struct MetaData
             /// <summary>
             /// Contains metadata about the UShort Primitively type.
             /// </summary>
-            public readonly struct UShort
+            public static class UShort
             {
                 public static readonly string Example = $"{ushort.MaxValue / 2}";
                 public static readonly string Interface = typeof(IUShort).FullName;
@@ -263,7 +263,7 @@ internal readonly struct MetaData
     /// <summary>
     /// Contains metadata about the String Primitively type.
     /// </summary>
-    public readonly struct String
+    public static class String
     {
         public static readonly string Interface = typeof(IString).FullName;
         public static readonly string Type = typeof(string).FullName;
