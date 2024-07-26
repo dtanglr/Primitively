@@ -11,13 +11,13 @@ namespace Primitively.IntegrationTests.GuidTests.Default;
 
 public class BsonDeserializerTests
 {
-    public static TheoryData<GuidRepresentation> GuidRepresentations => new()
-    {
+    public static TheoryData<GuidRepresentation> GuidRepresentations => new
+    (
         GuidRepresentation.CSharpLegacy,
         GuidRepresentation.JavaLegacy,
         GuidRepresentation.PythonLegacy,
-        GuidRepresentation.Standard,
-    };
+        GuidRepresentation.Standard
+    );
 
     [Theory]
     [MemberData(nameof(GuidRepresentations))]

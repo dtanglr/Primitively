@@ -8,7 +8,7 @@ namespace Primitively.Configuration;
 public sealed class PrimitiveRegistry
 {
     private readonly ConcurrentDictionary<Type, PrimitiveInfo> _cache = new();
-    private readonly ConcurrentBag<Type> _register = new();
+    private readonly ConcurrentBag<Type> _register = [];
 
     internal PrimitiveRegistry() { }
 
@@ -47,7 +47,7 @@ public sealed class PrimitiveRegistry
     /// Converts the registry to a list of <see cref="PrimitiveInfo"/> instances.
     /// </summary>
     /// <returns>A list of <see cref="PrimitiveInfo"/> instances representing the Primitively types in the registry.</returns>
-    public List<PrimitiveInfo> ToList() => _cache.Values.ToList();
+    public List<PrimitiveInfo> ToList() => [.. _cache.Values];
 
     /// <summary>
     /// Attempts to create an instance of a specific Primitively type.
