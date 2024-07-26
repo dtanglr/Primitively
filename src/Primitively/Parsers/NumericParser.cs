@@ -43,7 +43,7 @@ internal static class NumericParser
             return false;
         }
 
-        return TryParseNamedArguments(dataType, attributeData, recordStructData);
+        return TryParseNamedArguments(attributeData, recordStructData);
     }
 
     /// <summary>
@@ -226,11 +226,10 @@ internal static class NumericParser
     /// <summary>
     /// Attempts to parse the named arguments of the specified attribute data into a record struct data.
     /// </summary>
-    /// <param name="dataType">The data type of the record struct.</param>
     /// <param name="attributeData">The attribute data whose named arguments to parse.</param>
     /// <param name="recordStructData">The record struct data to populate with the parsed named arguments.</param>
     /// <returns>true if the named arguments were parsed successfully; otherwise, false.</returns>
-    private static bool TryParseNamedArguments(DataType dataType, AttributeData attributeData, RecordStructData recordStructData)
+    private static bool TryParseNamedArguments(AttributeData attributeData, RecordStructData recordStructData)
     {
         if (attributeData.NamedArguments.IsEmpty)
         {
