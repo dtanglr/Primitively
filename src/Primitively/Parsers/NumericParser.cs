@@ -313,7 +313,6 @@ internal static class NumericParser
                         if (recordStructData.Digits.HasValue && recordStructData.Digits.Value > defaultDigits)
                         {
                             var digits = recordStructData.Digits.Value;
-                            var mode = recordStructData.Mode ?? MetaData.Numeric.FloatingPoint.Mode;
                             recordStructData.Example = (minimum + ((maximum - minimum) / 2)).ToString($"N{digits}");
                             break;
                         }
@@ -330,7 +329,6 @@ internal static class NumericParser
                         if (recordStructData.Digits.HasValue && recordStructData.Digits.Value > defaultDigits)
                         {
                             var digits = recordStructData.Digits.Value;
-                            var mode = recordStructData.Mode ?? MetaData.Numeric.FloatingPoint.Mode;
                             recordStructData.Example = (minimum + ((maximum - minimum) / 2)).ToString($"N{digits}");
                             break;
                         }
@@ -347,7 +345,6 @@ internal static class NumericParser
                         if (recordStructData.Digits.HasValue && recordStructData.Digits.Value > defaultDigits)
                         {
                             var digits = recordStructData.Digits.Value;
-                            var mode = recordStructData.Mode ?? MetaData.Numeric.FloatingPoint.Mode;
                             recordStructData.Example = (minimum + ((maximum - minimum) / 2)).ToString($"N{digits}");
                             break;
                         }
