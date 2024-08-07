@@ -300,13 +300,13 @@ public class Structs : IIncrementalGenerator
         context.AddSource("PrimitiveRepository.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
     }
 
-    private static string GetMaximum(double value) => value == double.MaxValue ? "double.MaxValue" : $"{value}d";
+    private static string GetMaximum(double value) => value < double.MaxValue ? $"{value}d" : "double.MaxValue";
 
-    private static string GetMaximum(float value) => value == float.MaxValue ? "float.MaxValue" : $"{value}f";
+    private static string GetMaximum(float value) => value < float.MaxValue ? $"{value}f" : "float.MaxValue";
 
-    private static string GetMinimum(double value) => value == double.MinValue ? "double.MinValue" : $"{value}d";
+    private static string GetMinimum(double value) => value > double.MinValue ? $"{value}d" : "double.MinValue";
 
-    private static string GetMinimum(float value) => value == float.MinValue ? "float.MinValue" : $"{value}f";
+    private static string GetMinimum(float value) => value > float.MinValue ? $"{value}f" : "float.MinValue";
 
     /// <summary>
     /// Gets the target syntax.
