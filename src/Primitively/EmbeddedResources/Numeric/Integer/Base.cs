@@ -31,7 +31,7 @@
 
     private PRIMITIVE_TYPE(string value)
     {
-        HasValue = global::PRIMITIVE_VALUE_TYPE.TryParse(value, out var result) && IsMatch(result);
+        HasValue = global::PRIMITIVE_VALUE_TYPE.TryParse(value, out global::PRIMITIVE_VALUE_TYPE result) && IsMatch(result);
         _value = HasValue ? result : default;
     }
 
