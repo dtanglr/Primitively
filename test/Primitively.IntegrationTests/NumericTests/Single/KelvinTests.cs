@@ -1,8 +1,8 @@
-﻿using Acme.TestLib2.Double;
+﻿using Acme.TestLib2.Single;
 using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.NumericTests.Double;
+namespace Primitively.IntegrationTests.NumericTests.Single;
 
 public class KelvinTests
 {

@@ -1,8 +1,8 @@
-﻿using Acme.TestLib2.Single;
+﻿using Acme.TestLib2.Double;
 using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.NumericTests.Single;
+namespace Primitively.IntegrationTests.NumericTests.Double;
 
 public class KelvinTests
 {
@@ -67,9 +67,9 @@ public class KelvinTests
         var kelvin = new Kelvin(Kelvin.Minimum);
 
         // Act
-        float celsius = (Celsius)kelvin;
-        float fahrenheit = (Fahrenheit)kelvin;
-        float rankine = (Rankine)kelvin;
+        double celsius = (Celsius)kelvin;
+        double fahrenheit = (Fahrenheit)kelvin;
+        double rankine = (Rankine)kelvin;
 
         // Assert
         celsius.Should().Be(Celsius.Minimum);

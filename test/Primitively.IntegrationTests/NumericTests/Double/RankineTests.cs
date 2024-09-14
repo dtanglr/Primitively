@@ -1,8 +1,8 @@
-﻿using Acme.TestLib2.Single;
+﻿using Acme.TestLib2.Double;
 using FluentAssertions;
 using Xunit;
 
-namespace Primitively.IntegrationTests.NumericTests.Single;
+namespace Primitively.IntegrationTests.NumericTests.Double;
 
 public class RankineTests
 {
@@ -67,9 +67,9 @@ public class RankineTests
         var rankine = new Rankine(Rankine.Minimum);
 
         // Act
-        float celsius = (Celsius)rankine;
-        float fahrenheit = (Fahrenheit)rankine;
-        float kelvin = (Kelvin)rankine;
+        double celsius = (Celsius)rankine;
+        double fahrenheit = (Fahrenheit)rankine;
+        double kelvin = (Kelvin)rankine;
 
         // Assert
         celsius.Should().Be(Celsius.Minimum);
