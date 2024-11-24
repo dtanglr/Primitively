@@ -1,9 +1,23 @@
 ﻿readonly partial record struct PRIMITIVE_TYPE :
     global::PRIMITIVE_INTERFACE,
+#if NET7_0_OR_GREATER
+    global::System.Numerics.IAdditionOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+    global::System.Numerics.ISubtractionOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+    //global::System.Numerics.IMultiplyOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+    //global::System.Numerics.IDivisionOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+    //global::System.Numerics.IModulusOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+    global::System.Numerics.IIncrementOperators<PRIMITIVE_TYPE>,
+    global::System.Numerics.IDecrementOperators<PRIMITIVE_TYPE>,
+    //global::System.Numerics.IEqualityOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, bool>,
+    //global::System.Numerics.IComparisonOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, bool>,
+    //global::System.Numerics.IUnaryNegationOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+    //global::System.Numerics.IUnaryPlusOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+#endif
     global::System.IEquatable<PRIMITIVE_TYPE>,
     global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
 {
     public const string Example = "PRIMITIVE_EXAMPLE";
+    public const global::PRIMITIVE_VALUE_TYPE One = 1;
     public const global::PRIMITIVE_VALUE_TYPE Maximum = PRIMITIVE_MAXIMUM;
     public const global::PRIMITIVE_VALUE_TYPE Minimum = PRIMITIVE_MINIMUM;
 
@@ -35,6 +49,14 @@
         _value = HasValue ? result : default;
     }
 
+    //private PRIMITIVE_TYPE(int value)
+    //{
+    //    if (value < Minimum || value > Maximum)
+    //    {
+    //        HasValue = false;
+    //    }
+    //}
+
     object global::Primitively.IPrimitive.Value => _value;
 
     global::PRIMITIVE_VALUE_TYPE global::Primitively.IPrimitive<global::PRIMITIVE_VALUE_TYPE>.Value => _value;
@@ -52,6 +74,22 @@
     public int CompareTo(PRIMITIVE_TYPE other) => _value.CompareTo(other._value);
     public override int GetHashCode() => _value.GetHashCode();
     public override string ToString() => _value.ToString();
+
+    public static PRIMITIVE_TYPE operator +(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => new((global::PRIMITIVE_VALUE_TYPE)(left._value + right._value));
+    public static PRIMITIVE_TYPE operator -(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => new((global::PRIMITIVE_VALUE_TYPE)(left._value - right._value));
+    //public static PRIMITIVE_TYPE operator *(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => new(left._value * right._value);
+    //public static PRIMITIVE_TYPE operator /(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => new(left._value / right._value);
+    //public static PRIMITIVE_TYPE operator %(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => new(left._value % right._value);
+    public static PRIMITIVE_TYPE operator ++(PRIMITIVE_TYPE value) => new((global::PRIMITIVE_VALUE_TYPE)(value._value + One));
+    public static PRIMITIVE_TYPE operator --(PRIMITIVE_TYPE value) => new((global::PRIMITIVE_VALUE_TYPE)(value._value - One));
+    //public static bool operator ==(PRIMITIVE_TYPE? left, PRIMITIVE_TYPE? right) => left?._value == right?._value;
+    //public static bool operator !=(PRIMITIVE_TYPE? left, PRIMITIVE_TYPE? right) => left?._value != right?._value;
+    public static bool operator <(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => left._value < right._value;
+    public static bool operator <=(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => left._value <= right._value;
+    public static bool operator >(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => left._value > right._value;
+    public static bool operator >=(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => left._value >= right._value;
+    //public static PRIMITIVE_TYPE operator +(PRIMITIVE_TYPE value) => new(+value._value);
+    //public static PRIMITIVE_TYPE operator -(PRIMITIVE_TYPE value) => new(-value._value);
 
     public static implicit operator string(PRIMITIVE_TYPE value) => value.ToString();
     public static implicit operator global::PRIMITIVE_VALUE_TYPE(PRIMITIVE_TYPE value) => value._value;

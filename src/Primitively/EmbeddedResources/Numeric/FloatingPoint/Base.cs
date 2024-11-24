@@ -1,10 +1,24 @@
 ﻿readonly partial record struct PRIMITIVE_TYPE :
     global::PRIMITIVE_INTERFACE,
+#if NET7_0_OR_GREATER
+    global::System.Numerics.IAdditionOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+    global::System.Numerics.ISubtractionOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+    //global::System.Numerics.IMultiplyOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+    //global::System.Numerics.IDivisionOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+    //global::System.Numerics.IModulusOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+    global::System.Numerics.IIncrementOperators<PRIMITIVE_TYPE>,
+    global::System.Numerics.IDecrementOperators<PRIMITIVE_TYPE>,
+    //global::System.Numerics.IEqualityOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, bool>,
+    //global::System.Numerics.IComparisonOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE, bool>,
+    //global::System.Numerics.IUnaryNegationOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+    //global::System.Numerics.IUnaryPlusOperators<PRIMITIVE_TYPE, PRIMITIVE_TYPE>,
+#endif
     global::System.IEquatable<PRIMITIVE_TYPE>,
     global::System.IComparable<PRIMITIVE_TYPE>PRIMITIVE_IVALIDATABLEOBJECT
 {
     public const string Example = "PRIMITIVE_EXAMPLE";
     public const int Digits = PRIMITIVE_ROUNDINGDIGITS;
+    public const global::PRIMITIVE_VALUE_TYPE One = 1;
     public const global::PRIMITIVE_VALUE_TYPE Maximum = PRIMITIVE_MAXIMUM;
     public const global::PRIMITIVE_VALUE_TYPE Minimum = PRIMITIVE_MINIMUM;
     public const global::System.MidpointRounding Mode = global::System.MidpointRounding.PRIMITIVE_MIDPOINTROUNDINGMODE;
@@ -61,6 +75,22 @@
     public int CompareTo(PRIMITIVE_TYPE other) => _value.CompareTo(other._value);
     public override int GetHashCode() => _value.GetHashCode();
     public override string ToString() => _value.ToString();
+
+    public static PRIMITIVE_TYPE operator +(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => new(left._value + right._value);
+    public static PRIMITIVE_TYPE operator -(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => new(left._value - right._value);
+    //public static PRIMITIVE_TYPE operator *(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => new(left._value * right._value);
+    //public static PRIMITIVE_TYPE operator /(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => new(left._value / right._value);
+    //public static PRIMITIVE_TYPE operator %(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => new(left._value % right._value);
+    public static PRIMITIVE_TYPE operator ++(PRIMITIVE_TYPE value) => new(value._value + One);
+    public static PRIMITIVE_TYPE operator --(PRIMITIVE_TYPE value) => new(value._value - One);
+    //public static bool operator ==(PRIMITIVE_TYPE? left, PRIMITIVE_TYPE? right) => left?._value == right?._value;
+    //public static bool operator !=(PRIMITIVE_TYPE? left, PRIMITIVE_TYPE? right) => left?._value != right?._value;
+    public static bool operator <(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => left._value < right._value;
+    public static bool operator <=(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => left._value <= right._value;
+    public static bool operator >(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => left._value > right._value;
+    public static bool operator >=(PRIMITIVE_TYPE left, PRIMITIVE_TYPE right) => left._value >= right._value;
+    //public static PRIMITIVE_TYPE operator +(PRIMITIVE_TYPE value) => new(+value._value);
+    //public static PRIMITIVE_TYPE operator -(PRIMITIVE_TYPE value) => new(-value._value);
 
     public static implicit operator string(PRIMITIVE_TYPE value) => value.ToString();
     public static implicit operator global::PRIMITIVE_VALUE_TYPE(PRIMITIVE_TYPE value) => value._value;
