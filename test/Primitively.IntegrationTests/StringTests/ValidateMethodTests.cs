@@ -36,4 +36,35 @@ public class ValidateMethodTests
             result.Should().HaveCount(1);
         }
     }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData("    ")]
+    [InlineData("test")]
+    [InlineData("test@")]
+    [InlineData("test@example")]
+    [InlineData("test@example.")]
+    [InlineData("test@example.com", true)]
+    public void ConvertFromThisToThatWithExpectedResults2(string? value, bool isValid = false)
+    {
+        // Arrange
+        var validationContext = new ValidationContext(this);
+        var sut = Email.Parse(value);
+
+        // Act
+        var result = sut.Validate(validationContext);
+
+        // Assert
+        if (isValid)
+        {
+            result.Should().BeEmpty();
+        }
+        else
+        {
+            result.Should().NotBeNull();
+            result.Should().HaveCount(1);
+        }
+    }
 }
