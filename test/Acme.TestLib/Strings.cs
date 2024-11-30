@@ -14,5 +14,5 @@ public partial record struct TwoAndEightAnyCharacter;
 [String(10, ImplementIValidatableObject = true, Example = "0123456789")]
 public partial record struct ValidatableString;
 
-[String(minLength: 6, maxLength: 99, ImplementIValidatableObject = true, Pattern = @"^[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9.-]{1,255}\.[a-zA-Z]{2,}$", Example = "test@example.com")]
+[String(minLength: 6, maxLength: 99, Pattern = @"^[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9.-]{1,255}\.[a-zA-Z]{2,}$", Example = "test@example.com", ImplementIValidatableObject = true)]
 public readonly partial record struct Email;

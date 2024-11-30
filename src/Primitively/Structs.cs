@@ -221,7 +221,7 @@ public class Structs : IIncrementalGenerator
                     .OrderBy(rs => rs.Name)
                     .Select(rs => rs.DataType switch
                     {
-                        DataType.DateOnly => $"{Padding}yield return new global::Primitively.DateOnlyInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(global::System.DateTime), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, \"{rs.Format}\", {rs.Length});",
+                        DataType.DateOnly => $"{Padding}yield return new global::Primitively.DateOnlyInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(global::System.DateTime), @\"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, @\"{rs.Format}\", {rs.Length});",
                         DataType.Guid => $"{Padding}yield return new global::Primitively.GuidInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(global::System.Guid), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, global::Primitively.Specifier.{rs.Specifier}, {rs.Length});",
                         DataType.Byte => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.Byte, typeof({rs.NameSpace}.{rs.Name}), typeof(byte), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
                         DataType.SByte => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.SByte, typeof({rs.NameSpace}.{rs.Name}), typeof(sbyte), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
@@ -231,7 +231,7 @@ public class Structs : IIncrementalGenerator
                         DataType.UInt => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.UInt, typeof({rs.NameSpace}.{rs.Name}), typeof(uint), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
                         DataType.Long => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.Long, typeof({rs.NameSpace}.{rs.Name}), typeof(long), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
                         DataType.ULong => $"{Padding}yield return new global::Primitively.IntegerInfo(global::Primitively.DataType.ULong, typeof({rs.NameSpace}.{rs.Name}), typeof(ulong), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, {rs.Minimum ?? 0}, {rs.Maximum ?? 0});",
-                        DataType.String => $"{Padding}yield return new global::Primitively.StringInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(string), \"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, \"{rs.Format}\", \"{rs.Pattern}\", {rs.MinLength}, {rs.MaxLength});",
+                        DataType.String => $"{Padding}yield return new global::Primitively.StringInfo(typeof({rs.NameSpace}.{rs.Name}), typeof(string), @\"{rs.Example}\", (value) => ({rs.NameSpace}.{rs.Name})value, @\"{rs.Format}\", @\"{rs.Pattern}\", {rs.MinLength}, {rs.MaxLength});",
                         _ => throw new NotImplementedException()
                     });
 
