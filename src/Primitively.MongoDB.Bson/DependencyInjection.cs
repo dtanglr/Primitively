@@ -2,7 +2,9 @@
 using Primitively.MongoDB.Bson;
 using Primitively.MongoDB.Bson.Serialization;
 
+#pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace Microsoft.Extensions.DependencyInjection;
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 /// <summary>
 /// This static class provides extension methods to the <see cref="PrimitivelyConfigurator"/> for adding BSON services.

@@ -1,6 +1,8 @@
 ﻿using Primitively.Configuration;
 
+#pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace Microsoft.Extensions.DependencyInjection;
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 /// <summary>
 /// This static class provides extension methods for the <see cref="IServiceCollection"/> to add Primitively services.
