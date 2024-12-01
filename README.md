@@ -51,13 +51,13 @@ Open your csproj file and edit the package reference, setting `PrivateAssets="Al
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Primitively" Version="1.4.19" PrivateAssets="All" />
+    <PackageReference Include="Primitively" Version="1.4.22" PrivateAssets="All" />
   </ItemGroup>
   
 </Project>
