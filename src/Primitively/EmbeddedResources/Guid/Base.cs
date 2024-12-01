@@ -40,8 +40,11 @@
     public static implicit operator global::System.Guid(PRIMITIVE_TYPE value) => value._value;
     public static explicit operator PRIMITIVE_TYPE(global::System.Guid value) => new(value);
     public static explicit operator PRIMITIVE_TYPE(string value) => new(value);
-
+#if NET9_0_OR_GREATER
+    public static PRIMITIVE_TYPE New() => new PRIMITIVE_TYPE(global::System.Guid.CreateVersion7());
+#else
     public static PRIMITIVE_TYPE New() => new PRIMITIVE_TYPE(global::System.Guid.NewGuid());
+#endif
     public static readonly PRIMITIVE_TYPE Empty = new PRIMITIVE_TYPE(global::System.Guid.Empty);
 
     public static PRIMITIVE_TYPE Parse(string value) => new(value);
