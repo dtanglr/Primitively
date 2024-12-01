@@ -2,7 +2,7 @@
 
 # Primitively  [![CI](https://github.com/dtanglr/Primitively/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/dtanglr/Primitively/actions/workflows/dotnet.yml)
 
-**Primitively** is a Rosyln-powered C# source code generator of strongly-typed IDs and DDD-style value objects that encapsulate a single GUID, integer, date or string .NET *primitively* typed value.
+**Primitively** is a Rosyln-powered C# source code generator of strongly-typed IDs and DDD-style value objects encapsulating a single GUID, integer, date or string .NET *primitively* typed value.
 
 For example: - 
 
@@ -26,14 +26,14 @@ public partial record struct Sku;
 |:--|:--|:--|
 | `Primitively` | [![NuGet](https://buildstats.info/nuget/Primitively?includePreReleases=true)](https://www.nuget.org/packages/Primitively/ "Download Primitively from NuGet.org") | The Primitively source generator package. |
 | `Primitively.Abstractions` | [![NuGet](https://buildstats.info/nuget/Primitively.Abstractions?includePreReleases=true)](https://www.nuget.org/packages/Primitively.Abstractions/ "Download Primitively.Abstractions from NuGet.org") | Primitively interfaces, metadata, attributes and configuration classes. |
-| `Primitively.AspNetCore.Mvc` | [![NuGet](https://buildstats.info/nuget/Primitively.AspNetCore.Mvc?includePreReleases=true)](https://www.nuget.org/packages/Primitively.AspNetCore.Mvc/ "Download Primitively.AspNetCore.Mvc from NuGet.org") | ASP.NET MVC model binding support for Primitively types used in route and querystring parameters. |
-| `Primitively.AspNetCore.SwaggerGen` | [![NuGet](https://buildstats.info/nuget/Primitively.AspNetCore.SwaggerGen?includePreReleases=true)](https://www.nuget.org/packages/Primitively.AspNetCore.SwaggerGen/ "Download Primitively.AspNetCore.SwaggerGen from NuGet.org") | Swagger Open API schema support for Primitively types using Swashbuckle. |
+| `Primitively.AspNetCore.Mvc` | [![NuGet](https://buildstats.info/nuget/Primitively.AspNetCore.Mvc?includePreReleases=true)](https://www.nuget.org/packages/Primitively.AspNetCore.Mvc/ "Download Primitively.AspNetCore.Mvc from NuGet.org") | ASP.NET MVC model binding support for Primitively types used in route and query string parameters. |
+| `Primitively.AspNetCore.SwaggerGen` | [![NuGet](https://buildstats.info/nuget/Primitively.AspNetCore.SwaggerGen?includePreReleases=true)](https://www.nuget.org/packages/Primitively.AspNetCore.SwaggerGen/ "Download Primitively.AspNetCore.SwaggerGen from NuGet.org") | Swagger Open API schema support is available for Primitively types using Swashbuckle. |
 | `Primitively.FluentValidation` | [![NuGet](https://buildstats.info/nuget/Primitively.FluentValidation?includePreReleases=true)](https://www.nuget.org/packages/Primitively.FluentValidation/ "Download Primitively.FluentValidation from NuGet.org") | FluentValidation support for Primitively types. |
 | `Primitively.MongoDB.Bson` | [![NuGet](https://buildstats.info/nuget/Primitively.MongoDB.Bson?includePreReleases=true)](https://www.nuget.org/packages/Primitively.MongoDB.Bson/ "Download Primitively.MongoDB.Bson from NuGet.org") | BSON serialization for Primitively types stored in MongoDB. |
 
 ## Documentation
 
-This README is designed get you started generating your own strongly-typed identifiers with just a few lines of code.
+This README is designed to help you generate your own strongly typed identifiers with just a few lines of code.
 
 For more detailed information about Primitively, check out [primitively.net][primitively-website].
 
@@ -47,7 +47,7 @@ dotnet add package Primitively
 
 Open your csproj file and edit the package reference, setting `PrivateAssets="All"`. The file will look something like this afterwards:
 
-```xml
+```XML
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
@@ -63,13 +63,13 @@ Open your csproj file and edit the package reference, setting `PrivateAssets="Al
 </Project>
 ```
 
-You are now ready to create your first Primitively source generated type!
+You are now ready to create your first Primitively source-generated type!
 
 Create a new class file and add a reference to Primitively and decorate your `partial record struct` with one of the Primitively attributes such as `[Guid]`.
 
 For example: -
 
-```cs
+``` cs
 using Primitively;
 
 namespace Acme.Examples;
@@ -126,7 +126,7 @@ dotnet add package Primitively.FluentValidation
 
 ### Dependency injection
 
-Here's an example of the DI setup for a C# ASP.NET web api project that references a class library containing Primitively source generated types and is generating **swagger** documentation.
+Here's an example of the DI setup for a C# ASP.NET web API project that references a class library containing Primitively source generated types and is generating **swagger** documentation.
 
 ```cs
 var builder = WebApplication.CreateBuilder(args);
@@ -139,13 +139,13 @@ builder.Services.AddPrimitively(options =>
 {
     // Register the location of source generated Primitively types within the application
     // NB. No need to use reflection to scan assemblies! Each class library that contains source
-    // generated Primitively types also has a 'PrimitiveLibrary' static helper class. Meta data such
-    // as type name, underlying data type, example value, min / max Length etc can then be obtained
+    // generated Primitively types also have a 'PrimitiveLibrary' static helper class. Metadata such
+    // as a type name, underlying data type, example value, min/max Length etc can then be obtained
     // from the PrimitiveRepository instance within each class library
     options.Register(Acme.Lib1.PrimitiveLibrary.Repository);
 })
-// Add AspNetCore Mvc model binding support for Primitively types used in APIs.  This means strongly typed
-// Primitively types can easily be used as querystring and route params too etc
+// Add AspNetCore MVC model binding support for Primitively types used in APIs.  This means strongly typed
+// Primitively types can easily be used as query string and route params too etc
 .AddMvc()
 // Add Swashbuckle Open Api Schema Filter so Primitively types are fully supported in the API Swagger documentation 
 .AddSwaggerGen();
@@ -163,7 +163,7 @@ dotnet add package Primitively.MongoDB.Bson
 
 Here's an example of the DI setup for a .NET core application that uses both MongoDB and Primitively.
 
-```cs
+``` cs
 var services = new ServiceCollection();
 
 // Add primitively configuration
@@ -179,7 +179,7 @@ services.AddPrimitively(options =>
 .AddBson();
 ```
 
-Your MongoDB related Primitively types can be registered in this way as well: -
+Your MongoDB-related Primitively types can be registered in this way as well: -
 
 ```cs
 services.AddPrimitively()
