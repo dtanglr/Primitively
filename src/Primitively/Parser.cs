@@ -130,6 +130,72 @@ internal static class Parser
             if (!hasPartialModifier)
             {
                 reportDiagnostic(NotPartialDiagnostic.Create(recordDeclarationSyntax));
+                continue;
+            }
+
+            // Check there are no additional non-static properties. If so, report it.
+            var nonStaticProperties = recordDeclarationSyntax.Members
+                .OfType<PropertyDeclarationSyntax>()
+                .Where(p => !p.Modifiers.Any(SyntaxKind.StaticKeyword))
+                .ToList();
+
+            if (nonStaticProperties.Count > 0)
+            {
+                var propertyNames = string.Join(", ", nonStaticProperties.Select(p => p.Identifier.Text));
+                reportDiagnostic(AdditionalNonStaticPropertiesDiagnostic.Create(recordDeclarationSyntax, propertyNames));
+                continue;
+            }
+
+            // Check that static properties are readonly (no set accessor). If not, report it.
+            var nonReadonlyStaticProperties = recordDeclarationSyntax.Members
+                .OfType<PropertyDeclarationSyntax>()
+                .Where(p => p.Modifiers.Any(SyntaxKind.StaticKeyword) &&
+                    p.AccessorList != null &&
+                    p.AccessorList.Accessors.Any(a => a.IsKind(SyntaxKind.SetAccessorDeclaration)))
+                .ToList();
+
+            if (nonReadonlyStaticProperties.Count > 0)
+            {
+                var propertyNames = string.Join(", ", nonReadonlyStaticProperties.Select(p => p.Identifier.Text));
+                reportDiagnostic(StaticPropertiesMustBeReadonlyDiagnostic.Create(recordDeclarationSyntax, propertyNames));
+                continue;
+            }
+
+            // Check there are no additional non-static fields. If so, report it.
+            var nonStaticFields = recordDeclarationSyntax.Members
+                .OfType<FieldDeclarationSyntax>()
+                .Where(f => !f.Modifiers.Any(SyntaxKind.StaticKeyword))
+                .ToList();
+
+            if (nonStaticFields.Count > 0)
+            {
+                var fieldNames = string.Join(", ", nonStaticFields.SelectMany(f => f.Declaration.Variables.Select(v => v.Identifier.Text)));
+                reportDiagnostic(AdditionalNonStaticFieldsDiagnostic.Create(recordDeclarationSyntax, fieldNames));
+                continue;
+            }
+
+            // Check that static fields are readonly. If not, report it.
+            var nonReadonlyStaticFields = recordDeclarationSyntax.Members
+                .OfType<FieldDeclarationSyntax>()
+                .Where(f => f.Modifiers.Any(SyntaxKind.StaticKeyword) && !f.Modifiers.Any(SyntaxKind.ReadOnlyKeyword) && !f.Modifiers.Any(SyntaxKind.ConstKeyword))
+                .ToList();
+
+            if (nonReadonlyStaticFields.Count > 0)
+            {
+                var fieldNames = string.Join(", ", nonReadonlyStaticFields.SelectMany(f => f.Declaration.Variables.Select(v => v.Identifier.Text)));
+                reportDiagnostic(StaticFieldsMustBeReadonlyDiagnostic.Create(recordDeclarationSyntax, fieldNames));
+                continue;
+            }
+
+            // Check there are no additional constructors. If so, report it.
+            var hasConstructors = recordDeclarationSyntax.Members
+                .OfType<ConstructorDeclarationSyntax>()
+                .Any();
+
+            if (hasConstructors)
+            {
+                reportDiagnostic(AdditionalConstructorsDiagnostic.Create(recordDeclarationSyntax));
+                continue;
             }
 
             // Add type to the collection
